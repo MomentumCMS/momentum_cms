@@ -11,7 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140426040141) do
+ActiveRecord::Schema.define(version: 20140426214053) do
+
+  create_table "momentum_cms_locales", force: true do |t|
+    t.string "label"
+    t.string "identifier"
+  end
 
   create_table "momentum_cms_pages", force: true do |t|
     t.integer  "site_id"
