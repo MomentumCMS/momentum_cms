@@ -1,0 +1,2 @@
+module MomentumCms::PagesHelper
+end

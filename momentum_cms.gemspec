@@ -9,15 +9,17 @@ Gem::Specification.new do |s|
   s.version     = MomentumCms::VERSION
   s.authors     = ['Emerson', 'Bill']
   s.email       = ['emerson@twg.ca', 'bill@twg.ca']
-  s.homepage    = 'https://github.com/MomentumCMS/'
-  s.summary     = "MomentumCMS: summary"
-  s.description = "MomentumCMS: description"
-  s.license     = "MIT"
+  s.homepage    = 'https://github.com/MomentumCMS/momentum_cms'
+  s.summary     = 'MomentumCms is a Content Management System'
+  s.description = 'MomentumCms is a Content Management System.'
+  s.license     = 'MIT'
 
-  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files      = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 4.0.0"
 
-  s.add_development_dependency "sqlite3"
+  s.add_development_dependency 'sqlite3'
+  s.add_dependency 'haml-rails'
+  s.add_dependency 'sass-rails'
 end
