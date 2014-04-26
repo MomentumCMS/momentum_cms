@@ -1,9 +1,3 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  name: MyString
-  host: MyString
-
-two:
-  name: MyString
+default:
+  label: default
   host: MyString

@@ -8,4 +8,8 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
     end
   end
 
+  def test_create
+    # page = MomentumCms::Page.create()
+  end
+
 end

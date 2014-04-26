@@ -3,6 +3,7 @@ PATH
   specs:
     momentum_cms (0.0.1)
       awesome_nested_set (~> 3.0.0.rc.3)
+      globalize (~> 4.0.1)
       haml-rails
       rails (~> 4.0.0)
       sass-rails
@@ -47,6 +48,9 @@ GEM
     coderay (1.1.0)
     debug_inspector (0.0.2)
     erubis (2.7.0)
+    globalize (4.0.1)
+      activemodel (>= 4.0.0, < 5)
+      activerecord (>= 4.0.0, < 5)
     haml (4.0.5)
       tilt
     haml-rails (0.5.3)

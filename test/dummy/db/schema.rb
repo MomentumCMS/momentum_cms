@@ -11,20 +11,57 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140426214053) do
+ActiveRecord::Schema.define(version: 20140426225237) do
+
+  create_table "momentum_cms_content_translations", force: true do |t|
+    t.integer  "momentum_cms_content_id", null: false
+    t.string   "locale",                  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "label"
+    t.text     "content"
+  end
+
+  add_index "momentum_cms_content_translations", ["locale"], name: "index_momentum_cms_content_translations_on_locale"
+  add_index "momentum_cms_content_translations", ["momentum_cms_content_id"], name: "index_f568390e5943e526d13e1fe618dba0f7bd86e30f"
+
+  create_table "momentum_cms_contents", force: true do |t|
+    t.integer  "page_id"
+    t.string   "label"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "momentum_cms_contents", ["page_id"], name: "index_momentum_cms_contents_on_page_id"
 
   create_table "momentum_cms_locales", force: true do |t|
     t.string "label"
     t.string "identifier"
   end
 
+  create_table "momentum_cms_page_translations", force: true do |t|
+    t.integer  "momentum_cms_page_id", null: false
+    t.string   "locale",               null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "slug"
+    t.string   "path"
+  end
+
+  add_index "momentum_cms_page_translations", ["locale"], name: "index_momentum_cms_page_translations_on_locale"
+  add_index "momentum_cms_page_translations", ["momentum_cms_page_id"], name: "index_momentum_cms_page_translations_on_momentum_cms_page_id"
+
   create_table "momentum_cms_pages", force: true do |t|
     t.integer  "site_id"
-    t.string   "name"
+    t.string   "label"
     t.integer  "parent_id"
+    t.integer  "published_content_id"
     t.integer  "lft"
     t.integer  "rgt"
     t.integer  "depth"
+    t.string   "slug"
+    t.string   "path"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -37,17 +74,5 @@ ActiveRecord::Schema.define(version: 20140426214053) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "momentum_cms_variations", force: true do |t|
-    t.integer  "page_id"
-    t.string   "slug"
-    t.string   "path"
-    t.string   "title"
-    t.string   "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "momentum_cms_variations", ["page_id"], name: "index_momentum_cms_variations_on_page_id"
 
 end

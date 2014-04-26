@@ -7,12 +7,12 @@ class MomentumCms::Page < ActiveRecord::Base
   # == Relationships ========================================================
 
   belongs_to :site
-
   has_many :variations
 
   # == Extensions ===========================================================
 
   acts_as_nested_set
+  translates :slug, :path
 
   # == Validations ==========================================================
   # == Scopes ===============================================================

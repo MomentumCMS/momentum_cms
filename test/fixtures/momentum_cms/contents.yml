@@ -1,5 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 default:
-  slug: foo
-  content: bar
+  page: default
+  label: default
+  content: default
