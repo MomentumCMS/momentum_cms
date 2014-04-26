@@ -1,3 +1,4 @@
+# This migration comes from momentum_cms_engine (originally 20140425223934)
 class CreateMomentumCmsPages < ActiveRecord::Migration
   def change
     create_table :momentum_cms_pages do |t|

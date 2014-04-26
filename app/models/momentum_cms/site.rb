@@ -1,19 +1,14 @@
-class MomentumCms::Page < ActiveRecord::Base
+class MomentumCms::Site < ActiveRecord::Base
   # == MomentumCms ==========================================================
 
-  self.table_name = 'momentum_cms_pages'
+  self.table_name = 'momentum_cms_sites'
 
   # == Constants ============================================================
   # == Relationships ========================================================
 
-  belongs_to :site
-
-  has_many :variations
+  has_many :pages
 
   # == Extensions ===========================================================
-
-  acts_as_nested_set
-
   # == Validations ==========================================================
   # == Scopes ===============================================================
   # == Callbacks ============================================================

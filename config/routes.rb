@@ -1,3 +1,4 @@
 Rails.application.routes.draw do
-  get '*path', to: 'momentum_cms/pages#show', format: false
+  get '*id', to: 'momentum_cms/variations#show'
+  root to: 'momentum_cms/variations#show'
 end
