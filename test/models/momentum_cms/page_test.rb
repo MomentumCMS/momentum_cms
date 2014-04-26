@@ -9,7 +9,13 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
   end
 
   def test_create
-    # page = MomentumCms::Page.create()
+    assert_difference "MomentumCms::Page.count" do
+      page = MomentumCms::Page.create(
+        site:  momentum_cms_sites(:default),
+        label: 'About',
+        slug:  'about'
+      )
+    end
   end
 
 end

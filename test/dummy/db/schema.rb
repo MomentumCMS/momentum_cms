@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 20140426225237) do
   add_index "momentum_cms_pages", ["site_id"], name: "index_momentum_cms_pages_on_site_id"
 
   create_table "momentum_cms_sites", force: true do |t|
-    t.string   "name"
+    t.string   "label"
     t.string   "host"
     t.datetime "created_at"
     t.datetime "updated_at"
