@@ -55,11 +55,8 @@ ActiveRecord::Schema.define(version: 20140426225237) do
   create_table "momentum_cms_pages", force: true do |t|
     t.integer  "site_id"
     t.string   "label"
-    t.integer  "parent_id"
     t.integer  "published_content_id"
-    t.integer  "lft"
-    t.integer  "rgt"
-    t.integer  "depth"
+    t.string   "ancestry"
     t.string   "slug"
     t.string   "path"
     t.datetime "created_at"

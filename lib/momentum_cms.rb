@@ -1,6 +1,6 @@
 require 'haml-rails'
 require 'sass-rails'
-require 'awesome_nested_set'
+require 'ancestry'
 require 'globalize'
 
 require 'momentum_cms/engine'

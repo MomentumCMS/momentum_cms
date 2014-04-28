@@ -11,25 +11,43 @@ class MomentumCms::Page < ActiveRecord::Base
 
   # == Extensions ===========================================================
 
-  acts_as_nested_set
-  translates :slug, :path
+  has_ancestry
+  translates :slug, :path, fallbacks_for_empty_translations: true
 
   # == Validations ==========================================================
   # == Scopes ===============================================================
   # == Callbacks ============================================================
 
   before_save :assign_path
+  after_save :regenerate_child_paths, if: :has_children?
 
   # == Class Methods ========================================================
   # == Instance Methods =====================================================
 
-  # TODO:
-  # Loop through all available locales for this page and build the expected
-  # path. All pages have a slug in (at least) the default locale, which is 
-  # what we fallback to when the slug is not available in our desired
-  # locale.
   def assign_path
-    self.path = "/#{self.slug}"
+    original_locale = I18n.locale
+    self.translations.each do |translation|
+      translated_path = []
+      I18n.locale = translation.locale
+      self.ancestors.each do |ancestor|
+        translated_path << ancestor.slug
+      end
+      translated_path << self.slug
+      self.path = "/#{translated_path.join('/')}"
+    end
+    I18n.locale = original_locale
+  end
+
+  def regenerate_child_paths
+    descendants.each do |descendant|
+      descendant.assign_path
+      # translation = descendant.translations.where(locale: I18n.locale).first
+      # puts "#{I18n.locale} --- #{translation.inspect}"
+      # if translation
+      #   translation.update_column(:path, descendant.path)
+      # else
+      # end
+    end
   end
 
 end
