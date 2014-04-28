@@ -8,6 +8,9 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
     momentum_cms_pages(:default).update_attributes(slug: 'default')
   end
 
+  def build_basic_tree
+  end
+
   def test_fixture_validity
     MomentumCms::Page.all.each do |page|
       assert page.valid?
@@ -86,7 +89,7 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
     I18n.locale = :fr
     page.update_attributes(slug: 'default-fr')
     child.reload
-    grandchild.reload    
+    grandchild.reload 
     
     assert_equal '/default-fr', page.path
     assert_equal '/default-fr/child-en', child.path
@@ -140,12 +143,15 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
       parent: child
     )
     assert_equal '/default/child-en/grandchild-en', grandchild.path
-    child.update_attributes(slug: 'new-slug')
 
+    # After updating the child slug, it should regenerate the grandchild
+    child.update_attributes(slug: 'new-slug')
     assert_equal '/default/new-slug', child.path
     assert_equal 'new-slug', child.slug
+    grandchild.reload
+    assert_equal '/default/new-slug/grandchild-en', grandchild.path
 
-    grandchild.update_attributes(slug: 'new-grandchild-slug')    
+    grandchild.update_attributes(slug: 'new-grandchild-slug')
     assert_equal '/default/new-slug/new-grandchild-slug', grandchild.path
     
     child.update_attributes(slug: 'another-slug')
@@ -153,7 +159,7 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
     assert_equal '/default/another-slug', child.path
     assert_equal 'another-slug', child.slug
 
-    assert_equal '/default/new-slug/new-grandchild-slug', grandchild.path    
+    assert_equal '/default/new-slug/new-grandchild-slug', grandchild.path
   end
 
 end

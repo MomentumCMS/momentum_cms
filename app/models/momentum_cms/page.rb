@@ -19,7 +19,6 @@ class MomentumCms::Page < ActiveRecord::Base
   # == Callbacks ============================================================
 
   before_save :assign_path
-  # after_commit :regenerate_child_paths, :on => :update
   after_update :regenerate_child_paths
 
   # == Class Methods ========================================================
@@ -36,6 +35,7 @@ class MomentumCms::Page < ActiveRecord::Base
   end
 
   protected
+
   def generate_path(page)
     translated_path = []
     translated_path = page.ancestors.collect(&:slug) if page && page.ancestors
