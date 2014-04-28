@@ -5,7 +5,9 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
   def setup
     I18n.enforce_available_locales = false
     I18n.locale = :en
-    momentum_cms_pages(:default).update_attributes(slug: 'default')
+    page      = momentum_cms_pages(:default)
+    page.slug = 'default'
+    page.save
   end
 
   def test_fixture_validity
@@ -76,6 +78,11 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
       slug:   'child-en',
       parent: page
     )
+
+    child.label = 'Child-en'
+    child.slug  = 'child-en'
+    child.save
+
     grandchild = MomentumCms::Page.create(
       site:   momentum_cms_sites(:default),
       label:  'Grandchild-en',
@@ -153,7 +160,9 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
     assert_equal '/default/another-slug', child.path
     assert_equal 'another-slug', child.slug
 
-    assert_equal '/default/new-slug/new-grandchild-slug', grandchild.path    
+    grandchild.reload
+    
+    assert_equal '/default/another-slug/new-grandchild-slug', grandchild.path    
   end
 
 end

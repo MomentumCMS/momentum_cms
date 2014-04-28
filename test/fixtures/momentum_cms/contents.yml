@@ -2,5 +2,5 @@
 
 default:
   page: default
-  label: default
-  content: default
+  #label: default
+  #content: default

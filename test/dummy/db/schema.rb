@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140426225237) do
+ActiveRecord::Schema.define(version: 20140426214053) do
 
   create_table "momentum_cms_content_translations", force: true do |t|
     t.integer  "momentum_cms_content_id", null: false
@@ -27,8 +27,6 @@ ActiveRecord::Schema.define(version: 20140426225237) do
 
   create_table "momentum_cms_contents", force: true do |t|
     t.integer  "page_id"
-    t.string   "label"
-    t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -57,8 +55,6 @@ ActiveRecord::Schema.define(version: 20140426225237) do
     t.string   "label"
     t.integer  "published_content_id"
     t.string   "ancestry"
-    t.string   "slug"
-    t.string   "path"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
