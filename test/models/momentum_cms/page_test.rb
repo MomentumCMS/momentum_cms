@@ -110,6 +110,8 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
   end
 
   def test_assigns_fallback_slugs_to_path_when_required
+    # TODO: look deeper into globalize's fallback feature. Specifically, we
+    # need the ability for site admins to set default locales for each site
     page  = momentum_cms_pages(:default)
     child = MomentumCms::Page.create(
       site:   momentum_cms_sites(:default),
