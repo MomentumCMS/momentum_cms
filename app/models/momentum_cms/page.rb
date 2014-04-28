@@ -19,35 +19,27 @@ class MomentumCms::Page < ActiveRecord::Base
   # == Callbacks ============================================================
 
   before_save :assign_path
-  after_save :regenerate_child_paths, if: :has_children?
+  # after_commit :regenerate_child_paths, :on => :update
+  after_update :regenerate_child_paths
 
   # == Class Methods ========================================================
   # == Instance Methods =====================================================
 
   def assign_path
-    original_locale = I18n.locale
-    self.translations.each do |translation|
-      translated_path = []
-      I18n.locale = translation.locale
-      self.ancestors.each do |ancestor|
-        translated_path << ancestor.slug
-      end
-      translated_path << self.slug
-      self.path = "/#{translated_path.join('/')}"
-    end
-    I18n.locale = original_locale
+    self.path = generate_path(self)
   end
 
   def regenerate_child_paths
-    descendants.each do |descendant|
-      descendant.assign_path
-      # translation = descendant.translations.where(locale: I18n.locale).first
-      # puts "#{I18n.locale} --- #{translation.inspect}"
-      # if translation
-      #   translation.update_column(:path, descendant.path)
-      # else
-      # end
+    self.descendants.each do |descendant|
+      descendant.update_column(:path, generate_path(descendant))
     end
   end
 
+  protected
+  def generate_path(page)
+    translated_path = []
+    translated_path = page.ancestors.collect(&:slug) if page && page.ancestors
+    translated_path << page.slug
+    "/#{translated_path.join('/')}"
+  end
 end

@@ -85,10 +85,10 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
     assert_equal '/default/child-en/grandchild-en', grandchild.path
     I18n.locale = :fr
     page.update_attributes(slug: 'default-fr')
-    puts I18n.locale
-    puts "========================================="
     child.reload
-    grandchild.reload
+    grandchild.reload    
+    
+    assert_equal '/default-fr', page.path
     assert_equal '/default-fr/child-en', child.path
     assert_equal '/default-fr/child-en/grandchild-en', grandchild.path
     child.update_attributes(slug: 'child-fr')
@@ -96,14 +96,12 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
     grandchild.reload
     assert_equal '/default-fr/child-fr', child.path
     assert_equal '/default-fr/child-fr/grandchild-en', grandchild.path
-
-
-    # child.update_attributes(slug: 'child-fr')
-    # grandchild.update_attributes(slug: 'grandchild-fr')
-    # assert_equal '/default-fr/child-fr/grandchild-fr', grandchild.path
-    # assert_equal '/default-fr/child-fr', child.path
-    # I18n.locale = :en
-    # assert_equal '/default/child-en/grandchild-en', grandchild.path
+    child.update_attributes(slug: 'child-fr')
+    grandchild.update_attributes(slug: 'grandchild-fr')
+    assert_equal '/default-fr/child-fr/grandchild-fr', grandchild.path
+    assert_equal '/default-fr/child-fr', child.path
+    I18n.locale = :en
+    assert_equal '/default/child-en/grandchild-en', grandchild.path
   end
 
   def test_assigns_fallback_slugs_to_path_when_required
@@ -121,13 +119,10 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
       parent: child
     )
     I18n.locale = :fr
-    puts page.translations.inspect
     page.update_attributes(slug: 'default-fr')
-    puts page.translations.inspect
     grandchild.update_attributes(slug: 'grandchild-fr')
-    # page.reload
     assert_equal '/default-fr', page.path
-    # assert_equal '/default-fr/child-en/grandchild-fr', grandchild.path
+    assert_equal '/default-fr/child-en/grandchild-fr', grandchild.path
   end
 
   def test_regnerates_paths_of_child_pages
@@ -146,9 +141,19 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
     )
     assert_equal '/default/child-en/grandchild-en', grandchild.path
     child.update_attributes(slug: 'new-slug')
+
     assert_equal '/default/new-slug', child.path
-    grandchild.reload
-    assert_equal '/default/new-slug/grandchild-en', grandchild.path
+    assert_equal 'new-slug', child.slug
+
+    grandchild.update_attributes(slug: 'new-grandchild-slug')    
+    assert_equal '/default/new-slug/new-grandchild-slug', grandchild.path
+    
+    child.update_attributes(slug: 'another-slug')
+
+    assert_equal '/default/another-slug', child.path
+    assert_equal 'another-slug', child.slug
+
+    assert_equal '/default/new-slug/new-grandchild-slug', grandchild.path    
   end
 
 end
