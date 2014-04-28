@@ -5,7 +5,9 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
   def setup
     I18n.enforce_available_locales = false
     I18n.locale = :en
-    momentum_cms_pages(:default).update_attributes(slug: 'default')
+    page      = momentum_cms_pages(:default)
+    page.slug = 'default'
+    page.save
   end
 
   def build_basic_tree

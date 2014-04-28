@@ -3,5 +3,5 @@
 default:
   site: default
   label: default
-  slug: default
-  path: /default
+#  slug: default
+#  path: /default

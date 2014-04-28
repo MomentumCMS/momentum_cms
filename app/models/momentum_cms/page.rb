@@ -30,8 +30,9 @@ class MomentumCms::Page < ActiveRecord::Base
 
   def regenerate_child_paths
     self.descendants.each do |descendant|
-      descendant.update_column(:path, generate_path(descendant))
-    end
+      descendant.path = generate_path(descendant)
+      descendant.save
+    end    
   end
 
   protected
