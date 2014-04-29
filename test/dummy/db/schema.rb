@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140429015753) do
+ActiveRecord::Schema.define(version: 20140429030532) do
 
   create_table "momentum_cms_content_translations", force: true do |t|
     t.integer  "momentum_cms_content_id", null: false

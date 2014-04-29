@@ -27,6 +27,16 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
       )
     end
   end
+  
+  def test_unique_slug
+    page = momentum_cms_pages(:default)
+    page.slug = 'foo'
+    page.save!
+    
+    slug = MomentumCms::Page.new(slug: 'foo')
+    refute slug.valid?
+    assert_equal ["has already been taken"], slug.errors[:slug]
+  end
 
   def test_translates_path_and_locale
     page = momentum_cms_pages(:default)
