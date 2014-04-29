@@ -5,7 +5,9 @@ PATH
       ancestry
       awesome_nested_set (~> 3.0.0.rc.3)
       globalize (~> 4.0.1)
+      globalize-versioning (~> 0.1.0.alpha.1)
       haml-rails
+      paper_trail (~> 3.0.1)
       rails (~> 4.0.0)
       sass-rails
 
@@ -54,6 +56,9 @@ GEM
     globalize (4.0.1)
       activemodel (>= 4.0.0, < 5)
       activerecord (>= 4.0.0, < 5)
+    globalize-versioning (0.1.0.alpha.1)
+      globalize (>= 3, < 5)
+      paper_trail (~> 3.0.0)
     haml (4.0.5)
       tilt
     haml-rails (0.5.3)
@@ -69,6 +74,9 @@ GEM
     mime-types (1.25.1)
     minitest (4.7.5)
     multi_json (1.9.2)
+    paper_trail (3.0.1)
+      activerecord (>= 3.0, < 5.0)
+      activesupport (>= 3.0, < 5.0)
     polyglot (0.3.4)
     quiet_assets (1.0.2)
       railties (>= 3.1, < 5.0)

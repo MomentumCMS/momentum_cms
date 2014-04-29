@@ -11,9 +11,9 @@ gemfile:
   - test/gemfiles/Gemfile.rails.4.0
   - test/gemfiles/Gemfile.rails.4.1
   - test/gemfiles/Gemfile.rails.master
-branches:
-  only:
-    - master
+#branches:
+#  only:
+#    - master
 matrix:
   fast_finish: true
   allow_failures:
