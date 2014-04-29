@@ -8,7 +8,7 @@ class MomentumCms::Page < ActiveRecord::Base
 
   belongs_to :site
   has_many :contents
-
+  
   # == Extensions ===========================================================
 
   has_ancestry
