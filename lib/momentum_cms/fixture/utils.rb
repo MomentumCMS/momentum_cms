@@ -10,7 +10,7 @@ class MomentumCms::Fixture
 
     def self.write_json(path, data = {})
       File.open(path, 'w') do |f|
-        f.write(data.to_json)
+        f.write(JSON.pretty_generate(data))
       end
     end
 
