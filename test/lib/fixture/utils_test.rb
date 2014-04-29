@@ -1,6 +1,6 @@
-require_relative '../test_helper'
+require_relative '../../test_helper'
 
-class FixtureTest < ActiveSupport::TestCase
+class FixtureUtilsTest < ActiveSupport::TestCase
 
   def setup
     @write_path = File.join(Rails.root, 'sites', 'example-a', 'write.json')

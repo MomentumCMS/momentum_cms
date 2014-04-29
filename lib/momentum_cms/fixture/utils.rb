@@ -2,12 +2,6 @@ require 'json'
 
 class MomentumCms::Fixture
 
-  class Importer
-  end
-
-  class Exporter
-  end
-
   class Utils
 
     def self.read_json(path)
