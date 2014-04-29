@@ -1,5 +1,9 @@
 # Momentum CMS
 
+[![Build Status](https://travis-ci.org/MomentumCMS/momentum_cms.svg?branch=master)](https://travis-ci.org/MomentumCMS/momentum_cms)
+
+[![Code Climate](https://codeclimate.com/github/MomentumCMS/momentum_cms.png)](https://codeclimate.com/github/MomentumCMS/momentum_cms)
+
 Get started:
 
 ```
