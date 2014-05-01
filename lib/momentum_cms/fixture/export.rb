@@ -1,16 +1,4 @@
-require 'fileutils'
-require_relative 'fixture/utils'
-
 class MomentumCms::Fixture
-
-  class Import
-
-    def self.site(path)
-      attributes = MomentumCms::Fixture::Utils.read_json(path)
-      MomentumCms::Site.create!(label: attributes['label'], host: attributes['host'])
-    end
-
-  end
 
   class Export
 
