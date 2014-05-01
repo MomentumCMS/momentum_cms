@@ -8,6 +8,7 @@ gem 'haml-rails',           '~> 0.5.3'
 gem 'sass-rails',           '~> 4.0.3'
 gem 'paper_trail',          '~> 3.0.1'
 gem 'globalize-versioning', '~> 0.1.0.alpha.1'
+gem 'ledermann-rails-settings', '~> 2.3.0'
 
 group :test do
   gem 'sqlite3'
