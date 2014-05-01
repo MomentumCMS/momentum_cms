@@ -6,6 +6,7 @@ gem 'globalize',          '~> 4.0.1'
 gem 'ancestry'
 gem 'haml-rails'
 gem 'sass-rails'
+gem 'paper_trail'
 
 group :test do
   gem 'sqlite3'
