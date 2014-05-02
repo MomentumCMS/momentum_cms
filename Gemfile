@@ -14,6 +14,7 @@ gemspec
 # gem 'debugger'
 
 group :development do
+  gem 'coveralls', require: false
   gem 'awesome_print'
   gem 'better_errors'
   gem 'binding_of_caller'

@@ -28,5 +28,4 @@ Gem::Specification.new do |s|
   s.add_dependency 'sass-rails',               '~> 4.0.3'
   s.add_dependency 'paper_trail',              '~> 3.0.1'
   s.add_dependency 'globalize-versioning',     '~> 0.1.0.alpha.1'
-  s.add_dependency 'ledermann-rails-settings', '~> 2.3.0'
 end

@@ -5,10 +5,10 @@ require 'globalize'
 require 'paper_trail'
 require 'globalize-versioning'
 
-
 require 'momentum_cms/engine'
 require 'momentum_cms/error'
 require 'momentum_cms/configuration'
+require 'momentum_cms/has_settings'
 
 module MomentumCms
   class << self
