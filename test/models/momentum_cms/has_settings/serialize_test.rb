@@ -30,7 +30,7 @@ class MomentumCms::HasSettings::SeralizeTest < ActiveSupport::TestCase
     @site.settings(:dashboard).update_attributes! smart: true
 
     dashboard_settings = @site.setting_objects.where(var: 'dashboard').first
-    calendar_settings  = @site.setting_objects.where(var 'calendar').first
+    calendar_settings  = @site.setting_objects.where(var: 'calendar').first
 
     assert_equal dashboard_settings.var, 'dashboard'
     assert_equal dashboard_settings.value, { 'theme' => 'white', 'smart' => true }
