@@ -1,12 +1,5 @@
 # Momentum CMS
 
-[![Build Status](https://travis-ci.org/MomentumCMS/momentum_cms.svg?branch=master)](https://travis-ci.org/MomentumCMS/momentum_cms) [![Code Climate](https://codeclimate.com/github/MomentumCMS/momentum_cms.png)](https://codeclimate.com/github/MomentumCMS/momentum_cms) [![Dependency Status](https://gemnasium.com/MomentumCMS/momentum_cms.png)](https://gemnasium.com/MomentumCMS/momentum_cms)
+[![Build Status](https://travis-ci.org/MomentumCMS/momentum_cms.svg?branch=master)](https://travis-ci.org/MomentumCMS/momentum_cms) [![Code Climate](https://codeclimate.com/github/MomentumCMS/momentum_cms.png)](https://codeclimate.com/github/MomentumCMS/momentum_cms) [![Dependency Status](https://gemnasium.com/MomentumCMS/momentum_cms.png)](https://gemnasium.com/MomentumCMS/momentum_cms) [![Coverage Status](https://coveralls.io/repos/MomentumCMS/momentum_cms/badge.png?branch=master)](https://coveralls.io/r/MomentumCMS/momentum_cms?branch=master)
 
-Get started:
-
-```
-git clone git@github.com:MomentumCMS/momentum_cms.git
-cd momentum_cms/test/dummy
-rake db:drop db:create momentum_cms_engine:install:migrations db:migrate && rake db:seed
-rails s
-```
+Go to the [MomentumCMS Wiki](https://github.com/MomentumCMS/momentum_cms/wiki)
