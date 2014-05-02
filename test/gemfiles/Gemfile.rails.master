@@ -9,6 +9,8 @@ gem 'sass-rails',           '~> 4.0.3'
 gem 'paper_trail',          '~> 3.0.1'
 gem 'globalize-versioning', '~> 0.1.0.alpha.1'
 
+gem 'coveralls', require: false
+
 group :test do
   gem 'sqlite3'
 end
