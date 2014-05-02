@@ -1,5 +1,0 @@
-%pre= @momentum_cms_variation.to_yaml
-
-
-- @momentum_cms_variation.page.root.self_and_descendants.each do |page|
-  = link_to(page.name, page.variations.first.path)
