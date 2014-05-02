@@ -1,10 +1,10 @@
-class MomentumCms::Fixture
+module MomentumCms::Fixture
 
   class Import
 
     def self.site(path)
       attributes = MomentumCms::Fixture::Utils.read_json(path)
-      site = MomentumCms::Site.create!(label: attributes['label'], host: attributes['host'])
+      site = MomentumCms::Site.where(label: attributes['label'], host: attributes['host']).first_or_create
       pages_path = File.join(File.dirname(path), 'pages')
       MomentumCms::Fixture::Import.pages(site, pages_path)
     end
@@ -21,12 +21,21 @@ class MomentumCms::Fixture
             parent = MomentumCms::Fixture::Import.get_parent(path)
           end
 
-          # Build the page
-          page = site.pages.build(
-            label:  attributes['label'],
-            slug:   attributes['slug'],
-            parent: parent
-          )
+          page = if parent
+            parent.children.where(slug: attributes['slug']).first || site.pages.new(parent: parent, slug: attributes['slug'])
+          else
+            site.pages.new(slug: attributes['slug'])
+          end
+
+          page.label = attributes['label']
+          puts page.label.inspect if page.new_record?
+
+          # # Build the page
+          # page = site.pages.build(
+          #   label:  attributes['label'],
+          #   slug:   attributes['slug'],
+          #   parent: parent
+          # )
 
           if page.save
             parent = page

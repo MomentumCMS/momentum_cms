@@ -1,6 +1,6 @@
 require 'json'
 
-class MomentumCms::Fixture
+module MomentumCms::Fixture
 
   class Utils
 

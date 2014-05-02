@@ -1,4 +1,4 @@
-class MomentumCms::Fixture
+module MomentumCms::Fixture
 
   class Export
 

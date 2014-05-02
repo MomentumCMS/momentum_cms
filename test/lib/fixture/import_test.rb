@@ -43,4 +43,13 @@ class FixtureImportTest < ActiveSupport::TestCase
     assert_equal 'about', services_about.slug
   end
 
+  def test_duplicate_import
+    MomentumCms::Page.destroy_all
+    MomentumCms::Page.destroy_all
+    assert_difference "MomentumCms::Page.count", 8 do
+      MomentumCms::Fixture::Import.site(@path)
+      MomentumCms::Fixture::Import.site(@path)
+    end
+  end
+
 end
