@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140426214053) do
+ActiveRecord::Schema.define(version: 20140501220644) do
 
   create_table "momentum_cms_content_translations", force: true do |t|
     t.integer  "momentum_cms_content_id", null: false
@@ -67,5 +67,28 @@ ActiveRecord::Schema.define(version: 20140426214053) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "momentum_cms_versions", force: true do |t|
+    t.string   "item_type",  null: false
+    t.integer  "item_id",    null: false
+    t.string   "event",      null: false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+    t.string   "locale"
+  end
+
+  add_index "momentum_cms_versions", ["item_type", "item_id"], name: "index_momentum_cms_versions_on_item_type_and_item_id"
+
+  create_table "settings", force: true do |t|
+    t.string   "var",         null: false
+    t.text     "value"
+    t.integer  "target_id",   null: false
+    t.string   "target_type", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "settings", ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true
 
 end

@@ -5,9 +5,8 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
   def setup
     I18n.enforce_available_locales = false
     I18n.locale = :en
-    page      = momentum_cms_pages(:default)
-    page.slug = 'default'
-    page.save
+    page        = momentum_cms_pages(:default)
+    page.update_attribute(:slug, 'default')
   end
 
   def build_basic_tree
@@ -27,6 +26,16 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
         slug:  'about'
       )
     end
+  end
+  
+  def test_unique_slug
+    page = momentum_cms_pages(:default)
+    page.slug = 'foo'
+    page.save!
+    
+    slug = MomentumCms::Page.new(slug: 'foo')
+    refute slug.valid?
+    assert_equal ["has already been taken"], slug.errors[:slug]
   end
 
   def test_translates_path_and_locale
@@ -50,7 +59,7 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
       label: 'About',
       slug:  'about'
     )
-    assert !page.new_record?
+    refute page.new_record?
     assert_equal '/about', page.path
   end
 
@@ -89,20 +98,24 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
     )
     assert_equal '/default/child-en/grandchild-en', grandchild.path
     I18n.locale = :fr
-    page.update_attributes(slug: 'default-fr')
+    page.slug = 'default-fr'
+    page.save
+    
     child.reload
     grandchild.reload 
     
     assert_equal '/default-fr', page.path
     assert_equal '/default-fr/child-en', child.path
     assert_equal '/default-fr/child-en/grandchild-en', grandchild.path
-    child.update_attributes(slug: 'child-fr')
+    child.slug = 'child-fr'
+    child.save
     child.reload
     grandchild.reload
     assert_equal '/default-fr/child-fr', child.path
     assert_equal '/default-fr/child-fr/grandchild-en', grandchild.path
     child.update_attributes(slug: 'child-fr')
-    grandchild.update_attributes(slug: 'grandchild-fr')
+    grandchild.slug = 'grandchild-fr'
+    grandchild.save
     assert_equal '/default-fr/child-fr/grandchild-fr', grandchild.path
     assert_equal '/default-fr/child-fr', child.path
     I18n.locale = :en
@@ -149,21 +162,28 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
     assert_equal '/default/child-en/grandchild-en', grandchild.path
 
     # After updating the child slug, it should regenerate the grandchild
-    child.update_attributes(slug: 'new-slug')
+    child.slug = 'new-slug'
+    child.save
+    
     assert_equal '/default/new-slug', child.path
     assert_equal 'new-slug', child.slug
     grandchild.reload
     assert_equal '/default/new-slug/grandchild-en', grandchild.path
 
-    grandchild.update_attributes(slug: 'new-grandchild-slug')
+    grandchild.slug = 'new-grandchild-slug'
+    grandchild.save
+    
     assert_equal '/default/new-slug/new-grandchild-slug', grandchild.path
     
-    child.update_attributes(slug: 'another-slug')
+    child.slug = 'another-slug'
+    child.save
 
     assert_equal '/default/another-slug', child.path
     assert_equal 'another-slug', child.slug
 
-    assert_equal '/default/new-slug/new-grandchild-slug', grandchild.path
+    grandchild.reload
+    
+    assert_equal '/default/another-slug/new-grandchild-slug', grandchild.path
   end
 
 end

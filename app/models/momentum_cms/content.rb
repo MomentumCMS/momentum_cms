@@ -10,8 +10,9 @@ class MomentumCms::Content < ActiveRecord::Base
   belongs_to :page
 
   # == Extensions ===========================================================
+  has_paper_trail
 
-  translates :content, :label
+  translates :content, :label, fallbacks_for_empty_translations: true, versioning: :paper_trail
 
   # == Validations ==========================================================
   # == Scopes ===============================================================

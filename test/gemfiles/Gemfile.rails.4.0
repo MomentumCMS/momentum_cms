@@ -1,11 +1,14 @@
 source 'http://rubygems.org'
 
-gem 'rails',              '~> 4.0.0'
-gem 'awesome_nested_set', '~> 3.0.0.rc.3'
-gem 'globalize',          '~> 4.0.1'
-gem 'ancestry'
-gem 'haml-rails'
-gem 'sass-rails'
+gem 'rails',                '~> 4.0.0'
+gem 'awesome_nested_set',   '~> 3.0.0.rc.3'
+gem 'ancestry',             '~> 2.1.0'
+gem 'globalize',            '~> 4.0.1'
+gem 'haml-rails',           '~> 0.5.3'
+gem 'sass-rails',           '~> 4.0.3'
+gem 'paper_trail',          '~> 3.0.1'
+gem 'globalize-versioning', '~> 0.1.0.alpha.1'
+gem 'ledermann-rails-settings', '~> 2.3.0'
 
 group :test do
   gem 'sqlite3'

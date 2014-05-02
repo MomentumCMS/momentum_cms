@@ -7,14 +7,17 @@ class MomentumCms::Page < ActiveRecord::Base
   # == Relationships ========================================================
 
   belongs_to :site
-  has_many :variations
-
+  has_many :contents
+  
   # == Extensions ===========================================================
 
   has_ancestry
   translates :slug, :path, fallbacks_for_empty_translations: true
 
   # == Validations ==========================================================
+
+  validates :slug, uniqueness: true
+
   # == Scopes ===============================================================
   # == Callbacks ============================================================
 
@@ -41,6 +44,8 @@ class MomentumCms::Page < ActiveRecord::Base
     translated_path = []
     translated_path = page.ancestors.collect(&:slug) if page && page.ancestors
     translated_path << page.slug
-    "/#{translated_path.join('/')}"
+    path = "#{translated_path.join('/')}"
+    path = "/#{path}" if !path.start_with?('/')
+    path
   end
 end
