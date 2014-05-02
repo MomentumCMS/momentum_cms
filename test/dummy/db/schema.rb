@@ -68,18 +68,6 @@ ActiveRecord::Schema.define(version: 20140501220644) do
     t.datetime "updated_at"
   end
 
-  create_table "momentum_cms_versions", force: true do |t|
-    t.string   "item_type",  null: false
-    t.integer  "item_id",    null: false
-    t.string   "event",      null: false
-    t.string   "whodunnit"
-    t.text     "object"
-    t.datetime "created_at"
-    t.string   "locale"
-  end
-
-  add_index "momentum_cms_versions", ["item_type", "item_id"], name: "index_momentum_cms_versions_on_item_type_and_item_id"
-
   create_table "settings", force: true do |t|
     t.string   "var",         null: false
     t.text     "value"
@@ -90,5 +78,17 @@ ActiveRecord::Schema.define(version: 20140501220644) do
   end
 
   add_index "settings", ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true
+
+  create_table "versions", force: true do |t|
+    t.string   "item_type",  null: false
+    t.integer  "item_id",    null: false
+    t.string   "event",      null: false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+    t.string   "locale"
+  end
+
+  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
 
 end
