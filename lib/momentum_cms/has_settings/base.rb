@@ -7,7 +7,7 @@ module MomentumCms
                    :as         => :target,
                    :autosave   => true,
                    :dependent  => :delete_all,
-                   :class_name => 'MomentumCms::Setting'
+                   :class_name => self.setting_object_class_name
 
           def settings(var)
             raise ArgumentError unless var.is_a?(Symbol)

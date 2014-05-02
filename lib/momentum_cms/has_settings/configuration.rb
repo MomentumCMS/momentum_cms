@@ -9,8 +9,10 @@ module MomentumCms
         raise ArgumentError unless klass
 
         @klass = klass
-        @klass.class_attribute :default_settings
+        @klass.class_attribute :default_settings, :setting_object_class_name
         @klass.default_settings          = {}
+        @klass.setting_object_class_name = options[:class_name] || 'MomentumCms::Setting'
+
 
         if block_given?
           yield(self)
