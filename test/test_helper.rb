@@ -1,7 +1,10 @@
 # Configure Rails Environment
 ENV["RAILS_ENV"] = "test"
 
-require File.expand_path("../dummy/config/environment.rb",  __FILE__)
+require 'coveralls'
+Coveralls.wear!
+
+require File.expand_path("../dummy/config/environment.rb", __FILE__)
 require "rails/test_help"
 
 Rails.backtrace_cleaner.remove_silencers!
@@ -14,4 +17,13 @@ ActiveSupport::TestCase.fixture_path = File.expand_path("../fixtures", __FILE__)
 
 class ActiveSupport::TestCase
   fixtures :all
+
+  #Allows to assert on the number of SQL statement used
+  def asset_query_count_equal(count, &block)
+    @counter = ActiveRecord::QueryCounter.new
+    ActiveSupport::Notifications.subscribe('sql.active_record', @counter.to_proc)
+    yield
+    ActiveSupport::Notifications.unsubscribe(@counter.to_proc)
+    assert_equal @counter.query_count, count, "Expected to execute in #{count} SQL statements, but used #{@counter.query_count}"
+  end
 end

@@ -9,6 +9,11 @@ class MomentumCms::Site < ActiveRecord::Base
   has_many :pages
 
   # == Extensions ===========================================================
+
+  has_settings do |s|
+    s.key :site, :defaults => { :title => 'Just another CMS' }
+  end
+
   # == Validations ==========================================================
   # == Scopes ===============================================================
   # == Callbacks ============================================================
