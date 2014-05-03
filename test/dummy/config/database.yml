@@ -23,3 +23,21 @@ production:
   database: db/production.sqlite3
   pool: 5
   timeout: 5000
+
+
+sqlite: &sqlite
+  adapter: sqlite3
+  database: db/<%= Rails.env %>.sqlite3
+
+mysql: &mysql
+  adapter: mysql2
+  username: root
+  password:
+  database: momentum_cms_<%= Rails.env %>
+
+postgresql: &postgresql
+  adapter: postgresql
+  username: postgres
+  password:
+  database: momentum_cms_<%= Rails.env %>
+  min_messages: ERROR

@@ -61,14 +61,7 @@ ActiveRecord::Schema.define(version: 20140501220644) do
 
   add_index "momentum_cms_pages", ["site_id"], name: "index_momentum_cms_pages_on_site_id"
 
-  create_table "momentum_cms_sites", force: true do |t|
-    t.string   "label"
-    t.string   "host"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "settings", force: true do |t|
+  create_table "momentum_cms_settings", force: true do |t|
     t.string   "var",         null: false
     t.text     "value"
     t.integer  "target_id",   null: false
@@ -77,7 +70,14 @@ ActiveRecord::Schema.define(version: 20140501220644) do
     t.datetime "updated_at"
   end
 
-  add_index "settings", ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true
+  add_index "momentum_cms_settings", ["target_type", "target_id", "var"], name: "momentum_cms_settings_uniq_ttype_tid_var", unique: true
+
+  create_table "momentum_cms_sites", force: true do |t|
+    t.string   "label"
+    t.string   "host"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "versions", force: true do |t|
     t.string   "item_type",  null: false
