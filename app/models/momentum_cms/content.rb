@@ -12,6 +12,8 @@ class MomentumCms::Content < ActiveRecord::Base
   # == Extensions ===========================================================
   has_paper_trail
 
+  has_files
+
   translates :content, :label, fallbacks_for_empty_translations: true, versioning: :paper_trail
 
   # == Validations ==========================================================

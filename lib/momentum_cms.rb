@@ -11,6 +11,7 @@ require 'momentum_cms/engine'
 require 'momentum_cms/error'
 require 'momentum_cms/configuration'
 require 'momentum_cms/has_settings'
+require 'momentum_cms/has_files'
 require 'momentum_cms/rails'
 
 module MomentumCms
