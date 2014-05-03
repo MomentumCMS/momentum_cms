@@ -1,5 +1,11 @@
 language: ruby
+env:
+  - DB=sqlite
+  - DB=mysql
+  - DB=postgresql
 before_script:
+  - mysql -e 'create database momentum_cms_test'
+  - psql -c 'create database momentum_cms_test' -U postgres
   - rake db:migrate
 script:
   - rake test
@@ -11,9 +17,6 @@ gemfile:
   - test/gemfiles/Gemfile.rails.4.0
   - test/gemfiles/Gemfile.rails.4.1
   - test/gemfiles/Gemfile.rails.master
-#branches:
-#  only:
-#    - master
 matrix:
   fast_finish: true
   allow_failures:
