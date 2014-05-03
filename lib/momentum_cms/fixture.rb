@@ -8,7 +8,7 @@ module MomentumCms::Fixture
 
     def import!
       site = MomentumCms::Fixture::Site::Importer.new(@from).import!
-      MomentumCms::Fixture::Page::Importer.new(@from, File.join(@from, 'pages')).import!
+      MomentumCms::Fixture::Page::Importer.new(site, File.join(@from, 'pages')).import!
     end
 
   end
