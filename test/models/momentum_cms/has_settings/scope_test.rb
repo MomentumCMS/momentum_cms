@@ -11,10 +11,10 @@ class MomentumCms::HasSettings::ScopeTest < ActiveSupport::TestCase
 
     MomentumCms::Site.delete_all
 
-    @site1 = MomentumCms::Site.create! label: 'Mr. White' do |site|
+    @site1 = MomentumCms::Site.create! label: 'cms site', host: 'test.dev' do |site|
       site.settings(:dashboard).theme = 'white'
     end
-    @site2 = MomentumCms::Site.create! label: 'Mr. Blue'
+    @site2 = MomentumCms::Site.create! label: 'cms site', host: 'test.dev'
   end
 
   def test_should_find_objects_with_existing_settings

@@ -1,0 +1,5 @@
+%h1.page-header Edit File
+
+= simple_form_for @momentum_cms_file, url: {action: :update}  do |form|
+  = render partial: 'form', locals: { form: form } 
+

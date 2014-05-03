@@ -12,7 +12,7 @@ class MomentumCms::HasSettings::QueryTest < ActiveSupport::TestCase
   end
 
   def setup_query_count_test
-    @site = MomentumCms::Site.new(label: 'Mr. Pink')
+    @site = MomentumCms::Site.new(label: 'cms site', host: 'test.dev')
   end
 
   def test_new_record_should_be_saved_by_one_SQL_query
@@ -42,7 +42,7 @@ class MomentumCms::HasSettings::QueryTest < ActiveSupport::TestCase
   end
 
   def setup_existing_record_query_count_test
-    @site = MomentumCms::Site.create!(label: 'Mr. Pink')
+    @site = MomentumCms::Site.create!(label: 'cms site', host: 'test.dev')
   end
 
   def test_existing_record_without_setting_should_be_saved_without_SQL_queries
@@ -72,7 +72,7 @@ class MomentumCms::HasSettings::QueryTest < ActiveSupport::TestCase
   end
 
   def setup_existing_record_with_settings_query_count_test
-    @site = MomentumCms::Site.create!(label: 'Mr. Pink') do |site|
+    @site = MomentumCms::Site.create!(label: 'cms site', host: 'test.dev') do |site|
       site.settings(:dashboard).theme = 'pink'
       site.settings(:calendar).scope  = 'all'
     end

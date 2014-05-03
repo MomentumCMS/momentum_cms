@@ -1,4 +1,4 @@
-class MomentumCms::BasesController < ApplicationController
+class MomentumCms::BaseController < ApplicationController
   rescue_from MomentumCms::RecordNotFound, :with => :error_render_method
   rescue_from MomentumCms::SiteNotFound, :with => :error_render_method
 

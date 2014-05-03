@@ -1,4 +1,4 @@
-class MomentumCms::ContentsController < MomentumCms::BasesController
+class MomentumCms::ContentsController < MomentumCms::BaseController
   before_action :load_momentum_cms_content, only: [:show]
 
   def show
