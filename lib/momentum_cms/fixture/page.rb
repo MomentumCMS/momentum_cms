@@ -95,10 +95,33 @@ module MomentumCms::Fixture::Page
   class Exporter
 
     def initialize(pages, export_path)
+      @pages = pages
+      @export_path = File.join(MomentumCms::config.site_fixtures_path, export_path)
     end
 
     def export!
+      FileUtils.rm_rf(@export_path) if File.exist?(@export_path)
+      FileUtils.mkdir_p(@export_path) unless File.exist?(@export_path)
+      export_pages(@pages)
     end
+
+    def export_pages(pages)
+      pages.each do |page, children|
+        export_page(page)
+        export_pages(children)
+      end
+    end
+
+    def export_page(page)
+      page_path = File.join(@export_path, page.path)
+      FileUtils.mkdir_p(page_path)
+      attributes = {
+        label: page.label,
+        slug:  page.slug
+      }
+      MomentumCms::Fixture::Utils.write_json(File.join(page_path, 'attributes.json'), attributes)
+    end
+
 
   end
 

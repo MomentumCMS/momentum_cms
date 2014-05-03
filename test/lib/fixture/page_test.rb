@@ -6,7 +6,17 @@ class FixturePageTest < ActiveSupport::TestCase
     # Paths are always relative to the MomentumCms::config.site_fixtures_path
     @pages_path = File.join('example-a', 'pages')
     @site = MomentumCms::Site.create(label: 'Import', host: 'localhost')
+    # Ensure our example export site is removed before the tests are run
+    @export_path = File.join('example-c', 'pages')
+    @test_export_path = File.join(Rails.root, 'sites', 'example-c')
+    FileUtils.rm_rf(@test_export_path) if File.exist?(@test_export_path)
   end
+
+  def teardown
+    FileUtils.rm_rf(@test_export_path)
+  end
+
+  #== Importing =============================================================
 
   def test_basic_import
     MomentumCms::Page.destroy_all
@@ -88,6 +98,24 @@ class FixturePageTest < ActiveSupport::TestCase
     assert_equal '/example/', importer.parent_path(path)
     path = '/another/example/trailing-slash/'
     assert_equal '/another/example/', importer.parent_path(path)
+  end
+
+  #== Exporting =============================================================
+
+  def test_basic_export
+    MomentumCms::Fixture::Page::Importer.new(@site, @pages_path).import!
+    page_tree = @site.pages.arrange
+    export_path = File.join('example-c', 'pages')
+    MomentumCms::Fixture::Page::Exporter.new(page_tree, export_path).export!
+    test_export_path = File.join(MomentumCms::config.site_fixtures_path, export_path)
+    assert File.exists?(File.join(test_export_path, 'attributes.json'))
+    assert File.exists?(File.join(test_export_path, 'about', 'attributes.json'))
+    assert File.exists?(File.join(test_export_path, 'about', 'portfolio', 'attributes.json'))
+    assert File.exists?(File.join(test_export_path, 'about', 'portfolio', 'client-a', 'attributes.json'))
+    assert File.exists?(File.join(test_export_path, 'about', 'team', 'attributes.json'))
+    assert File.exists?(File.join(test_export_path, 'contact', 'attributes.json'))
+    assert File.exists?(File.join(test_export_path, 'services', 'attributes.json'))
+    assert File.exists?(File.join(test_export_path, 'services', 'about', 'attributes.json'))
   end
 
 end

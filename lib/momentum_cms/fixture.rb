@@ -4,7 +4,6 @@ module MomentumCms::Fixture
 
     def initialize(options = {})
       @from = options[:from]
-      to = options[:to]
     end
 
     def import!
@@ -17,8 +16,6 @@ module MomentumCms::Fixture
   class Exporter
 
     def initialize(options = {})
-      from = options[:from]
-      to = options[:to]
     end
 
     def export!
