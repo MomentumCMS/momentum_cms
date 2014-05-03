@@ -80,9 +80,11 @@ GEM
     mime-types (1.25.1)
     minitest (4.7.5)
     multi_json (1.9.3)
+    mysql2 (0.3.15)
     paper_trail (3.0.1)
       activerecord (>= 3.0, < 5.0)
       activesupport (>= 3.0, < 5.0)
+    pg (0.17.1)
     polyglot (0.3.4)
     quiet_assets (1.0.2)
       railties (>= 3.1, < 5.0)
@@ -145,6 +147,8 @@ DEPENDENCIES
   binding_of_caller
   coveralls
   momentum_cms!
+  mysql2
+  pg
   quiet_assets
   simplecov (~> 0.7.1)
   sqlite3
