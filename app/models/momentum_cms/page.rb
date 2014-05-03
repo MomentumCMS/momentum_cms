@@ -7,7 +7,8 @@ class MomentumCms::Page < ActiveRecord::Base
   # == Relationships ========================================================
 
   belongs_to :site
-  has_many :contents
+  has_many :contents,
+           dependent: :destroy
   
   # == Extensions ===========================================================
 

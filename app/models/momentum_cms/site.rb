@@ -6,7 +6,11 @@ class MomentumCms::Site < ActiveRecord::Base
   # == Constants ============================================================
   # == Relationships ========================================================
 
-  has_many :pages
+  has_many :pages,
+           dependent: :destroy
+
+  has_many :files,
+           dependent: :destroy
 
   # == Extensions ===========================================================
 

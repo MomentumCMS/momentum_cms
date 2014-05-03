@@ -1,0 +1,5 @@
+= form.association :page, collection: MomentumCms::Page.all, prompt: 'Choose a Page', label_method: :label, value_method: :id, include_blank: false
+= form.input :label
+= form.input :content
+= form.submit class: 'btn btn-success btn-xs'
+= link_to 'Back', momentum_cms_admin_pages_path, class: 'btn btn-primary btn-xs'

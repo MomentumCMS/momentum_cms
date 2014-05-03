@@ -8,7 +8,9 @@ class MomentumCms::Locale < ActiveRecord::Base
   # == Extensions ===========================================================
   # == Validations ==========================================================
 
-  validates :label, :identifier, presence: true
+  validates :label,
+            :identifier,
+            presence: true
 
   # == Scopes ===============================================================
   # == Callbacks ============================================================
