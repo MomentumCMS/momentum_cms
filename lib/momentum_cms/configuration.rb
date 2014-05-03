@@ -3,6 +3,12 @@ class MomentumCms::Configuration
   # The locale for the CMS
   attr_accessor :locale
 
+  # Sets the default path for site fixtures
+  attr_accessor :site_fixtures_path
+
+  # Enables site fixtures
+  attr_accessor :site_fixtures_enabled
+
   # The style of the admin panel
   # Options here are:
   # nil - No admin panel will be present
@@ -23,6 +29,8 @@ class MomentumCms::Configuration
   # Configuration defaults
   def initialize
     @locale                  = :en
+    @site_fixtures_path      = File.expand_path('sites', Rails.root)
+    @site_fixtures_enabled   = false
     @admin_panel_style       = :simple
     @admin_panel_mount_point = '/admin'
     @authentication_method   = :default
