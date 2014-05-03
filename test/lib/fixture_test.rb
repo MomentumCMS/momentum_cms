@@ -7,7 +7,7 @@ class FixtureTest < ActiveSupport::TestCase
     MomentumCms::Page.destroy_all
     assert_difference 'MomentumCms::Site.count' do
       assert_difference 'MomentumCms::Page.count' do
-        MomentumCms::Fixture::Importer.new(from: 'example-a', to: 'example-import').import!
+        MomentumCms::Fixture::Importer.new(from: 'example-a').import!
       end
     end
   end

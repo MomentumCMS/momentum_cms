@@ -4,11 +4,15 @@ require 'ancestry'
 require 'globalize'
 require 'paper_trail'
 require 'globalize-versioning'
-
+require 'fileutils'
+require 'json'
 
 require 'momentum_cms/engine'
 require 'momentum_cms/error'
 require 'momentum_cms/fixture'
+require 'momentum_cms/fixture/utils'
+require 'momentum_cms/fixture/site'
+require 'momentum_cms/fixture/page'
 require 'momentum_cms/configuration'
 
 module MomentumCms

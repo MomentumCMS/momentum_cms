@@ -1,5 +1,3 @@
-require 'json'
-
 module MomentumCms::Fixture
 
   class Utils
