@@ -12,6 +12,10 @@ module MomentumCms::Fixture
       end
     end
 
+    def self.fresh_fixture?(object, file_path)
+      object.new_record? || ::File.mtime(file_path) > object.updated_at
+    end
+
   end
 
 end

@@ -25,4 +25,15 @@ class FixtureUtilsTest < ActiveSupport::TestCase
     assert_equal 'Ember.js', MomentumCms::Fixture::Utils.read_json(@write_path)['client']
   end
 
+  def test_fresh_fixture
+    page = MomentumCms::Page.create(label: 'Fresh', slug: 'fresh', site: momentum_cms_sites(:default))
+    attributes_path = File.join(Rails.root, 'sites', 'example-a', 'attributes.json')
+    assert !MomentumCms::Fixture::Utils.fresh_fixture?(page, attributes_path)
+    page.update_column(:updated_at, (Time.now - 2.days))
+    FileUtils.touch(attributes_path)
+    assert MomentumCms::Fixture::Utils.fresh_fixture?(page, attributes_path)
+    page = MomentumCms::Page.new()
+    assert MomentumCms::Fixture::Utils.fresh_fixture?(page, attributes_path)
+  end
+
 end
