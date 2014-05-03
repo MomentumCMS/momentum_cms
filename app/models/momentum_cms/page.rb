@@ -15,9 +15,6 @@ class MomentumCms::Page < ActiveRecord::Base
   translates :slug, :path, fallbacks_for_empty_translations: true
 
   # == Validations ==========================================================
-
-  validates :slug, uniqueness: true
-
   # == Scopes ===============================================================
   # == Callbacks ============================================================
 
@@ -46,6 +43,6 @@ class MomentumCms::Page < ActiveRecord::Base
     translated_path << page.slug
     path = "#{translated_path.join('/')}"
     path = "/#{path}" if !path.start_with?('/')
-    path
+    path.gsub(/(\/{2,})/,'/')
   end
 end
