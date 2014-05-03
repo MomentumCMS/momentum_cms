@@ -6,7 +6,6 @@ Coveralls.wear!
 
 require File.expand_path("../dummy/config/environment.rb", __FILE__)
 require "rails/test_help"
-require "awesome_print"
 
 Rails.backtrace_cleaner.remove_silencers!
 
