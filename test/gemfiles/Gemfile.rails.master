@@ -11,6 +11,7 @@ gem 'globalize-versioning', '~> 0.1.0.alpha.1'
 gem 'paperclip',            '~> 4.1.1'
 gem 'jquery-rails',         '~> 3.1.0'
 gem 'simple_form',          '~> 3.1.0.rc1'
+gem 'liquid',               '~> 2.6.1'
 gem 'coveralls', require: false
 
 group :test do

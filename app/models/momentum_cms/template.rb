@@ -1,29 +1,31 @@
-class MomentumCms::Site < ActiveRecord::Base
+class MomentumCms::Template < ActiveRecord::Base
+
   # == MomentumCms ==========================================================
 
-  self.table_name = 'momentum_cms_sites'
+  self.table_name = 'momentum_cms_templates'
 
   # == Constants ============================================================
   # == Relationships ========================================================
 
-  has_many :pages,
-           dependent: :destroy
+  belongs_to :site
 
-  has_many :files,
-           dependent: :destroy
-
-  has_many :templates,
-           dependent: :destroy
+  has_many :pages
 
   # == Extensions ===========================================================
-
-  has_settings do |s|
-    s.key :site, :defaults => { :title => 'Just another CMS' }
-  end
-
   # == Validations ==========================================================
 
-  validates :label, :host, presence: true
+  validate :valid_liquid_content
+
+  def valid_liquid_content
+    if self.content.present?
+      begin
+        Liquid::Template.parse(self.content)
+      rescue
+        errors.add(:content, "is not a valid liquid template")
+      end
+    end
+  end
+
 
   # == Scopes ===============================================================
   # == Callbacks ============================================================

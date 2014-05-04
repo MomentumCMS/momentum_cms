@@ -34,5 +34,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'paperclip',                '~> 4.1.1'
   s.add_dependency 'jquery-rails',             '~> 3.1.0'
   s.add_dependency 'simple_form',              '~> 3.1.0.rc1'
-  
+  s.add_dependency 'liquid',                   '~> 2.6.1'
 end

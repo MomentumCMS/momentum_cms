@@ -7,8 +7,30 @@ namespace :momentum_cms do
     desc 'Import an example site'
     task :import_example_site => :environment do
       @pages_path = File.join('example-a', 'pages')
-      @site       = MomentumCms::Site.create(label: 'Import', host: 'localhost')
+      @site       = MomentumCms::Site.where(label: 'Example Site', host: 'localhost').first_or_create!
       MomentumCms::Fixture::Page::Importer.new(@site, @pages_path).import!
+
+      MomentumCms::Page.find_each do |page|
+        content = MomentumCms::Content.where(
+          page:    page,
+          label:   "#{page.label}-#{I18n.locale}",
+          content: "Lorem Ipsum, this is the content page for #{page.label}-#{I18n.locale}"
+        )
+        content = if content.first.nil?
+                    content.create!
+                  else
+                    content.first!
+                  end
+        [:en, :fr, :es].each do |locale|
+          I18n.locale     = locale
+          content.label   = "#{page.label}-#{I18n.locale}"
+          content.content = "Lorem Ipsum, this is the content page for #{page.label}-#{I18n.locale}"
+          content.save!
+        end
+        MomentumCms::Page.order(:id).to_a.each do |p|
+          p.save
+        end
+      end
     end
   end
 end
