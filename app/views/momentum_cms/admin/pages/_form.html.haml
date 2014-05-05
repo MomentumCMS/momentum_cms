@@ -1,6 +1,8 @@
 = form.input :label
 = form.input :slug
 = form.association :site, collection: MomentumCms::Site.all, prompt: 'Choose a Site', label_method: :label, value_method: :id, include_blank: false
+= form.association :template, collection: MomentumCms::Template.all, prompt: 'Choose a Template', label_method: :label, value_method: :id, include_blank: false
+
 
 = form.submit class: 'btn btn-success btn-xs'
 = link_to 'Back', momentum_cms_admin_pages_path, class: 'btn btn-primary btn-xs'

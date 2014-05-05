@@ -7,9 +7,10 @@ class MomentumCms::Page < ActiveRecord::Base
   # == Relationships ========================================================
 
   belongs_to :site
+  belongs_to :template
   has_many :contents,
            dependent: :destroy
-  
+
   # == Extensions ===========================================================
 
   has_ancestry
@@ -33,7 +34,7 @@ class MomentumCms::Page < ActiveRecord::Base
     self.descendants.each do |descendant|
       descendant.path = generate_path(descendant)
       descendant.save
-    end    
+    end
   end
 
   protected
@@ -44,6 +45,6 @@ class MomentumCms::Page < ActiveRecord::Base
     translated_path << page.slug
     path = "#{translated_path.join('/')}"
     path = "/#{path}" if !path.start_with?('/')
-    path.gsub(/(\/{2,})/,'/')
+    path.gsub(/(\/{2,})/, '/')
   end
 end
