@@ -1,4 +1,9 @@
 //= require vendor/bootstrap
 //= require vendor/bootstrap-theme
 //= require momentum_cms/admin/dashboard
+//= require momentum_cms/admin/util/ace
 //= require_self
+
+.ace_editor {
+  font-family: monospace !important;
+}

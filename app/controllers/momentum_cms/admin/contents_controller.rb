@@ -45,7 +45,8 @@ class MomentumCms::Admin::ContentsController < MomentumCms::Admin::BaseControlle
   end
 
   def build_moment_cms_content
-    @momentum_cms_content = MomentumCms::Content.new(momentum_cms_content_params)
+    @momentum_cms_content      = MomentumCms::Content.new(momentum_cms_content_params)
+    @momentum_cms_content.page = @momentum_cms_page
   end
 
   def momentum_cms_content_params
