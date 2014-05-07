@@ -8,7 +8,9 @@ class MomentumCms::Content < ActiveRecord::Base
   # == Relationships ========================================================
 
   belongs_to :page
-  has_many :blocks
+  
+  has_many :blocks,
+           dependent: :destroy
 
   # == Extensions ===========================================================
   has_paper_trail

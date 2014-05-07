@@ -56,7 +56,7 @@ module MomentumCms::Fixture::Page
         template = Liquid::Template.parse(text)
         original_locale = I18n.locale
         template.root.nodelist.each do |node|
-          next unless node.class.name == 'FixtureBlockTag'
+          next unless node.is_a?(FixtureBlockTag)
           I18n.locale = node.params[:locale]
           block = content.blocks.detect{|b| b.identifier == node.params[:identifier]}
           block = content.blocks.build(identifier: node.params[:identifier]) unless block
