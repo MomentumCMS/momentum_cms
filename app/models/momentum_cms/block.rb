@@ -1,19 +1,18 @@
-class MomentumCms::Content < ActiveRecord::Base
+class MomentumCms::Block < ActiveRecord::Base
 
   # == MomentumCms ==========================================================
 
-  self.table_name = 'momentum_cms_contents'
+  self.table_name = 'momentum_cms_blocks'
 
   # == Constants ============================================================
   # == Relationships ========================================================
 
-  belongs_to :page
-  has_many :blocks
+  belongs_to :content
 
   # == Extensions ===========================================================
   has_paper_trail
 
-  translates :content, :label, fallbacks_for_empty_translations: true, versioning: :paper_trail
+  translates :value, fallbacks_for_empty_translations: true, versioning: :paper_trail
 
   # == Validations ==========================================================
   # == Scopes ===============================================================

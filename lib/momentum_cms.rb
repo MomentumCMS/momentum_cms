@@ -6,6 +6,7 @@ require 'paper_trail'
 require 'globalize-versioning'
 require 'fileutils'
 require 'json'
+require 'liquid'
 
 require 'momentum_cms/engine'
 require 'momentum_cms/error'
@@ -15,6 +16,8 @@ require 'momentum_cms/fixture/site'
 require 'momentum_cms/fixture/page'
 require 'momentum_cms/configuration'
 require 'momentum_cms/has_settings'
+
+require 'momentum_cms/tags/fixture'
 
 module MomentumCms
   class << self

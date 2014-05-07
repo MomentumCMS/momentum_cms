@@ -11,7 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140501220644) do
+ActiveRecord::Schema.define(version: 20140507065637) do
+
+  create_table "momentum_cms_block_translations", force: true do |t|
+    t.integer  "momentum_cms_block_id", null: false
+    t.string   "locale",                null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "value"
+  end
+
+  add_index "momentum_cms_block_translations", ["locale"], name: "index_momentum_cms_block_translations_on_locale"
+  add_index "momentum_cms_block_translations", ["momentum_cms_block_id"], name: "index_momentum_cms_block_translations_on_momentum_cms_block_id"
+
+  create_table "momentum_cms_blocks", force: true do |t|
+    t.integer  "content_id"
+    t.string   "identifier"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "momentum_cms_blocks", ["content_id"], name: "index_momentum_cms_blocks_on_content_id"
 
   create_table "momentum_cms_content_translations", force: true do |t|
     t.integer  "momentum_cms_content_id", null: false
