@@ -16,6 +16,15 @@ class MomentumCms::Template < ActiveRecord::Base
 
   validate :valid_liquid_content
 
+  validates :site, :site_id, :label,
+            presence: true
+
+  # == Scopes ===============================================================
+  # == Callbacks ============================================================
+  # == Class Methods ========================================================
+  # == Instance Methods =====================================================
+  protected
+
   def valid_liquid_content
     if self.content.present?
       begin
@@ -25,10 +34,4 @@ class MomentumCms::Template < ActiveRecord::Base
       end
     end
   end
-
-
-  # == Scopes ===============================================================
-  # == Callbacks ============================================================
-  # == Class Methods ========================================================
-  # == Instance Methods =====================================================
 end
