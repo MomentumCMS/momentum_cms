@@ -10,7 +10,8 @@ class MomentumCms::Setting < ActiveRecord::Base
 
   # == Relationships ========================================================
 
-  belongs_to :target, :polymorphic => true
+  belongs_to :target,
+             polymorphic: true
 
   # == Extensions ===========================================================
 

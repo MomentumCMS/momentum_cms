@@ -1,0 +1,15 @@
+= form.input :label
+= form.input :tag
+= form.input :file, as: :file
+= form.association :site, collection: MomentumCms::Site.all, prompt: 'Choose a Site', label_method: :label, value_method: :id, include_blank: false
+
+- if @momentum_cms_file.persisted?
+  .uploaded-file
+    %p 
+      Current file:
+      = form.input_field :delete_file, as: :boolean, inline_label: 'Remove file', checked_value: '1', unchecked_value: '0'
+    - if @momentum_cms_file.is_image?
+      = image_tag(@momentum_cms_file.file.url)
+
+= form.submit class: 'btn btn-success btn-xs'
+= link_to 'Back', momentum_cms_admin_files_path, class: 'btn btn-primary btn-xs'
