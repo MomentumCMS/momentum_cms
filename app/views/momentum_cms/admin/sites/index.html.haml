@@ -11,11 +11,12 @@
   %tbody
     - @momentum_cms_sites.each do |momentum_cms_site|
       %tr
-        %td= link_to momentum_cms_site.label, edit_momentum_cms_admin_site_path(momentum_cms_site)
+        %td= link_to momentum_cms_site.label, edit_cms_admin_site_path(momentum_cms_site)
         %td= momentum_cms_site.host
         %td= momentum_cms_site.created_at
         %td= momentum_cms_site.updated_at
         %td       
-          = link_to 'Destroy', momentum_cms_admin_site_path(momentum_cms_site), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs'
+          = link_to 'Dashboard', cms_admin_site_dashboards_path(momentum_cms_site), class: 'btn btn-success btn-xs'
+          = link_to 'Destroy', cms_admin_site_path(momentum_cms_site), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs'
 %br/
-= link_to 'New Site', new_momentum_cms_admin_site_path, class: 'btn btn-primary btn-xs'
+= link_to 'New Site', new_cms_admin_site_path, class: 'btn btn-primary btn-xs'

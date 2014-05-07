@@ -1,11 +1,22 @@
-%ul.nav.nav-sidebar
-  %li
-    = link_to 'Dashboard', momentum_cms_admin_root_path
-  %li
-    = link_to 'Sites', momentum_cms_admin_sites_path
-  %li
-    = link_to 'Templates', momentum_cms_admin_templates_path
-  %li
-    = link_to 'Pages', momentum_cms_admin_pages_path
-  %li
-    = link_to 'Files', momentum_cms_admin_files_path
+- if @current_momentum_cms_site
+  %p 
+    %strong
+      = @current_momentum_cms_site.label
+      = link_to '(edit)', edit_cms_admin_site_path(@current_momentum_cms_site)
+  %ul.nav.nav-sidebar
+    %li
+      = link_to 'Dashboard', [:cms, :admin, :site, :dashboards]
+    %li
+      = link_to 'Templates', [:cms, :admin, :site, :templates]
+    %li
+      = link_to 'Pages', [:cms, :admin, :site, :pages]
+    %li
+      = link_to 'Files', [:cms, :admin, :site, :files]
+- else
+  %p 
+    %strong
+      Sites
+  %ul.nav.nav-sidebar
+    - @momentum_cms_sites.each do |site|
+      %li
+        = link_to site.label, edit_cms_admin_site_path(site)
