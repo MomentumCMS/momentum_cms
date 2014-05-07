@@ -1,8 +1,10 @@
-class MomentumCms::ContentsController < MomentumCms::BasesController
+class MomentumCms::ContentsController < MomentumCms::BaseController
   before_action :load_momentum_cms_content, only: [:show]
 
   def show
-    render
+    @template = MomentumCms::Template.first
+    content   = Liquid::Template.parse(@template.content)
+    render inline: content.render
   end
 
   private
@@ -11,7 +13,7 @@ class MomentumCms::ContentsController < MomentumCms::BasesController
 
     @momentum_cms_page    = MomentumCms::Page.where(path: path).first!
     @momentum_cms_content = @momentum_cms_page.contents.first
-      
+
 
   rescue ActiveRecord::RecordNotFound
     raise MomentumCms::RecordNotFound.new(path)

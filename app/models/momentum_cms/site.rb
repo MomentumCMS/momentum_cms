@@ -6,7 +6,14 @@ class MomentumCms::Site < ActiveRecord::Base
   # == Constants ============================================================
   # == Relationships ========================================================
 
-  has_many :pages
+  has_many :pages,
+           dependent: :destroy
+
+  has_many :files,
+           dependent: :destroy
+
+  has_many :templates,
+           dependent: :destroy
 
   # == Extensions ===========================================================
 
@@ -15,6 +22,9 @@ class MomentumCms::Site < ActiveRecord::Base
   end
 
   # == Validations ==========================================================
+
+  validates :label, :host, presence: true
+
   # == Scopes ===============================================================
   # == Callbacks ============================================================
   # == Class Methods ========================================================

@@ -1,0 +1,24 @@
+%h1.page-header Contents for Page '#{@momentum_cms_page.label}'
+
+%table.table
+  %thead
+    %tr
+      %th Label
+      %th Page
+      %th Created At
+      %th Updated At
+      %th Control
+  %tbody
+    - @momentum_cms_contents.each do |momentum_cms_content|
+      %tr
+        %th
+          = link_to momentum_cms_content.label, edit_momentum_cms_admin_page_content_path(@momentum_cms_page, momentum_cms_content)
+        %th
+          - if momentum_cms_content.page
+            = link_to momentum_cms_content.page.label, edit_momentum_cms_admin_page_path(@momentum_cms_page)
+        %td= momentum_cms_content.created_at
+        %td= momentum_cms_content.updated_at
+        %td       
+          = link_to 'Destroy', momentum_cms_admin_page_content_path(@momentum_cms_page, momentum_cms_content), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs'
+%br/
+= link_to 'New Content', new_momentum_cms_admin_page_content_path(@momentum_cms_page), class: 'btn btn-primary btn-xs'

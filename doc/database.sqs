@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<SQLContainer>
+    <SQLTable>
+        <name><![CDATA[momentum_cms_snippets]]></name>
+        <schema><![CDATA[]]></schema>
+        <location>
+            <x>269.00</x>
+            <y>559.00</y>
+        </location>
+        <size>
+            <width>204.00</width>
+            <height>60.00</height>
+        </size>
+        <zorder>8</zorder>
+        <SQLField>
+            <name><![CDATA[id]]></name>
+            <type><![CDATA[VARCHAR]]></type>
+            <primaryKey>1</primaryKey>
+            <temporaryOriginalName><![CDATA[id]]></temporaryOriginalName>
+            <uid><![CDATA[D9109D53-FA96-475F-89F0-F4DABD2D28FD]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[site_id]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <referencesField>id</referencesField>
+            <referencesTable>momentum_cms_sites</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[momentum_cms_sites]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[48B8F61C-7ADF-4BFC-8911-0F4CCC08C09A]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[7242AF7E-B3D7-42CA-B8CE-3CAB0D478750]]></referencesTableUID>
+            <uid><![CDATA[B88EF25F-8BF0-45FD-88BE-29256C1BC05E]]></uid>
+        </SQLField>
+        <labelColor><![CDATA[{1,0.8,0.8,0.8}]]></labelColor>
+        <labelName><![CDATA[Planned]]></labelName>
+        <labelUid><![CDATA[8B2C4C7B-FDFD-4D08-A981-CBC062E7D43C]]></labelUid>
+        <labelWindowIndex><![CDATA[0]]></labelWindowIndex>
+        <temporaryOriginalName><![CDATA[momentum_cms_snippets]]></temporaryOriginalName>
+        <uid><![CDATA[0B7A2AFA-2178-4034-96C4-00683FBA63C4]]></uid>
+    </SQLTable>
+    <SQLTable>
+        <name><![CDATA[momentum_cms_blocks]]></name>
+        <schema><![CDATA[]]></schema>
+        <location>
+            <x>1100.00</x>
+            <y>480.00</y>
+        </location>
+        <size>
+            <width>260.00</width>
+            <height>60.00</height>
+        </size>
+        <zorder>9</zorder>
+        <SQLField>
+            <name><![CDATA[id]]></name>
+            <type><![CDATA[VARCHAR]]></type>
+            <primaryKey>1</primaryKey>
+            <temporaryOriginalName><![CDATA[id]]></temporaryOriginalName>
+            <uid><![CDATA[FD7817EF-7EA4-406D-9ECC-EF2B1DECF708]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[content_id]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <referencesField>id</referencesField>
+            <referencesTable>momentum_cms_contents</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[momentum_cms_contents]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[90708692-257A-4575-BDC9-FFCE07EA0A74]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[B5E59C52-F131-41D7-8C41-F5D66B6D4F65]]></referencesTableUID>
+            <temporaryOriginalName><![CDATA[id_1]]></temporaryOriginalName>
+            <uid><![CDATA[7758563D-5CCE-490F-AB88-48604077EAE6]]></uid>
+        </SQLField>
+        <labelColor><![CDATA[{1,0.8,0.8,0.8}]]></labelColor>
+        <labelName><![CDATA[Planned]]></labelName>
+        <labelUid><![CDATA[8B2C4C7B-FDFD-4D08-A981-CBC062E7D43C]]></labelUid>
+        <labelWindowIndex><![CDATA[1]]></labelWindowIndex>
+        <temporaryOriginalName><![CDATA[momentum_cms_blocks]]></temporaryOriginalName>
+        <uid><![CDATA[38745D45-DDB7-40CA-A038-287F5F697FBF]]></uid>
+    </SQLTable>
+    <SQLTable>
+        <name><![CDATA[momentum_cms_files]]></name>
+        <schema><![CDATA[]]></schema>
+        <location>
+            <x>240.00</x>
+            <y>22.00</y>
+        </location>
+        <size>
+            <width>189.00</width>
+            <height>280.00</height>
+        </size>
+        <zorder>3</zorder>
+        <SQLField>
+            <name><![CDATA[id]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <primaryKey>1</primaryKey>
+            <uid><![CDATA[65600735-4454-4CDC-B463-4403615B07C8]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[label]]></name>
+            <type><![CDATA[VARCHAR]]></type>
+            <uid><![CDATA[098B8C6A-A51D-45F7-A09A-C1F1DC51A19D]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[tag]]></name>
+            <type><![CDATA[VARCHAR]]></type>
+            <uid><![CDATA[00F92468-6AB6-4F96-B951-7DBAD335EE8C]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[multiple]]></name>
+            <type><![CDATA[BOOLEAN]]></type>
+            <uid><![CDATA[CE5E1826-0708-4979-927F-FEAA6B84E4E2]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[site_id]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <referencesField>id</referencesField>
+            <referencesTable>momentum_cms_sites</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[momentum_cms_sites]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[48B8F61C-7ADF-4BFC-8911-0F4CCC08C09A]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[7242AF7E-B3D7-42CA-B8CE-3CAB0D478750]]></referencesTableUID>
+            <uid><![CDATA[D83FC573-58E1-439F-AE3F-451DC7D9161B]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[attachable_id]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <uid><![CDATA[C0CB1BD7-B6B7-45C6-95B1-57D22557DCF5]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[attachable_type]]></name>
+            <type><![CDATA[VARCHAR]]></type>
+            <uid><![CDATA[340B55CC-4651-4B5B-BD55-F76BF3640E81]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[file_file_name]]></name>
+            <type><![CDATA[VARCHAR]]></type>
+            <uid><![CDATA[07D0C1A1-3BF7-4E3B-B2F8-58CC72BD845F]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[file_content_type]]></name>
+            <type><![CDATA[VARCHAR]]></type>
+            <uid><![CDATA[0ACE311D-D698-49D5-AAFC-EFA66FEB222F]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[file_file_size]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <uid><![CDATA[A9BCF6B0-860F-44DC-877B-A9C48CB58AB0]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[file_updated_at]]></name>
+            <type><![CDATA[DATE]]></type>
+            <uid><![CDATA[5B4BED5D-E2F4-474C-B073-09FCD3673DB3]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[updated_at]]></name>
+            <type><![CDATA[DATE]]></type>
+            <uid><![CDATA[E4FE16EA-B69A-4970-9802-D4DA3CA4350B]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[created_at]]></name>
+            <type><![CDATA[DATE]]></type>
+            <uid><![CDATA[D7EA8B57-3CE6-45E8-B23D-5311D384B803]]></uid>
+        </SQLField>
+        <labelWindowIndex><![CDATA[4]]></labelWindowIndex>
+        <uid><![CDATA[54884CFB-04EE-417A-A5F8-BF04387097E8]]></uid>
+    </SQLTable>
+    <SQLTable>
+        <name><![CDATA[momentum_cms_pages]]></name>
+        <schema><![CDATA[]]></schema>
+        <location>
+            <x>536.00</x>
+            <y>282.00</y>
+        </location>
+        <size>
+            <width>223.00</width>
+            <height>180.00</height>
+        </size>
+        <zorder>1</zorder>
+        <SQLField>
+            <name><![CDATA[id]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <primaryKey>1</primaryKey>
+            <forcedUnique><![CDATA[1]]></forcedUnique>
+            <temporaryOriginalName><![CDATA[id]]></temporaryOriginalName>
+            <uid><![CDATA[D9578DA7-DD22-459B-B2FF-CEEA592FFFEA]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[site_id]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <referencesField>id</referencesField>
+            <referencesTable>momentum_cms_sites</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[momentum_cms_sites]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[48B8F61C-7ADF-4BFC-8911-0F4CCC08C09A]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[7242AF7E-B3D7-42CA-B8CE-3CAB0D478750]]></referencesTableUID>
+            <temporaryOriginalName><![CDATA[id_1]]></temporaryOriginalName>
+            <uid><![CDATA[A651A971-D4F5-4FD0-94D0-90AC80AB93C9]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[template_id]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <referencesField>id</referencesField>
+            <referencesTable>momemtum_cms_templates</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[momemtum_cms_templates]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[7598298B-8849-4202-9F4B-321480C5D6A6]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[E228A0B3-ACC6-4677-94A2-0D368BE0BFFD]]></referencesTableUID>
+            <temporaryOriginalName><![CDATA[id_1]]></temporaryOriginalName>
+            <uid><![CDATA[6FB08DC0-21F1-4C0F-8996-B00CAEC5037C]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[label]]></name>
+            <type><![CDATA[VARCHAR]]></type>
+            <uid><![CDATA[5E3666D7-2292-4900-B119-A721AC4AA5AF]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[published_content_id]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <referencesField>id</referencesField>
+            <referencesTable>momentum_cms_contents</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[momentum_cms_contents]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[90708692-257A-4575-BDC9-FFCE07EA0A74]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[B5E59C52-F131-41D7-8C41-F5D66B6D4F65]]></referencesTableUID>
+            <uid><![CDATA[8C4C7DE0-6A89-412A-B778-CE39DA3F056E]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[ancestry]]></name>
+            <type><![CDATA[VARCHAR]]></type>
+            <uid><![CDATA[719A03D4-4A56-4DBC-AF53-D87E23316245]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[created_at]]></name>
+            <type><![CDATA[DATE]]></type>
+            <uid><![CDATA[D0D48A6F-03CE-4F54-AFAC-BD1FFADB64A6]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[updated_at]]></name>
+            <type><![CDATA[DATE]]></type>
+            <uid><![CDATA[976D1C44-8149-4D85-8CEB-AB0DF8C13CDC]]></uid>
+        </SQLField>
+        <labelWindowIndex><![CDATA[7]]></labelWindowIndex>
+        <temporaryOriginalName><![CDATA[moment_cms_pages]]></temporaryOriginalName>
+        <uid><![CDATA[6C1E9C58-4DE9-440A-A62A-621E0FFC6A8B]]></uid>
+    </SQLTable>
+    <SQLTable>
+        <name><![CDATA[momentum_cms_sites]]></name>
+        <schema><![CDATA[]]></schema>
+        <location>
+            <x>18.00</x>
+            <y>302.00</y>
+        </location>
+        <size>
+            <width>159.00</width>
+            <height>120.00</height>
+        </size>
+        <zorder>0</zorder>
+        <SQLField>
+            <name><![CDATA[id]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <primaryKey>1</primaryKey>
+            <forcedUnique><![CDATA[1]]></forcedUnique>
+            <temporaryOriginalName><![CDATA[id]]></temporaryOriginalName>
+            <uid><![CDATA[48B8F61C-7ADF-4BFC-8911-0F4CCC08C09A]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[label]]></name>
+            <type><![CDATA[VARCHAR]]></type>
+            <temporaryOriginalName><![CDATA[id_1]]></temporaryOriginalName>
+            <uid><![CDATA[4AD3EB6B-E370-493F-B6F0-8479E3260E99]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[host]]></name>
+            <type><![CDATA[VARCHAR]]></type>
+            <temporaryOriginalName><![CDATA[id_1]]></temporaryOriginalName>
+            <uid><![CDATA[2C77E58B-FE50-471C-87E6-6DE46D5B01E7]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[created_at]]></name>
+            <type><![CDATA[DATE]]></type>
+            <temporaryOriginalName><![CDATA[id_1]]></temporaryOriginalName>
+            <uid><![CDATA[3FF5538F-C46B-4879-9582-8DE72ED589C0]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[updated_at]]></name>
+            <type><![CDATA[DATE]]></type>
+            <temporaryOriginalName><![CDATA[id_1]]></temporaryOriginalName>
+            <uid><![CDATA[A89C51FA-8498-4DF1-B5E2-9E680EDB0F05]]></uid>
+        </SQLField>
+        <labelWindowIndex><![CDATA[6]]></labelWindowIndex>
+        <temporaryOriginalName><![CDATA[Table1]]></temporaryOriginalName>
+        <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
+        <uid><![CDATA[7242AF7E-B3D7-42CA-B8CE-3CAB0D478750]]></uid>
+    </SQLTable>
+    <SQLTable>
+        <name><![CDATA[momentum_cms_content_translations]]></name>
+        <schema><![CDATA[]]></schema>
+        <location>
+            <x>1099.00</x>
+            <y>283.00</y>
+        </location>
+        <size>
+            <width>265.00</width>
+            <height>160.00</height>
+        </size>
+        <zorder>5</zorder>
+        <SQLField>
+            <name><![CDATA[id]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <primaryKey>1</primaryKey>
+            <uid><![CDATA[A3924A33-97D7-4702-9D90-E7F6930EED46]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[momentum_cms_content_id]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <referencesField>id</referencesField>
+            <referencesTable>momentum_cms_contents</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[momentum_cms_contents]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[90708692-257A-4575-BDC9-FFCE07EA0A74]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[B5E59C52-F131-41D7-8C41-F5D66B6D4F65]]></referencesTableUID>
+            <uid><![CDATA[8BB04A97-427B-468D-94F2-1C94301693C5]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[locale]]></name>
+            <type><![CDATA[VARCHAR]]></type>
+            <uid><![CDATA[28E9D44A-212C-42A4-ADC8-271C86DA1468]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[created_at]]></name>
+            <type><![CDATA[DATE]]></type>
+            <uid><![CDATA[ACF5CC42-4EC3-43AE-995B-ABAF1B499CB8]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[updated_at]]></name>
+            <type><![CDATA[DATE]]></type>
+            <uid><![CDATA[C2660E0A-F418-4C15-A78A-4E296D3383C8]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[label]]></name>
+            <type><![CDATA[VARCHAR]]></type>
+            <uid><![CDATA[14F950D5-3E45-41FC-A89D-E0E0EA53D382]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[content]]></name>
+            <type><![CDATA[TEXT]]></type>
+            <uid><![CDATA[D8335FFF-8A94-4E53-B028-9D38AEB63BE1]]></uid>
+        </SQLField>
+        <labelWindowIndex><![CDATA[2]]></labelWindowIndex>
+        <uid><![CDATA[944F9582-C30B-4FD6-A5E0-88841EFFD5BD]]></uid>
+    </SQLTable>
+    <SQLTable>
+        <name><![CDATA[momentum_cms_page_translations]]></name>
+        <schema><![CDATA[]]></schema>
+        <location>
+            <x>827.00</x>
+            <y>70.00</y>
+        </location>
+        <size>
+            <width>261.00</width>
+            <height>160.00</height>
+        </size>
+        <zorder>7</zorder>
+        <SQLField>
+            <name><![CDATA[id]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <uid><![CDATA[37AEEA81-B99B-4A06-B499-BBD89B4D1D23]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[momentum_cms_page_id]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <referencesField>id</referencesField>
+            <referencesTable>momentum_cms_pages</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[momentum_cms_pages]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[D9578DA7-DD22-459B-B2FF-CEEA592FFFEA]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[6C1E9C58-4DE9-440A-A62A-621E0FFC6A8B]]></referencesTableUID>
+            <uid><![CDATA[C04A36C2-3059-4F46-90C8-7726670EE3FA]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[locale]]></name>
+            <type><![CDATA[VARCHAR]]></type>
+            <uid><![CDATA[C6AFE399-073E-44FA-8A82-4052797E416E]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[created_at]]></name>
+            <type><![CDATA[DATE]]></type>
+            <uid><![CDATA[6EB3149D-0032-48F4-9BEE-7958775C7667]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[updated_at]]></name>
+            <type><![CDATA[DATE]]></type>
+            <uid><![CDATA[9D0A6395-D8E8-424F-A580-54545F544157]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[slug]]></name>
+            <type><![CDATA[VARCHAR]]></type>
+            <uid><![CDATA[D8D13915-8D24-4FE5-A607-CA9E7DC72C4D]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[path]]></name>
+            <type><![CDATA[VARCHAR]]></type>
+            <uid><![CDATA[08C87C95-568A-45C0-86B3-758AE45BB87A]]></uid>
+        </SQLField>
+        <labelWindowIndex><![CDATA[0]]></labelWindowIndex>
+        <uid><![CDATA[B59EE829-CD4E-4974-A2F0-6567F40F67DE]]></uid>
+    </SQLTable>
+    <SQLTable>
+        <name><![CDATA[momentum_cms_contents]]></name>
+        <schema><![CDATA[]]></schema>
+        <location>
+            <x>830.00</x>
+            <y>303.00</y>
+        </location>
+        <size>
+            <width>200.00</width>
+            <height>100.00</height>
+        </size>
+        <zorder>4</zorder>
+        <SQLField>
+            <name><![CDATA[id]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <primaryKey>1</primaryKey>
+            <forcedUnique><![CDATA[1]]></forcedUnique>
+            <uid><![CDATA[90708692-257A-4575-BDC9-FFCE07EA0A74]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[page_id]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <referencesField>id</referencesField>
+            <referencesTable>momentum_cms_pages</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[momentum_cms_pages]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[D9578DA7-DD22-459B-B2FF-CEEA592FFFEA]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[6C1E9C58-4DE9-440A-A62A-621E0FFC6A8B]]></referencesTableUID>
+            <uid><![CDATA[6CA4F170-FDFD-4A9B-9F3F-D3123BF83578]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[created_at]]></name>
+            <type><![CDATA[DATE]]></type>
+            <uid><![CDATA[628865A0-8D1E-46D1-B883-9713DB53878C]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[updated_at]]></name>
+            <type><![CDATA[DATE]]></type>
+            <uid><![CDATA[EF21246A-5394-4F6C-8D57-441B805F53C1]]></uid>
+        </SQLField>
+        <labelWindowIndex><![CDATA[3]]></labelWindowIndex>
+        <uid><![CDATA[B5E59C52-F131-41D7-8C41-F5D66B6D4F65]]></uid>
+    </SQLTable>
+    <SQLTable>
+        <name><![CDATA[momentum_cms_locales]]></name>
+        <schema><![CDATA[]]></schema>
+        <location>
+            <x>18.00</x>
+            <y>24.00</y>
+        </location>
+        <size>
+            <width>174.00</width>
+            <height>80.00</height>
+        </size>
+        <zorder>6</zorder>
+        <SQLField>
+            <name><![CDATA[id]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <uid><![CDATA[3E7BE589-6EE8-4AC9-B52D-59A049E7151A]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[label]]></name>
+            <type><![CDATA[VARCHAR]]></type>
+            <uid><![CDATA[85DF92B3-3C78-4E88-90F5-F846AC8E4299]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[identifier]]></name>
+            <type><![CDATA[VARCHAR]]></type>
+            <uid><![CDATA[796C73C5-993D-4E1E-958B-4574C6C42A2C]]></uid>
+        </SQLField>
+        <labelWindowIndex><![CDATA[1]]></labelWindowIndex>
+        <uid><![CDATA[C9A39585-568D-48DA-BD7B-E3DFF7F81A74]]></uid>
+    </SQLTable>
+    <SQLTable>
+        <name><![CDATA[momemtum_cms_templates]]></name>
+        <schema><![CDATA[]]></schema>
+        <location>
+            <x>268.00</x>
+            <y>347.00</y>
+        </location>
+        <size>
+            <width>198.00</width>
+            <height>180.00</height>
+        </size>
+        <zorder>2</zorder>
+        <SQLField>
+            <name><![CDATA[id]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <primaryKey>1</primaryKey>
+            <forcedUnique><![CDATA[1]]></forcedUnique>
+            <temporaryOriginalName><![CDATA[id]]></temporaryOriginalName>
+            <uid><![CDATA[7598298B-8849-4202-9F4B-321480C5D6A6]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[label]]></name>
+            <type><![CDATA[VARCHAR]]></type>
+            <temporaryOriginalName><![CDATA[id_1]]></temporaryOriginalName>
+            <uid><![CDATA[07100F55-9A1A-4897-8969-8C8C234768C9]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[site_id]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <referencesField>id</referencesField>
+            <referencesTable>momentum_cms_sites</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[momentum_cms_sites]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[48B8F61C-7ADF-4BFC-8911-0F4CCC08C09A]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[7242AF7E-B3D7-42CA-B8CE-3CAB0D478750]]></referencesTableUID>
+            <forcedUnique><![CDATA[0]]></forcedUnique>
+            <temporaryOriginalName><![CDATA[id_1]]></temporaryOriginalName>
+            <uid><![CDATA[5328192D-6F23-4B16-89F7-4FD9644ED397]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[content]]></name>
+            <type><![CDATA[VARCHAR]]></type>
+            <temporaryOriginalName><![CDATA[id_1]]></temporaryOriginalName>
+            <uid><![CDATA[95091124-220E-42E9-B310-E0A65AD83511]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[js]]></name>
+            <type><![CDATA[VARCHAR]]></type>
+            <temporaryOriginalName><![CDATA[id_1]]></temporaryOriginalName>
+            <uid><![CDATA[4CBE61C4-16FF-4CFF-8D01-99AC0D8412BF]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[css]]></name>
+            <type><![CDATA[VARCHAR]]></type>
+            <temporaryOriginalName><![CDATA[id_1]]></temporaryOriginalName>
+            <uid><![CDATA[F119E768-4CB7-47B9-8817-6976ACDA7CD6]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[created_at]]></name>
+            <type><![CDATA[DATE]]></type>
+            <temporaryOriginalName><![CDATA[id_1]]></temporaryOriginalName>
+            <uid><![CDATA[7C359A68-51F8-44A8-989A-F1C730923D65]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[updated_at]]></name>
+            <type><![CDATA[DATE]]></type>
+            <temporaryOriginalName><![CDATA[id_1]]></temporaryOriginalName>
+            <uid><![CDATA[5FE86493-0C64-4968-ACEF-7A21FD3FAF09]]></uid>
+        </SQLField>
+        <labelWindowIndex><![CDATA[5]]></labelWindowIndex>
+        <temporaryOriginalName><![CDATA[Table3]]></temporaryOriginalName>
+        <uid><![CDATA[E228A0B3-ACC6-4677-94A2-0D368BE0BFFD]]></uid>
+    </SQLTable>
+    <SQLDocumentInfo>
+        <encodedPrintInfo><![CDATA[BAtzdHJlYW10eXBlZIHoA4QBQISEhAtOU1ByaW50SW5mbwGEhAhOU09iamVjdACF
+koSEhBNOU011dGFibGVEaWN0aW9uYXJ5AISEDE5TRGljdGlvbmFyeQCUhAFpDZKE
+hIQITlNTdHJpbmcBlIQBKw5OU1BNUGFnZUZvcm1hdIaShISEDU5TTXV0YWJsZURh
+dGEAhIQGTlNEYXRhAJSXgaoZhAdbNjU3MGNdPD94bWwgdmVyc2lvbj0iMS4wIiBl
+bmNvZGluZz0iVVRGLTgiPz4KPCFET0NUWVBFIHBsaXN0IFBVQkxJQyAiLS8vQXBw
+bGUvL0RURCBQTElTVCAxLjAvL0VOIiAiaHR0cDovL3d3dy5hcHBsZS5jb20vRFRE
+cy9Qcm9wZXJ0eUxpc3QtMS4wLmR0ZCI+CjxwbGlzdCB2ZXJzaW9uPSIxLjAiPgo8
+ZGljdD4KCTxrZXk+Y29tLmFwcGxlLnByaW50LlBhZ2VGb3JtYXQuUE1Ib3Jpem9u
+dGFsUmVzPC9rZXk+Cgk8ZGljdD4KCQk8a2V5PmNvbS5hcHBsZS5wcmludC50aWNr
+ZXQuY3JlYXRvcjwva2V5PgoJCTxzdHJpbmc+Y29tLmFwcGxlLmpvYnRpY2tldDwv
+c3RyaW5nPgoJCTxrZXk+Y29tLmFwcGxlLnByaW50LnRpY2tldC5pdGVtQXJyYXk8
+L2tleT4KCQk8YXJyYXk+CgkJCTxkaWN0PgoJCQkJPGtleT5jb20uYXBwbGUucHJp
+bnQuUGFnZUZvcm1hdC5QTUhvcml6b250YWxSZXM8L2tleT4KCQkJCTxyZWFsPjcy
+PC9yZWFsPgoJCQkJPGtleT5jb20uYXBwbGUucHJpbnQudGlja2V0LnN0YXRlRmxh
+Zzwva2V5PgoJCQkJPGludGVnZXI+MDwvaW50ZWdlcj4KCQkJPC9kaWN0PgoJCTwv
+YXJyYXk+Cgk8L2RpY3Q+Cgk8a2V5PmNvbS5hcHBsZS5wcmludC5QYWdlRm9ybWF0
+LlBNT3JpZW50YXRpb248L2tleT4KCTxkaWN0PgoJCTxrZXk+Y29tLmFwcGxlLnBy
+aW50LnRpY2tldC5jcmVhdG9yPC9rZXk+CgkJPHN0cmluZz5jb20uYXBwbGUuam9i
+dGlja2V0PC9zdHJpbmc+CgkJPGtleT5jb20uYXBwbGUucHJpbnQudGlja2V0Lml0
+ZW1BcnJheTwva2V5PgoJCTxhcnJheT4KCQkJPGRpY3Q+CgkJCQk8a2V5PmNvbS5h
+cHBsZS5wcmludC5QYWdlRm9ybWF0LlBNT3JpZW50YXRpb248L2tleT4KCQkJCTxp
+bnRlZ2VyPjE8L2ludGVnZXI+CgkJCQk8a2V5PmNvbS5hcHBsZS5wcmludC50aWNr
+ZXQuc3RhdGVGbGFnPC9rZXk+CgkJCQk8aW50ZWdlcj4wPC9pbnRlZ2VyPgoJCQk8
+L2RpY3Q+CgkJPC9hcnJheT4KCTwvZGljdD4KCTxrZXk+Y29tLmFwcGxlLnByaW50
+LlBhZ2VGb3JtYXQuUE1TY2FsaW5nPC9rZXk+Cgk8ZGljdD4KCQk8a2V5PmNvbS5h
+cHBsZS5wcmludC50aWNrZXQuY3JlYXRvcjwva2V5PgoJCTxzdHJpbmc+Y29tLmFw
+cGxlLmpvYnRpY2tldDwvc3RyaW5nPgoJCTxrZXk+Y29tLmFwcGxlLnByaW50LnRp
+Y2tldC5pdGVtQXJyYXk8L2tleT4KCQk8YXJyYXk+CgkJCTxkaWN0PgoJCQkJPGtl
+eT5jb20uYXBwbGUucHJpbnQuUGFnZUZvcm1hdC5QTVNjYWxpbmc8L2tleT4KCQkJ
+CTxyZWFsPjE8L3JlYWw+CgkJCQk8a2V5PmNvbS5hcHBsZS5wcmludC50aWNrZXQu
+c3RhdGVGbGFnPC9rZXk+CgkJCQk8aW50ZWdlcj4wPC9pbnRlZ2VyPgoJCQk8L2Rp
+Y3Q+CgkJPC9hcnJheT4KCTwvZGljdD4KCTxrZXk+Y29tLmFwcGxlLnByaW50LlBh
+Z2VGb3JtYXQuUE1WZXJ0aWNhbFJlczwva2V5PgoJPGRpY3Q+CgkJPGtleT5jb20u
+YXBwbGUucHJpbnQudGlja2V0LmNyZWF0b3I8L2tleT4KCQk8c3RyaW5nPmNvbS5h
+cHBsZS5qb2J0aWNrZXQ8L3N0cmluZz4KCQk8a2V5PmNvbS5hcHBsZS5wcmludC50
+aWNrZXQuaXRlbUFycmF5PC9rZXk+CgkJPGFycmF5PgoJCQk8ZGljdD4KCQkJCTxr
+ZXk+Y29tLmFwcGxlLnByaW50LlBhZ2VGb3JtYXQuUE1WZXJ0aWNhbFJlczwva2V5
+PgoJCQkJPHJlYWw+NzI8L3JlYWw+CgkJCQk8a2V5PmNvbS5hcHBsZS5wcmludC50
+aWNrZXQuc3RhdGVGbGFnPC9rZXk+CgkJCQk8aW50ZWdlcj4wPC9pbnRlZ2VyPgoJ
+CQk8L2RpY3Q+CgkJPC9hcnJheT4KCTwvZGljdD4KCTxrZXk+Y29tLmFwcGxlLnBy
+aW50LlBhZ2VGb3JtYXQuUE1WZXJ0aWNhbFNjYWxpbmc8L2tleT4KCTxkaWN0PgoJ
+CTxrZXk+Y29tLmFwcGxlLnByaW50LnRpY2tldC5jcmVhdG9yPC9rZXk+CgkJPHN0
+cmluZz5jb20uYXBwbGUuam9idGlja2V0PC9zdHJpbmc+CgkJPGtleT5jb20uYXBw
+bGUucHJpbnQudGlja2V0Lml0ZW1BcnJheTwva2V5PgoJCTxhcnJheT4KCQkJPGRp
+Y3Q+CgkJCQk8a2V5PmNvbS5hcHBsZS5wcmludC5QYWdlRm9ybWF0LlBNVmVydGlj
+YWxTY2FsaW5nPC9rZXk+CgkJCQk8cmVhbD4xPC9yZWFsPgoJCQkJPGtleT5jb20u
+YXBwbGUucHJpbnQudGlja2V0LnN0YXRlRmxhZzwva2V5PgoJCQkJPGludGVnZXI+
+MDwvaW50ZWdlcj4KCQkJPC9kaWN0PgoJCTwvYXJyYXk+Cgk8L2RpY3Q+Cgk8a2V5
+PmNvbS5hcHBsZS5wcmludC5zdWJUaWNrZXQucGFwZXJfaW5mb190aWNrZXQ8L2tl
+eT4KCTxkaWN0PgoJCTxrZXk+UE1QUERQYXBlckNvZGVOYW1lPC9rZXk+CgkJPGRp
+Y3Q+CgkJCTxrZXk+Y29tLmFwcGxlLnByaW50LnRpY2tldC5jcmVhdG9yPC9rZXk+
+CgkJCTxzdHJpbmc+Y29tLmFwcGxlLmpvYnRpY2tldDwvc3RyaW5nPgoJCQk8a2V5
+PmNvbS5hcHBsZS5wcmludC50aWNrZXQuaXRlbUFycmF5PC9rZXk+CgkJCTxhcnJh
+eT4KCQkJCTxkaWN0PgoJCQkJCTxrZXk+UE1QUERQYXBlckNvZGVOYW1lPC9rZXk+
+CgkJCQkJPHN0cmluZz5MZXR0ZXI8L3N0cmluZz4KCQkJCQk8a2V5PmNvbS5hcHBs
+ZS5wcmludC50aWNrZXQuc3RhdGVGbGFnPC9rZXk+CgkJCQkJPGludGVnZXI+MDwv
+aW50ZWdlcj4KCQkJCTwvZGljdD4KCQkJPC9hcnJheT4KCQk8L2RpY3Q+CgkJPGtl
+eT5QTVBQRFRyYW5zbGF0aW9uU3RyaW5nUGFwZXJOYW1lPC9rZXk+CgkJPGRpY3Q+
+CgkJCTxrZXk+Y29tLmFwcGxlLnByaW50LnRpY2tldC5jcmVhdG9yPC9rZXk+CgkJ
+CTxzdHJpbmc+Y29tLmFwcGxlLmpvYnRpY2tldDwvc3RyaW5nPgoJCQk8a2V5PmNv
+bS5hcHBsZS5wcmludC50aWNrZXQuaXRlbUFycmF5PC9rZXk+CgkJCTxhcnJheT4K
+CQkJCTxkaWN0PgoJCQkJCTxrZXk+UE1QUERUcmFuc2xhdGlvblN0cmluZ1BhcGVy
+TmFtZTwva2V5PgoJCQkJCTxzdHJpbmc+VVMgTGV0dGVyPC9zdHJpbmc+CgkJCQkJ
+PGtleT5jb20uYXBwbGUucHJpbnQudGlja2V0LnN0YXRlRmxhZzwva2V5PgoJCQkJ
+CTxpbnRlZ2VyPjA8L2ludGVnZXI+CgkJCQk8L2RpY3Q+CgkJCTwvYXJyYXk+CgkJ
+PC9kaWN0PgoJCTxrZXk+UE1UaW9nYVBhcGVyTmFtZTwva2V5PgoJCTxkaWN0PgoJ
+CQk8a2V5PmNvbS5hcHBsZS5wcmludC50aWNrZXQuY3JlYXRvcjwva2V5PgoJCQk8
+c3RyaW5nPmNvbS5hcHBsZS5qb2J0aWNrZXQ8L3N0cmluZz4KCQkJPGtleT5jb20u
+YXBwbGUucHJpbnQudGlja2V0Lml0ZW1BcnJheTwva2V5PgoJCQk8YXJyYXk+CgkJ
+CQk8ZGljdD4KCQkJCQk8a2V5PlBNVGlvZ2FQYXBlck5hbWU8L2tleT4KCQkJCQk8
+c3RyaW5nPm5hLWxldHRlcjwvc3RyaW5nPgoJCQkJCTxrZXk+Y29tLmFwcGxlLnBy
+aW50LnRpY2tldC5zdGF0ZUZsYWc8L2tleT4KCQkJCQk8aW50ZWdlcj4wPC9pbnRl
+Z2VyPgoJCQkJPC9kaWN0PgoJCQk8L2FycmF5PgoJCTwvZGljdD4KCQk8a2V5PmNv
+bS5hcHBsZS5wcmludC5QYWdlRm9ybWF0LlBNQWRqdXN0ZWRQYWdlUmVjdDwva2V5
+PgoJCTxkaWN0PgoJCQk8a2V5PmNvbS5hcHBsZS5wcmludC50aWNrZXQuY3JlYXRv
+cjwva2V5PgoJCQk8c3RyaW5nPmNvbS5hcHBsZS5qb2J0aWNrZXQ8L3N0cmluZz4K
+CQkJPGtleT5jb20uYXBwbGUucHJpbnQudGlja2V0Lml0ZW1BcnJheTwva2V5PgoJ
+CQk8YXJyYXk+CgkJCQk8ZGljdD4KCQkJCQk8a2V5PmNvbS5hcHBsZS5wcmludC5Q
+YWdlRm9ybWF0LlBNQWRqdXN0ZWRQYWdlUmVjdDwva2V5PgoJCQkJCTxhcnJheT4K
+CQkJCQkJPGludGVnZXI+MDwvaW50ZWdlcj4KCQkJCQkJPGludGVnZXI+MDwvaW50
+ZWdlcj4KCQkJCQkJPHJlYWw+NzM0PC9yZWFsPgoJCQkJCQk8cmVhbD41NzY8L3Jl
+YWw+CgkJCQkJPC9hcnJheT4KCQkJCQk8a2V5PmNvbS5hcHBsZS5wcmludC50aWNr
+ZXQuc3RhdGVGbGFnPC9rZXk+CgkJCQkJPGludGVnZXI+MDwvaW50ZWdlcj4KCQkJ
+CTwvZGljdD4KCQkJPC9hcnJheT4KCQk8L2RpY3Q+CgkJPGtleT5jb20uYXBwbGUu
+cHJpbnQuUGFnZUZvcm1hdC5QTUFkanVzdGVkUGFwZXJSZWN0PC9rZXk+CgkJPGRp
+Y3Q+CgkJCTxrZXk+Y29tLmFwcGxlLnByaW50LnRpY2tldC5jcmVhdG9yPC9rZXk+
+CgkJCTxzdHJpbmc+Y29tLmFwcGxlLmpvYnRpY2tldDwvc3RyaW5nPgoJCQk8a2V5
+PmNvbS5hcHBsZS5wcmludC50aWNrZXQuaXRlbUFycmF5PC9rZXk+CgkJCTxhcnJh
+eT4KCQkJCTxkaWN0PgoJCQkJCTxrZXk+Y29tLmFwcGxlLnByaW50LlBhZ2VGb3Jt
+YXQuUE1BZGp1c3RlZFBhcGVyUmVjdDwva2V5PgoJCQkJCTxhcnJheT4KCQkJCQkJ
+PHJlYWw+LTE4PC9yZWFsPgoJCQkJCQk8cmVhbD4tMTg8L3JlYWw+CgkJCQkJCTxy
+ZWFsPjc3NDwvcmVhbD4KCQkJCQkJPHJlYWw+NTk0PC9yZWFsPgoJCQkJCTwvYXJy
+YXk+CgkJCQkJPGtleT5jb20uYXBwbGUucHJpbnQudGlja2V0LnN0YXRlRmxhZzwv
+a2V5PgoJCQkJCTxpbnRlZ2VyPjA8L2ludGVnZXI+CgkJCQk8L2RpY3Q+CgkJCTwv
+YXJyYXk+CgkJPC9kaWN0PgoJCTxrZXk+Y29tLmFwcGxlLnByaW50LlBhcGVySW5m
+by5QTVBhcGVyTmFtZTwva2V5PgoJCTxkaWN0PgoJCQk8a2V5PmNvbS5hcHBsZS5w
+cmludC50aWNrZXQuY3JlYXRvcjwva2V5PgoJCQk8c3RyaW5nPmNvbS5hcHBsZS5q
+b2J0aWNrZXQ8L3N0cmluZz4KCQkJPGtleT5jb20uYXBwbGUucHJpbnQudGlja2V0
+Lml0ZW1BcnJheTwva2V5PgoJCQk8YXJyYXk+CgkJCQk8ZGljdD4KCQkJCQk8a2V5
+PmNvbS5hcHBsZS5wcmludC5QYXBlckluZm8uUE1QYXBlck5hbWU8L2tleT4KCQkJ
+CQk8c3RyaW5nPm5hLWxldHRlcjwvc3RyaW5nPgoJCQkJCTxrZXk+Y29tLmFwcGxl
+LnByaW50LnRpY2tldC5zdGF0ZUZsYWc8L2tleT4KCQkJCQk8aW50ZWdlcj4wPC9p
+bnRlZ2VyPgoJCQkJPC9kaWN0PgoJCQk8L2FycmF5PgoJCTwvZGljdD4KCQk8a2V5
+PmNvbS5hcHBsZS5wcmludC5QYXBlckluZm8uUE1VbmFkanVzdGVkUGFnZVJlY3Q8
+L2tleT4KCQk8ZGljdD4KCQkJPGtleT5jb20uYXBwbGUucHJpbnQudGlja2V0LmNy
+ZWF0b3I8L2tleT4KCQkJPHN0cmluZz5jb20uYXBwbGUuam9idGlja2V0PC9zdHJp
+bmc+CgkJCTxrZXk+Y29tLmFwcGxlLnByaW50LnRpY2tldC5pdGVtQXJyYXk8L2tl
+eT4KCQkJPGFycmF5PgoJCQkJPGRpY3Q+CgkJCQkJPGtleT5jb20uYXBwbGUucHJp
+bnQuUGFwZXJJbmZvLlBNVW5hZGp1c3RlZFBhZ2VSZWN0PC9rZXk+CgkJCQkJPGFy
+cmF5PgoJCQkJCQk8aW50ZWdlcj4wPC9pbnRlZ2VyPgoJCQkJCQk8aW50ZWdlcj4w
+PC9pbnRlZ2VyPgoJCQkJCQk8cmVhbD43MzQ8L3JlYWw+CgkJCQkJCTxyZWFsPjU3
+NjwvcmVhbD4KCQkJCQk8L2FycmF5PgoJCQkJCTxrZXk+Y29tLmFwcGxlLnByaW50
+LnRpY2tldC5zdGF0ZUZsYWc8L2tleT4KCQkJCQk8aW50ZWdlcj4wPC9pbnRlZ2Vy
+PgoJCQkJPC9kaWN0PgoJCQk8L2FycmF5PgoJCTwvZGljdD4KCQk8a2V5PmNvbS5h
+cHBsZS5wcmludC5QYXBlckluZm8uUE1VbmFkanVzdGVkUGFwZXJSZWN0PC9rZXk+
+CgkJPGRpY3Q+CgkJCTxrZXk+Y29tLmFwcGxlLnByaW50LnRpY2tldC5jcmVhdG9y
+PC9rZXk+CgkJCTxzdHJpbmc+Y29tLmFwcGxlLmpvYnRpY2tldDwvc3RyaW5nPgoJ
+CQk8a2V5PmNvbS5hcHBsZS5wcmludC50aWNrZXQuaXRlbUFycmF5PC9rZXk+CgkJ
+CTxhcnJheT4KCQkJCTxkaWN0PgoJCQkJCTxrZXk+Y29tLmFwcGxlLnByaW50LlBh
+cGVySW5mby5QTVVuYWRqdXN0ZWRQYXBlclJlY3Q8L2tleT4KCQkJCQk8YXJyYXk+
+CgkJCQkJCTxyZWFsPi0xODwvcmVhbD4KCQkJCQkJPHJlYWw+LTE4PC9yZWFsPgoJ
+CQkJCQk8cmVhbD43NzQ8L3JlYWw+CgkJCQkJCTxyZWFsPjU5NDwvcmVhbD4KCQkJ
+CQk8L2FycmF5PgoJCQkJCTxrZXk+Y29tLmFwcGxlLnByaW50LnRpY2tldC5zdGF0
+ZUZsYWc8L2tleT4KCQkJCQk8aW50ZWdlcj4wPC9pbnRlZ2VyPgoJCQkJPC9kaWN0
+PgoJCQk8L2FycmF5PgoJCTwvZGljdD4KCQk8a2V5PmNvbS5hcHBsZS5wcmludC5Q
+YXBlckluZm8ucHBkLlBNUGFwZXJOYW1lPC9rZXk+CgkJPGRpY3Q+CgkJCTxrZXk+
+Y29tLmFwcGxlLnByaW50LnRpY2tldC5jcmVhdG9yPC9rZXk+CgkJCTxzdHJpbmc+
+Y29tLmFwcGxlLmpvYnRpY2tldDwvc3RyaW5nPgoJCQk8a2V5PmNvbS5hcHBsZS5w
+cmludC50aWNrZXQuaXRlbUFycmF5PC9rZXk+CgkJCTxhcnJheT4KCQkJCTxkaWN0
+PgoJCQkJCTxrZXk+Y29tLmFwcGxlLnByaW50LlBhcGVySW5mby5wcGQuUE1QYXBl
+ck5hbWU8L2tleT4KCQkJCQk8c3RyaW5nPkxldHRlcjwvc3RyaW5nPgoJCQkJCTxr
+ZXk+Y29tLmFwcGxlLnByaW50LnRpY2tldC5zdGF0ZUZsYWc8L2tleT4KCQkJCQk8
+aW50ZWdlcj4wPC9pbnRlZ2VyPgoJCQkJPC9kaWN0PgoJCQk8L2FycmF5PgoJCTwv
+ZGljdD4KCQk8a2V5PmNvbS5hcHBsZS5wcmludC50aWNrZXQuQVBJVmVyc2lvbjwv
+a2V5PgoJCTxzdHJpbmc+MDAuMjA8L3N0cmluZz4KCQk8a2V5PmNvbS5hcHBsZS5w
+cmludC50aWNrZXQudHlwZTwva2V5PgoJCTxzdHJpbmc+Y29tLmFwcGxlLnByaW50
+LlBhcGVySW5mb1RpY2tldDwvc3RyaW5nPgoJPC9kaWN0PgoJPGtleT5jb20uYXBw
+bGUucHJpbnQudGlja2V0LkFQSVZlcnNpb248L2tleT4KCTxzdHJpbmc+MDAuMjA8
+L3N0cmluZz4KCTxrZXk+Y29tLmFwcGxlLnByaW50LnRpY2tldC50eXBlPC9rZXk+
+Cgk8c3RyaW5nPmNvbS5hcHBsZS5wcmludC5QYWdlRm9ybWF0VGlja2V0PC9zdHJp
+bmc+CjwvZGljdD4KPC9wbGlzdD4KhpKEmZkLTlNQYXBlclNpemWGkoSEhAdOU1Zh
+bHVlAJSEASqEhAt7Q0dTaXplPWRkfZ+BZAKBGAOGkoSZmRZOU0hvcml6b250YWxs
+eUNlbnRlcmVkhpKEhIQITlNOdW1iZXIAn56EhAFjoQGGkoSZmRROU1ZlcnRpY2Fs
+bHlDZW50ZXJlZIaSopKEmZkMTlNMZWZ0TWFyZ2luhpKEo56EhAFkohKGkoSZmQ1O
+U1JpZ2h0TWFyZ2luhpKEo56oohKGkoSZmQtOU1RvcE1hcmdpboaShKOeqKIehpKE
+mZkNTlNPcmllbnRhdGlvboaShKOehIQBcaMAhpKEmZkVTlNIb3Jpem9uYWxQYWdp
+bmF0aW9uhpKukoSZmRROU1ZlcnRpY2FsUGFnaW5hdGlvboaSrpKEmZkOTlNCb3R0
+b21NYXJnaW6GkoSjnqiiNIaShJmZD05TU2NhbGluZ0ZhY3RvcoaShKOeqKIBhpKE
+mZkLTlNQYXBlck5hbWWGkoSZmQluYS1sZXR0ZXKGhoY=
+]]></encodedPrintInfo>
+        <autoSizeTablesOption><![CDATA[0]]></autoSizeTablesOption>
+        <documentScaleFactor><![CDATA[1]]></documentScaleFactor>
+        <exportDialect><![CDATA[Rails]]></exportDialect>
+        <fileversion><![CDATA[3.1]]></fileversion>
+        <generator><![CDATA[com.malcolmhardie.sqleditor]]></generator>
+        <generatorVersion><![CDATA[2.0]]></generatorVersion>
+        <hideFieldIcons><![CDATA[0]]></hideFieldIcons>
+        <hideFieldTypes><![CDATA[0]]></hideFieldTypes>
+        <pageBoundariesVisible><![CDATA[0]]></pageBoundariesVisible>
+        <PageGridVisible><![CDATA[0]]></PageGridVisible>
+        <sidebarIndex><![CDATA[0]]></sidebarIndex>
+        <snapToGrid><![CDATA[0]]></snapToGrid>
+        <SourceSidebarWidth><![CDATA[287.000000]]></SourceSidebarWidth>
+        <uid><![CDATA[771EB771-1844-4755-B73C-6F3AA4EF8EBB]]></uid>
+        <windowHeight><![CDATA[1054.000000]]></windowHeight>
+        <windowLocationX><![CDATA[0.000000]]></windowLocationX>
+        <windowLocationY><![CDATA[4.000000]]></windowLocationY>
+        <windowScrollOrigin><![CDATA[{0, 0}]]></windowScrollOrigin>
+        <windowWidth><![CDATA[1920.000000]]></windowWidth>
+    </SQLDocumentInfo>
+    <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>
+    <containerName><![CDATA[model controller orginal container]]></containerName>
+    <SQLObjectLabel>
+        <name><![CDATA[Planned]]></name>
+        <colorString><![CDATA[{1,0.8,0.8,0.8}]]></colorString>
+        <uid><![CDATA[8B2C4C7B-FDFD-4D08-A981-CBC062E7D43C]]></uid>
+    </SQLObjectLabel>
+</SQLContainer>

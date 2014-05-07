@@ -9,7 +9,7 @@ class MomentumCms::SettingsTest < ActiveSupport::TestCase
       end
     end
 
-    @setting = MomentumCms::Site.create! label: 'Mr. Pink'
+    @setting = MomentumCms::Site.create! label: 'cms site', host: 'test.dev'
 
     @new_setting_object = @setting.dup
     @new_setting_object.save!
