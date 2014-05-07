@@ -11,7 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140501220644) do
+ActiveRecord::Schema.define(version: 20140507065637) do
+
+  create_table "momentum_cms_block_translations", force: true do |t|
+    t.integer  "momentum_cms_block_id", null: false
+    t.string   "locale",                null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "value"
+  end
+
+  add_index "momentum_cms_block_translations", ["locale"], name: "index_momentum_cms_block_translations_on_locale"
+  add_index "momentum_cms_block_translations", ["momentum_cms_block_id"], name: "index_momentum_cms_block_translations_on_momentum_cms_block_id"
+
+  create_table "momentum_cms_blocks", force: true do |t|
+    t.integer  "content_id"
+    t.string   "identifier"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "momentum_cms_blocks", ["content_id"], name: "index_momentum_cms_blocks_on_content_id"
 
   create_table "momentum_cms_content_translations", force: true do |t|
     t.integer  "momentum_cms_content_id", null: false
@@ -33,6 +53,23 @@ ActiveRecord::Schema.define(version: 20140501220644) do
 
   add_index "momentum_cms_contents", ["page_id"], name: "index_momentum_cms_contents_on_page_id"
 
+  create_table "momentum_cms_files", force: true do |t|
+    t.string   "label"
+    t.string   "tag"
+    t.boolean  "multiple",          default: false
+    t.integer  "site_id"
+    t.integer  "attachable_id"
+    t.string   "attachable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+  end
+
+  add_index "momentum_cms_files", ["site_id"], name: "index_momentum_cms_files_on_site_id"
+
   create_table "momentum_cms_locales", force: true do |t|
     t.string "label"
     t.string "identifier"
@@ -52,6 +89,7 @@ ActiveRecord::Schema.define(version: 20140501220644) do
 
   create_table "momentum_cms_pages", force: true do |t|
     t.integer  "site_id"
+    t.integer  "template_id"
     t.string   "label"
     t.integer  "published_content_id"
     t.string   "ancestry"
@@ -60,6 +98,7 @@ ActiveRecord::Schema.define(version: 20140501220644) do
   end
 
   add_index "momentum_cms_pages", ["site_id"], name: "index_momentum_cms_pages_on_site_id"
+  add_index "momentum_cms_pages", ["template_id"], name: "index_momentum_cms_pages_on_template_id"
 
   create_table "momentum_cms_settings", force: true do |t|
     t.string   "var",         null: false
@@ -78,6 +117,18 @@ ActiveRecord::Schema.define(version: 20140501220644) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "momentum_cms_templates", force: true do |t|
+    t.string   "label"
+    t.integer  "site_id"
+    t.text     "content"
+    t.text     "js"
+    t.text     "css"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "momentum_cms_templates", ["site_id"], name: "index_momentum_cms_templates_on_site_id"
 
   create_table "versions", force: true do |t|
     t.string   "item_type",  null: false

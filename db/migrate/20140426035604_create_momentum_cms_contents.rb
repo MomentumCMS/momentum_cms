@@ -4,7 +4,7 @@ class CreateMomentumCmsContents < ActiveRecord::Migration
       t.references :page, index: true
       t.timestamps
     end
-    MomentumCms::Content.create_translation_table! :label => :string, :content => :text
+    MomentumCms::Content.create_translation_table! label: :string, content: :text
   end
 
   def down

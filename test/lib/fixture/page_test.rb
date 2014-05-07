@@ -50,6 +50,26 @@ class FixturePageTest < ActiveSupport::TestCase
     assert_equal 'about', services_about.slug
   end
 
+  def test_prepare_content
+    importer = MomentumCms::Fixture::Page::Importer.new(@site, @pages_path)
+    page = momentum_cms_pages(:default)
+    about_path = File.join(Rails.root, 'sites', 'example-a', 'pages', 'about')
+    assert_difference "MomentumCms::Content.count", 1 do
+      assert_difference "MomentumCms::Block.count", 2 do
+        importer.prepare_content(page, about_path)
+      end
+    end
+    page.reload
+    header = page.contents.last.blocks.find_by(identifier: 'header')
+    content = page.contents.last.blocks.find_by(identifier: 'content')
+    I18n.locale = 'en'
+    assert_equal "Welcome", header.value.strip
+    assert_equal "<p>Example English about content</p>", content.value.strip
+    I18n.locale = :fr
+    assert_equal "Bonjour", header.value.strip
+    assert_equal "<p>Example French about content</p>", content.value.strip
+  end
+
   def test_duplicate_import
     MomentumCms::Page.destroy_all
     assert_difference "MomentumCms::Page.count", 8 do

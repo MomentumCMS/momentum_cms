@@ -42,8 +42,29 @@ module MomentumCms::Fixture::Page
         # Save the page
         page.save!
 
+        # Attach any page content/blocks
+        prepare_content(page, path)
+
       end
 
+    end
+
+    def prepare_content(page, path)
+      content = page.contents.build
+      Dir.glob("#{path}/*.liquid").each do |content_path|
+        text = File.read(content_path)
+        template = Liquid::Template.parse(text)
+        original_locale = I18n.locale
+        template.root.nodelist.each do |node|
+          next unless node.is_a?(FixtureBlockTag)
+          I18n.locale = node.params[:locale]
+          block = content.blocks.detect{|b| b.identifier == node.params[:identifier]}
+          block = content.blocks.build(identifier: node.params[:identifier]) unless block
+          block.value = node.nodelist.first
+        end
+        I18n.locale = original_locale
+      end
+      content.save! if content.blocks.present?
     end
 
     def add_page(pages, page_path)
