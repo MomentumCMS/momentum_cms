@@ -14,7 +14,7 @@ gemspec
 # gem 'debugger'
 
 group :development, :test do
-  gem 'simplecov', '~> 0.7.1', require: false
+  gem 'simplecov', '~> 0.8.2', require: false
   gem 'coveralls', require: false
   gem 'awesome_print'
   gem 'better_errors'
