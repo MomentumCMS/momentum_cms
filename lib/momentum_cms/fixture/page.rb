@@ -98,9 +98,9 @@ module MomentumCms::Fixture::Page
 
     def generate_internal_path(path, attributes)
       internal_path = []
-      internal_path << attributes['label'].parameterize.downcase
+      internal_path << attributes['label'].to_slug
       ancestors(path).each do |ancestor_attributes|
-        internal_path << ancestor_attributes['label'].parameterize.downcase
+        internal_path << ancestor_attributes['label'].to_slug
       end
       internal_path = '/' + internal_path.reverse.join('/')
       internal_path.gsub(/(\/{2,})/, '/')
