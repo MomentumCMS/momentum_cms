@@ -6,6 +6,7 @@ class CreateMomentumCmsTemplates < ActiveRecord::Migration
       t.text :content
       t.text :js
       t.text :css
+      t.string :ancestry
 
       t.timestamps
     end

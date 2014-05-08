@@ -20,15 +20,16 @@ module MomentumCms::Fixture::Page
 
       # TODO: Consider locales and how we structure that within the json data
       locale = :en
-      @pages_hash.each do |path, page_attributes|
+      @pages_hash.sort_by { |k, v| k }.each do |path, page_attributes|
 
-        # Genreate the expected path
+        # Generate the expected path
         expected_path = generate_path(path, page_attributes, locale)
         
         # Check if this already exists in the database
-        page = MomentumCms::Page.where(site: @site, path: expected_path).first_or_initialize
-        page.label = page_attributes['label']
-        page.slug  = page_attributes['slug']
+        page = MomentumCms::Page.where(site: @site, path: expected_path).first_or_initialize do |o|
+          o.label = page_attributes['label']
+          o.slug  = page_attributes['slug']
+        end
 
         # Set the parent if required
         if has_parent?(path)
@@ -39,6 +40,10 @@ module MomentumCms::Fixture::Page
           page.parent = parent if parent
         end
 
+        if page_attributes['template'].present?
+          template      = MomentumCms::Template.where(label: page_attributes['template']).first
+          page.template = template if template
+        end
         # Save the page
         page.save!
 
@@ -50,16 +55,16 @@ module MomentumCms::Fixture::Page
     end
 
     def prepare_content(page, path)
-      content = page.contents.build
+      content = page.contents.build(label: page.label)
       Dir.glob("#{path}/*.liquid").each do |content_path|
         text = File.read(content_path)
         template = Liquid::Template.parse(text)
         original_locale = I18n.locale
         template.root.nodelist.each do |node|
-          next unless node.is_a?(FixtureBlockTag)
+          next unless node.is_a?(CmsFixtureBlockTag)
           I18n.locale = node.params[:locale]
-          block = content.blocks.detect{|b| b.identifier == node.params[:identifier]}
-          block = content.blocks.build(identifier: node.params[:identifier]) unless block
+          block = content.blocks.detect{|b| b.identifier == node.params[:id]}
+          block = content.blocks.build(identifier: node.params[:id]) unless block
           block.value = node.nodelist.first
         end
         I18n.locale = original_locale

@@ -1,9 +1,9 @@
 require_relative '../../test_helper'
 
-class FixtureBlockTest < ActiveSupport::TestCase
+class CmsFixtureBlockTest < ActiveSupport::TestCase
 
   def test_params
-    text = "{% fixture identifier:header locale:en %} Hello World{% endfixture %}"
+    text = "{% cms_fixture identifier:header locale:en %} Hello World{% endcms_fixture %}"
     template = Liquid::Template.parse(text)
     tag = template.root.nodelist.detect {|t| t.params[:identifier] == 'header'}
     assert_equal 'en', tag.params[:locale]
@@ -11,7 +11,7 @@ class FixtureBlockTest < ActiveSupport::TestCase
   end
 
   def test_parses_params
-    text = "{% fixture  identifier:header   locale:en   %}Hello{% endfixture %}"
+    text = "{% cms_fixture  identifier:header   locale:en   %}Hello{% endcms_fixture %}"
     template = Liquid::Template.parse(text)
     tag = template.root.nodelist.first
     expected_params = {identifier: 'header', locale: 'en'}
@@ -19,8 +19,8 @@ class FixtureBlockTest < ActiveSupport::TestCase
   end
 
   def test_find_by_identifier
-    text =  "{% fixture identifier:header locale:en %}Hello{% endfixture %}"
-    text += "{% fixture identifier:header locale:fr %}Bonjour{% endfixture %}"
+    text =  "{% cms_fixture identifier:header locale:en %}Hello{% endcms_fixture %}"
+    text += "{% cms_fixture identifier:header locale:fr %}Bonjour{% endcms_fixture %}"
     template = Liquid::Template.parse(text)
     en = template.root.nodelist.detect {|t| t.params[:locale] == 'en' && t.params[:identifier] == 'header'}
     fr = template.root.nodelist.detect {|t| t.params[:locale] == 'fr' && t.params[:identifier] == 'header'}

@@ -1,4 +1,4 @@
-class FixtureBlockTag < Liquid::Block
+class CmsFixtureBlockTag < Liquid::Block
 
   attr_accessor :params
 
@@ -25,4 +25,4 @@ class FixtureBlockTag < Liquid::Block
 
 end
 
-Liquid::Template.register_tag 'fixture', FixtureBlockTag
+Liquid::Template.register_tag 'cms_fixture', CmsFixtureBlockTag

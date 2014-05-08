@@ -12,6 +12,11 @@ Rails.application.routes.draw do
       end
       get 'sites/:id', to: 'dashboards#selector'
     end
+
+    get 'momentum_cms/css/:id', to: 'contents#css'
+    get 'momentum_cms/js/:id', to: 'contents#js'
+
+
     get '*id', to: 'contents#show'
     root to: 'contents#show'
   end

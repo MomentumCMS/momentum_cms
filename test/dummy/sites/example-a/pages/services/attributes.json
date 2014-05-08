@@ -1,4 +1,5 @@
 {
   "label": "Services",
-  "slug": "services"
+  "slug": "services",
+  "template": "Main Layout"
 }

@@ -1,3 +1,7 @@
 default:
   label: default
   host: dev.host
+
+alternative:
+  label: another-site
+  host: dev.host:3000
