@@ -1,0 +1,11 @@
+{
+  "label": "Team",
+  "locales": {
+    "en": {
+      "slug": "team"
+    },
+    "fr": {
+      "slug": "team-fr"
+    }
+  }
+}
