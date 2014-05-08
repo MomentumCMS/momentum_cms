@@ -13,34 +13,38 @@ module MomentumCms::Fixture::Page
     def import!
       @pages_hash = {}
 
-      Dir["#{@pages_path}*/"].each do |path|
+      Dir["#{@pages_path}/**/"].each do |path|
         add_page(@pages_hash, path)
-        build_page_tree(@pages_hash, path)
       end
 
       original_locale = :en
       locales = [:en]
       locales = @site.settings(:language).locales if @site.settings(:language).locales.present?
       locales.each do |locale|
-      # Set the Locale
-      I18n.locale = locale
+        # Set the Locale
+        I18n.locale = locale
 
-        @pages_hash.each do |path, page_attributes|
+        @pages_hash.sort_by { |k, v| k }.each do |path, page_attributes|
 
-          # Genreate the expected path
-          expected_path = generate_path(path, page_attributes, locale)
+          # Generate the expected path
           internal_path = generate_internal_path(path, page_attributes)
 
           # Check if this already exists in the database
           page = MomentumCms::Page.where(site: @site, internal_path: internal_path).first_or_initialize
           page.label = page_attributes['label']
-          page.slug  = slug_for_locale(page_attributes, locale)
+          page.slug = slug_for_locale(page_attributes, locale)
+
+          if page_attributes['template']
+            template = MomentumCms::Template.where(site: @site, label: page_attributes['template']).first
+            if template
+              page.template = template
+            end
+          end
 
           # Set the parent if required
           if has_parent?(path)
             parent_path = parent_path(path)
             parent_attributes = @pages_hash[parent_path]
-            expected_path = generate_path(parent_path, parent_attributes, locale)
             internal_path = generate_internal_path(parent_path, parent_attributes)
             parent = MomentumCms::Page.where(site: @site, internal_path: internal_path).first
             page.parent = parent if parent
@@ -51,10 +55,9 @@ module MomentumCms::Fixture::Page
 
           # Attach any page content/blocks
           prepare_content(page, path)
-
         end
-
       end
+      I18n.locale = original_locale
     end
 
     def prepare_content(page, path)
@@ -66,7 +69,7 @@ module MomentumCms::Fixture::Page
         template.root.nodelist.each do |node|
           next unless node.is_a?(CmsFixtureBlockTag)
           I18n.locale = node.params[:locale]
-          block = content.blocks.detect{|b| b.identifier == node.params[:id]}
+          block = content.blocks.detect { |b| b.identifier == node.params[:id] }
           block = content.blocks.build(identifier: node.params[:id]) unless block
           block.value = node.nodelist.first
         end
@@ -82,13 +85,6 @@ module MomentumCms::Fixture::Page
       end
     end
 
-    def build_page_tree(pages, path)
-      Dir["#{path}*/"].each do |path|
-        add_page(pages, path)
-        build_page_tree(pages, path)
-      end
-    end
-
     def generate_path(path, attributes, locale = nil)
       full_path = []
       full_path << slug_for_locale(attributes, locale)
@@ -97,7 +93,7 @@ module MomentumCms::Fixture::Page
       end
       expected_path = '/' + full_path.reverse.join('/')
       # Remove any double slashes.
-      expected_path.gsub(/(\/{2,})/,'/')
+      expected_path.gsub(/(\/{2,})/, '/')
     end
 
     def generate_internal_path(path, attributes)
@@ -107,19 +103,17 @@ module MomentumCms::Fixture::Page
         internal_path << ancestor_attributes['label'].parameterize.downcase
       end
       internal_path = '/' + internal_path.reverse.join('/')
-      internal_path.gsub(/(\/{2,})/,'/')
+      internal_path.gsub(/(\/{2,})/, '/')
     end
 
     def slug_for_locale(attributes, locale = nil)
-      if locale.nil? || !attributes.has_key?('locales')
-        slug = attributes['slug']
-      else
-        return nil unless attributes.has_key?('locales')
-        return nil unless attributes['locales'].has_key?(locale.to_s)
-        return nil unless attributes['locales'][locale.to_s].has_key?('slug')
-        slug = attributes['locales'][locale.to_s]['slug']
-      end
-      return slug
+      locale = locale.to_s if locale
+      slug = unless locale && attributes.has_key?('locales')
+               attributes['slug']
+             else
+               attributes.fetch('locales', {}).fetch(locale, {}).fetch('slug', nil)
+             end
+      slug
     end
 
     def ancestors(path, pages = [])
@@ -168,7 +162,7 @@ module MomentumCms::Fixture::Page
       FileUtils.mkdir_p(page_path)
       attributes = {
         label: page.label,
-        slug:  page.slug
+        slug: page.slug
       }
       MomentumCms::Fixture::Utils.write_json(File.join(page_path, 'attributes.json'), attributes)
     end

@@ -25,7 +25,7 @@ module MomentumCms::Fixture::Site
       FileUtils.mkdir_p(@site_path) unless File.exist?(@site_path)
       attributes = {
         label: @site.label,
-        host:  @site.host
+        host: @site.host
       }
       MomentumCms::Fixture::Utils.write_json(File.join(@site_path, 'attributes.json'), attributes)
     end
