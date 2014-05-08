@@ -1,5 +1,10 @@
 = form.association :page, collection: MomentumCms::Page.all, prompt: 'Choose a Page', label_method: :label, value_method: :id, include_blank: false
 = form.input :label
 = form.input :content
+
+= form.simple_fields_for :blocks do |block_form|
+  = block_form.input :identifier, as: :hidden
+  = block_form.input :value, label: block_form.object.identifier
+
 = form.submit class: 'btn btn-success btn-xs'
 = link_to 'Back', cms_admin_site_pages_path(@current_momentum_cms_site), class: 'btn btn-primary btn-xs'

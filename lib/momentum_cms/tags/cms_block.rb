@@ -1,5 +1,7 @@
 class CmsBlockTag < Liquid::Tag
 
+  attr_accessor :params
+
   def initialize(tag_name, params, tokens)
     super
     @params = sanatize_params(params)

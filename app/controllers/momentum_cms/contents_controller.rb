@@ -1,9 +1,7 @@
 class MomentumCms::ContentsController < MomentumCms::BaseController
   before_action :load_momentum_cms_content, only: [:show]
-
   before_action :load_momentum_cms_page, only: [:css, :js]
   before_action :prepare_templates
-
 
   def css
     render :css, format: :css
@@ -43,8 +41,6 @@ class MomentumCms::ContentsController < MomentumCms::BaseController
   end
 
   def prepare_templates
-    template        = @momentum_cms_page.template
-    @template_array = [template.ancestors.to_a, template].flatten.compact
+    @template_array = MomentumCms::Template.ancestor_and_self!(@momentum_cms_page.template)
   end
-
 end

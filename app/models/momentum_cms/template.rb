@@ -31,6 +31,15 @@ class MomentumCms::Template < ActiveRecord::Base
 
   # == Callbacks ============================================================
   # == Class Methods ========================================================
+
+  def self.ancestor_and_self!(template)
+    if template && template.is_a?(MomentumCms::Template)
+      [template.ancestors.to_a, template].flatten.compact
+    else
+      []
+    end
+  end
+
   # == Instance Methods =====================================================
   protected
 
