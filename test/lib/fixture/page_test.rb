@@ -120,6 +120,33 @@ class FixturePageTest < ActiveSupport::TestCase
     assert_equal '/another/example/', importer.parent_path(path)
   end
 
+  def test_multilingual_generate_path
+    pages = {}
+    pages['/'] =                   {'label' => 'Home',   'slug' => '/'}
+    pages['/about/'] =             {'label' => 'About',  'locales' => {'en' => {'slug' => 'about'},  'fr' => {'slug' => 'about-fr'}}}
+    pages['/about/team/'] =        {'label' => 'Team',   'locales' => {'en' => {'slug' => 'team'},   'fr' => {'slug' => 'team-fr'}}}
+    importer = MomentumCms::Fixture::Page::Importer.new(nil, 'fake')
+    importer.pages_hash = pages
+    path_en = importer.generate_path('/about/team/person', {'label' => 'Person', 'slug' => 'person'}, 'en')
+    path_fr = importer.generate_path('/about/team/person', {'label' => 'Person', 'slug' => 'person'}, 'fr')
+    assert_equal '/about/team/person', path_en
+    assert_equal '/about-fr/team-fr/person', path_fr
+  end
+
+  def test_multilingual_import
+    importer = MomentumCms::Fixture::Page::Importer.new(@site, File.join('multilingual-example', 'pages')).import!
+  end
+
+  def test_slug_for_locale
+    importer = MomentumCms::Fixture::Page::Importer.new(nil, 'fake')
+    attributes = {'label' => 'About',  'locales' => {'en' => {'slug' => 'about'},  'fr' => {'slug' => 'about-fr'}}}
+    assert_equal 'about', importer.slug_for_locale(attributes, 'en')
+    assert_equal 'about-fr', importer.slug_for_locale(attributes, 'fr')
+    assert_nil importer.slug_for_locale(attributes, 'es')
+    simple_attributes = {'label' => 'About',  'slug' => 'simple'}
+    assert_equal 'simple', importer.slug_for_locale(simple_attributes)
+  end
+
   #== Exporting =============================================================
 
   def test_basic_export

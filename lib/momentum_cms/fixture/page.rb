@@ -24,7 +24,7 @@ module MomentumCms::Fixture::Page
 
         # Genreate the expected path
         expected_path = generate_path(path, page_attributes, locale)
-        
+
         # Check if this already exists in the database
         page = MomentumCms::Page.where(site: @site, path: expected_path).first_or_initialize
         page.label = page_attributes['label']
@@ -40,7 +40,10 @@ module MomentumCms::Fixture::Page
         end
 
         # Save the page
+        puts "Page: #{page.label}, Parent ID: #{page.parent.try(:label)}"
+        puts ""
         page.save!
+        puts "saved"
 
         # Attach any page content/blocks
         prepare_content(page, path)
@@ -83,13 +86,27 @@ module MomentumCms::Fixture::Page
 
     def generate_path(path, attributes, locale = nil)
       full_path = []
-      full_path << attributes['slug']
+      full_path << slug_for_locale(attributes, locale)
       ancestors(path).each do |ancestor|
-        full_path << ancestor['slug']
+        # puts "ancestor: #{ancestor}"
+        # puts "slug: #{slug_for_locale(ancestor, locale)}"
+        full_path << slug_for_locale(ancestor, locale)
       end
       expected_path = '/' + full_path.reverse.join('/')
       # Remove any double slashes.
       expected_path.gsub(/(\/{2,})/,'/')
+    end
+
+    def slug_for_locale(attributes, locale = nil)
+      if locale.nil? || !attributes.has_key?('locales')
+        slug = attributes['slug']
+      else
+        return nil unless attributes.has_key?('locales')
+        return nil unless attributes['locales'].has_key?(locale)
+        return nil unless attributes['locales'][locale].has_key?('slug')
+        slug = attributes['locales'][locale]['slug']
+      end
+      return slug
     end
 
     def ancestors(path, pages = [])
@@ -102,7 +119,7 @@ module MomentumCms::Fixture::Page
     end
 
     def has_parent?(path)
-      @pages_hash.has_key?(parent_path(path))
+      @pages_hash.has_key?(parent_path(path)) && path != '/'
     end
 
     def parent_path(path)
