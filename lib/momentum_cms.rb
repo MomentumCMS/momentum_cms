@@ -27,6 +27,8 @@ require 'momentum_cms/tags/cms_fixture'
 require 'momentum_cms/tags/cms_yield'
 require 'momentum_cms/tags/cms_css'
 require 'momentum_cms/tags/cms_js'
+require 'momentum_cms/tags/cms_block'
+
 
 
 module MomentumCms
