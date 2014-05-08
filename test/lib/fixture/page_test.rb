@@ -125,6 +125,7 @@ class FixturePageTest < ActiveSupport::TestCase
     pages['/'] =                   {'label' => 'Home',   'slug' => '/'}
     pages['/about/'] =             {'label' => 'About',  'locales' => {'en' => {'slug' => 'about'},  'fr' => {'slug' => 'about-fr'}}}
     pages['/about/team/'] =        {'label' => 'Team',   'locales' => {'en' => {'slug' => 'team'},   'fr' => {'slug' => 'team-fr'}}}
+    # pages['/about/team/person/'] = {'label' => 'Person', 'locales' => {'en' => {'slug' => 'person'}, 'fr' => {'slug' => 'person-fr'}}}
     importer = MomentumCms::Fixture::Page::Importer.new(nil, 'fake')
     importer.pages_hash = pages
     path_en = importer.generate_path('/about/team/person', {'label' => 'Person', 'slug' => 'person'}, 'en')
@@ -141,6 +142,7 @@ class FixturePageTest < ActiveSupport::TestCase
     importer = MomentumCms::Fixture::Page::Importer.new(nil, 'fake')
     attributes = {'label' => 'About',  'locales' => {'en' => {'slug' => 'about'},  'fr' => {'slug' => 'about-fr'}}}
     assert_equal 'about', importer.slug_for_locale(attributes, 'en')
+    assert_equal 'about', importer.slug_for_locale(attributes, :en)
     assert_equal 'about-fr', importer.slug_for_locale(attributes, 'fr')
     assert_nil importer.slug_for_locale(attributes, 'es')
     simple_attributes = {'label' => 'About',  'slug' => 'simple'}

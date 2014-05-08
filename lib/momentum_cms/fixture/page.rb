@@ -27,8 +27,8 @@ module MomentumCms::Fixture::Page
 
         # Check if this already exists in the database
         page = MomentumCms::Page.where(site: @site, path: expected_path).first_or_initialize
-        page.label = page_attributes['label']
-        page.slug  = page_attributes['slug']
+        page.label ||= page_attributes['label']
+        page.slug  ||= page_attributes['slug']
 
         # Set the parent if required
         if has_parent?(path)
@@ -40,10 +40,7 @@ module MomentumCms::Fixture::Page
         end
 
         # Save the page
-        puts "Page: #{page.label}, Parent ID: #{page.parent.try(:label)}"
-        puts ""
         page.save!
-        puts "saved"
 
         # Attach any page content/blocks
         prepare_content(page, path)
@@ -88,8 +85,6 @@ module MomentumCms::Fixture::Page
       full_path = []
       full_path << slug_for_locale(attributes, locale)
       ancestors(path).each do |ancestor|
-        # puts "ancestor: #{ancestor}"
-        # puts "slug: #{slug_for_locale(ancestor, locale)}"
         full_path << slug_for_locale(ancestor, locale)
       end
       expected_path = '/' + full_path.reverse.join('/')
@@ -102,9 +97,9 @@ module MomentumCms::Fixture::Page
         slug = attributes['slug']
       else
         return nil unless attributes.has_key?('locales')
-        return nil unless attributes['locales'].has_key?(locale)
-        return nil unless attributes['locales'][locale].has_key?('slug')
-        slug = attributes['locales'][locale]['slug']
+        return nil unless attributes['locales'].has_key?(locale.to_s)
+        return nil unless attributes['locales'][locale.to_s].has_key?('slug')
+        slug = attributes['locales'][locale.to_s]['slug']
       end
       return slug
     end
