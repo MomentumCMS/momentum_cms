@@ -5,21 +5,17 @@
     %tr
       %th Label
       %th Tag
-      %th Site
       %th Created At
       %th Updated At
       %th Control
   %tbody
     - @momentum_cms_files.each do |momentum_cms_file|
       %tr
-        %td= link_to momentum_cms_file.label, edit_momentum_cms_admin_file_path(momentum_cms_file)
+        %td= link_to momentum_cms_file.label, edit_cms_admin_site_file_path(@current_momentum_cms_site, momentum_cms_file)
         %td= momentum_cms_file.tag
-        %th
-          - if momentum_cms_file.site
-            = link_to momentum_cms_file.site.label, edit_momentum_cms_admin_site_path(momentum_cms_file.site)
         %td= momentum_cms_file.created_at
         %td= momentum_cms_file.updated_at
         %td       
-          = link_to 'Destroy', momentum_cms_admin_file_path(momentum_cms_file), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs'
+          = link_to 'Destroy', cms_admin_site_file_path(@current_momentum_cms_site, momentum_cms_file), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs'
 %br/
-= link_to 'New File', new_momentum_cms_admin_file_path, class: 'btn btn-primary btn-xs'
+= link_to 'New File', new_cms_admin_site_file_path(@current_momentum_cms_site), class: 'btn btn-primary btn-xs'

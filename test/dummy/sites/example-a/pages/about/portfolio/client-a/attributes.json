@@ -1,4 +1,5 @@
 {
   "label": "Client A",
-  "slug": "client-a"
+  "slug": "client-a",
+  "template": "Main Layout"
 }

@@ -6,10 +6,11 @@ namespace :momentum_cms do
   namespace :development do
     desc 'Import an example site'
     task :import_example_site => :environment do
-      @pages_path = File.join('example-a', 'pages')
-      @site       = MomentumCms::Site.where(label: 'Example Site', host: 'localhost').first_or_create!
+      @pages_path     = File.join('example-a', 'pages')
+      @templates_path = File.join('example-a', 'templates')
+      @site           = MomentumCms::Site.where(label: 'Example Site', host: 'localhost').first_or_create!
+      MomentumCms::Fixture::Template::Importer.new(@site, @templates_path).import!
       MomentumCms::Fixture::Page::Importer.new(@site, @pages_path).import!
-
       MomentumCms::Page.find_each do |page|
         content = MomentumCms::Content.where(
           page:    page,

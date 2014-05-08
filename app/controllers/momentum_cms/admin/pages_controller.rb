@@ -41,6 +41,7 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
 
   def build_moment_cms_page
     @momentum_cms_page = MomentumCms::Page.new(momentum_cms_page_params)
+    @momentum_cms_page.site = @current_momentum_cms_site
   end
 
   def momentum_cms_page_params

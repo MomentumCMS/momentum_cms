@@ -40,7 +40,8 @@ class MomentumCms::Admin::TemplatesController < MomentumCms::Admin::BaseControll
   end
 
   def build_moment_cms_template
-    @momentum_cms_template = MomentumCms::Template.new(momentum_cms_template_params)
+    @momentum_cms_template      = MomentumCms::Template.new(momentum_cms_template_params)
+    @momentum_cms_template.site = @current_momentum_cms_site
   end
 
   def momentum_cms_template_params

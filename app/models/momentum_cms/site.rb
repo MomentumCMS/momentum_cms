@@ -19,6 +19,7 @@ class MomentumCms::Site < ActiveRecord::Base
 
   has_settings do |s|
     s.key :site, :defaults => { :title => 'Just another CMS' }
+    s.key :language
   end
 
   # == Validations ==========================================================

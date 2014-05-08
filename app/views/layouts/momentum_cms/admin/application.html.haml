@@ -18,24 +18,23 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          = link_to 'Momentum CMS', momentum_cms_admin_root_path, class: 'navbar-brand'
+          = link_to 'Momentum CMS', cms_admin_root_path, class: 'navbar-brand'
         .navbar-collapse.collapse
           %ul.nav.navbar-nav.navbar-right
             %li
-              = link_to 'Dashboard', momentum_cms_admin_root_path
+              = link_to 'Dashboard', cms_admin_root_path
             %li.dropdown
               %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
                 Site
                 %b.caret
               %ul.dropdown-menu
                 - @momentum_cms_sites.each do |momentum_cms_site|
-                  %li
-                    %a{href: "#"}= momentum_cms_site.label
+                  %li= link_to momentum_cms_site.label, cms_admin_site_dashboards_path(momentum_cms_site)
                 - if @momentum_cms_sites.present?
                   %li.divider
                 %li.dropdown-header Manage Sites
-                %li= link_to 'Manage Sites', momentum_cms_admin_sites_path
-                %li= link_to 'New Site', new_momentum_cms_admin_site_path
+                %li= link_to 'Manage Sites', cms_admin_sites_path
+                %li= link_to 'New Site', new_cms_admin_site_path
             -#%li
             -#  %a{href: "#"} Settings
           %form.navbar-form.navbar-right

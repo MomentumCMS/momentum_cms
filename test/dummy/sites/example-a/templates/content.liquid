@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Momentum CMS Master Template</title>
+    {% cms_js %}
+    {% cms_css %}
+            
+  </head>
+  <body>
+    <h1>{% cms_block id:header type:text_input %}</h1>
+    <div>
+      {% cms_block id:content type:text_area %}
+    </div>
+    {% cms_yield %}
+  </body>
+</html>
