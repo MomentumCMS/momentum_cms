@@ -12,12 +12,15 @@ class MomentumCms::Configuration
   # The style of the admin panel
   # Options here are:
   # nil - No admin panel will be present
-  # :simple - Simple HTML5 admin panel
+  # :html5 - Simple HTML5 admin panel
   # :default - The default admin panel
   attr_accessor :admin_panel_style
 
   # The location to mount the admin panel
   attr_accessor :admin_panel_mount_point
+
+  # The location to mount the CMS
+  attr_accessor :mount_point
 
   # The authentication method used to authenticate the user
   # Options here are:
@@ -31,7 +34,8 @@ class MomentumCms::Configuration
     @locale                  = :en
     @site_fixtures_path      = File.expand_path('sites', Rails.root)
     @site_fixtures_enabled   = false
-    @admin_panel_style       = :simple
+    @admin_panel_style       = :html5
+    @mount_point             = '/'
     @admin_panel_mount_point = '/admin'
     @authentication_method   = :default
   end

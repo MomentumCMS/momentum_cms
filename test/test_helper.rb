@@ -1,11 +1,20 @@
 # Configure Rails Environment
-ENV["RAILS_ENV"] = "test"
+ENV['RAILS_ENV'] = 'test'
 
+require 'simplecov'
 require 'coveralls'
-Coveralls.wear!
 
-require File.expand_path("../dummy/config/environment.rb", __FILE__)
-require "rails/test_help"
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+  SimpleCov::Formatter::HTMLFormatter,
+  Coveralls::SimpleCov::Formatter
+]
+
+SimpleCov.start 'rails' do
+  add_group 'Tags', 'lib/momentum_cms/tags'
+end
+
+require File.expand_path('../dummy/config/environment.rb', __FILE__)
+require 'rails/test_help'
 
 Rails.backtrace_cleaner.remove_silencers!
 
@@ -13,7 +22,7 @@ Rails.backtrace_cleaner.remove_silencers!
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
 # Load fixtures from the engine
-ActiveSupport::TestCase.fixture_path = File.expand_path("../fixtures", __FILE__)
+ActiveSupport::TestCase.fixture_path = File.expand_path('../fixtures', __FILE__)
 
 class ActiveSupport::TestCase
   fixtures :all

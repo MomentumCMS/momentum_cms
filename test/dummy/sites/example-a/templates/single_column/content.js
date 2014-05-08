@@ -1,0 +1,1 @@
+console.log('single_column_layout');
