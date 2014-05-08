@@ -12,6 +12,9 @@ class MomentumCms::Template < ActiveRecord::Base
   has_many :pages
 
   # == Extensions ===========================================================
+
+  has_ancestry
+
   # == Validations ==========================================================
 
   validate :valid_liquid_content
@@ -19,7 +22,13 @@ class MomentumCms::Template < ActiveRecord::Base
   validates :site, :site_id, :label,
             presence: true
 
+  validates :label,
+            uniqueness: { scope: :site_id }
+
   # == Scopes ===============================================================
+
+  scope :for_site, ->(site) { where(site_id: site.id) }
+
   # == Callbacks ============================================================
   # == Class Methods ========================================================
   # == Instance Methods =====================================================

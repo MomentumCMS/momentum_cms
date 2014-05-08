@@ -12,4 +12,4 @@
       = image_tag(@momentum_cms_file.file.url)
 
 = form.submit class: 'btn btn-success btn-xs'
-= link_to 'Back', momentum_cms_admin_files_path, class: 'btn btn-primary btn-xs'
+= link_to 'Back', cms_admin_site_files_path(@current_momentum_cms_site), class: 'btn btn-primary btn-xs'

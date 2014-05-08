@@ -1,4 +1,5 @@
 {
   "label": "Portfolio",
-  "slug": "portfolio"
+  "slug": "portfolio",
+  "template": "Main Layout"
 }

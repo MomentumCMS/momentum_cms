@@ -125,6 +125,7 @@ ActiveRecord::Schema.define(version: 20140507065637) do
     t.text     "content"
     t.text     "js"
     t.text     "css"
+    t.string   "ancestry"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

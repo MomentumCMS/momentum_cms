@@ -4,20 +4,11 @@
   %thead
     %tr
       %th Label
-      %th Site
       %th Created At
       %th Updated At
       %th Control
   %tbody
-    - @momentum_cms_templates.each do |momentum_cms_template|
-      %tr
-        %td= link_to momentum_cms_template.label, edit_momentum_cms_admin_template_path(momentum_cms_template)
-        %th
-          - if momentum_cms_template.site
-            = link_to momentum_cms_template.site.label, edit_momentum_cms_admin_site_path(momentum_cms_template.site)
-        %td= momentum_cms_template.created_at
-        %td= momentum_cms_template.updated_at
-        %td       
-          = link_to 'Destroy', momentum_cms_admin_template_path(momentum_cms_template), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs'
+    = render partial: 'templates', locals: { momentum_cms_templates_tree: @momentum_cms_templates, require_root: true}
+
 %br/
-= link_to 'New Template', new_momentum_cms_admin_template_path, class: 'btn btn-primary btn-xs'
+= link_to 'New Template', [:new, :cms, :admin, :site, :template], class: 'btn btn-primary btn-xs'

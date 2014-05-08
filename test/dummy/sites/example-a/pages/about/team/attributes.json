@@ -1,4 +1,5 @@
 {
   "label": "Team",
-  "slug": "team"
+  "slug": "team",
+  "template": "Main Layout"
 }

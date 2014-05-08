@@ -8,7 +8,7 @@ class MomentumCms::Content < ActiveRecord::Base
   # == Relationships ========================================================
 
   belongs_to :page
-  
+
   has_many :blocks,
            dependent: :destroy
 
@@ -23,6 +23,10 @@ class MomentumCms::Content < ActiveRecord::Base
              versioning:                       :paper_trail
 
   # == Validations ==========================================================
+
+  validates :label,
+            presence: true
+
   # == Scopes ===============================================================
   # == Callbacks ============================================================
   # == Class Methods ========================================================

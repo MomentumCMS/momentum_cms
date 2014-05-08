@@ -18,13 +18,12 @@ module MomentumCms::Fixture::Page
         build_page_tree(@pages_hash, path)
       end
 
-      # TODO: Consider locales and how we structure that within the json data
       original_locale = :en
-      locales = [:en, :fr]
+      locales = [:en]
+      locales = @site.settings(:language).locales if @site.settings(:language).locales.present?
       locales.each do |locale|
-
-        # Set the Locale
-        I18n.locale = locale
+      # Set the Locale
+      I18n.locale = locale
 
         @pages_hash.each do |path, page_attributes|
 
@@ -59,16 +58,16 @@ module MomentumCms::Fixture::Page
     end
 
     def prepare_content(page, path)
-      content = page.contents.build
+      content = page.contents.build(label: page.label)
       Dir.glob("#{path}/*.liquid").each do |content_path|
         text = File.read(content_path)
         template = Liquid::Template.parse(text)
         original_locale = I18n.locale
         template.root.nodelist.each do |node|
-          next unless node.is_a?(FixtureBlockTag)
+          next unless node.is_a?(CmsFixtureBlockTag)
           I18n.locale = node.params[:locale]
-          block = content.blocks.detect{|b| b.identifier == node.params[:identifier]}
-          block = content.blocks.build(identifier: node.params[:identifier]) unless block
+          block = content.blocks.detect{|b| b.identifier == node.params[:id]}
+          block = content.blocks.build(identifier: node.params[:id]) unless block
           block.value = node.nodelist.first
         end
         I18n.locale = original_locale

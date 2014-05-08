@@ -1,4 +1,5 @@
 class MomentumCms::Admin::SitesController < MomentumCms::Admin::BaseController
+  skip_before_action :load_site, only: [:index, :new, :create, :edit, :update]
   before_action :load_moment_cms_site, only: [:edit, :update, :destroy]
   before_action :build_moment_cms_site, only: [:new, :create]
 
