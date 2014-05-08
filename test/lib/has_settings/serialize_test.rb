@@ -9,7 +9,7 @@ class MomentumCms::HasSettings::SeralizeTest < ActiveSupport::TestCase
       end
     end
 
-    @site = MomentumCms::Site.create! label: 'cms site', host: 'test.dev' do |site|
+    @site = MomentumCms::Site.create! label: 'cms site', host: 'test.dev', identifier: 'test2' do |site|
       site.settings(:dashboard).theme = 'white'
       site.settings(:calendar).scope  = 'all'
     end

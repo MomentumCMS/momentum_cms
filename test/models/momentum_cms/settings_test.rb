@@ -9,13 +9,15 @@ class MomentumCms::SettingsTest < ActiveSupport::TestCase
       end
     end
 
-    @setting = MomentumCms::Site.create! label: 'cms site', host: 'test.dev'
+    @setting = MomentumCms::Site.create! label: 'cms site', host: 'test.dev', identifier: 'test2'
 
     @new_setting_object = @setting.dup
+    @new_setting_object.identifier = 'test3'
     @new_setting_object.save!
     @new_setting_object = @new_setting_object.setting_objects.build({ var: 'dashboard' })
 
     @saved_setting_object = @setting.dup
+    @saved_setting_object.identifier = 'test4'
     @saved_setting_object.save!
     @saved_setting_object = @saved_setting_object.setting_objects.create!({ var: 'dashboard', value: { 'theme' => 'pink', 'filter' => false } })
   end

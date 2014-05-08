@@ -1,7 +1,9 @@
 default:
+  identifier: default
   label: default
   host: dev.host
 
 alternative:
+  identifier: alternative
   label: another-site
   host: dev.host:3000

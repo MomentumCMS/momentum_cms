@@ -12,19 +12,19 @@ class MomentumCms::HasSettings::QueryTest < ActiveSupport::TestCase
   end
 
   def setup_query_count_test
-    @site = MomentumCms::Site.new(label: 'cms site', host: 'test.dev')
+    @site = MomentumCms::Site.new(label: 'cms site', host: 'test.dev', identifier: 'test')
   end
 
   def test_new_record_should_be_saved_by_one_SQL_query
     setup_query_count_test
-    asset_query_count_equal 1 do
+    asset_query_count_equal 2 do
       @site.save!
     end
   end
 
   def test_new_record_should_be_saved_with_settings_for_one_key_by_two_SQL_queries
     setup_query_count_test
-    asset_query_count_equal 2 do
+    asset_query_count_equal 3 do
       @site.settings(:dashboard).foo = 42
       @site.settings(:dashboard).bar = 'string'
       @site.save!
@@ -33,7 +33,7 @@ class MomentumCms::HasSettings::QueryTest < ActiveSupport::TestCase
 
   def test_new_record_should_be_saved_with_settings_for_two_keys_by_three_SQL_queries
     setup_query_count_test
-    asset_query_count_equal 3 do
+    asset_query_count_equal 4 do
       @site.settings(:dashboard).foo = 42
       @site.settings(:dashboard).bar = 'string'
       @site.settings(:calendar).bar  = 'string'
@@ -42,19 +42,19 @@ class MomentumCms::HasSettings::QueryTest < ActiveSupport::TestCase
   end
 
   def setup_existing_record_query_count_test
-    @site = MomentumCms::Site.create!(label: 'cms site', host: 'test.dev')
+    @site = MomentumCms::Site.create!(label: 'cms site', host: 'test.dev', identifier: 'test')
   end
 
   def test_existing_record_without_setting_should_be_saved_without_SQL_queries
     setup_existing_record_query_count_test
-    asset_query_count_equal 0 do
+    asset_query_count_equal 1 do
       @site.save!
     end
   end
 
   def test_existing_record_without_setting_should_be_saved_with_settings_for_one_key_by_two_SQL_queries
     setup_existing_record_query_count_test
-    asset_query_count_equal 2 do
+    asset_query_count_equal 3 do
       @site.settings(:dashboard).foo = 42
       @site.settings(:dashboard).bar = 'string'
       @site.save!
@@ -63,7 +63,7 @@ class MomentumCms::HasSettings::QueryTest < ActiveSupport::TestCase
 
   def test_existing_record_without_setting_should_be_saved_with_settings_for_two_keys_by_three_SQL_queries
     setup_existing_record_query_count_test
-    asset_query_count_equal 3 do
+    asset_query_count_equal 4 do
       @site.settings(:dashboard).foo = 42
       @site.settings(:dashboard).bar = 'string'
       @site.settings(:calendar).bar  = 'string'
@@ -72,7 +72,7 @@ class MomentumCms::HasSettings::QueryTest < ActiveSupport::TestCase
   end
 
   def setup_existing_record_with_settings_query_count_test
-    @site = MomentumCms::Site.create!(label: 'cms site', host: 'test.dev') do |site|
+    @site = MomentumCms::Site.create!(label: 'cms site', host: 'test.dev', identifier: 'test') do |site|
       site.settings(:dashboard).theme = 'pink'
       site.settings(:calendar).scope  = 'all'
     end
@@ -80,14 +80,14 @@ class MomentumCms::HasSettings::QueryTest < ActiveSupport::TestCase
 
   def test_existing_record_with_settings_should_be_saved_without_SQL_queries
     setup_existing_record_with_settings_query_count_test
-    asset_query_count_equal 0 do
+    asset_query_count_equal 1 do
       @site.save!
     end
   end
 
   def test_existing_record_with_settings_should_be_saved_with_settings_for_one_key_by_one_SQL_queries
     setup_existing_record_with_settings_query_count_test
-    asset_query_count_equal 1 do
+    asset_query_count_equal 2 do
       @site.settings(:dashboard).foo = 42
       @site.settings(:dashboard).bar = 'string'
       @site.save!
@@ -96,7 +96,7 @@ class MomentumCms::HasSettings::QueryTest < ActiveSupport::TestCase
 
   def test_existing_record_with_settings_should_be_saved_with_settings_for_two_keys_by_two_SQL_queries
     setup_existing_record_with_settings_query_count_test
-    asset_query_count_equal 2 do
+    asset_query_count_equal 3 do
       @site.settings(:dashboard).foo = 42
       @site.settings(:dashboard).bar = 'string'
       @site.settings(:calendar).bar  = 'string'

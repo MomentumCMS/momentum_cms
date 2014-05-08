@@ -42,13 +42,9 @@ module MomentumCms::Fixture::Page
           end
 
           # Set the parent if required
-          if has_parent?(path)
-            parent_path = parent_path(path)
-            parent_attributes = @pages_hash[parent_path]
-            internal_path = generate_internal_path(parent_path, parent_attributes)
-            parent = MomentumCms::Page.where(site: @site, internal_path: internal_path).first
-            page.parent = parent if parent
-          end
+          parent = get_parent_by_path(path)
+          page.parent = parent if parent
+          
 
           # Save the page
           page.save!
@@ -58,6 +54,15 @@ module MomentumCms::Fixture::Page
         end
       end
       I18n.locale = original_locale
+    end
+
+    def get_parent_by_path(path)
+      if has_parent?(path)
+        parent_path = parent_path(path)
+        parent_attributes = @pages_hash[parent_path]
+        internal_path = generate_internal_path(parent_path, parent_attributes)
+        MomentumCms::Page.where(site: @site, internal_path: internal_path).first
+      end
     end
 
     def prepare_content(page, path)

@@ -17,6 +17,9 @@ class MomentumCms::Page < ActiveRecord::Base
   translates :slug, :path, fallbacks_for_empty_translations: true
 
   # == Validations ==========================================================
+
+  validates :slug, uniqueness: { scope: :ancestry }
+  
   # == Scopes ===============================================================
   # == Callbacks ============================================================
 

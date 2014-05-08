@@ -24,7 +24,9 @@ class MomentumCms::Site < ActiveRecord::Base
 
   # == Validations ==========================================================
 
-  validates :label, :host, presence: true
+  validates :label, :host, :identifier, presence: true
+  
+  validates :identifier, uniqueness: true
 
   # == Scopes ===============================================================
   # == Callbacks ============================================================
