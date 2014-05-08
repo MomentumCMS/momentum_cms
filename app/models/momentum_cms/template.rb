@@ -26,6 +26,9 @@ class MomentumCms::Template < ActiveRecord::Base
             uniqueness: { scope: :site_id }
 
   # == Scopes ===============================================================
+
+  scope :for_site, ->(site) { where(site_id: site.id) }
+
   # == Callbacks ============================================================
   # == Class Methods ========================================================
   # == Instance Methods =====================================================
