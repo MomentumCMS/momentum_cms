@@ -7,6 +7,7 @@ class CreateMomentumCmsPages < ActiveRecord::Migration
       t.string :label
       t.integer :published_content_id
       t.string :ancestry
+      t.string :internal_path
       t.timestamps
     end
     MomentumCms::Page.create_translation_table! :slug => :string, :path => :string

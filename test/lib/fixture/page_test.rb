@@ -3,6 +3,7 @@ require_relative '../../test_helper'
 class FixturePageTest < ActiveSupport::TestCase
 
   def setup
+    I18n.locale = :en
     # Paths are always relative to the MomentumCms::config.site_fixtures_path
     @pages_path = File.join('example-a', 'pages')
     @site = MomentumCms::Site.create(label: 'Import', host: 'localhost')
@@ -135,7 +136,28 @@ class FixturePageTest < ActiveSupport::TestCase
   end
 
   def test_multilingual_import
+    @site.settings(:language).update_attributes! locales: [:en, :fr], default: :en
     importer = MomentumCms::Fixture::Page::Importer.new(@site, File.join('multilingual-example', 'pages')).import!
+
+    I18n.locale = :en
+    home_en = @site.pages.roots.first
+    assert_equal '/', home_en.path
+    about_en = home_en.children.find_by(label: 'About')
+    assert_equal 'About', about_en.label
+    assert_equal '/about', about_en.path
+    team_en = about_en.children.find_by(label: 'Team')
+    assert_equal 'Team', team_en.label
+    assert_equal '/about/team', team_en.path
+
+    I18n.locale = :fr
+    home_fr = @site.pages.roots.first.reload
+    assert_equal '/', home_fr.path
+    about_fr = home_fr.children.find_by(label: 'About')
+    assert_equal 'About', about_fr.label
+    assert_equal '/about-fr', about_fr.path
+    team_fr = about_fr.children.find_by(label: 'Team')
+    assert_equal 'Team', team_fr.label
+    assert_equal '/about-fr/team-fr', team_fr.path    
   end
 
   def test_slug_for_locale
