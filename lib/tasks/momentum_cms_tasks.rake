@@ -3,17 +3,25 @@
 #   # Task goes here
 # end
 namespace :momentum_cms do
+  namespace :fixture do
+    desc 'Import a site via fixtures'
+    task :import => :environment do |t|
+      source = ENV['SOURCE']
+      if source.blank?
+        puts "SOURCE expected, but not provided, run `#{t.name} SOURCE=demo-site`"
+        puts "Where:"
+        puts "\t SOURCE is a fixture folder under #{MomentumCms.configuration.site_fixtures_path}"
+        exit 1
+      end
+      MomentumCms::Fixture::Importer.new({ from: source }).import!
+    end
+  end
   namespace :development do
     desc 'Import an example site'
     task :import_example_site => :environment do
-      
-      
-      
-      @pages_path = File.join('example-a', 'pages')
-      @templates_path = File.join('example-a', 'templates')
       @site = MomentumCms::Site.where(label: 'Example Site', host: 'localhost', identifier: 'example-a').first_or_create!
-      MomentumCms::Fixture::Template::Importer.new(@site, @templates_path).import!
-      MomentumCms::Fixture::Page::Importer.new(@site, @pages_path).import!
+      MomentumCms::Fixture::Template::Importer.new('example-a', @site).import!
+      MomentumCms::Fixture::Page::Importer.new('example-a', @site).import!
       MomentumCms::Page.find_each do |page|
         content = MomentumCms::Content.where(
           page: page,
