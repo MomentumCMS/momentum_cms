@@ -6,7 +6,7 @@ module MomentumCms::Fixture::Template
                   :templates_hash
 
     def initialize(site, templates_path)
-      @site           = site
+      @site = site
       @templates_path = File.join(MomentumCms.config.site_fixtures_path, templates_path)
     end
 
@@ -20,10 +20,10 @@ module MomentumCms::Fixture::Template
 
         template = MomentumCms::Template.where(site: @site, label: template_attributes['label']).first_or_initialize
         if has_parent?(path)
-          parent_path       = parent_path(path)
+          parent_path = parent_path(path)
           parent_attributes = @templates_hash[parent_path]
-          parent            = MomentumCms::Template.where(site: @site, id: parent_attributes[:id]).first
-          template.parent   = parent if parent
+          parent = MomentumCms::Template.where(site: @site, id: parent_attributes[:id]).first
+          template.parent = parent if parent
         end
 
         if File.file?("#{path}/content.liquid")
@@ -65,7 +65,7 @@ module MomentumCms::Fixture::Template
 
   class Exporter
     def initialize(site, templates_path)
-      @site           = site
+      @site = site
       @templates_path = File.join(MomentumCms.config.site_fixtures_path, templates_path)
     end
 

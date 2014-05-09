@@ -1,6 +1,7 @@
 class CreateMomentumCmsSites < ActiveRecord::Migration
   def change
     create_table :momentum_cms_sites do |t|
+      t.string :identifier
       t.string :label
       t.string :host
 

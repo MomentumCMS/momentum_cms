@@ -1,5 +1,7 @@
 class CmsBlockTag < Liquid::Tag
 
+  attr_accessor :params
+
   def initialize(tag_name, params, tokens)
     super
     @params = sanatize_params(params)
@@ -15,7 +17,7 @@ class CmsBlockTag < Liquid::Tag
   def parse_params(params)
     result = {}
     params.split(' ').each do |keyval|
-      keyval                   = keyval.split(':')
+      keyval = keyval.split(':')
       result[keyval[0].to_sym] = keyval[1]
     end
     result
@@ -23,8 +25,8 @@ class CmsBlockTag < Liquid::Tag
 
 
   def render(context)
-    _env         = context.environments.first
-    _edit        = _env[:_edit]
+    _env = context.environments.first
+    _edit = _env[:_edit]
     _cms_content = _env[:cms_content]
     if _edit
     else

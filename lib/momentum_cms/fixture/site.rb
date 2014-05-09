@@ -8,7 +8,14 @@ module MomentumCms::Fixture::Site
     end
 
     def import!
-      return MomentumCms::Site.where(label: @attributes['label'], host: @attributes['host']).first_or_create
+      site = MomentumCms::Site.where(identifier: @attributes['identifier']).first_or_initialize
+      site.label = @attributes['label']
+      site.host = @attributes['host']
+      if @attributes['locales']
+        site.settings(:language).locales = @attributes['locales']
+      end
+      site.save!
+      site
     end
 
   end
@@ -25,7 +32,9 @@ module MomentumCms::Fixture::Site
       FileUtils.mkdir_p(@site_path) unless File.exist?(@site_path)
       attributes = {
         label: @site.label,
-        host:  @site.host
+        host: @site.host,
+        identifier: @site.identifier,
+        locales: [@site.settings(:language).locales].flatten
       }
       MomentumCms::Fixture::Utils.write_json(File.join(@site_path, 'attributes.json'), attributes)
     end

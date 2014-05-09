@@ -10,8 +10,9 @@ class MomentumCms::SiteTest < ActiveSupport::TestCase
   def test_create
     assert_difference "MomentumCms::Site.count" do
       MomentumCms::Site.create(
-        host:  'foo.host',
-        label: 'Site Name'
+        host: 'foo.host',
+        label: 'Site Name',
+        identifier: 'test'
       )
     end
   end

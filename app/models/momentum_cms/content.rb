@@ -12,6 +12,8 @@ class MomentumCms::Content < ActiveRecord::Base
   has_many :blocks,
            dependent: :destroy
 
+  accepts_nested_attributes_for :blocks
+
   # == Extensions ===========================================================
   has_paper_trail
 

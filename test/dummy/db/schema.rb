@@ -113,6 +113,7 @@ ActiveRecord::Schema.define(version: 20140507065637) do
   add_index "momentum_cms_settings", ["target_type", "target_id", "var"], name: "momentum_cms_settings_uniq_ttype_tid_var", unique: true
 
   create_table "momentum_cms_sites", force: true do |t|
+    t.string   "identifier"
     t.string   "label"
     t.string   "host"
     t.datetime "created_at"
