@@ -21,17 +21,9 @@ class FixturePageTest < ActiveSupport::TestCase
   #== Importing =============================================================
 
   def test_basic_import
-
-    puts "Page count: #{MomentumCms::Page.count}"
-    puts "Pages: #{MomentumCms::Page.all.pluck(:label)}"
-
-    # assert_difference 'MomentumCms::Page.count', 8 do
-    MomentumCms::Fixture::Page::Importer.new('example-a', @site).import!
-    # end
-
-    puts "Page count: #{MomentumCms::Page.count}"
-    puts "Pages: #{MomentumCms::Page.all.pluck(:label)}"
-
+    assert_difference 'MomentumCms::Page.count', 8 do
+      MomentumCms::Fixture::Page::Importer.new('example-a', @site).import!
+    end
     # Home Page
     home = @site.pages.roots.first
     assert_equal 'Home', home.label
@@ -56,7 +48,7 @@ class FixturePageTest < ActiveSupport::TestCase
     assert_equal 'services', services.slug
     # Services About Page
     services_about = services.children.find_by(label: 'Services About')
-    assert_equal 'about', services_about.slug
+    assert_equal 'services-about', services_about.slug
   end
 
   def test_prepare_content
@@ -138,7 +130,7 @@ class FixturePageTest < ActiveSupport::TestCase
     assert File.exists?(File.join(test_export_path, 'about', 'team', 'attributes.json'))
     assert File.exists?(File.join(test_export_path, 'contact', 'attributes.json'))
     assert File.exists?(File.join(test_export_path, 'services', 'attributes.json'))
-    assert File.exists?(File.join(test_export_path, 'services', 'about', 'attributes.json'))
+    assert File.exists?(File.join(test_export_path, 'services', 'services-about', 'attributes.json'))
     FileUtils.rm_rf(File.join(Rails.root, 'sites', folder))
   end
 
