@@ -12,14 +12,12 @@ class FixtureSiteTest < ActiveSupport::TestCase
   end
 
   def test_basic_import
-    MomentumCms::Site.destroy_all
     assert_difference 'MomentumCms::Site.count' do
       MomentumCms::Fixture::Site::Importer.new('example-a').import!
     end
   end
 
   def test_duplicate_import
-    MomentumCms::Site.destroy_all
     assert_difference 'MomentumCms::Site.count' do
       MomentumCms::Fixture::Site::Importer.new('example-a').import!
       MomentumCms::Fixture::Site::Importer.new('example-a').import!

@@ -18,9 +18,13 @@ class MomentumCms::Page < ActiveRecord::Base
 
   # == Validations ==========================================================
 
-  validates :slug, uniqueness: { scope: :ancestry }
-  
+  validates :slug, uniqueness: { scope: [:site, :ancestry] }
+
   # == Scopes ===============================================================
+
+
+  scope :for_site, ->(site) { where(site_id: site.id) }
+
   # == Callbacks ============================================================
 
   before_save :assign_paths
@@ -31,28 +35,17 @@ class MomentumCms::Page < ActiveRecord::Base
 
   def assign_paths
     self.path = generate_path(self)
-    self.internal_path = generate_internal_path(self)
   end
 
   def regenerate_child_paths
     self.descendants.each do |descendant|
       descendant.path = generate_path(descendant)
-      descendant.internal_path = generate_internal_path(descendant)
       descendant.save
     end
   end
 
   protected
 
-  def generate_internal_path(page)
-    internal_path = []
-    internal_path = page.ancestors.collect(&:label) if page && page.ancestors
-    internal_path << page.label
-    internal_path = internal_path.collect{|l| l.parameterize.downcase}
-    internal_path = "#{internal_path.join('/')}"
-    internal_path = "/#{internal_path}"
-    internal_path.gsub(/(\/{2,})/, '/')
-  end
 
   def generate_path(page)
     translated_path = []

@@ -3,7 +3,7 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
   before_action :build_moment_cms_page, only: [:new, :create]
 
   def index
-    @momentum_cms_pages = MomentumCms::Page.all
+    @momentum_cms_pages = @current_momentum_cms_site.pages.all
   end
 
   def new

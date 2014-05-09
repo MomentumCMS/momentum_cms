@@ -27,14 +27,14 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
       )
     end
   end
-  
+
   # TODO: Rewrite this to validate slugs only on the sibling level, within the
   # same locale
   # def test_unique_slug
   #   page = momentum_cms_pages(:default)
   #   page.slug = 'foo'
   #   page.save!
-    
+
   #   slug = MomentumCms::Page.new(slug: 'foo')
   #   refute slug.valid?
   #   assert_equal ["has already been taken"], slug.errors[:slug]
@@ -83,24 +83,6 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
     assert_equal '/default/child/grandchild', grandchild.path
   end
 
-  def test_assigns_internal_path
-    page = momentum_cms_pages(:default)
-    child = MomentumCms::Page.create(
-      site:   momentum_cms_sites(:default),
-      label:  'Child',
-      slug:   'child',
-      parent: page
-    )
-    grandchild = MomentumCms::Page.create(
-      site:   momentum_cms_sites(:default),
-      label:  'Grandchild',
-      slug:   'grandchild',
-      parent: child
-    )
-    assert_equal '/default/child', child.internal_path
-    assert_equal '/default/child/grandchild', grandchild.internal_path
-  end
-
   def test_assigns_correct_translation_paths
     assert_equal :en, I18n.locale
     page  = momentum_cms_pages(:default)
@@ -120,10 +102,10 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
     I18n.locale = :fr
     page.slug = 'default-fr'
     page.save
-    
+
     child.reload
-    grandchild.reload 
-    
+    grandchild.reload
+
     assert_equal '/default-fr', page.path
     assert_equal '/default-fr/child-en', child.path
     assert_equal '/default-fr/child-en/grandchild-en', grandchild.path
@@ -184,7 +166,7 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
     # After updating the child slug, it should regenerate the grandchild
     child.slug = 'new-slug'
     child.save
-    
+
     assert_equal '/default/new-slug', child.path
     assert_equal 'new-slug', child.slug
     grandchild.reload
@@ -192,9 +174,9 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
 
     grandchild.slug = 'new-grandchild-slug'
     grandchild.save
-    
+
     assert_equal '/default/new-slug/new-grandchild-slug', grandchild.path
-    
+
     child.slug = 'another-slug'
     child.save
 
@@ -202,49 +184,9 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
     assert_equal 'another-slug', child.slug
 
     grandchild.reload
-    
+
     assert_equal '/default/another-slug/new-grandchild-slug', grandchild.path
   end
 
-  def test_regnerates_internal_paths_of_child_pages
-    page  = momentum_cms_pages(:default)
-    child = MomentumCms::Page.create(
-      site:   momentum_cms_sites(:default),
-      label:  'Child',
-      slug:   'child-en',
-      parent: page
-    )
-    grandchild = MomentumCms::Page.create(
-      site:   momentum_cms_sites(:default),
-      label:  'Grandchild',
-      slug:   'grandchild-en',
-      parent: child
-    )
-    assert_equal '/default/child/grandchild', grandchild.internal_path
-
-    # After updating the child slug, it should regenerate the grandchild
-    child.label = 'New Label'
-    child.save
-    
-    assert_equal '/default/new-label', child.internal_path
-    assert_equal 'New Label', child.label
-    grandchild.reload
-    assert_equal '/default/new-label/grandchild', grandchild.internal_path
-
-    grandchild.label = 'new-grandchild-label'
-    grandchild.save
-    
-    assert_equal '/default/new-label/new-grandchild-label', grandchild.internal_path
-    
-    child.label = 'another-label'
-    child.save
-
-    assert_equal '/default/another-label', child.internal_path
-    assert_equal 'another-label', child.label
-
-    grandchild.reload
-    
-    assert_equal '/default/another-label/new-grandchild-label', grandchild.internal_path
-  end
 
 end
