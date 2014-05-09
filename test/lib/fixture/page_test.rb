@@ -6,7 +6,7 @@ class FixturePageTest < ActiveSupport::TestCase
     I18n.locale = :en
     # Paths are always relative to the MomentumCms::config.site_fixtures_path
     @pages_path = File.join('example-a', 'pages')
-    @site = MomentumCms::Site.create(label: 'Import', host: 'localhost', identifier: 'import')
+    @site = MomentumCms::Site.create!(label: 'Import', host: 'localhost', identifier: 'import')
     # Ensure our example export site is removed before the tests are run
     folder = SecureRandom.hex
     @export_path = File.join(folder, 'pages')
@@ -21,7 +21,7 @@ class FixturePageTest < ActiveSupport::TestCase
   #== Importing =============================================================
 
   def test_basic_import
-    assert_difference 'MomentumCms::Page.for_site(@site).count', 8 do
+    assert_difference 'MomentumCms::Page.count', 8 do
       MomentumCms::Fixture::Page::Importer.new('example-a', @site).import!
     end
     # Home Page
