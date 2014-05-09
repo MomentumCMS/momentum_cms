@@ -8,8 +8,9 @@ class FixturePageTest < ActiveSupport::TestCase
     @pages_path = File.join('example-a', 'pages')
     @site = MomentumCms::Site.create(label: 'Import', host: 'localhost', identifier: 'import')
     # Ensure our example export site is removed before the tests are run
-    @export_path = File.join('example-c', 'pages')
-    @test_export_path = File.join(Rails.root, 'sites', 'example-c')
+    folder = SecureRandom.hex
+    @export_path = File.join(folder, 'pages')
+    @test_export_path = File.join(Rails.root, 'sites', folder)
     FileUtils.rm_rf(@test_export_path) if File.exist?(@test_export_path)
   end
 
@@ -120,7 +121,8 @@ class FixturePageTest < ActiveSupport::TestCase
   def test_basic_export
     MomentumCms::Fixture::Page::Importer.new('example-a', @site).import!
     page_tree = @site.pages.arrange
-    export_path = File.join('example-c', 'pages')
+    folder = SecureRandom.hex
+    export_path = File.join(folder, 'pages')
     MomentumCms::Fixture::Page::Exporter.new(page_tree, export_path).export!
     test_export_path = File.join(MomentumCms::config.site_fixtures_path, export_path)
     assert File.exists?(File.join(test_export_path, 'attributes.json'))
@@ -131,6 +133,7 @@ class FixturePageTest < ActiveSupport::TestCase
     assert File.exists?(File.join(test_export_path, 'contact', 'attributes.json'))
     assert File.exists?(File.join(test_export_path, 'services', 'attributes.json'))
     assert File.exists?(File.join(test_export_path, 'services', 'about', 'attributes.json'))
+    FileUtils.rm_rf(File.join(Rails.root, 'sites', folder))
   end
 
 end
