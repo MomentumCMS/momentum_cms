@@ -3,11 +3,22 @@ module MomentumCms
     module Page
       class Importer < Base::Importer
 
+        def get_page(site, parent, slug, label)
+          if parent
+            scope = MomentumCms::Page.descendants_of(parent).where(site: site)
+            scope.where(slug: slug).first || scope.where(label: label).first_or_initialize
+          else
+            MomentumCms::Page.roots.where(site: site).first_or_initialize
+          end
+
+        end
+
+
         def import!(parent = nil, path = self.object_path)
           Dir["#{path}*/"].each do |path|
-            attributes_path = ::File.join(path, 'attributes.json')
-            next unless ::File.exists?(attributes_path)
-            page_attributes = MomentumCms::Fixture::Utils.read_json(attributes_path)
+
+            page_attributes = MomentumCms::Fixture::Utils.read_json(::File.join(path, 'attributes.json'), nil)
+            next unless page_attributes
 
             next_parent = nil
             original_locale = I18n.locale
@@ -21,12 +32,7 @@ module MomentumCms
 
               # Check if this already exists in the database
               # TODO: Limitation There can ever be only 1 root page
-              page = if parent
-                       scope = MomentumCms::Page.descendants_of(parent).where(site: @site)
-                       scope.where(slug: slug).first || scope.where(label: page_attributes['label']).first_or_initialize
-                     else
-                       MomentumCms::Page.roots.where(site: @site).first_or_initialize
-                     end
+              page = get_page(@site, parent, slug, page_attributes['label'])
 
               # Set the parent if required
               page.parent = parent if parent

@@ -2,8 +2,10 @@ module MomentumCms
   module Fixture
     class Utils
 
-      def self.read_json(path)
+      def self.read_json(path, default = nil)
         ActiveSupport::JSON.decode(::File.read(path))
+      rescue
+        default
       end
 
       def self.read_file(path, default = nil)
