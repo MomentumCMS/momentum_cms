@@ -18,7 +18,7 @@ module MomentumCms
             @imported_objects << template
             import!(template, path)
           end
-          MomentumCms::Template.where.not(id: @imported_objects.collect(&:id)).destroy_all if parent.nil?
+          MomentumCms::Template.for_site(@site).where.not(id: @imported_objects.collect(&:id)).destroy_all if parent.nil?
         end
       end
 

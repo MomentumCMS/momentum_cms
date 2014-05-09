@@ -6,7 +6,7 @@ module MomentumCms
         def initialize(source, target = nil)
           @site_path = ::File.join(MomentumCms.config.site_fixtures_path, source)
           @attributes = MomentumCms::Fixture::Utils.read_json(::File.join(@site_path, 'attributes.json'))
-          @target_identifier = @attributes['identifier'] || target
+          @target_identifier = target || @attributes['identifier']
 
           raise StandardError.new('Expecting attributes.json identifier to be defined, or a target passed in.') if @target_identifier.empty?
         end

@@ -38,7 +38,7 @@ module MomentumCms
               page.parent = parent if parent
               page.label = page_attributes['label']
               page.slug = slug
-              page.template = MomentumCms::Template.where(site: @site, label: page_attributes['template']).first
+              page.template = MomentumCms::Template.for_site(@site).where(label: page_attributes['template']).first
 
               # Save the page
               page.save!

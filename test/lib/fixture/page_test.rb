@@ -72,7 +72,6 @@ class FixturePageTest < ActiveSupport::TestCase
   end
 
   def test_duplicate_import
-    MomentumCms::Page.destroy_all
     assert_difference "MomentumCms::Page.count", 8 do
       MomentumCms::Fixture::Page::Importer.new('example-a', @site).import!
       MomentumCms::Fixture::Page::Importer.new('example-a', @site).import!
