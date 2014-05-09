@@ -5,7 +5,7 @@ module MomentumCms
 
         def get_page(site, parent, slug, label)
           if parent
-            scope = MomentumCms::Page.for_site(site).descendants_of(parent)
+            scope = MomentumCms::Page.for_site(site).children_of(parent)
             scope.where(slug: slug).first || scope.where(label: label).first_or_initialize
           else
             MomentumCms::Page.for_site(site).roots.first_or_initialize
