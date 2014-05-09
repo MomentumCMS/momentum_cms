@@ -5,9 +5,9 @@ module MomentumCms::Fixture::Template
     attr_accessor :templates_path,
                   :templates_hash
 
-    def initialize(site, templates_path)
+    def initialize(from, site)
       @site = site
-      @templates_path = File.join(MomentumCms.config.site_fixtures_path, templates_path)
+      @templates_path = File.join(MomentumCms.config.site_fixtures_path, File.join(from, 'templates'))
     end
 
     def import!

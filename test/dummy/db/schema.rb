@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140507065637) do
+ActiveRecord::Schema.define(version: 20140509014853) do
 
   create_table "momentum_cms_block_translations", force: true do |t|
     t.integer  "momentum_cms_block_id", null: false
@@ -119,6 +119,26 @@ ActiveRecord::Schema.define(version: 20140507065637) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "momentum_cms_snippet_translations", force: true do |t|
+    t.integer  "momentum_cms_snippet_id", null: false
+    t.string   "locale",                  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "value"
+  end
+
+  add_index "momentum_cms_snippet_translations", ["locale"], name: "index_momentum_cms_snippet_translations_on_locale"
+  add_index "momentum_cms_snippet_translations", ["momentum_cms_snippet_id"], name: "index_bd8a9f04a5a4cbeeed7124c8d72aa2af32b58076"
+
+  create_table "momentum_cms_snippets", force: true do |t|
+    t.integer  "site_id"
+    t.string   "label"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "momentum_cms_snippets", ["site_id"], name: "index_momentum_cms_snippets_on_site_id"
 
   create_table "momentum_cms_templates", force: true do |t|
     t.string   "label"

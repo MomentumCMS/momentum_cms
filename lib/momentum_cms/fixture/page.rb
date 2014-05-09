@@ -5,9 +5,9 @@ module MomentumCms::Fixture::Page
     attr_accessor :pages_path,
                   :pages_hash
 
-    def initialize(site, pages_path)
+    def initialize(from, site)
       @site = site
-      @pages_path = File.join(MomentumCms.config.site_fixtures_path, pages_path)
+      @pages_path = File.join(MomentumCms.config.site_fixtures_path, File.join(from, 'pages'))
     end
 
     def import!
@@ -44,7 +44,7 @@ module MomentumCms::Fixture::Page
           # Set the parent if required
           parent = get_parent_by_path(path)
           page.parent = parent if parent
-          
+
 
           # Save the page
           page.save!

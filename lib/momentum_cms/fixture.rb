@@ -4,11 +4,13 @@ module MomentumCms::Fixture
 
     def initialize(options = {})
       @from = options[:from]
+      raise ArgumentError.new('Expecting :from to be passed from the options') if @from.blank?
     end
 
     def import!
       site = MomentumCms::Fixture::Site::Importer.new(@from).import!
-      MomentumCms::Fixture::Page::Importer.new(site, File.join(@from, 'pages')).import!
+      MomentumCms::Fixture::Template::Importer.new(@from, site).import!
+      MomentumCms::Fixture::Page::Importer.new(@from, site).import!
     end
 
   end

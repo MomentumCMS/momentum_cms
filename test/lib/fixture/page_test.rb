@@ -21,8 +21,8 @@ class FixturePageTest < ActiveSupport::TestCase
 
   def test_basic_import
     MomentumCms::Page.destroy_all
-    assert_difference "MomentumCms::Page.count", 8 do
-      MomentumCms::Fixture::Page::Importer.new(@site, @pages_path).import!
+    assert_difference 'MomentumCms::Page.count', 8 do
+      MomentumCms::Fixture::Page::Importer.new('example-a', @site).import!
     end
     # Home Page
     home = @site.pages.roots.first
@@ -52,7 +52,7 @@ class FixturePageTest < ActiveSupport::TestCase
   end
 
   def test_prepare_content
-    importer = MomentumCms::Fixture::Page::Importer.new(@site, @pages_path)
+    importer = MomentumCms::Fixture::Page::Importer.new('example-a', @site)
     page = momentum_cms_pages(:default)
     about_path = File.join(Rails.root, 'sites', 'example-a', 'pages', 'about')
     assert_difference "MomentumCms::Content.count", 1 do
@@ -74,29 +74,29 @@ class FixturePageTest < ActiveSupport::TestCase
   def test_duplicate_import
     MomentumCms::Page.destroy_all
     assert_difference "MomentumCms::Page.count", 8 do
-      MomentumCms::Fixture::Page::Importer.new(@site, @pages_path).import!
-      MomentumCms::Fixture::Page::Importer.new(@site, @pages_path).import!
+      MomentumCms::Fixture::Page::Importer.new('example-a', @site).import!
+      MomentumCms::Fixture::Page::Importer.new('example-a', @site).import!
     end
   end
 
   def test_generate_path
     pages = {}
-    pages['/home/'] =                   {'label' => 'Home',   'slug' => '/'}
-    pages['/home/about/'] =             {'label' => 'About',  'slug' => 'about'}
-    pages['/home/about/team/'] =        {'label' => 'Team',   'slug' => 'team'}
-    pages['/home/about/team/person/'] = {'label' => 'Person', 'slug' => 'person'}
-    importer = MomentumCms::Fixture::Page::Importer.new(nil, 'fake')
+    pages['/home/'] = { 'label' => 'Home', 'slug' => '/' }
+    pages['/home/about/'] = { 'label' => 'About', 'slug' => 'about' }
+    pages['/home/about/team/'] = { 'label' => 'Team', 'slug' => 'team' }
+    pages['/home/about/team/person/'] = { 'label' => 'Person', 'slug' => 'person' }
+    importer = MomentumCms::Fixture::Page::Importer.new('fake', nil)
     importer.pages_hash = pages
-    path = importer.generate_path('/home/about/team/person', {'label' => 'Person', 'slug' => 'person'})
+    path = importer.generate_path('/home/about/team/person', { 'label' => 'Person', 'slug' => 'person' })
     assert_equal '/about/team/person', path
   end
 
   def test_ancestors
     pages = {}
-    pages['/home/about/'] =             {'label' => 'About',  'slug' => 'about'}
-    pages['/home/about/team/'] =        {'label' => 'Team',   'slug' => 'team'}
-    pages['/home/about/team/person/'] = {'label' => 'Person', 'slug' => 'person'}
-    importer = MomentumCms::Fixture::Page::Importer.new(nil, 'fake')
+    pages['/home/about/'] = { 'label' => 'About', 'slug' => 'about' }
+    pages['/home/about/team/'] = { 'label' => 'Team', 'slug' => 'team' }
+    pages['/home/about/team/person/'] = { 'label' => 'Person', 'slug' => 'person' }
+    importer = MomentumCms::Fixture::Page::Importer.new('fake', nil)
     importer.pages_hash = pages
     ancestors = importer.ancestors('/home/about/team/person')
     assert_equal 'Team', ancestors[0]['label']
@@ -107,14 +107,14 @@ class FixturePageTest < ActiveSupport::TestCase
     pages = {}
     pages['/home/about/'] = {}
     pages['/home/about/team/'] = {}
-    importer = MomentumCms::Fixture::Page::Importer.new(nil, 'fake')
+    importer = MomentumCms::Fixture::Page::Importer.new('fake', nil)
     importer.pages_hash = pages
     assert importer.has_parent?('/home/about/team/')
     assert !importer.has_parent?('/home/about/')
   end
 
   def test_parent_path
-    importer = MomentumCms::Fixture::Page::Importer.new(nil, 'fake')
+    importer = MomentumCms::Fixture::Page::Importer.new('fake', nil)
     path = '/example/path'
     assert_equal '/example/', importer.parent_path(path)
     path = '/another/example/trailing-slash/'
@@ -123,21 +123,21 @@ class FixturePageTest < ActiveSupport::TestCase
 
   def test_multilingual_generate_path
     pages = {}
-    pages['/'] =                   {'label' => 'Home',   'slug' => '/'}
-    pages['/about/'] =             {'label' => 'About',  'locales' => {'en' => {'slug' => 'about'},  'fr' => {'slug' => 'about-fr'}}}
-    pages['/about/team/'] =        {'label' => 'Team',   'locales' => {'en' => {'slug' => 'team'},   'fr' => {'slug' => 'team-fr'}}}
+    pages['/'] = { 'label' => 'Home', 'slug' => '/' }
+    pages['/about/'] = { 'label' => 'About', 'locales' => { 'en' => { 'slug' => 'about' }, 'fr' => { 'slug' => 'about-fr' } } }
+    pages['/about/team/'] = { 'label' => 'Team', 'locales' => { 'en' => { 'slug' => 'team' }, 'fr' => { 'slug' => 'team-fr' } } }
     # pages['/about/team/person/'] = {'label' => 'Person', 'locales' => {'en' => {'slug' => 'person'}, 'fr' => {'slug' => 'person-fr'}}}
-    importer = MomentumCms::Fixture::Page::Importer.new(nil, 'fake')
+    importer = MomentumCms::Fixture::Page::Importer.new('fake', nil)
     importer.pages_hash = pages
-    path_en = importer.generate_path('/about/team/person', {'label' => 'Person', 'slug' => 'person'}, 'en')
-    path_fr = importer.generate_path('/about/team/person', {'label' => 'Person', 'slug' => 'person'}, 'fr')
+    path_en = importer.generate_path('/about/team/person', { 'label' => 'Person', 'slug' => 'person' }, 'en')
+    path_fr = importer.generate_path('/about/team/person', { 'label' => 'Person', 'slug' => 'person' }, 'fr')
     assert_equal '/about/team/person', path_en
     assert_equal '/about-fr/team-fr/person', path_fr
   end
 
   def test_multilingual_import
     @site.settings(:language).update_attributes! locales: [:en, :fr], default: :en
-    importer = MomentumCms::Fixture::Page::Importer.new(@site, File.join('multilingual-example', 'pages')).import!
+    MomentumCms::Fixture::Page::Importer.new('multilingual-example', @site).import!
 
     I18n.locale = :en
     home_en = @site.pages.roots.first
@@ -157,24 +157,24 @@ class FixturePageTest < ActiveSupport::TestCase
     assert_equal '/about-fr', about_fr.path
     team_fr = about_fr.children.find_by(label: 'Team')
     assert_equal 'Team', team_fr.label
-    assert_equal '/about-fr/team-fr', team_fr.path    
+    assert_equal '/about-fr/team-fr', team_fr.path
   end
 
   def test_slug_for_locale
-    importer = MomentumCms::Fixture::Page::Importer.new(nil, 'fake')
-    attributes = {'label' => 'About',  'locales' => {'en' => {'slug' => 'about'},  'fr' => {'slug' => 'about-fr'}}}
+    importer = MomentumCms::Fixture::Page::Importer.new('fake', nil)
+    attributes = { 'label' => 'About', 'locales' => { 'en' => { 'slug' => 'about' }, 'fr' => { 'slug' => 'about-fr' } } }
     assert_equal 'about', importer.slug_for_locale(attributes, 'en')
     assert_equal 'about', importer.slug_for_locale(attributes, :en)
     assert_equal 'about-fr', importer.slug_for_locale(attributes, 'fr')
     assert_nil importer.slug_for_locale(attributes, 'es')
-    simple_attributes = {'label' => 'About',  'slug' => 'simple'}
+    simple_attributes = { 'label' => 'About', 'slug' => 'simple' }
     assert_equal 'simple', importer.slug_for_locale(simple_attributes)
   end
 
   #== Exporting =============================================================
 
   def test_basic_export
-    MomentumCms::Fixture::Page::Importer.new(@site, @pages_path).import!
+    MomentumCms::Fixture::Page::Importer.new('example-a', @site).import!
     page_tree = @site.pages.arrange
     export_path = File.join('example-c', 'pages')
     MomentumCms::Fixture::Page::Exporter.new(page_tree, export_path).export!

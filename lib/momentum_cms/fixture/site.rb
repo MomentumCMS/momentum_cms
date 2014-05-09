@@ -5,6 +5,7 @@ module MomentumCms::Fixture::Site
     def initialize(site_directory)
       @site_path = File.join(MomentumCms.config.site_fixtures_path, site_directory)
       @attributes = MomentumCms::Fixture::Utils.read_json(File.join(@site_path, 'attributes.json'))
+      raise StandardError.new('Expecting identifier to be defined.') if @attributes['identifier'].empty?
     end
 
     def import!
