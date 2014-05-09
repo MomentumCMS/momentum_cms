@@ -5,10 +5,10 @@ module MomentumCms
 
         def get_page(site, parent, slug, label)
           if parent
-            scope = MomentumCms::Page.descendants_of(parent).where(site: site)
+            scope = MomentumCms::Page.for_site(site).descendants_of(parent)
             scope.where(slug: slug).first || scope.where(label: label).first_or_initialize
           else
-            MomentumCms::Page.roots.where(site: site).first_or_initialize
+            MomentumCms::Page.for_site(site).roots.first_or_initialize
           end
 
         end
@@ -51,7 +51,7 @@ module MomentumCms
             import!(next_parent, path)
           end
 
-          MomentumCms::Page.where(site: @site).where.not(id: @imported_objects.collect(&:id)).destroy_all if parent.nil?
+          # MomentumCms::Page.for_site(@site).where.not(id: @imported_objects.collect(&:id)).destroy_all if parent.nil?
         end
 
 
