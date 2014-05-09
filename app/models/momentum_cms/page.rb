@@ -18,7 +18,7 @@ class MomentumCms::Page < ActiveRecord::Base
 
   # == Validations ==========================================================
 
-  validates :slug, uniqueness: { scope: :ancestry }
+  validates :slug, uniqueness: { scope: [:site, :ancestry] }
 
   # == Scopes ===============================================================
 

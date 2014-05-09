@@ -4,9 +4,9 @@ module MomentumCms
       class Importer < Base::Importer
         def import!(parent = nil, path = self.object_path)
           Dir["#{path}*/"].each do |path|
-            attributes_path = ::File.join(path, 'attributes.json')
-            next unless ::File.exists?(attributes_path)
-            template_attributes = MomentumCms::Fixture::Utils.read_json(attributes_path)
+            template_attributes = MomentumCms::Fixture::Utils.read_json(::File.join(path, 'attributes.json'), nil)
+            next unless template_attributes
+            
             template = MomentumCms::Template.where(site: @site, label: template_attributes['label']).first_or_initialize
             template.parent = parent if parent
             template.content = MomentumCms::Fixture::Utils.read_file("#{path}/content.liquid", '')
