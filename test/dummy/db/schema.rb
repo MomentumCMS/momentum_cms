@@ -93,7 +93,6 @@ ActiveRecord::Schema.define(version: 20140509014853) do
     t.string   "label"
     t.integer  "published_content_id"
     t.string   "ancestry"
-    t.string   "internal_path"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

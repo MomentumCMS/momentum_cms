@@ -38,9 +38,6 @@ class MomentumCms::Configuration
     @mount_point             = '/'
     @admin_panel_mount_point = '/admin'
     @authentication_method   = :default
-    
-    #development override
-    @site_fixtures_enabled   = ['example-a']
   end
 
 end

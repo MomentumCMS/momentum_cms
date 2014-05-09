@@ -3,6 +3,7 @@ class MomentumCms::Admin::BaseController < ApplicationController
 
   before_action :load_sites
   before_action :load_site
+  before_action :load_fixtures
 
   def load_sites
     @momentum_cms_sites = MomentumCms::Site.all
@@ -24,4 +25,11 @@ class MomentumCms::Admin::BaseController < ApplicationController
     end
   end
 
+  def load_fixtures
+    return unless MomentumCms.configuration.site_fixtures_enabled.is_a?(Array)
+    MomentumCms.configuration.site_fixtures_enabled.each do |fixture|
+      MomentumCms::Fixture::Importer.new({ from: fixture }).import!
+    end
+    flash.now[:danger] = 'Fixtures enabled, all changes will be discarded.'
+  end
 end

@@ -79,62 +79,6 @@ class FixturePageTest < ActiveSupport::TestCase
     end
   end
 
-  def test_generate_path
-    pages = {}
-    pages['/home/'] = { 'label' => 'Home', 'slug' => '/' }
-    pages['/home/about/'] = { 'label' => 'About', 'slug' => 'about' }
-    pages['/home/about/team/'] = { 'label' => 'Team', 'slug' => 'team' }
-    pages['/home/about/team/person/'] = { 'label' => 'Person', 'slug' => 'person' }
-    importer = MomentumCms::Fixture::Page::Importer.new('fake', nil)
-    importer.pages_hash = pages
-    path = importer.generate_path('/home/about/team/person', { 'label' => 'Person', 'slug' => 'person' })
-    assert_equal '/about/team/person', path
-  end
-
-  def test_ancestors
-    pages = {}
-    pages['/home/about/'] = { 'label' => 'About', 'slug' => 'about' }
-    pages['/home/about/team/'] = { 'label' => 'Team', 'slug' => 'team' }
-    pages['/home/about/team/person/'] = { 'label' => 'Person', 'slug' => 'person' }
-    importer = MomentumCms::Fixture::Page::Importer.new('fake', nil)
-    importer.pages_hash = pages
-    ancestors = importer.ancestors('/home/about/team/person')
-    assert_equal 'Team', ancestors[0]['label']
-    assert_equal 'About', ancestors[1]['label']
-  end
-
-  def test_has_parent
-    pages = {}
-    pages['/home/about/'] = {}
-    pages['/home/about/team/'] = {}
-    importer = MomentumCms::Fixture::Page::Importer.new('fake', nil)
-    importer.pages_hash = pages
-    assert importer.has_parent?('/home/about/team/')
-    assert !importer.has_parent?('/home/about/')
-  end
-
-  def test_parent_path
-    importer = MomentumCms::Fixture::Page::Importer.new('fake', nil)
-    path = '/example/path'
-    assert_equal '/example/', importer.parent_path(path)
-    path = '/another/example/trailing-slash/'
-    assert_equal '/another/example/', importer.parent_path(path)
-  end
-
-  def test_multilingual_generate_path
-    pages = {}
-    pages['/'] = { 'label' => 'Home', 'slug' => '/' }
-    pages['/about/'] = { 'label' => 'About', 'locales' => { 'en' => { 'slug' => 'about' }, 'fr' => { 'slug' => 'about-fr' } } }
-    pages['/about/team/'] = { 'label' => 'Team', 'locales' => { 'en' => { 'slug' => 'team' }, 'fr' => { 'slug' => 'team-fr' } } }
-    # pages['/about/team/person/'] = {'label' => 'Person', 'locales' => {'en' => {'slug' => 'person'}, 'fr' => {'slug' => 'person-fr'}}}
-    importer = MomentumCms::Fixture::Page::Importer.new('fake', nil)
-    importer.pages_hash = pages
-    path_en = importer.generate_path('/about/team/person', { 'label' => 'Person', 'slug' => 'person' }, 'en')
-    path_fr = importer.generate_path('/about/team/person', { 'label' => 'Person', 'slug' => 'person' }, 'fr')
-    assert_equal '/about/team/person', path_en
-    assert_equal '/about-fr/team-fr/person', path_fr
-  end
-
   def test_multilingual_import
     @site.settings(:language).update_attributes! locales: [:en, :fr], default: :en
     MomentumCms::Fixture::Page::Importer.new('multilingual-example', @site).import!
