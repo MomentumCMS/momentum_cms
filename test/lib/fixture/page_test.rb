@@ -21,8 +21,7 @@ class FixturePageTest < ActiveSupport::TestCase
   #== Importing =============================================================
 
   def test_basic_import
-    MomentumCms::Page.destroy_all
-    assert_difference 'MomentumCms::Page.count', 8 do
+    assert_difference 'MomentumCms::Page.for_site(@site).count', 8 do
       MomentumCms::Fixture::Page::Importer.new('example-a', @site).import!
     end
     # Home Page

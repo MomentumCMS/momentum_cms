@@ -21,6 +21,10 @@ class MomentumCms::Page < ActiveRecord::Base
   validates :slug, uniqueness: { scope: :ancestry }
 
   # == Scopes ===============================================================
+
+
+  scope :for_site, ->(site) { where(site_id: site.id) }
+
   # == Callbacks ============================================================
 
   before_save :assign_paths

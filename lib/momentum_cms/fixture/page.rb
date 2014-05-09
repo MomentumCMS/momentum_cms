@@ -14,7 +14,7 @@ module MomentumCms
         end
 
 
-        def import!(parent = nil, path = self.object_path)
+        def import!(parent = nil, path = self.object_path)          
           Dir["#{path}*/"].each do |path|
 
             page_attributes = MomentumCms::Fixture::Utils.read_json(::File.join(path, 'attributes.json'), nil)
@@ -41,7 +41,7 @@ module MomentumCms
               page.template = MomentumCms::Template.where(site: @site, label: page_attributes['template']).first
 
               # Save the page
-              page.save!
+              page.save!              
               @imported_objects << page
               # Attach any page content/blocks
               prepare_content(page, path)
@@ -86,7 +86,7 @@ module MomentumCms
 
       end
 
-      class Exporter
+      class Exporter < Base::Exporter
 
         def initialize(pages, export_path)
           @pages = pages
