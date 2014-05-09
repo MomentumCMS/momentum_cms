@@ -10,6 +10,7 @@ Rails.application.routes.draw do
           resources :pages do
             resources :contents
           end
+          resources :snippets
         end
         get 'sites/:id', to: 'dashboards#selector'
       end

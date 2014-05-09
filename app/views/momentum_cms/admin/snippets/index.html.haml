@@ -1,0 +1,19 @@
+%h1.page-header Snippets
+
+%table.table
+  %thead
+    %tr
+      %th Label
+      %th Created At
+      %th Updated At
+      %th Control
+  %tbody
+    - @momentum_cms_snippets.each do |momentum_cms_snippet|
+      %tr
+        %td= link_to momentum_cms_snippet.label, edit_cms_admin_site_snippet_path(@current_momentum_cms_site, momentum_cms_snippet)
+        %td= momentum_cms_snippet.created_at
+        %td= momentum_cms_snippet.updated_at
+        %td       
+          = link_to 'Destroy', cms_admin_site_snippet_path(@current_momentum_cms_site, momentum_cms_snippet), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs'
+%br/
+= link_to 'New Snippet', [:new, :cms, :admin, :site, :snippet], class: 'btn btn-primary btn-xs'

@@ -1,35 +1,25 @@
-class MomentumCms::Site < ActiveRecord::Base
+class MomentumCms::Snippet < ActiveRecord::Base
   # == MomentumCms ==========================================================
 
-  self.table_name = 'momentum_cms_sites'
+  self.table_name = 'momentum_cms_snippets'
 
   # == Constants ============================================================
   # == Relationships ========================================================
 
-  has_many :pages,
-           dependent: :destroy
-
-  has_many :files,
-           dependent: :destroy
-
-  has_many :templates,
-           dependent: :destroy
-  
-  has_many :snippets,
-           dependent: :destroy
+  belongs_to :site
 
   # == Extensions ===========================================================
 
-  has_settings do |s|
-    s.key :site, :defaults => { :title => 'Just another CMS' }
-    s.key :language
-  end
+  translates :value, fallbacks_for_empty_translations: true
+
 
   # == Validations ==========================================================
 
-  validates :label, :host, :identifier, presence: true
-  
-  validates :identifier, uniqueness: true
+  validates :label,
+            presence: true
+
+  validates :label,
+            uniqueness: true
 
   # == Scopes ===============================================================
   # == Callbacks ============================================================

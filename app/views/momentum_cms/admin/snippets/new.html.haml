@@ -1,0 +1,5 @@
+%h1.page-header New Snippet
+
+= simple_form_for @momentum_cms_snippet, url: {action: :create}  do |form|
+  = render partial: 'form', locals: { form: form } 
+
