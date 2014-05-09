@@ -21,9 +21,17 @@ class FixturePageTest < ActiveSupport::TestCase
   #== Importing =============================================================
 
   def test_basic_import
+
+    puts "Page count: #{MomentumCms::Page.count}"
+    puts "Pages: #{MomentumCms::Page.all.pluck(:label)}"
+
     assert_difference 'MomentumCms::Page.count', 8 do
       MomentumCms::Fixture::Page::Importer.new('example-a', @site).import!
     end
+
+    puts "Page count: #{MomentumCms::Page.count}"
+    puts "Pages: #{MomentumCms::Page.all.pluck(:label)}"
+
     # Home Page
     home = @site.pages.roots.first
     assert_equal 'Home', home.label
