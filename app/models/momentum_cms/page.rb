@@ -22,7 +22,6 @@ class MomentumCms::Page < ActiveRecord::Base
 
   # == Scopes ===============================================================
 
-
   scope :for_site, ->(site) { where(site_id: site.id) }
 
   # == Callbacks ============================================================

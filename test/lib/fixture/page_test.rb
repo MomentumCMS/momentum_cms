@@ -6,16 +6,11 @@ class FixturePageTest < ActiveSupport::TestCase
     I18n.locale = :en
     # Paths are always relative to the MomentumCms::config.site_fixtures_path
     @pages_path = File.join('example-a', 'pages')
-    @site = MomentumCms::Site.create!(label: 'Import', host: 'localhost', identifier: SecureRandom.hex)
-    # Ensure our example export site is removed before the tests are run
     folder = SecureRandom.hex
-    @export_path = File.join(folder, 'pages')
-    @test_export_path = File.join(Rails.root, 'sites', folder)
-    FileUtils.rm_rf(@test_export_path) if File.exist?(@test_export_path)
+    @site = MomentumCms::Site.create!(label: 'Import', host: 'localhost', identifier: folder)
   end
 
   def teardown
-    FileUtils.rm_rf(@test_export_path)
   end
 
   #== Importing =============================================================
@@ -117,12 +112,11 @@ class FixturePageTest < ActiveSupport::TestCase
   #== Exporting =============================================================
 
   def test_basic_export
-    MomentumCms::Fixture::Page::Importer.new('example-a', @site).import!
-    page_tree = @site.pages.arrange
+    MomentumCms::Fixture::Importer.new({ source: 'example-a', site: 'test' }).import!
+    @site = MomentumCms::Site.where(identifier: 'test').first!
     folder = SecureRandom.hex
-    export_path = File.join(folder, 'pages')
-    MomentumCms::Fixture::Page::Exporter.new(page_tree, export_path).export!
-    test_export_path = File.join(MomentumCms::config.site_fixtures_path, export_path)
+    MomentumCms::Fixture::Page::Exporter.new(folder, @site).export!
+    test_export_path = File.join(MomentumCms::config.site_fixtures_path, folder, 'pages')
     assert File.exists?(File.join(test_export_path, 'attributes.json'))
     assert File.exists?(File.join(test_export_path, 'about', 'attributes.json'))
     assert File.exists?(File.join(test_export_path, 'about', 'portfolio', 'attributes.json'))

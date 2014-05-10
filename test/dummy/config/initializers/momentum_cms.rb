@@ -8,7 +8,7 @@ MomentumCms.configure do |config|
   config.site_fixtures_path = File.expand_path('sites', Rails.root)
 
   # Reload fixtures every request
-  config.site_fixtures_enabled = ['example-a']
+  config.site_fixtures_enabled = false
 
   if Rails.env.test?
     config.site_fixtures_enabled = false

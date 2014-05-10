@@ -24,10 +24,20 @@ module MomentumCms
       end
 
       class Exporter
-        def initialize
-        end
+        attr_accessor :export_path
 
-        def export!
+        def initialize(target, site)
+          @site = site
+          object_folder =
+            case self
+              when MomentumCms::Fixture::Page::Exporter
+                'pages'
+              when MomentumCms::Fixture::Template::Exporter
+                'templates'
+              else
+                ''
+            end
+          @export_path = ::File.join(MomentumCms.config.site_fixtures_path, ::File.join(target, object_folder))
         end
       end
     end

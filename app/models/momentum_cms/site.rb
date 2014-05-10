@@ -33,14 +33,24 @@ class MomentumCms::Site < ActiveRecord::Base
 
   # == Scopes ===============================================================
   # == Callbacks ============================================================
+
+  before_validation :assign_identifier
+
   # == Class Methods ========================================================
   # == Instance Methods =====================================================
 
-  def get_locales(defaults)
+  def get_locales(defaults=[])
     if self.settings(:language).locales.present?
       self.settings(:language).locales
     else
       defaults
+    end
+  end
+
+  protected
+  def assign_identifier
+    if self.identifier.blank?
+      self.identifier = SecureRandom.uuid
     end
   end
 end
