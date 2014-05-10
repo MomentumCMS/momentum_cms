@@ -6,7 +6,7 @@ module MomentumCms
           Dir["#{path}*/"].each do |path|
             template_attributes = MomentumCms::Fixture::Utils.read_json(::File.join(path, 'attributes.json'), nil)
             next unless template_attributes
-            
+
             template = MomentumCms::Template.where(site: @site, label: template_attributes['label']).first_or_initialize
             template.parent = parent if parent
             template.content = MomentumCms::Fixture::Utils.read_file("#{path}/content.liquid", '')
@@ -22,15 +22,10 @@ module MomentumCms
         end
       end
 
-      class Exporter
-        def initialize(site, templates_path)
-          @site = site
-          @templates_path = File.join(MomentumCms.config.site_fixtures_path, templates_path)
-        end
-
+      class Exporter < Base::Exporter
         def export!
-          FileUtils.rm_rf(@templates_path) if File.exist?(@templates_path)
-          FileUtils.mkdir_p(@templates_path) unless File.exist?(@templates_path)
+          FileUtils.rm_rf(@export_path) if ::File.exist?(@export_path)
+          FileUtils.mkdir_p(@export_path)
           export_templates!(MomentumCms::Template.roots.for_site(@site))
         end
 
@@ -48,16 +43,16 @@ module MomentumCms
         end
 
         def export_template!(template)
-          template_path = File.join(@templates_path, get_template_path(template))
+          template_path = ::File.join(@export_path, get_template_path(template))
 
           FileUtils.mkdir_p(template_path)
           attributes = {
             label: template.label
           }
-          MomentumCms::Fixture::Utils.write_json(File.join(template_path, 'attributes.json'), attributes)
-          MomentumCms::Fixture::Utils.write_file(File.join(template_path, 'content.liquid'), template.content)
-          MomentumCms::Fixture::Utils.write_file(File.join(template_path, 'content.css'), template.css)
-          MomentumCms::Fixture::Utils.write_file(File.join(template_path, 'content.js'), template.js)
+          MomentumCms::Fixture::Utils.write_json(::File.join(template_path, 'attributes.json'), attributes)
+          MomentumCms::Fixture::Utils.write_file(::File.join(template_path, 'content.liquid'), template.content)
+          MomentumCms::Fixture::Utils.write_file(::File.join(template_path, 'content.css'), template.css)
+          MomentumCms::Fixture::Utils.write_file(::File.join(template_path, 'content.js'), template.js)
         end
       end
     end

@@ -26,7 +26,7 @@ class FixtureSiteTest < ActiveSupport::TestCase
 
   def test_basic_export
     site = momentum_cms_sites(:default)
-    MomentumCms::Fixture::Site::Exporter.new(site, 'example-c').export!
+    MomentumCms::Fixture::Site::Exporter.new('example-c', site).export!
     assert File.exist?(@export_path)
     assert File.exist?(File.join(@export_path, 'attributes.json'))
     attributes = MomentumCms::Fixture::Utils.read_json(File.join(@export_path, 'attributes.json'))
@@ -37,8 +37,8 @@ class FixtureSiteTest < ActiveSupport::TestCase
   def test_duplicate_export
     # Should not raise any errors
     site = momentum_cms_sites(:default)
-    MomentumCms::Fixture::Site::Exporter.new(site, 'example-c').export!
-    MomentumCms::Fixture::Site::Exporter.new(site, 'example-c').export!
+    MomentumCms::Fixture::Site::Exporter.new('example-c', site).export!
+    MomentumCms::Fixture::Site::Exporter.new('example-c', site).export!
   end
 
 end

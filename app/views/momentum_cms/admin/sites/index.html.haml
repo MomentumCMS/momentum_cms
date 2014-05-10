@@ -3,6 +3,7 @@
 %table.table
   %thead
     %tr
+      %th Identifier
       %th Label
       %th Host
       %th Created At
@@ -11,6 +12,8 @@
   %tbody
     - @momentum_cms_sites.each do |momentum_cms_site|
       %tr
+        %td
+          .label.label-primary= momentum_cms_site.identifier
         %td= link_to momentum_cms_site.label, edit_cms_admin_site_path(momentum_cms_site)
         %td= momentum_cms_site.host
         %td= momentum_cms_site.created_at

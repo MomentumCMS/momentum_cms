@@ -10,9 +10,7 @@ module MomentumCms
           else
             MomentumCms::Page.for_site(site).roots.first_or_initialize
           end
-
         end
-
 
         def import!(parent = nil, path = self.object_path)
           Dir["#{path}*/"].each do |path|
@@ -35,6 +33,7 @@ module MomentumCms
               page = get_page(@site, parent, slug, page_attributes['label'])
 
               # Set the parent if required
+              # page.site = @site
               page.parent = parent if parent
               page.label = page_attributes['label']
               page.slug = slug
@@ -51,7 +50,7 @@ module MomentumCms
             import!(next_parent, path)
           end
 
-          # MomentumCms::Page.for_site(@site).where.not(id: @imported_objects.collect(&:id)).destroy_all if parent.nil?
+          MomentumCms::Page.for_site(@site).where.not(id: @imported_objects.collect(&:id)).destroy_all if parent.nil?
         end
 
 
@@ -82,36 +81,29 @@ module MomentumCms
                  end
           slug
         end
-
-
       end
 
       class Exporter < Base::Exporter
-
-        def initialize(pages, export_path)
-          @pages = pages
-          @export_path = ::File.join(MomentumCms::config.site_fixtures_path, export_path)
-        end
-
         def export!
           FileUtils.rm_rf(@export_path) if ::File.exist?(@export_path)
-          FileUtils.mkdir_p(@export_path) unless ::File.exist?(@export_path)
-          export_pages(@pages)
+          FileUtils.mkdir_p(@export_path)
+          export_pages!(MomentumCms::Page.roots.for_site(@site))
         end
 
-        def export_pages(pages)
-          pages.each do |page, children|
-            export_page(page)
-            export_pages(children)
+        def export_pages!(pages)
+          pages.each do |page|
+            export_page!(page)
+            export_pages!(page.children)
           end
         end
 
-        def export_page(page)
+        def export_page!(page)
           page_path = ::File.join(@export_path, page.path)
           FileUtils.mkdir_p(page_path)
           attributes = {
             label: page.label,
-            slug: page.slug
+            slug: page.slug,
+            template: page.template.label
           }
           MomentumCms::Fixture::Utils.write_json(::File.join(page_path, 'attributes.json'), attributes)
         end
