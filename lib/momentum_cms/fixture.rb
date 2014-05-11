@@ -14,6 +14,7 @@ module MomentumCms
         site = MomentumCms::Fixture::Site::Importer.new(@source, @site).import!
         templates = MomentumCms::Fixture::Template::Importer.new(@source, site).import!
         pages = MomentumCms::Fixture::Page::Importer.new(@source, site).import!
+        snippets = MomentumCms::Fixture::Snippet::Importer.new(@source, site).import!
       end
     end
 
@@ -30,6 +31,8 @@ module MomentumCms
         MomentumCms::Fixture::Site::Exporter.new(@target, @site).export!
         MomentumCms::Fixture::Template::Exporter.new(@target, @site).export!
         MomentumCms::Fixture::Page::Exporter.new(@target, @site).export!
+        MomentumCms::Fixture::Snippet::Exporter.new(@target, @site).export!
+
       end
     end
   end

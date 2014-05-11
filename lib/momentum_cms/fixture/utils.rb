@@ -1,6 +1,16 @@
 module MomentumCms
   module Fixture
     class Utils
+      def self.each_locale_for_site(site, default_locale= [:en])
+        original_locale = I18n.locale
+        locales = site.get_locales(default_locale)
+        locales.each do |locale|
+          # Set the Locale
+          I18n.locale = locale
+          yield(locale)
+        end
+        I18n.locale = original_locale
+      end
 
       def self.read_json(path, default = nil)
         ActiveSupport::JSON.decode(::File.read(path))
@@ -22,6 +32,7 @@ module MomentumCms
       end
 
       def self.write_file(path, data)
+        FileUtils.mkdir_p(::File.dirname(path))
         ::File.open(path, 'w') do |f|
           f.write(data)
         end

@@ -19,12 +19,8 @@ module MomentumCms
             next unless page_attributes
 
             next_parent = nil
-            original_locale = I18n.locale
-            locales = @site.get_locales([:en])
-            locales.each do |locale|
-              # Set the Locale
-              I18n.locale = locale
 
+            MomentumCms::Fixture::Utils.each_locale_for_site(@site) do |locale|
               # Get the slug
               slug = slug_for_locale(page_attributes, locale)
 
@@ -46,7 +42,8 @@ module MomentumCms
               prepare_content(page, path)
               next_parent = page
             end
-            I18n.locale = original_locale
+
+
             import!(next_parent, path)
           end
 
@@ -99,7 +96,6 @@ module MomentumCms
 
         def export_page!(page)
           page_path = ::File.join(@export_path, page.path)
-          FileUtils.mkdir_p(page_path)
           attributes = {
             label: page.label,
             slug: page.slug,

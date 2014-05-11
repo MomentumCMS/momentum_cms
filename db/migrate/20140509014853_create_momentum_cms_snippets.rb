@@ -3,6 +3,7 @@ class CreateMomentumCmsSnippets < ActiveRecord::Migration
     create_table :momentum_cms_snippets do |t|
       t.references :site, index: true
       t.string :label
+      t.string :slug
 
       t.timestamps
     end

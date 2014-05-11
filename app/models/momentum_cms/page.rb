@@ -1,12 +1,12 @@
 class MomentumCms::Page < ActiveRecord::Base
   # == MomentumCms ==========================================================
+  include MomentumCms::BelongsToSite
 
   self.table_name = 'momentum_cms_pages'
 
   # == Constants ============================================================
   # == Relationships ========================================================
 
-  belongs_to :site
   belongs_to :template
   has_many :contents,
            dependent: :destroy
@@ -21,9 +21,6 @@ class MomentumCms::Page < ActiveRecord::Base
   validates :slug, uniqueness: { scope: [:site, :ancestry] }
 
   # == Scopes ===============================================================
-
-  scope :for_site, ->(site) { where(site_id: site.id) }
-
   # == Callbacks ============================================================
 
   before_save :assign_paths

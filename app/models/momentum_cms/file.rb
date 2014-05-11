@@ -1,5 +1,6 @@
 class MomentumCms::File < ActiveRecord::Base
   # == MomentumCms ==========================================================
+  include MomentumCms::BelongsToSite
 
   self.table_name = 'momentum_cms_files'
 
@@ -11,8 +12,6 @@ class MomentumCms::File < ActiveRecord::Base
 
   belongs_to :attachable,
              polymorphic: true
-
-  belongs_to :site
 
   # == Extensions ===========================================================
 
