@@ -1,7 +1,26 @@
 = form.association :site, collection: MomentumCms::Site.all, prompt: 'Choose a Site', label_method: :label, value_method: :id, include_blank: false
 = form.input :label
-= form.input :js, as: :text, input_html: { rows: 10, data: {editor: 'javascript'}}
-= form.input :css, as: :text, input_html: { rows: 10, data: {editor: 'css'}}
-= form.input :content, as: :text, input_html: { rows: 10, data: {editor: 'liquid'}}
+
+:javascript
+  $(document).ready(function() {
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+      var tab = $(e.target).attr('href');
+      $(tab).find('.ace_text-input').focus();
+    });
+  });
+
+%ul.nav.nav-tabs
+  %li.active= link_to 'Template', '#content', data: {toggle: 'tab'}
+  %li= link_to 'CSS', '#css', data: {toggle: 'tab'}
+  %li= link_to 'Javascript', '#js', data: {toggle: 'tab'}
+
+.tab-content
+  .tab-pane.active#content
+    = form.input :content, as: :text, input_html: { rows: 10, data: {editor: 'liquid'}}, label: 'Template (liquid)'
+  .tab-pane#css
+    = form.input :css, as: :text, input_html: { rows: 10, data: {editor: 'css'}}, label: 'CSS'
+  .tab-pane#js
+    = form.input :js, as: :text, input_html: { rows: 10, data: {editor: 'javascript'}}, label: 'Javascript'
+
 = form.submit class: 'btn btn-success btn-xs'
 = link_to 'Back', cms_admin_site_templates_path(@current_momentum_cms_site), class: 'btn btn-primary btn-xs'
