@@ -26,4 +26,12 @@ class MomentumCms::ContentTest < ActiveSupport::TestCase
     assert_equal 1, @content.translation.versions.length
     assert_equal 3, @content.versions.length
   end
+
+  def test_validates_unique_default
+    page = momentum_cms_pages(:default)
+    assert page.contents.find_by(default: true)
+    content = page.contents.build(default: true, label: 'Duplicate Default')
+    assert !content.valid?
+  end
+
 end

@@ -27,11 +27,18 @@ class MomentumCms::Page < ActiveRecord::Base
 
   # == Callbacks ============================================================
 
+  after_initialize :build_default_content
   before_save :assign_paths
   after_update :regenerate_child_paths
 
   # == Class Methods ========================================================
   # == Instance Methods =====================================================
+
+  def build_default_content
+    if self.new_record? && self.contents.find_by(default: true).nil?
+      self.contents.build(default: true, label: 'Default')
+    end
+  end
 
   def assign_paths
     self.path = generate_path(self)

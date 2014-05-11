@@ -188,18 +188,13 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
     assert_equal '/default/another-slug/new-grandchild-slug', grandchild.path
   end
 
-  def test_accepts_nested_attributes_for_contents
+  def test_creates_default_content
     site = momentum_cms_sites(:default)
-    page = site.pages.build(
-      label: 'Nested',
-      slug:  'nested',
-      contents_attributes: [
-        {label: 'Nested Content'}
-      ]
-    )
     assert_difference "MomentumCms::Page.count" do
       assert_difference "MomentumCms::Content.count" do
-        page.save!
+        page = site.pages.create!(label: 'New Page')
+        content = page.contents.find_by(default: true)
+        assert_equal 'Default', content.label
       end
     end
   end
