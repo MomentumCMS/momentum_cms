@@ -8,10 +8,9 @@ require 'globalize-versioning'
 require 'fileutils'
 require 'json'
 require 'liquid'
-
-require 'liquid'
 require 'paperclip'
 require 'simple_form'
+
 require 'momentum_cms/engine'
 require 'momentum_cms/error'
 require 'momentum_cms/fixture'
