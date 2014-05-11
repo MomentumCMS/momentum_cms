@@ -16,6 +16,7 @@ gemspec
 group :development, :test do
   gem 'simplecov', '~> 0.8.2', require: false
   gem 'coveralls', require: false
+  gem 'codeclimate-test-reporter',  require: nil
   gem 'awesome_print'
   gem 'better_errors'
   gem 'binding_of_caller'

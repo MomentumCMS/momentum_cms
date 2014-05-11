@@ -15,6 +15,10 @@ module MomentumCms
                 'pages'
               when MomentumCms::Fixture::Template::Importer
                 'templates'
+              when MomentumCms::Fixture::Snippet::Importer
+                'snippets'
+              when MomentumCms::Fixture::File::Importer
+                'files'
             end
           @object_path = ::File.join(MomentumCms.config.site_fixtures_path, ::File.join(from, object_folder))
         end
@@ -34,6 +38,10 @@ module MomentumCms
                 'pages'
               when MomentumCms::Fixture::Template::Exporter
                 'templates'
+              when MomentumCms::Fixture::Snippet::Exporter
+                'snippets'
+              when MomentumCms::Fixture::File::Exporter
+                'files'
               else
                 ''
             end

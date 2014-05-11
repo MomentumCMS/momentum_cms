@@ -1,13 +1,12 @@
 class MomentumCms::Template < ActiveRecord::Base
 
   # == MomentumCms ==========================================================
+  include MomentumCms::BelongsToSite
 
   self.table_name = 'momentum_cms_templates'
 
   # == Constants ============================================================
   # == Relationships ========================================================
-
-  belongs_to :site
 
   has_many :pages
 
@@ -19,15 +18,13 @@ class MomentumCms::Template < ActiveRecord::Base
 
   validate :valid_liquid_content
 
-  validates :site, :site_id, :label,
+  validates :label,
             presence: true
 
   validates :label,
             uniqueness: { scope: :site_id }
 
   # == Scopes ===============================================================
-
-  scope :for_site, ->(site) { where(site_id: site.id) }
 
   # == Callbacks ============================================================
   # == Class Methods ========================================================

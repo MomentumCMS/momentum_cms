@@ -21,3 +21,7 @@ matrix:
   fast_finish: true
   allow_failures:
     - gemfile: test/gemfiles/Gemfile.rails.master
+addons:
+  code_climate:
+    repo_token:
+      secure: "HoCJzAk37VtzwVLgO3fqFhv79ndFo5sCTB/K/uBgVlfNi3wuwqouMq+BeRN17o6uLW9os3j/5u3k9dErHMbN2v1nt7CoZsbsrSpeFNvOubsYgEzquuG7c+15I1xnfUzVgxSuQglTmniHAKaqT2khrs8FpnGzvC2RtNTAr9kL0to="
