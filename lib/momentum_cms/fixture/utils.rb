@@ -20,7 +20,7 @@ module MomentumCms
 
       def self.read_file(path, default = nil)
         f = ''
-        ::File.open(path, "rb") do |f|
+        ::File.open(path, 'rb') do |f|
           f.read
         end
       rescue
@@ -33,7 +33,7 @@ module MomentumCms
 
       def self.write_file(path, data)
         FileUtils.mkdir_p(::File.dirname(path))
-        ::File.open(path, 'w') do |f|
+        ::File.open(path, 'wb') do |f|
           f.write(data)
         end
       end

@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20140509014853) do
   create_table "momentum_cms_files", force: true do |t|
     t.string   "label"
     t.string   "tag"
+    t.string   "slug"
     t.boolean  "multiple",          default: false
     t.integer  "site_id"
     t.integer  "attachable_id"
