@@ -1,12 +1,7 @@
 module MomentumCms
   module Tags
-    class CmsMenuTag < CmsBaseTag
-      def initialize(tag_name, params, tokens)
-        super
-        @params = sanatize_params(params)
-        @params = parse_params(@params)
-      end
-
+    class CmsMenu < CmsBaseTag
+  
       def render(context)
         _cms_page = context.environments.first
         _cms_page =_cms_page[:cms_page]
@@ -38,6 +33,6 @@ module MomentumCms
       end
     end
 
-    Liquid::Template.register_tag 'cms_menu', CmsMenuTag
+    Liquid::Template.register_tag 'cms_menu', CmsMenu
   end
 end

@@ -59,7 +59,7 @@ module MomentumCms
             template = Liquid::Template.parse(text)
             original_locale = I18n.locale
             template.root.nodelist.each do |node|
-              next unless node.is_a?(MomentumCms::Tags::CmsFixtureBlockTag)
+              next unless node.is_a?(MomentumCms::Tags::CmsFixture)
               I18n.locale = node.params[:locale]
               block = MomentumCms::Block.where(content: content, identifier: node.params[:id]).first_or_initialize
               block.value = node.nodelist.first

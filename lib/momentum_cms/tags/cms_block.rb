@@ -1,11 +1,7 @@
 module MomentumCms
   module Tags
-    class CmsBlockTag < CmsBaseTag
-      def initialize(tag_name, params, tokens)
-        super
-        @params = sanatize_params(params)
-        @params = parse_params(@params)
-      end
+
+    class CmsBlock < CmsBaseTag
 
       def render(context)
         _env = context.environments.first
@@ -21,6 +17,6 @@ module MomentumCms
       end
     end
 
-    Liquid::Template.register_tag 'cms_block', CmsBlockTag
+    Liquid::Template.register_tag 'cms_block', CmsBlock
   end
 end

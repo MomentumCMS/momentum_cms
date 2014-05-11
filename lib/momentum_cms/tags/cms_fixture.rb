@@ -1,12 +1,8 @@
 module MomentumCms
   module Tags
-    class CmsFixtureBlockTag < CmsBaseBlock
-      def initialize(tag_name, params, tokens)
-        super
-        @params = sanatize_params(params)
-        @params = parse_params(@params)
-      end
+    class CmsFixture < CmsBaseBlock
+   
     end
-    Liquid::Template.register_tag 'cms_fixture', CmsFixtureBlockTag
+    Liquid::Template.register_tag 'cms_fixture', CmsFixture
   end
 end

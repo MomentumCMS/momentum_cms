@@ -1,8 +1,13 @@
 module MomentumCms
   module Tags
-    class CmsYield <CmsBaseTag
+    class CmsFile < CmsBaseTag
+
+
+
       def render(context)
-        context_get(context, :yield)
+        context.environments.first[:yield]
+      rescue
+        ''
       end
     end
     Liquid::Template.register_tag 'cms_yield', CmsYield
