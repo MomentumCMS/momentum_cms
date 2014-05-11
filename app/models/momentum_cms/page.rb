@@ -10,6 +10,7 @@ class MomentumCms::Page < ActiveRecord::Base
   belongs_to :template
   has_many :contents,
            dependent: :destroy
+  accepts_nested_attributes_for :contents
 
   # == Extensions ===========================================================
 
