@@ -1,16 +1,15 @@
-require 'action_view'
+module MomentumCms
+  module Tags
+    class CmsJsTag < CmsBaseTag
 
-class CmsJsTag < Liquid::Tag
-  include ActionView::Helpers::AssetTagHelper
+      def render(context)
+        _cms_page_id = context.environments.first[:cms_page].id
+        stylesheet_link_tag "/momentum_cms/js/#{_cms_page_id}.js"
+      rescue
+        ''
+      end
+    end
 
-  def render(context)
-    _cms_page = context.environments.first
-    _cms_page =_cms_page[:cms_page]
-    _cms_page_id = _cms_page.id
-    javascript_include_tag "/momentum_cms/js/#{_cms_page_id}.js"
-  rescue
-    ''
+    Liquid::Template.register_tag 'cms_js', CmsJsTag
   end
 end
-
-Liquid::Template.register_tag 'cms_js', CmsJsTag

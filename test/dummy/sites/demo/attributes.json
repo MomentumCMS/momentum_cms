@@ -1,0 +1,6 @@
+{
+  "identifier": "demo",
+  "label": "Demo",
+  "host":  "demo.dev",
+  "locales": ["en", "fr"]
+}
