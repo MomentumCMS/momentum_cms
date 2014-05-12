@@ -12,7 +12,6 @@ class MomentumCms::TemplateTest < ActiveSupport::TestCase
     assert_equal MomentumCms::Template.ancestor_and_self!(@parent), [@parent]
     assert_equal MomentumCms::Template.ancestor_and_self!(@child), [@parent, @child]
     assert_equal MomentumCms::Template.ancestor_and_self!(nil), []
-
   end
 
   def test_fixture_validity
@@ -65,5 +64,4 @@ class MomentumCms::TemplateTest < ActiveSupport::TestCase
     )
     refute template.valid?
   end
-
 end

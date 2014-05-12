@@ -12,11 +12,10 @@ module MomentumCms
 
       def import!
         site = MomentumCms::Fixture::Site::Importer.new(@source, @site).import!
+        files = MomentumCms::Fixture::File::Importer.new(@source, site).import!
+        snippets = MomentumCms::Fixture::Snippet::Importer.new(@source, site).import!
         templates = MomentumCms::Fixture::Template::Importer.new(@source, site).import!
         pages = MomentumCms::Fixture::Page::Importer.new(@source, site).import!
-        snippets = MomentumCms::Fixture::Snippet::Importer.new(@source, site).import!
-        files = MomentumCms::Fixture::File::Importer.new(@source, site).import!
-
       end
     end
 
@@ -31,12 +30,10 @@ module MomentumCms
 
       def export!
         MomentumCms::Fixture::Site::Exporter.new(@target, @site).export!
+        MomentumCms::Fixture::File::Exporter.new(@target, @site).export!
+        MomentumCms::Fixture::Snippet::Exporter.new(@target, @site).export!
         MomentumCms::Fixture::Template::Exporter.new(@target, @site).export!
         MomentumCms::Fixture::Page::Exporter.new(@target, @site).export!
-        MomentumCms::Fixture::Snippet::Exporter.new(@target, @site).export!
-        MomentumCms::Fixture::File::Exporter.new(@target, @site).export!
-
-
       end
     end
   end

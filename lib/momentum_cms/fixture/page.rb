@@ -50,7 +50,6 @@ module MomentumCms
           MomentumCms::Page.for_site(@site).where.not(id: @imported_objects.collect(&:id)).destroy_all if parent.nil?
         end
 
-
         def prepare_content(page, path)
           content = MomentumCms::Content.where(page: page, label: page.label).first_or_initialize
           content.save!
@@ -59,10 +58,10 @@ module MomentumCms
             template = Liquid::Template.parse(text)
             original_locale = I18n.locale
             template.root.nodelist.each do |node|
-              next unless node.is_a?(MomentumCms::Tags::CmsFixtureBlockTag)
+              next unless node.is_a?(MomentumCms::Tags::CmsFixture)
               I18n.locale = node.params[:locale]
               block = MomentumCms::Block.where(content: content, identifier: node.params[:id]).first_or_initialize
-              block.value = node.nodelist.first
+              block.value = MomentumCms::Tags::CmsFixture.get_contents(node)
               block.save!
             end
             I18n.locale = original_locale
