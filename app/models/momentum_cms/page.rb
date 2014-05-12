@@ -29,6 +29,7 @@ class MomentumCms::Page < ActiveRecord::Base
 
   after_initialize :build_default_content
   before_save :assign_paths
+  after_save :set_published_content_id, only: :create
   after_update :regenerate_child_paths
 
   # == Class Methods ========================================================
@@ -51,8 +52,17 @@ class MomentumCms::Page < ActiveRecord::Base
     end
   end
 
+  def published_content
+    self.contents.find_by(id: self.published_content_id)
+  end
+
   protected
 
+  def set_published_content_id
+    # puts self.contents.inspect
+    # puts "set_published_content_id: #{self.published_content.id}"
+    self.update_column(:published_content_id, self.contents.default.first.id) unless self.contents.default.blank?
+  end
 
   def generate_path(page)
     translated_path = []

@@ -34,4 +34,11 @@ class MomentumCms::ContentTest < ActiveSupport::TestCase
     assert !content.valid?
   end
 
+  def test_default_content_scope
+    content = MomentumCms::Content.default.first
+    assert content.default
+    content.update_attribute(:default, false)
+    assert MomentumCms::Content.default.blank?
+  end
+
 end

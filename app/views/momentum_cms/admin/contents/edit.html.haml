@@ -1,5 +1,25 @@
 %h1.page-header Edit Content for Page '#{@momentum_cms_page.label}'
 
-= simple_form_for @momentum_cms_content, url: {action: :update}  do |form|
-  = render partial: 'form', locals: { form: form } 
+.row
+  .col-md-8
+    = simple_form_for @momentum_cms_content, url: {action: :update}  do |form|
+      = render partial: 'form', locals: { form: form } 
+  .col-md-4
 
+    .panel.panel-default
+      .panel-heading Publishing Options
+      .panel-body
+        .btn-group
+          %button.btn.btn-default.dropdown-toggle{type: 'button', data: {toggle: 'dropdown'}}
+            Content: 
+            = @momentum_cms_content.label
+            %span.caret
+          %ul.dropdown-menu
+            %li.dropdown-header{role: 'presentation'} Content Variations
+            - @momentum_cms_content.page.contents.each do |content|
+              %li= link_to content.label, edit_cms_admin_site_page_content_path(@current_momentum_cms_site, @momentum_cms_page, content)
+            %li.divider{role: 'presentation'}
+            %li
+              = link_to new_cms_admin_site_page_content_path(@current_momentum_cms_site, @momentum_cms_page) do
+                .glyphicon.glyphicon-plus
+                Add Content Variation

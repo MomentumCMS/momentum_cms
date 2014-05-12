@@ -15,7 +15,7 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
   def create
     @momentum_cms_page.save!
     flash[:success] = 'Page was successfully created.'
-    redirect_to new_cms_admin_site_page_content_path(@current_momentum_cms_site, @momentum_cms_page)
+    redirect_to edit_cms_admin_site_page_content_path(@current_momentum_cms_site, @momentum_cms_page, @momentum_cms_page.contents.default.first)
   rescue ActiveRecord::RecordInvalid
     render action: :new
   end

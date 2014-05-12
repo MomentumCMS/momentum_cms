@@ -31,6 +31,9 @@ class MomentumCms::Content < ActiveRecord::Base
   validates :default, uniqueness: {scope: :page_id}
 
   # == Scopes ===============================================================
+
+  scope :default, -> { where(default: true) }
+
   # == Callbacks ============================================================
   # == Class Methods ========================================================
   # == Instance Methods =====================================================
