@@ -8,7 +8,6 @@ module MomentumCms
         @params = parse_params(@params)
       end
 
-      
       def sanatize_params(params)
         params.strip
       end

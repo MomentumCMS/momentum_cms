@@ -1,6 +1,6 @@
 require_relative '../../test_helper'
 
-class CmsFixtureBlockTest < ActiveSupport::TestCase
+class CmsHtmlMetaTest < ActiveSupport::TestCase
 
   def test_params
     page = momentum_cms_pages(:default)
