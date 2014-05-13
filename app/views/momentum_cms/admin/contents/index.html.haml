@@ -18,7 +18,8 @@
             = link_to momentum_cms_content.page.label, edit_cms_admin_site_page_path(@current_momentum_cms_site, @momentum_cms_page)
         %td= momentum_cms_content.created_at
         %td= momentum_cms_content.updated_at
-        %td       
-          = link_to 'Destroy', cms_admin_site_page_content_path(@current_momentum_cms_site, @momentum_cms_page, momentum_cms_content), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs'
+        %td
+          - unless momentum_cms_content.default?
+            = link_to 'Destroy', momentum_content_url(momentum_cms_content), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' 
 %br/
 = link_to 'New Content', new_cms_admin_site_page_content_path(@current_momentum_cms_site, @momentum_cms_page), class: 'btn btn-primary btn-xs'

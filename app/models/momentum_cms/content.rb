@@ -38,4 +38,12 @@ class MomentumCms::Content < ActiveRecord::Base
   # == Class Methods ========================================================
   # == Instance Methods =====================================================
 
+  def published?
+    self.page && !self.new_record? && self.page.published_content_id == self.id
+  end
+
+  def default?
+    self.default
+  end
+
 end

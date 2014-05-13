@@ -28,4 +28,16 @@ class MomentumCms::Admin::PagesControllerTest < ActionController::TestCase
     assert_redirected_to edit_cms_admin_site_page_content_path(@site, page, content)
   end
 
+  def test_update
+    page = momentum_cms_pages(:default)
+    content = page.contents.create!(label: 'New Content')
+    put :update, site_id: page.site.id, id: page.id, momentum_cms_page: {
+      label: 'Updated',
+      published_content_id: content.id
+    }
+    page.reload
+    assert_equal 'Updated', page.label
+    assert_equal content.id, page.published_content_id
+  end
+
 end
