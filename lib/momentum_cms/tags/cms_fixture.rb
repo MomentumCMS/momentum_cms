@@ -1,28 +1,28 @@
-class CmsFixtureBlockTag < Liquid::Block
+module MomentumCms
+  module Tags
+    class CmsFixture < CmsBaseBlock
 
-  attr_accessor :params
+      def self.get_contents(tag)
+        results = if tag.is_a?(MomentumCms::Tags::CmsFixture)
+                    results = ''
+                    tag.nodelist.each do |node|
+                      case node
+                        when Liquid::Raw
+                          node.nodelist.each do |node_raw|
+                            results << node_raw
+                          end
+                        else
+                          results << node
+                      end
+                    end
+                    results
+                  else
+                    ''
+                  end
+        results.strip
+      end
 
-  def initialize(tag_name, params, tokens)
-    super
-    @params = sanatize_params(params)
-    @params = parse_params(params)
-  end
-
-  def sanatize_params(params)
-    params = params.squeeze
-    params = params.strip
-    params
-  end
-
-  def parse_params(params)
-    result = {}
-    params.split(' ').each do |keyval|
-      keyval = keyval.split(':')
-      result[keyval[0].to_sym] = keyval[1]
     end
-    result
+    Liquid::Template.register_tag 'cms_fixture', CmsFixture
   end
-
 end
-
-Liquid::Template.register_tag 'cms_fixture', CmsFixtureBlockTag

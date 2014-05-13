@@ -19,12 +19,8 @@ module MomentumCms
             next unless page_attributes
 
             next_parent = nil
-            original_locale = I18n.locale
-            locales = @site.get_locales([:en])
-            locales.each do |locale|
-              # Set the Locale
-              I18n.locale = locale
 
+            MomentumCms::Fixture::Utils.each_locale_for_site(@site) do |locale|
               # Get the slug
               slug = slug_for_locale(page_attributes, locale)
 
@@ -46,13 +42,13 @@ module MomentumCms
               prepare_content(page, path)
               next_parent = page
             end
-            I18n.locale = original_locale
+
+
             import!(next_parent, path)
           end
 
           MomentumCms::Page.for_site(@site).where.not(id: @imported_objects.collect(&:id)).destroy_all if parent.nil?
         end
-
 
         def prepare_content(page, path)
           content = MomentumCms::Content.where(page: page, label: page.label).first_or_initialize
@@ -62,10 +58,10 @@ module MomentumCms
             template = Liquid::Template.parse(text)
             original_locale = I18n.locale
             template.root.nodelist.each do |node|
-              next unless node.is_a?(CmsFixtureBlockTag)
+              next unless node.is_a?(MomentumCms::Tags::CmsFixture)
               I18n.locale = node.params[:locale]
               block = MomentumCms::Block.where(content: content, identifier: node.params[:id]).first_or_initialize
-              block.value = node.nodelist.first
+              block.value = MomentumCms::Tags::CmsFixture.get_contents(node)
               block.save!
             end
             I18n.locale = original_locale
@@ -99,7 +95,6 @@ module MomentumCms
 
         def export_page!(page)
           page_path = ::File.join(@export_path, page.path)
-          FileUtils.mkdir_p(page_path)
           attributes = {
             label: page.label,
             slug: page.slug,

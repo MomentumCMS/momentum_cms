@@ -1,0 +1,7 @@
+default:
+  site: default
+  label: Parent
+  
+child:
+  site: default
+  label: child

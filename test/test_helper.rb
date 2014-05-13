@@ -1,13 +1,15 @@
 # Configure Rails Environment
 ENV['RAILS_ENV'] = 'test'
 
+require 'codeclimate-test-reporter'
 require 'simplecov'
 require 'coveralls'
 
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+  Coveralls::SimpleCov::Formatter,
   SimpleCov::Formatter::HTMLFormatter,
-  Coveralls::SimpleCov::Formatter
 ]
+CodeClimate::TestReporter.start
 
 SimpleCov.start 'rails' do
   add_group 'Tags', 'lib/momentum_cms/tags'

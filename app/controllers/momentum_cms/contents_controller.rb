@@ -14,10 +14,10 @@ class MomentumCms::ContentsController < MomentumCms::BaseController
   def show
     content = @momentum_cms_content.content
     @template_array.reverse.each do |template|
-      liquid  = Liquid::Template.parse(template.content)
-      content = liquid.render(edit:        false,
-                              yield:       content,
-                              cms_page:    @momentum_cms_page,
+      liquid = Liquid::Template.parse(template.content)
+      content = liquid.render(yield: content,
+                              cms_site: @momentum_cms_site,
+                              cms_page: @momentum_cms_page,
                               cms_content: @momentum_cms_content)
     end
     render inline: content
@@ -27,7 +27,7 @@ class MomentumCms::ContentsController < MomentumCms::BaseController
   def load_momentum_cms_content
     path = "/#{params[:id]}" || '/'
 
-    @momentum_cms_page    = MomentumCms::Page.where(path: path).first!
+    @momentum_cms_page = MomentumCms::Page.where(path: path).first!
     @momentum_cms_content = @momentum_cms_page.published_content
 
   rescue ActiveRecord::RecordNotFound

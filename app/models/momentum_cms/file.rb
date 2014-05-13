@@ -1,5 +1,6 @@
 class MomentumCms::File < ActiveRecord::Base
   # == MomentumCms ==========================================================
+  include MomentumCms::BelongsToSite
 
   self.table_name = 'momentum_cms_files'
 
@@ -12,8 +13,6 @@ class MomentumCms::File < ActiveRecord::Base
   belongs_to :attachable,
              polymorphic: true
 
-  belongs_to :site
-
   # == Extensions ===========================================================
 
   has_attached_file :file,
@@ -22,14 +21,19 @@ class MomentumCms::File < ActiveRecord::Base
   before_post_process :is_image?
 
   # == Validations ==========================================================
+  validates :slug, presence: true
+
+  validates :slug, uniqueness: true
 
   before_validation { self.file.clear if self.delete_file == '1' }
-
-  validates_attachment_content_type :file,
-                                    content_type: /.*/
-
-  validates_attachment_content_type :file,
-                                    content_type: /\Aimage\/.*\Z/
+  
+  do_not_validate_attachment_file_type :file
+  
+  # validates_attachment_content_type :file,
+  #                                   content_type: /.*/
+  # 
+  # validates_attachment_content_type :file,
+  #                                   content_type: /\Aimage\/.*\Z/
 
   # == Scopes ===============================================================
   # == Callbacks ============================================================

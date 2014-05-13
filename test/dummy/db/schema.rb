@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140509014853) do
+ActiveRecord::Schema.define(version: 20140513040564) do
 
   create_table "momentum_cms_block_translations", force: true do |t|
     t.integer  "momentum_cms_block_id", null: false
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20140509014853) do
   create_table "momentum_cms_files", force: true do |t|
     t.string   "label"
     t.string   "tag"
+    t.string   "slug"
     t.boolean  "multiple",          default: false
     t.integer  "site_id"
     t.integer  "attachable_id"
@@ -134,6 +135,7 @@ ActiveRecord::Schema.define(version: 20140509014853) do
   create_table "momentum_cms_snippets", force: true do |t|
     t.integer  "site_id"
     t.string   "label"
+    t.string   "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

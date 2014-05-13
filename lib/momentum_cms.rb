@@ -8,28 +8,36 @@ require 'globalize-versioning'
 require 'fileutils'
 require 'json'
 require 'liquid'
-
-require 'liquid'
 require 'paperclip'
 require 'simple_form'
+
 require 'momentum_cms/engine'
 require 'momentum_cms/error'
+
+
+require 'momentum_cms/tags/cms_liquid_utils'
+require 'momentum_cms/tags/cms_base_block'
+require 'momentum_cms/tags/cms_base_tag'
+require 'momentum_cms/tags/cms_fixture'
+require 'momentum_cms/tags/cms_yield'
+require 'momentum_cms/tags/cms_block'
+require 'momentum_cms/tags/cms_menu'
+require 'momentum_cms/tags/cms_html_meta'
+require 'momentum_cms/tags/cms_file'
+
+
 require 'momentum_cms/fixture'
 require 'momentum_cms/fixture/base'
 require 'momentum_cms/fixture/utils'
 require 'momentum_cms/fixture/template'
+require 'momentum_cms/fixture/snippet'
 require 'momentum_cms/fixture/site'
 require 'momentum_cms/fixture/page'
+require 'momentum_cms/fixture/file'
 require 'momentum_cms/configuration'
 require 'momentum_cms/has_settings'
 require 'momentum_cms/has_files'
 require 'momentum_cms/rails'
-require 'momentum_cms/tags/cms_fixture'
-require 'momentum_cms/tags/cms_yield'
-require 'momentum_cms/tags/cms_css'
-require 'momentum_cms/tags/cms_js'
-require 'momentum_cms/tags/cms_block'
-
 
 
 module MomentumCms
