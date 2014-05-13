@@ -28,6 +28,7 @@ ActiveSupport::TestCase.fixture_path = File.expand_path('../fixtures', __FILE__)
 
 class ActiveSupport::TestCase
   fixtures :all
+  include ActionDispatch::TestProcess
 
   #Allows to assert on the number of SQL statement used
   def asset_query_count_equal(count, &block)

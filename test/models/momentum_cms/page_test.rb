@@ -9,9 +9,6 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
     page.update_attribute(:slug, 'default')
   end
 
-  def build_basic_tree
-  end
-
   def test_fixture_validity
     MomentumCms::Page.all.each do |page|
       assert page.valid?
@@ -27,18 +24,6 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
       )
     end
   end
-
-  # TODO: Rewrite this to validate slugs only on the sibling level, within the
-  # same locale
-  # def test_unique_slug
-  #   page = momentum_cms_pages(:default)
-  #   page.slug = 'foo'
-  #   page.save!
-
-  #   slug = MomentumCms::Page.new(slug: 'foo')
-  #   refute slug.valid?
-  #   assert_equal ["has already been taken"], slug.errors[:slug]
-  # end
 
   def test_translates_path_and_locale
     page = momentum_cms_pages(:default)
@@ -188,5 +173,27 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
     assert_equal '/default/another-slug/new-grandchild-slug', grandchild.path
   end
 
+  def test_creates_default_content
+    site = momentum_cms_sites(:default)
+    assert_difference "MomentumCms::Page.count" do
+      assert_difference "MomentumCms::Content.count" do
+        page = site.pages.create!(label: 'New Page')
+        content = page.contents.find_by(default: true)
+        assert_equal 'Default', content.label
+      end
+    end
+  end
+
+  def test_default_content_is_set_and_published
+    site = momentum_cms_sites(:default)
+    page = site.pages.create!(label: 'Has Default', slug: 'has-default')
+    assert page.published_content.present?
+  end
+
+  def test_published_content
+    page = momentum_cms_pages(:default)
+    page.update_attribute(:published_content_id, page.contents.first.id)
+    assert_equal page.contents.first, page.published_content
+  end
 
 end

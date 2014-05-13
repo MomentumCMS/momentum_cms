@@ -13,7 +13,6 @@ class MomentumCms::Admin::ContentsController < MomentumCms::Admin::BaseControlle
   def edit
     template = @momentum_cms_page.template
 
-
     @content_blocks = @momentum_cms_content.blocks.to_a
 
     @defined_blocks = TemplateBlockService.new(template).get_blocks.delete_if do |v|

@@ -10,6 +10,7 @@ class MomentumCms::Page < ActiveRecord::Base
   belongs_to :template
   has_many :contents,
            dependent: :destroy
+  accepts_nested_attributes_for :contents
 
   # == Extensions ===========================================================
 
@@ -23,11 +24,19 @@ class MomentumCms::Page < ActiveRecord::Base
   # == Scopes ===============================================================
   # == Callbacks ============================================================
 
+  after_initialize :build_default_content
   before_save :assign_paths
+  after_create :set_published_content_id
   after_update :regenerate_child_paths
 
   # == Class Methods ========================================================
   # == Instance Methods =====================================================
+
+  def build_default_content
+    if self.new_record? && self.contents.find_by(default: true).nil?
+      self.contents.build(default: true, label: 'Default')
+    end
+  end
 
   def assign_paths
     self.path = generate_path(self)
@@ -40,8 +49,15 @@ class MomentumCms::Page < ActiveRecord::Base
     end
   end
 
+  def published_content
+    self.contents.find_by(id: self.published_content_id)
+  end
+
   protected
 
+  def set_published_content_id
+    self.update_column(:published_content_id, self.contents.default.first.id) unless self.contents.default.blank?
+  end
 
   def generate_path(page)
     translated_path = []

@@ -1,6 +1,5 @@
 = form.input :label
 = form.input :slug
-= form.association :site, collection: MomentumCms::Site.all, prompt: 'Choose a Site', label_method: :label, value_method: :id, include_blank: false
 = form.association :template, collection: MomentumCms::Template.all, prompt: 'Choose a Template', label_method: :label, value_method: :id, include_blank: false
 
 - if @momentum_cms_page.persisted?
