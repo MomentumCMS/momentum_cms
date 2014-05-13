@@ -19,6 +19,8 @@ class MomentumCms::Snippet < ActiveRecord::Base
   validates :slug,
             uniqueness: true
 
+  validate :validate_value_does_not_nest
+
   # == Scopes ===============================================================
   # == Callbacks ============================================================
 
@@ -32,5 +34,16 @@ class MomentumCms::Snippet < ActiveRecord::Base
     if self.slug.blank?
       self.slug = self.label.to_slug
     end
+  end
+
+  def validate_value_does_not_nest
+    template = Liquid::Template.parse(self.value)
+    template.root.nodelist.each do |node|
+      if node.is_a?(MomentumCms::Tags::CmsSnippet)
+        self.errors.add(:value, 'can not contain another {% cms_snippet %} tag.')
+      end
+    end
+  rescue
+    self.errors.add(:value, 'is not a valid liquid markup')
   end
 end
