@@ -1,5 +1,5 @@
 = form.input :label
-= form.input :slug
+= form.input :slug, hint: "Localized for: #{I18n.locale}"
 = form.association :template, collection: MomentumCms::Template.all, prompt: 'Choose a Template', label_method: :label, value_method: :id, include_blank: false
 
 - if @momentum_cms_page.persisted?

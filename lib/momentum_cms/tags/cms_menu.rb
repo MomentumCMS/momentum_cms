@@ -10,7 +10,7 @@ module MomentumCms
                  menu = ''
                  menu += '<ul class="nav nav-sidebar">' if _cms_page_children.length > 0
                  _cms_page_children.each do |cms_page|
-                   menu += "<li><a href='#{cms_page.path}'>#{cms_page.contents.first.label}</a></li>"
+                   menu += "<li><a href='#{cms_page.path}'>#{cms_page.published_content.label}</a></li>"
                  end
                  menu += '</ul>' if _cms_page_children.length > 0
                  menu.html_safe
@@ -20,7 +20,7 @@ module MomentumCms
                  _cms_page_parent = _cms_page.parent
                  if _cms_page_parent
                    menu += '<ul class="nav nav-sidebar">'
-                   menu += "<li><a href='#{_cms_page_parent.path}'>#{_cms_page_parent.contents.first.label}</a></li>"
+                   menu += "<li><a href='#{_cms_page_parent.path}'>#{_cms_page_parent.published_content.label}</a></li>"
                    menu += '</ul>'
                  end
                  menu.html_safe

@@ -1,6 +1,10 @@
+require 'action_view'
+
 module MomentumCms
   module Tags
     module CmsLiquidUtils
+      include ActionView::Context
+      include ActionView::Helpers::AssetTagHelper
 
       def initialize(tag_name, params, tokens)
         super

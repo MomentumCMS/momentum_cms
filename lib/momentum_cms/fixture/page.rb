@@ -53,6 +53,10 @@ module MomentumCms
         def prepare_content(page, path)
           content = MomentumCms::Content.where(page: page, label: page.label).first_or_initialize
           content.save!
+
+          page.published_content_id = content.id
+          page.save!
+
           Dir.glob("#{path}/*.liquid").each do |content_path|
             text = ::File.read(content_path)
             template = Liquid::Template.parse(text)

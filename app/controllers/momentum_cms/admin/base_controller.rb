@@ -4,6 +4,14 @@ class MomentumCms::Admin::BaseController < ApplicationController
   before_action :load_sites
   before_action :load_site
   before_action :load_fixtures
+  before_action :set_locale
+
+  def set_locale
+    if params[:locale]
+      session[:locale] = params[:locale]
+    end
+    I18n.locale = session[:locale] || params[:locale] || :en
+  end
 
   def load_sites
     @momentum_cms_sites = MomentumCms::Site.all

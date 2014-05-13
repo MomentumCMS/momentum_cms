@@ -21,6 +21,14 @@
           = link_to 'Momentum CMS', cms_admin_root_path, class: 'navbar-brand'
         .navbar-collapse.collapse
           %ul.nav.navbar-nav.navbar-right
+            - if @current_momentum_cms_site
+              %li.dropdown
+                %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
+                  = I18n.locale
+                  %b.caret
+                %ul.dropdown-menu
+                  - @current_momentum_cms_site.get_locales.each do |locale|
+                    %li= link_to locale, params.merge(locale: locale)
             %li
               = link_to 'Dashboard', cms_admin_root_path
             %li.dropdown
@@ -35,8 +43,6 @@
                 %li.dropdown-header Manage Sites
                 %li= link_to 'Manage Sites', cms_admin_sites_path
                 %li= link_to 'New Site', new_cms_admin_site_path
-            -#%li
-            -#  %a{href: "#"} Settings
           %form.navbar-form.navbar-right
             %input.form-control{placeholder: "Search...", type: "text"}/
     .container-fluid
