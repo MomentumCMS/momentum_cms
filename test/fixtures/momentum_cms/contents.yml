@@ -2,3 +2,4 @@
 
 default:
   page: default
+  default: true

@@ -1,5 +1,8 @@
 %h1.page-header Edit Content for Page '#{@momentum_cms_page.label}'
 
-= simple_form_for @momentum_cms_content, url: {action: :update}  do |form|
-  = render partial: 'form', locals: { form: form } 
-
+.row
+  .col-md-8
+    = simple_form_for @momentum_cms_content, url: {action: :update}  do |form|
+      = render partial: 'form', locals: { form: form } 
+  .col-md-4
+    = render 'publishing_options'

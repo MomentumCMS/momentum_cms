@@ -26,4 +26,34 @@ class MomentumCms::ContentTest < ActiveSupport::TestCase
     assert_equal 1, @content.translation.versions.length
     assert_equal 3, @content.versions.length
   end
+
+  def test_validates_unique_default
+    page = momentum_cms_pages(:default)
+    assert page.contents.find_by(default: true)
+    content = page.contents.build(default: true, label: 'Duplicate Default')
+    assert !content.valid?
+  end
+
+  def test_default_content_scope
+    content = MomentumCms::Content.default.first
+    assert content.default
+    content.update_attribute(:default, false)
+    assert MomentumCms::Content.default.blank?
+  end
+
+  def test_published
+    content = MomentumCms::Content.default.first
+    page = content.page
+    assert !content.published?
+    page.update_attribute(:published_content_id, content.id)
+    assert content.published?
+  end
+
+  def test_default
+    content = MomentumCms::Content.default.first
+    assert content.default?
+    content.update_attribute(:default, false)
+    assert !content.default?
+  end
+
 end
