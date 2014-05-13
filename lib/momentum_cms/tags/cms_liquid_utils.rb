@@ -26,6 +26,14 @@ module MomentumCms
       rescue
         default
       end
+
+      def print_error_message(exception, tag, context, params)
+        if Rails.env.development?
+          "<!--\nAn exception occurred with the #{tag.class.name} tag\n\n\nException: #{exception.to_s}\n\n\nContext: #{context.to_yaml}\n\n\nParams: #{@params.to_yaml}\n\n\nStacktrace: #{exception.to_yaml} -->"
+        else
+          ''
+        end
+      end
     end
   end
 end

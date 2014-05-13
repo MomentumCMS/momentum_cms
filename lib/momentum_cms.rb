@@ -24,6 +24,7 @@ require 'momentum_cms/tags/cms_block'
 require 'momentum_cms/tags/cms_menu'
 require 'momentum_cms/tags/cms_html_meta'
 require 'momentum_cms/tags/cms_file'
+require 'momentum_cms/tags/cms_snippet'
 
 
 require 'momentum_cms/fixture'

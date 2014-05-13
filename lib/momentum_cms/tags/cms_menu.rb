@@ -27,9 +27,8 @@ module MomentumCms
                end
         menu
 
-
-      rescue => error
-        "#{error.inspect}"
+      rescue => e
+        print_error_message(e, self, context, @params)
       end
     end
 

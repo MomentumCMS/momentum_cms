@@ -14,4 +14,7 @@ module MomentumCms
       super "Cannot find CMS Site with host: #{identifier}"
     end
   end
+
+  class CmsTagError < MomentumCms::Error
+  end
 end

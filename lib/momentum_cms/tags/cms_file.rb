@@ -3,21 +3,23 @@ module MomentumCms
     class CmsFile < CmsBaseTag
 
       def render(context)
-        site = context_get(context, :cms_site)
-        return '' unless site
+        cms_site = context_get(context, :cms_site)
+        raise CmsTagError.new(':cms_site was not passed in the rendering context') unless cms_site
+
         id = @params.fetch(:id, nil)
         slug = @params.fetch(:slug, nil)
 
         file = if id
-                 MomentumCms::File.for_site(site).where(id: id).first
+                 MomentumCms::File.for_site(cms_site).where(id: id).first
                elsif slug
-                 MomentumCms::File.for_site(site).where(slug: slug).first
+                 MomentumCms::File.for_site(cms_site).where(slug: slug).first
                end
-        if file
-          file.file.url
-        else
-          ''
-        end
+
+        raise CmsTagError.new('File not found') unless file
+
+        file.file.url
+      rescue => e
+        print_error_message(e, self, context, @params)
       end
 
     end
