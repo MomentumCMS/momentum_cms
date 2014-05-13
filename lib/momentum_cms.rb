@@ -14,6 +14,9 @@ require 'simple_form'
 require 'momentum_cms/engine'
 require 'momentum_cms/error'
 
+require 'momentum_cms/authentication/http_authentication'
+require 'momentum_cms/authentication/no_authentication'
+
 
 require 'momentum_cms/tags/cms_liquid_utils'
 require 'momentum_cms/tags/cms_base_block'

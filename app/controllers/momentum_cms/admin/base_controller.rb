@@ -1,17 +1,15 @@
 class MomentumCms::Admin::BaseController < ApplicationController
   layout 'momentum_cms/admin/application'
 
+  include MomentumCms.configuration.admin_authentication.to_s.constantize
+
+  before_action :authenticate
+
   before_action :load_sites
   before_action :load_site
   before_action :load_fixtures
-  before_action :set_locale
 
-  def set_locale
-    if params[:locale]
-      session[:locale] = params[:locale]
-    end
-    I18n.locale = session[:locale] || params[:locale] || :en
-  end
+  include MomentumCms::I18nLocale
 
   def load_sites
     @momentum_cms_sites = MomentumCms::Site.all
@@ -36,7 +34,7 @@ class MomentumCms::Admin::BaseController < ApplicationController
   def load_fixtures
     return unless MomentumCms.configuration.site_fixtures_enabled.is_a?(Array)
     MomentumCms.configuration.site_fixtures_enabled.each do |fixture|
-      MomentumCms::Fixture::Importer.new({ from: fixture }).import!
+      MomentumCms::Fixture::Importer.new({ source: fixture }).import!
     end
     flash.now[:danger] = 'Fixtures enabled, all changes will be discarded.'
   end
