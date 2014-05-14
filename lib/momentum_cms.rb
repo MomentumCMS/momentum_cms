@@ -1,4 +1,5 @@
 require 'jquery-rails'
+require 'jquery-ui-rails'
 require 'haml-rails'
 require 'sass-rails'
 require 'ancestry'
@@ -29,6 +30,8 @@ require 'momentum_cms/tags/cms_html_meta'
 require 'momentum_cms/tags/cms_file'
 require 'momentum_cms/tags/cms_snippet'
 require 'momentum_cms/tags/cms_breadcrumb'
+require 'momentum_cms/tags/cms_blank'
+
 
 require 'momentum_cms/fixture'
 require 'momentum_cms/fixture/base'

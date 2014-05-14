@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140513040564) do
+ActiveRecord::Schema.define(version: 20140514052666) do
 
   create_table "momentum_cms_block_translations", force: true do |t|
     t.integer  "momentum_cms_block_id", null: false
@@ -76,6 +76,28 @@ ActiveRecord::Schema.define(version: 20140513040564) do
     t.string "label"
     t.string "identifier"
   end
+
+  create_table "momentum_cms_menu_items", force: true do |t|
+    t.integer  "menu_id"
+    t.string   "ancestry"
+    t.integer  "menu_item_type"
+    t.integer  "linkable_id"
+    t.string   "linkable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "momentum_cms_menu_items", ["menu_id"], name: "index_momentum_cms_menu_items_on_menu_id"
+
+  create_table "momentum_cms_menus", force: true do |t|
+    t.integer  "site_id"
+    t.string   "label"
+    t.string   "slug"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "momentum_cms_menus", ["site_id"], name: "index_momentum_cms_menus_on_site_id"
 
   create_table "momentum_cms_page_translations", force: true do |t|
     t.integer  "momentum_cms_page_id", null: false

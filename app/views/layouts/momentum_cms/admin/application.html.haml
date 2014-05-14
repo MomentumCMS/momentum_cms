@@ -9,7 +9,7 @@
     
     = yield :head
     
-  %body#momentum_cms{:class => "controller-#{params[:controller].to_slug} action-#{params[:action].to_slug}"}
+  %body#momentum_cms{:class => "controller-#{params[:controller].to_slug} action-#{params[:action].to_slug} #{params[:controller].to_slug}-#{params[:action].to_slug}"}
     .navbar.navbar-inverse.navbar-fixed-top{role: "navigation"}
       .container-fluid
         .navbar-header

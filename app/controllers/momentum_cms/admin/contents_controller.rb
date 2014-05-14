@@ -49,14 +49,18 @@ class MomentumCms::Admin::ContentsController < MomentumCms::Admin::BaseControlle
   private
   def load_moment_cms_page
     @momentum_cms_page = MomentumCms::Page.find(params[:page_id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to action: :index
   end
 
   def load_moment_cms_content
     @momentum_cms_content = MomentumCms::Content.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to action: :index
   end
 
   def build_moment_cms_content
-    @momentum_cms_content      = MomentumCms::Content.new(momentum_cms_content_params)
+    @momentum_cms_content = MomentumCms::Content.new(momentum_cms_content_params)
     @momentum_cms_content.page = @momentum_cms_page
   end
 

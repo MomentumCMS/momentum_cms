@@ -6,6 +6,8 @@ module MomentumCms
       include ActionView::Context
       include ActionView::Helpers::AssetTagHelper
 
+      PARAMS_REGEXP = Regexp.new(/(?:"((?:\\.|[^"])*)"|([^\s]*)):\s*(?:"((?:\\.|[^"])*)"|([^\s]*))/).freeze
+
       def initialize(tag_name, params, tokens)
         super
         @params = sanatize_params(params)
@@ -17,12 +19,11 @@ module MomentumCms
       end
 
       def parse_params(params)
-        result = {}
-        params.split(' ').each do |param|
-          param = param.split(':')
-          result[param[0].to_sym] = param[1]
+        if params.is_a?(String)
+          Hash[params.scan(PARAMS_REGEXP).map(&:compact).map { |x| x.map { |y| (y || '').gsub(/\\/, '') } }]
+        else
+          Hash.new()
         end
-        result
       end
 
       def context_get(context, key, default = nil)

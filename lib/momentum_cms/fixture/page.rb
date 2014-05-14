@@ -63,8 +63,8 @@ module MomentumCms
             original_locale = I18n.locale
             template.root.nodelist.each do |node|
               next unless node.is_a?(MomentumCms::Tags::CmsFixture)
-              I18n.locale = node.params[:locale]
-              block = MomentumCms::Block.where(content: content, identifier: node.params[:id]).first_or_initialize
+              I18n.locale = node.params['locale']
+              block = MomentumCms::Block.where(content: content, identifier: node.params['id']).first_or_initialize
               block.value = MomentumCms::Tags::CmsFixture.get_contents(node)
               block.save!
             end

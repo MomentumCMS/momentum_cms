@@ -6,8 +6,8 @@ module MomentumCms
         cms_site = context_get(context, :cms_site)
         raise CmsTagError.new(':cms_site was not passed in the rendering context') unless cms_site
 
-        id = @params.fetch(:id, nil)
-        slug = @params.fetch(:slug, nil)
+        id = @params.fetch('id', nil)
+        slug = @params.fetch('slug', nil)
 
         file = if id
                  MomentumCms::File.for_site(cms_site).where(id: id).first

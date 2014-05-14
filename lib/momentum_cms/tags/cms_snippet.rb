@@ -6,7 +6,7 @@ module MomentumCms
         cms_site = context_get(context, :cms_site)
         raise CmsTagError.new(':cms_site was not passed in the rendering context') unless cms_site
 
-        slug = @params.fetch(:slug, nil)
+        slug = @params.fetch('slug', nil)
         raise CmsTagError.new(':slug was not passed in the cms_snippet tag') unless slug
 
         snippet = MomentumCms::Snippet.for_site(cms_site).where(slug: slug).first
