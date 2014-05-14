@@ -1,6 +1,11 @@
 = form.association :site, collection: MomentumCms::Site.all, prompt: 'Choose a Site', label_method: :label, value_method: :id, include_blank: false
 = form.input :label
 
+- if @momentum_cms_template.can_delete? || @momentum_cms_template.new_record?
+  = form.input :can_delete, label: 'Is permanent object'
+- else
+  = form.input :can_delete, label: 'Is permanent object', disabled: true, hint: 'You cannot enable deletion on this permanent object.'
+
 :javascript
   $(document).ready(function() {
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {

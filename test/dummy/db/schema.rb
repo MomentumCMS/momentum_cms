@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140514052666) do
+ActiveRecord::Schema.define(version: 20140514070222) do
 
   create_table "momentum_cms_block_translations", force: true do |t|
     t.integer  "momentum_cms_block_id", null: false
@@ -171,6 +171,7 @@ ActiveRecord::Schema.define(version: 20140514052666) do
     t.text     "js"
     t.text     "css"
     t.string   "ancestry"
+    t.boolean  "can_delete", default: true
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -29,8 +29,11 @@ class MomentumCms::Admin::TemplatesController < MomentumCms::Admin::BaseControll
   end
 
   def destroy
-    @momentum_cms_template.destroy
+    @momentum_cms_template.destroy!
     flash[:success] = 'Template was successfully destroyed.'
+  rescue MomentumCms::PermanentObject
+    flash[:warning] = 'Template was not destroyed.'
+  ensure
     redirect_to action: :index
   end
 

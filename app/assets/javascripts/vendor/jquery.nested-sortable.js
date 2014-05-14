@@ -491,8 +491,10 @@
         var id = ($(item).attr(o.attribute || 'id') || '').match(o.expression || (/(.+)[-=_](.+)/));
         if (id) {
           var currentItem = {"id": id[2]};
-//          currentItem['id'] = $(item).attr('data-id');
-//          currentItem['type'] = $(item).attr('data-type');
+          currentItem['label'] = $(item).attr('data-label');
+
+          currentItem['linkable_id'] = $(item).attr('data-linkable-id');
+          currentItem['linkable_type'] = $(item).attr('data-linkable-type');
 
           if ($(item).children(o.listType).children(o.items).length > 0) {
             currentItem.children = [];
