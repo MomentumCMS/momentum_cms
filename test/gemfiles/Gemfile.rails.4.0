@@ -16,7 +16,6 @@ gem 'liquid',               '~> 2.6.1'
 gem 'coveralls', require: false
 gem 'codeclimate-test-reporter',  require: nil
 
-
 group :test do
   gem 'sqlite3'
   gem 'mysql2'

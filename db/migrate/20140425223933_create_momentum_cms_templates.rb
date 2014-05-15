@@ -8,7 +8,7 @@ class CreateMomentumCmsTemplates < ActiveRecord::Migration
       t.text :css
       t.string :ancestry
 
-      t.boolean :can_delete, default: true
+      t.boolean :permanent_record, default: false
 
       t.timestamps
     end
