@@ -74,7 +74,7 @@ $(function () {
         results: function (data, page) { // parse the results into the format expected by Select2.
           var results = [];
           $(data).each(function (index, element) {
-            results.push({id: element.id, text: element.label, type: 'MomentumCms::Page' })
+            results.push({id: element.id, text: element.label, label: element.label, type: 'MomentumCms::Page' })
           });
           return {results: results};
         }
@@ -85,7 +85,6 @@ $(function () {
       e.preventDefault();
 
       var data = $('.momentum-cms-pages-select').select2('data');
-
       if (data) {
         var li = createLiNode(data);
         $('ol.ui-nested-sortable').append(li);
