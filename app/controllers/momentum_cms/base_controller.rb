@@ -3,16 +3,10 @@ class MomentumCms::BaseController < ApplicationController
   rescue_from MomentumCms::SiteNotFound, with: :error_render_method
 
   before_action :load_site
-  before_action :set_locale
+  include MomentumCms::I18nLocale
 
   private
 
-  def set_locale
-    if params[:locale]
-      session[:locale] = params[:locale]
-    end
-    I18n.locale = session[:locale] || params[:locale] || :en
-  end
   def load_site
     @momentum_cms_site = MomentumCms::Site.where(host: request.host_with_port).first
     unless @momentum_cms_site

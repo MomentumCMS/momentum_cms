@@ -38,6 +38,8 @@ class MomentumCms::Admin::SitesController < MomentumCms::Admin::BaseController
   private
   def load_moment_cms_site
     @momentum_cms_site = MomentumCms::Site.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to action: :index
   end
 
   def build_moment_cms_site

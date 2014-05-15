@@ -4,6 +4,10 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
 
   def index
     @momentum_cms_pages = @current_momentum_cms_site.pages.all
+    respond_to do |format|
+      format.html
+      format.js { render js: @momentum_cms_pages.to_json }
+    end
   end
 
   def new
@@ -37,6 +41,8 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
   private
   def load_moment_cms_page
     @momentum_cms_page = MomentumCms::Page.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to action: :index
   end
 
   def build_moment_cms_page

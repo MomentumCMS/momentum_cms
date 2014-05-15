@@ -2,6 +2,7 @@ class MomentumCms::Template < ActiveRecord::Base
 
   # == MomentumCms ==========================================================
   include MomentumCms::BelongsToSite
+  include MomentumCms::ActAsPermanentRecord
 
   self.table_name = 'momentum_cms_templates'
 

@@ -37,6 +37,8 @@ class MomentumCms::Admin::SnippetsController < MomentumCms::Admin::BaseControlle
   private
   def load_moment_cms_snippet
     @momentum_cms_snippet = MomentumCms::Snippet.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to action: :index
   end
 
   def build_moment_cms_snippet

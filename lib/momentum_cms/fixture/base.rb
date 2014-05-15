@@ -19,6 +19,8 @@ module MomentumCms
                 'snippets'
               when MomentumCms::Fixture::File::Importer
                 'files'
+              when MomentumCms::Fixture::Menu::Importer
+                'menus'
             end
           @object_path = ::File.join(MomentumCms.config.site_fixtures_path, ::File.join(from, object_folder))
         end
@@ -42,6 +44,8 @@ module MomentumCms
                 'snippets'
               when MomentumCms::Fixture::File::Exporter
                 'files'
+              when MomentumCms::Fixture::Menu::Exporter
+                'menus'
               else
                 ''
             end
