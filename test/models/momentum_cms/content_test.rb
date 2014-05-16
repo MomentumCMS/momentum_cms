@@ -37,8 +37,9 @@ class MomentumCms::ContentTest < ActiveSupport::TestCase
   def test_default_content_scope
     content = MomentumCms::Content.default.first
     assert content.default
-    content.update_attribute(:default, false)
-    assert MomentumCms::Content.default.blank?
+    assert_difference 'MomentumCms::Content.default.count', -1 do
+      content.update_attribute(:default, false)
+    end
   end
 
   def test_published

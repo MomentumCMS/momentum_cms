@@ -196,4 +196,16 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
     assert_equal page.contents.first, page.published_content
   end
 
+  def test_ancestor_and_self
+    parent = momentum_cms_pages(:default)
+    child = momentum_cms_pages(:child)
+
+    child.parent = parent
+    child.save
+
+    assert_equal [], MomentumCms::Page.ancestor_and_self!(nil)
+    assert_equal [parent, child], MomentumCms::Page.ancestor_and_self!(child)
+    assert_equal [parent], MomentumCms::Page.ancestor_and_self!(parent)
+  end
+
 end

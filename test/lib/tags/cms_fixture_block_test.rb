@@ -36,5 +36,13 @@ class CmsFixtureBlockTest < ActiveSupport::TestCase
     assert_equal 'before{% cms_file id:1 %}after', results
   end
 
+  def test_fixture_invalid
+    text = '{% cms_breadcrumb %}'
+    template = Liquid::Template.parse(text)
+    en = template.root.nodelist.detect { |t| t.params['locale'] == 'en' && t.params['id'] == 'content' }
+    results = MomentumCms::Tags::CmsFixture.get_contents(en)
+    assert_equal '', results
+  end
+
 end
 

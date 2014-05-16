@@ -28,6 +28,15 @@ class MomentumCms::Template < ActiveRecord::Base
   # == Scopes ===============================================================
 
   # == Callbacks ============================================================
+
+  after_save :update_descendants_block_templates
+
+  def update_descendants_block_templates
+    #TODO: Update myself's block templates because the parent could have changed.    
+    descendants = MomentumCms::Template.descendants_of(self)
+    #TODO: Resync template
+  end
+
   # == Class Methods ========================================================
 
   def self.ancestor_and_self!(template)
@@ -43,11 +52,9 @@ class MomentumCms::Template < ActiveRecord::Base
 
   def valid_liquid_content
     if self.content.present?
-      begin
-        Liquid::Template.parse(self.content)
-      rescue
-        errors.add(:content, "is not a valid liquid template")
-      end
+      Liquid::Template.parse(self.content)
     end
+  rescue
+    errors.add(:content, "is not a valid liquid template")
   end
 end
