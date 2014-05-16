@@ -22,8 +22,8 @@ class MomentumCms::Site < ActiveRecord::Base
            dependent: :destroy
 
   # == Extensions ===========================================================
-  serialize :setting_locales, JSON
-  serialize :setting_default_locale, JSON
+  serialize :setting_locales
+  serialize :setting_default_locale
 
   # == Validations ==========================================================
 
