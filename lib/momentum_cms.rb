@@ -43,7 +43,6 @@ require 'momentum_cms/fixture/site'
 require 'momentum_cms/fixture/page'
 require 'momentum_cms/fixture/file'
 require 'momentum_cms/configuration'
-require 'momentum_cms/has_settings'
 require 'momentum_cms/has_files'
 require 'momentum_cms/rails'
 
