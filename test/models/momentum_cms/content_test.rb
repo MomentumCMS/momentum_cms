@@ -1,4 +1,4 @@
-require 'test_helper'
+require_relative '../../test_helper'
 
 class MomentumCms::ContentTest < ActiveSupport::TestCase
   def setup
