@@ -3,3 +3,7 @@
 default:
   page: default
   default: true
+
+child:
+  page: child
+  default: true

@@ -2,10 +2,17 @@ require_relative '../../test_helper'
 
 class CmsBlankTest < ActiveSupport::TestCase
 
-
-  def test_params
+  def setup
     @object = Object.new
     @object.extend(MomentumCms::Tags::CmsLiquidUtils)
+
+  end
+
+  def test_context
+    assert_equal @object.context_get({ :foo => 'bar' }, :bar, :baz), :baz
+  end
+
+  def test_params
 
     params = nil
     string = 'id:header'
@@ -86,8 +93,7 @@ class CmsBlankTest < ActiveSupport::TestCase
     string = 'cheesecake'
     params = @object.parse_params(string)
     assert_equal params, {}
-    
-    
+
     params = nil
     string = nil
     params = @object.parse_params(string)

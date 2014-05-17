@@ -1,4 +1,4 @@
-require 'test_helper'
+require_relative '../../test_helper'
 
 class MomentumCms::PageTest < ActiveSupport::TestCase
 
@@ -194,6 +194,18 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
     page = momentum_cms_pages(:default)
     page.update_attribute(:published_content_id, page.contents.first.id)
     assert_equal page.contents.first, page.published_content
+  end
+
+  def test_ancestor_and_self
+    parent = momentum_cms_pages(:default)
+    child = momentum_cms_pages(:child)
+
+    child.parent = parent
+    child.save
+
+    assert_equal [], MomentumCms::Page.ancestor_and_self!(nil)
+    assert_equal [parent, child], MomentumCms::Page.ancestor_and_self!(child)
+    assert_equal [parent], MomentumCms::Page.ancestor_and_self!(parent)
   end
 
 end

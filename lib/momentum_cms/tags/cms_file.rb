@@ -18,7 +18,7 @@ module MomentumCms
         raise CmsTagError.new('File not found') unless file
 
         file.file.url
-      rescue => e
+      rescue CmsTagError => e
         print_error_message(e, self, context, @params)
       end
 

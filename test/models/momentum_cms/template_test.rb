@@ -1,4 +1,4 @@
-require 'test_helper'
+require_relative '../../test_helper'
 
 class MomentumCms::TemplateTest < ActiveSupport::TestCase
   def setup
@@ -63,5 +63,24 @@ class MomentumCms::TemplateTest < ActiveSupport::TestCase
       content: '{{notvalidliquid'
     )
     refute template.valid?
+  end
+
+  def test_permanent_record
+    assert @child.destroy
+
+    refute @parent.permanent_record
+
+    @parent.permanent_record = true
+    @parent.save!
+
+    assert @parent.permanent_record
+
+    assert_no_difference 'MomentumCms::Template.count' do
+      assert_raise MomentumCms::PermanentObject do
+        @parent.destroy
+      end
+    end
+
+    assert @parent.persisted?
   end
 end
