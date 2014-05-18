@@ -16,6 +16,7 @@ class MomentumCms::ContentsController < MomentumCms::BaseController
     @template_array.reverse.each do |template|
       liquid = Liquid::Template.parse(template.value)
       content = liquid.render(yield: content,
+                              cms_template: template,
                               cms_site: @momentum_cms_site,
                               cms_page: @momentum_cms_page,
                               cms_content: @momentum_cms_content)

@@ -4,7 +4,8 @@ class CreateMomentumCmsBlockTemplates < ActiveRecord::Migration
       t.references :template, index: true
       t.string :identifier
       t.string :block_type
-
+      t.string :block_value_type
+      
       t.timestamps
     end
   end

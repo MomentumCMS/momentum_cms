@@ -16,11 +16,11 @@ class MomentumCms::Admin::ContentsController < MomentumCms::Admin::BaseControlle
     @content_blocks = @momentum_cms_content.blocks.to_a
 
     @defined_blocks = TemplateBlockService.new(template).get_blocks.delete_if do |v|
-      !@content_blocks.detect { |x| x.identifier == v.params['id'] }.nil?
+      !@content_blocks.detect { |x| x.identifier == v[:node].params['id'] }.nil?
     end
 
     @defined_blocks.each do |block|
-      @momentum_cms_content.blocks.build(identifier: block.params['id'])
+      @momentum_cms_content.blocks.build(identifier: "#{block[:template].identifier}::#{block[:node].params['id']}")
     end
   end
 

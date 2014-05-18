@@ -24,6 +24,7 @@ class MomentumCms::TemplateTest < ActiveSupport::TestCase
       template = MomentumCms::Template.create!(
         site: momentum_cms_sites(:default),
         label: 'About',
+        identifier: 'about',
         value: '{% cms_block id:foo type:string %} {% cms_block id:bar type:string %}'
       )
     end
@@ -53,9 +54,10 @@ class MomentumCms::TemplateTest < ActiveSupport::TestCase
 
   def test_create
     assert_difference "MomentumCms::Template.count" do
-      template = MomentumCms::Template.create(
+      MomentumCms::Template.create(
         site: momentum_cms_sites(:default),
-        label: 'About'
+        label: 'About',
+        identifier: 'about'
       )
     end
   end
@@ -64,11 +66,13 @@ class MomentumCms::TemplateTest < ActiveSupport::TestCase
     assert_difference "MomentumCms::Template.count" do
       MomentumCms::Template.create(
         site: momentum_cms_sites(:default),
-        label: 'About'
+        label: 'About',
+        identifier: 'about'
       )
       template = MomentumCms::Template.create(
         site: momentum_cms_sites(:default),
-        label: 'About'
+        label: 'About',
+        identifier: 'about'
       )
       refute template.valid?
     end
@@ -78,11 +82,13 @@ class MomentumCms::TemplateTest < ActiveSupport::TestCase
     assert_difference "MomentumCms::Template.count", 2 do
       MomentumCms::Template.create(
         site: momentum_cms_sites(:default),
-        label: 'About'
+        label: 'About',
+        identifier: 'about'
       )
       MomentumCms::Template.create(
         site: momentum_cms_sites(:alternative),
-        label: 'About'
+        label: 'About',
+        identifier: 'about'
       )
     end
   end

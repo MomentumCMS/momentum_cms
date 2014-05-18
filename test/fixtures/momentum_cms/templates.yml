@@ -1,6 +1,7 @@
 default:
   site: default
   label: Parent
+  identifier: parent
   value: 'default {% cms_yield %}'
   js: 'var default;'
   css: '.default{}'
@@ -8,7 +9,8 @@ default:
   
 child:
   site: default
-  label: child
+  label: Child
+  identifier: child
   value: child
   js: 'var child;'
   css: '.child{}'

@@ -50,7 +50,7 @@ class TemplateBlockService
       template = list.shift
       self.each_node(template) do |node|
         if node.is_a?(MomentumCms::Tags::CmsBlock)
-          blocks << node
+          blocks << { template: template, node: node }
         elsif node.is_a?(MomentumCms::Tags::CmsYield)
           blocks << get_blocks(list)
         end

@@ -26,8 +26,13 @@ class MomentumCms::Template < ActiveRecord::Base
   validates :label,
             presence: true
 
-  validates :label,
+
+  validates :identifier,
+            presence: true
+
+  validates :identifier,
             uniqueness: { scope: :site_id }
+
 
   # == Scopes ===============================================================
 
@@ -71,8 +76,5 @@ class MomentumCms::Template < ActiveRecord::Base
 
   def update_descendants_block_templates
     TemplateBlockTemplateService.new(self).create_or_update_block_templates_for_self!
-    # #TODO: Update myself's block templates because the parent could have changed.
-    # descendants = MomentumCms::Template.descendants_of(self)
-    # #TODO: Resync template
   end
 end

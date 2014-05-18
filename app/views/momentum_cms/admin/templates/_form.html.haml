@@ -1,5 +1,6 @@
 = form.association :site, collection: MomentumCms::Site.all, prompt: 'Choose a Site', label_method: :label, value_method: :id, include_blank: false
 = form.input :label
+= form.input :identifier
 
 = form.input :parent_id, collection: @momentum_cms_templates, prompt: 'Parent Template...', label_method: :label
 

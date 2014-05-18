@@ -7,7 +7,8 @@ module MomentumCms
             template_attributes = MomentumCms::Fixture::Utils.read_json(::File.join(path, 'attributes.json'), nil)
             next unless template_attributes
 
-            template = MomentumCms::Template.where(site: @site, label: template_attributes['label']).first_or_initialize
+            template = MomentumCms::Template.where(site: @site, identifier: template_attributes['identifier']).first_or_initialize
+            template.label = template_attributes['label']
             template.parent = parent if parent
             template.value = MomentumCms::Fixture::Utils.read_file("#{path}/value.liquid", '')
             template.js = MomentumCms::Fixture::Utils.read_file("#{path}/value.js", '')
@@ -47,7 +48,8 @@ module MomentumCms
 
           FileUtils.mkdir_p(template_path)
           attributes = {
-            label: template.label
+            label: template.label,
+            identifier: template.identifier
           }
           MomentumCms::Fixture::Utils.write_json(::File.join(template_path, 'attributes.json'), attributes)
           MomentumCms::Fixture::Utils.write_file(::File.join(template_path, 'value.liquid'), template.value)

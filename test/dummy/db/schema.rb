@@ -11,12 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140518144666) do
+ActiveRecord::Schema.define(version: 20140518170147) do
 
   create_table "momentum_cms_block_templates", force: true do |t|
     t.integer  "template_id"
     t.string   "identifier"
     t.string   "block_type"
+    t.string   "block_value_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -171,6 +172,7 @@ ActiveRecord::Schema.define(version: 20140518144666) do
 
   create_table "momentum_cms_templates", force: true do |t|
     t.string   "label"
+    t.string   "identifier"
     t.integer  "site_id"
     t.text     "value"
     t.text     "js"

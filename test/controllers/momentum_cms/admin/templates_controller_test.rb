@@ -25,7 +25,8 @@ class MomentumCms::Admin::TemplatesControllerTest < ActionController::TestCase
   def test_create
     assert_difference "MomentumCms::Template.count" do
       post :create, site_id: @site.id, momentum_cms_template: {
-        label: 'Test Create'
+        label: 'Test Create',
+        identifier: 'test-create'
       }
       template = MomentumCms::Template.last
       assert_response :redirect
@@ -37,7 +38,8 @@ class MomentumCms::Admin::TemplatesControllerTest < ActionController::TestCase
     parent_template = momentum_cms_templates(:default)
     post :create, site_id: @site.id, momentum_cms_template: {
       label: 'Test Create',
-      parent_id: parent_template.id
+      parent_id: parent_template.id,
+      identifier: 'test-create'
     }
     template = MomentumCms::Template.last
     assert_equal parent_template, template.parent

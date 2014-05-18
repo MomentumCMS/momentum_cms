@@ -32,10 +32,10 @@ module MomentumCms
         inner_tag = @params.fetch('inner_tag', 'li')
         inner_class = @params.fetch('inner_class', nil)
 
-        slug = @params.fetch('slug', nil)
-        raise CmsTagError.new('slug was not passed in the cms_menu tag') unless slug
+        identifier = @params.fetch('identifier', nil)
+        raise CmsTagError.new('identifier was not passed in the cms_menu tag') unless identifier
 
-        @menu = MomentumCms::Menu.for_site(cms_site).where(slug: slug).first!
+        @menu = MomentumCms::Menu.for_site(cms_site).where(identifier: identifier).first!
         @menu_items = MomentumCms::MenuItem.roots.for_menu(@menu).to_a
 
         build_menu(@menu_items, nil, { outer_tag: outer_tag,
