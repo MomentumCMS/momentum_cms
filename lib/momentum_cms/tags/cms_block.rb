@@ -11,12 +11,10 @@ module MomentumCms
         id = @params.fetch('id', nil)
         raise CmsTagError.new(':id was not passed in the cms_block tag') unless id
 
-
         block = if cms_template
                   cms_content.blocks.where(identifier: "#{cms_template.identifier}::#{id}").first
                 else
                   cms_content.blocks.where(identifier: id).first
-
                 end
         raise CmsTagError.new('Block not found') unless block
 
