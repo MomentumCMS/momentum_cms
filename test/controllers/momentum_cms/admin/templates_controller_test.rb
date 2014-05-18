@@ -4,6 +4,7 @@ class MomentumCms::Admin::TemplatesControllerTest < ActionController::TestCase
 
   def setup
     @site = momentum_cms_sites(:default)
+    @template = momentum_cms_templates(:default)
   end
 
   def test_index
@@ -42,4 +43,57 @@ class MomentumCms::Admin::TemplatesControllerTest < ActionController::TestCase
     assert_equal parent_template, template.parent
   end
 
+  def test_create_invalid
+    assert_no_difference "MomentumCms::Template.count" do
+      post :create, site_id: @site.id, momentum_cms_template: {}
+      assert_template :new
+    end
+  end
+
+  def test_edit
+    get :edit, site_id: @site.id, id: @template
+    assert_template :edit
+  end
+
+  def test_edit_invalid
+    get :edit, site_id: @site.id, id: 0
+    assert_redirected_to cms_admin_site_templates_path
+  end
+
+  def test_update
+    put :update, site_id: @site.id, id: @template, momentum_cms_template: {
+      label: 'New Label'
+    }
+    @template.reload
+    assert_equal 'New Label', @template.label
+  end
+
+  def test_update_invalid
+    put :update, site_id: @site.id, id: @template, momentum_cms_template: {
+      label: ''
+    }
+    @template.reload
+    refute_equal '', @template.label
+    assert_template :edit
+  end
+
+  def test_destroy
+    assert_difference 'MomentumCms::Template.count', -1 do
+      delete :destroy, site_id: @site.id, id: @template
+    end
+  end
+
+  def test_destroy_permanent_record
+    @template.permanent_record = true
+    @template.save!
+    assert_no_difference 'MomentumCms::Template.count' do
+      delete :destroy, site_id: @site.id, id: @template
+    end
+  end
+
+  def test_destroy_invalid
+    assert_no_difference 'MomentumCms::Template.count' do
+      delete :destroy, site_id: @site.id, id: 0
+    end
+  end
 end
