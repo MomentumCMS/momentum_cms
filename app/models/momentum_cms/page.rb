@@ -8,8 +8,10 @@ class MomentumCms::Page < ActiveRecord::Base
   # == Relationships ========================================================
 
   belongs_to :template
+
   has_many :contents,
            dependent: :destroy
+
   accepts_nested_attributes_for :contents
 
   # == Extensions ===========================================================
@@ -20,7 +22,9 @@ class MomentumCms::Page < ActiveRecord::Base
   # == Validations ==========================================================
 
   validates :slug, uniqueness: { scope: [:site, :ancestry] }
+
   validates :identifier, uniqueness: true
+  
   validates :identifier, presence: true
 
   # == Scopes ===============================================================

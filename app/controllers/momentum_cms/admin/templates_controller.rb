@@ -50,7 +50,7 @@ class MomentumCms::Admin::TemplatesController < MomentumCms::Admin::BaseControll
   end
 
   def load_parent_templates
-    @momentum_cms_templates = @current_momentum_cms_site.templates.where.not(id: @momentum_cms_template.subtree_ids)
+    @momentum_cms_templates = @current_momentum_cms_site.templates.has_yield.where.not(id: @momentum_cms_template.subtree_ids)
   end
 
   def build_momentum_cms_template

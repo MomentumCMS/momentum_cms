@@ -1,25 +1,23 @@
-class MomentumCms::Block < ActiveRecord::Base
+class MomentumCms::BlockTemplate < ActiveRecord::Base
 
   # == MomentumCms ==========================================================
 
-  self.table_name = 'momentum_cms_blocks'
+  self.table_name = 'momentum_cms_block_templates'
 
   # == Constants ============================================================
   # == Relationships ========================================================
 
-  belongs_to :block_template
+  belongs_to :template
 
-  belongs_to :content
+  has_many :blocks,
+           dependent: :destroy
 
   # == Extensions ===========================================================
   has_paper_trail
-
-  translates :value, fallbacks_for_empty_translations: true, versioning: :paper_trail
 
   # == Validations ==========================================================
   # == Scopes ===============================================================
   # == Callbacks ============================================================
   # == Class Methods ========================================================
   # == Instance Methods =====================================================
-
 end

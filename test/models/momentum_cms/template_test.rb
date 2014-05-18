@@ -3,9 +3,40 @@ require_relative '../../test_helper'
 class MomentumCms::TemplateTest < ActiveSupport::TestCase
   def setup
     @parent = momentum_cms_templates(:default)
+    @parent.save!
+    @parent.reload
+
     @child = momentum_cms_templates(:child)
     @child.parent = @parent
     @child.save!
+    @child.reload
+  end
+
+  def test_can_not_update_parent
+    assert @parent.has_children?
+    @parent.value = 'parent'
+    refute @parent.valid?
+  end
+
+  def test_block_template_create_or_update
+    template = nil
+    assert_difference 'MomentumCms::BlockTemplate.count', 2 do
+      template = MomentumCms::Template.create!(
+        site: momentum_cms_sites(:default),
+        label: 'About',
+        value: '{% cms_block id:foo type:string %} {% cms_block id:bar type:string %}'
+      )
+    end
+
+    assert_no_difference 'MomentumCms::BlockTemplate.count' do
+      template.value = '{% cms_block id:foo type:string %} {% cms_block id:baz type:string %}'
+      template.save!
+    end
+
+    assert_difference 'MomentumCms::BlockTemplate.count', -2 do
+      template.value = 'hi'
+      template.save!
+    end
   end
 
   def test_ancestor_and_self
@@ -63,6 +94,9 @@ class MomentumCms::TemplateTest < ActiveSupport::TestCase
       value: '{{notvalidliquid'
     )
     refute template.valid?
+
+    @parent.value = 'parent'
+    refute @parent.valid?
   end
 
   def test_permanent_record

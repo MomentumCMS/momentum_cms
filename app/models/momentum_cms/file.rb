@@ -21,6 +21,7 @@ class MomentumCms::File < ActiveRecord::Base
   before_post_process :is_image?
 
   # == Validations ==========================================================
+
   validates :identifier, presence: true
 
   validates :identifier, uniqueness: true
@@ -28,12 +29,6 @@ class MomentumCms::File < ActiveRecord::Base
   before_validation { self.file.clear if self.delete_file == '1' }
 
   do_not_validate_attachment_file_type :file
-
-  # validates_attachment_content_type :file,
-  #                                   content_type: /.*/
-  # 
-  # validates_attachment_content_type :file,
-  #                                   content_type: /\Aimage\/.*\Z/
 
   # == Scopes ===============================================================
   # == Callbacks ============================================================

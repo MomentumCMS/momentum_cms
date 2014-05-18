@@ -17,6 +17,7 @@ class MomentumCms::Menu < ActiveRecord::Base
   validates :label,
             :identifier,
             presence: true
+  
   validates :identifier,
             uniqueness: true
 

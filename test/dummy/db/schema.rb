@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140518062024) do
+ActiveRecord::Schema.define(version: 20140518144666) do
+
+  create_table "momentum_cms_block_templates", force: true do |t|
+    t.integer  "template_id"
+    t.string   "identifier"
+    t.string   "block_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "momentum_cms_block_templates", ["template_id"], name: "index_momentum_cms_block_templates_on_template_id"
 
   create_table "momentum_cms_block_translations", force: true do |t|
     t.integer  "momentum_cms_block_id", null: false
@@ -25,12 +35,14 @@ ActiveRecord::Schema.define(version: 20140518062024) do
   add_index "momentum_cms_block_translations", ["momentum_cms_block_id"], name: "index_momentum_cms_block_translations_on_momentum_cms_block_id"
 
   create_table "momentum_cms_blocks", force: true do |t|
+    t.integer  "block_template_id"
     t.integer  "content_id"
     t.string   "identifier"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "momentum_cms_blocks", ["block_template_id"], name: "index_momentum_cms_blocks_on_block_template_id"
   add_index "momentum_cms_blocks", ["content_id"], name: "index_momentum_cms_blocks_on_content_id"
 
   create_table "momentum_cms_content_translations", force: true do |t|
@@ -164,6 +176,7 @@ ActiveRecord::Schema.define(version: 20140518062024) do
     t.text     "js"
     t.text     "css"
     t.string   "ancestry"
+    t.boolean  "has_yield",        default: false
     t.boolean  "permanent_record", default: false
     t.datetime "created_at"
     t.datetime "updated_at"

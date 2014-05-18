@@ -9,7 +9,11 @@ class MomentumCms::Template < ActiveRecord::Base
   # == Constants ============================================================
   # == Relationships ========================================================
 
-  has_many :pages
+  has_many :pages,
+           dependent: :destroy
+
+  has_many :block_templates,
+           dependent: :destroy
 
   # == Extensions ===========================================================
 
@@ -27,15 +31,13 @@ class MomentumCms::Template < ActiveRecord::Base
 
   # == Scopes ===============================================================
 
+  scope :has_yield, -> { where(has_yield: true) }
+
   # == Callbacks ============================================================
 
-  after_save :update_descendants_block_templates
+  before_validation :update_has_yield
 
-  def update_descendants_block_templates
-    #TODO: Update myself's block templates because the parent could have changed.    
-    descendants = MomentumCms::Template.descendants_of(self)
-    #TODO: Resync template
-  end
+  after_save :update_descendants_block_templates
 
   # == Class Methods ========================================================
 
@@ -51,10 +53,26 @@ class MomentumCms::Template < ActiveRecord::Base
   protected
 
   def valid_liquid_value
-    if self.value.present?
-      Liquid::Template.parse(self.value)
+    tbs = TemplateBlockService.new(self)
+    unless tbs.valid_liquid?
+      errors.add(:value, "is not a valid liquid template")
     end
-  rescue
-    errors.add(:value, "is not a valid liquid template")
+
+    if !self.new_record? && !tbs.has_block?(MomentumCms::Tags::CmsYield) && self.has_children?
+      errors.add(:value, "is not a valid parent liquid template, you must include {% cms_yield %}")
+    end
+  end
+
+  def update_has_yield
+    tbs = TemplateBlockService.new(self)
+    self.has_yield = tbs.has_block?(MomentumCms::Tags::CmsYield)
+    true
+  end
+
+  def update_descendants_block_templates
+    TemplateBlockTemplateService.new(self).create_or_update_block_templates_for_self!
+    # #TODO: Update myself's block templates because the parent could have changed.
+    # descendants = MomentumCms::Template.descendants_of(self)
+    # #TODO: Resync template
   end
 end

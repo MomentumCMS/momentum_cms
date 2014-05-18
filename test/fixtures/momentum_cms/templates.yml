@@ -4,6 +4,7 @@ default:
   value: 'default {% cms_yield %}'
   js: 'var default;'
   css: '.default{}'
+  has_yield: true
   
 child:
   site: default
@@ -11,3 +12,4 @@ child:
   value: child
   js: 'var child;'
   css: '.child{}'
+  has_yield: false

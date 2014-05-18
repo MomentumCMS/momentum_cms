@@ -7,7 +7,7 @@ class CreateMomentumCmsTemplates < ActiveRecord::Migration
       t.text :js
       t.text :css
       t.string :ancestry
-
+      t.boolean :has_yield, default: false
       t.boolean :permanent_record, default: false
 
       t.timestamps
