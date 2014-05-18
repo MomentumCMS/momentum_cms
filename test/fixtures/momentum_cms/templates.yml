@@ -1,13 +1,13 @@
 default:
   site: default
   label: Parent
-  content: 'default {% cms_yield %}'
+  value: 'default {% cms_yield %}'
   js: 'var default;'
   css: '.default{}'
   
 child:
   site: default
   label: child
-  content: child
+  value: child
   js: 'var child;'
   css: '.child{}'

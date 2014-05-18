@@ -20,6 +20,8 @@ class MomentumCms::Page < ActiveRecord::Base
   # == Validations ==========================================================
 
   validates :slug, uniqueness: { scope: [:site, :ancestry] }
+  validates :identifier, uniqueness: true
+  validates :identifier, presence: true
 
   # == Scopes ===============================================================
   # == Callbacks ============================================================
@@ -30,7 +32,7 @@ class MomentumCms::Page < ActiveRecord::Base
   after_update :regenerate_child_paths
 
   # == Class Methods ========================================================
-  
+
   def self.ancestor_and_self!(page)
     if page && page.is_a?(MomentumCms::Page)
       [page.ancestors.to_a, page].flatten.compact
@@ -38,7 +40,7 @@ class MomentumCms::Page < ActiveRecord::Base
       []
     end
   end
-  
+
   # == Instance Methods =====================================================
 
   def build_default_content

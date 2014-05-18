@@ -7,10 +7,10 @@ module MomentumCms
             file_attributes = MomentumCms::Fixture::Utils.read_json(::File.join(path, 'attributes.json'), nil)
             next unless file_attributes
 
-            file = MomentumCms::File.where(site: @site, slug: file_attributes['slug']).first_or_initialize
+            file = MomentumCms::File.where(site: @site, identifier: file_attributes['identifier']).first_or_initialize
             file.site = @site
             file.label = file_attributes['label']
-            file.slug = file_attributes['slug']
+            file.identifier = file_attributes['identifier']
 
             begin
               file.file = ::File.open("#{path}/#{file_attributes['filename']}", 'rb')

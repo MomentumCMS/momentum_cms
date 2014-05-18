@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140518002264) do
+ActiveRecord::Schema.define(version: 20140518062024) do
 
   create_table "momentum_cms_block_translations", force: true do |t|
     t.integer  "momentum_cms_block_id", null: false
@@ -39,7 +39,6 @@ ActiveRecord::Schema.define(version: 20140518002264) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "label"
-    t.text     "content"
   end
 
   add_index "momentum_cms_content_translations", ["locale"], name: "index_momentum_cms_content_translations_on_locale"
@@ -47,6 +46,7 @@ ActiveRecord::Schema.define(version: 20140518002264) do
 
   create_table "momentum_cms_contents", force: true do |t|
     t.boolean  "default"
+    t.string   "identifier"
     t.integer  "page_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 20140518002264) do
   create_table "momentum_cms_files", force: true do |t|
     t.string   "label"
     t.string   "tag"
-    t.string   "slug"
+    t.string   "identifier"
     t.boolean  "multiple",          default: false
     t.integer  "site_id"
     t.integer  "attachable_id"
@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(version: 20140518002264) do
   create_table "momentum_cms_menus", force: true do |t|
     t.integer  "site_id"
     t.string   "label"
-    t.string   "slug"
+    t.string   "identifier"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -114,6 +114,7 @@ ActiveRecord::Schema.define(version: 20140518002264) do
   create_table "momentum_cms_pages", force: true do |t|
     t.integer  "site_id"
     t.integer  "template_id"
+    t.string   "identifier"
     t.string   "label"
     t.integer  "published_content_id"
     t.string   "ancestry"
@@ -159,7 +160,7 @@ ActiveRecord::Schema.define(version: 20140518002264) do
   create_table "momentum_cms_templates", force: true do |t|
     t.string   "label"
     t.integer  "site_id"
-    t.text     "content"
+    t.text     "value"
     t.text     "js"
     t.text     "css"
     t.string   "ancestry"

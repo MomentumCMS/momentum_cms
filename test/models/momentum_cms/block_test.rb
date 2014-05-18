@@ -4,7 +4,7 @@ class MomentumCms::BlockTest < ActiveSupport::TestCase
 
   def setup
     I18n.enforce_available_locales = false
-    I18n.locale                    = :en
+    I18n.locale = :en
   end
 
   def test_fixture_validity

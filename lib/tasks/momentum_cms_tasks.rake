@@ -53,7 +53,6 @@ namespace :momentum_cms do
         [:en, :fr, :es].each do |locale|
           I18n.locale = locale
           content.label = "#{page.label}-#{I18n.locale}"
-          content.content = "Lorem Ipsum, this is the content page for #{page.label}-#{I18n.locale}"
           content.save!
         end
         MomentumCms::Page.order(:id).to_a.each do |p|

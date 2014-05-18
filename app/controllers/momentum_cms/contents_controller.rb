@@ -12,9 +12,9 @@ class MomentumCms::ContentsController < MomentumCms::BaseController
   end
 
   def show
-    content = @momentum_cms_content.content
+    content = nil
     @template_array.reverse.each do |template|
-      liquid = Liquid::Template.parse(template.content)
+      liquid = Liquid::Template.parse(template.value)
       content = liquid.render(yield: content,
                               cms_site: @momentum_cms_site,
                               cms_page: @momentum_cms_page,

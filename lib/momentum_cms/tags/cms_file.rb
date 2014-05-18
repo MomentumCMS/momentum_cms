@@ -7,12 +7,12 @@ module MomentumCms
         raise CmsTagError.new(':cms_site was not passed in the rendering context') unless cms_site
 
         id = @params.fetch('id', nil)
-        slug = @params.fetch('slug', nil)
+        identifier = @params.fetch('identifier', nil)
 
         file = if id
                  MomentumCms::File.for_site(cms_site).where(id: id).first
-               elsif slug
-                 MomentumCms::File.for_site(cms_site).where(slug: slug).first
+               elsif identifier
+                 MomentumCms::File.for_site(cms_site).where(identifier: identifier).first
                end
 
         raise CmsTagError.new('File not found') unless file

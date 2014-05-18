@@ -41,7 +41,8 @@ class MomentumCms::Admin::PagesControllerTest < ActionController::TestCase
     assert_difference "MomentumCms::Page.count" do
       assert_difference "MomentumCms::Content.count" do
         post :create, site_id: @site.id, momentum_cms_page: {
-          label: 'Test Create'
+          label: 'Test Create',
+          identifier: 'test-create'
         }
       end
     end
@@ -53,10 +54,10 @@ class MomentumCms::Admin::PagesControllerTest < ActionController::TestCase
 
   def test_create_invalid
     assert_difference 'MomentumCms::Page.count' do
-      post :create, site_id: @site.id, momentum_cms_page: { slug: 'slug' }
+      post :create, site_id: @site.id, momentum_cms_page: { slug: 'slug', identifier: 'slug' }
     end
     assert_no_difference 'MomentumCms::Page.count' do
-      post :create, site_id: @site.id, momentum_cms_page: { slug: 'slug' }
+      post :create, site_id: @site.id, momentum_cms_page: { slug: 'slug', identifier: 'slug' }
     end
   end
 
@@ -72,7 +73,7 @@ class MomentumCms::Admin::PagesControllerTest < ActionController::TestCase
   end
 
   def test_update_invalid
-    post :create, site_id: @site.id, momentum_cms_page: { slug: 'slug' }
+    post :create, site_id: @site.id, momentum_cms_page: { slug: 'slug', identifier: 'slug' }
 
     put :update, site_id: @page.site.id, id: @page.id, momentum_cms_page: {
       slug: 'slug'

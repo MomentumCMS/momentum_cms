@@ -1,5 +1,6 @@
 {
   "label": "Authors",
   "slug": "authors",
+  "identifier": "author",
   "template": "Content"
 }

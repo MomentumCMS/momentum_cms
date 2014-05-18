@@ -1,5 +1,4 @@
 = form.input :label, hint: "Localized for: #{I18n.locale}"
-= form.input :content
 
 = form.simple_fields_for :blocks do |block_form|
   = block_form.input :identifier, as: :hidden

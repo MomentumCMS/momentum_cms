@@ -1,5 +1,6 @@
 {
   "label": "Team",
+  "identifier": "team",
   "locales": {
     "en": {
       "slug": "team"

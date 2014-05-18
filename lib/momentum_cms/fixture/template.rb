@@ -9,9 +9,9 @@ module MomentumCms
 
             template = MomentumCms::Template.where(site: @site, label: template_attributes['label']).first_or_initialize
             template.parent = parent if parent
-            template.content = MomentumCms::Fixture::Utils.read_file("#{path}/content.liquid", '')
-            template.js = MomentumCms::Fixture::Utils.read_file("#{path}/content.js", '')
-            template.css = MomentumCms::Fixture::Utils.read_file("#{path}/content.css", '')
+            template.value = MomentumCms::Fixture::Utils.read_file("#{path}/value.liquid", '')
+            template.js = MomentumCms::Fixture::Utils.read_file("#{path}/value.js", '')
+            template.css = MomentumCms::Fixture::Utils.read_file("#{path}/value.css", '')
             # Save the template
             template.save!
 
@@ -50,9 +50,9 @@ module MomentumCms
             label: template.label
           }
           MomentumCms::Fixture::Utils.write_json(::File.join(template_path, 'attributes.json'), attributes)
-          MomentumCms::Fixture::Utils.write_file(::File.join(template_path, 'content.liquid'), template.content)
-          MomentumCms::Fixture::Utils.write_file(::File.join(template_path, 'content.css'), template.css)
-          MomentumCms::Fixture::Utils.write_file(::File.join(template_path, 'content.js'), template.js)
+          MomentumCms::Fixture::Utils.write_file(::File.join(template_path, 'value.liquid'), template.value)
+          MomentumCms::Fixture::Utils.write_file(::File.join(template_path, 'value.css'), template.css)
+          MomentumCms::Fixture::Utils.write_file(::File.join(template_path, 'value.js'), template.js)
         end
       end
     end

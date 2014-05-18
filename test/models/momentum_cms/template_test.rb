@@ -60,7 +60,7 @@ class MomentumCms::TemplateTest < ActiveSupport::TestCase
     template = MomentumCms::Template.create(
       site: momentum_cms_sites(:default),
       label: 'About',
-      content: '{{notvalidliquid'
+      value: '{{notvalidliquid'
     )
     refute template.valid?
   end

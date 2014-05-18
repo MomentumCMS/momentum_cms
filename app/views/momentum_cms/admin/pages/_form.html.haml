@@ -1,4 +1,5 @@
 = form.input :label
+= form.input :identifier
 = form.input :slug, hint: "Localized for: #{I18n.locale}"
 = form.association :template, collection: MomentumCms::Template.all, prompt: 'Choose a Template', label_method: :label, value_method: :id, include_blank: false
 

@@ -4,6 +4,7 @@ class CreateMomentumCmsPages < ActiveRecord::Migration
     create_table :momentum_cms_pages do |t|
       t.references :site, index: true
       t.references :template, index: true
+      t.string :identifier
       t.string :label
       t.integer :published_content_id
       t.string :ancestry

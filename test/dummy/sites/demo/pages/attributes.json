@@ -1,5 +1,6 @@
 {
   "label": "Home",
   "slug": "/",
+  "identifier": "home",
   "template": "Content"
 }

@@ -6,7 +6,7 @@ class CmsFileTest < ActiveSupport::TestCase
     @file = MomentumCms::File.new
     @file.site = @site
     @file.file = File.new('test/fixtures/files/text.txt')
-    @file.slug = 'slug-for-test-file'
+    @file.identifier = 'slug-for-test-file'
     @file.save!
   end
 
@@ -17,10 +17,10 @@ class CmsFileTest < ActiveSupport::TestCase
     assert_equal @file.id.to_s, tag.params['id']
     assert_equal @file.file.url, template.render(cms_site: @site)
 
-    text = "{% cms_file slug:#{@file.slug} %}"
+    text = "{% cms_file identifier:#{@file.identifier} %}"
     template = Liquid::Template.parse(text)
-    tag = template.root.nodelist.detect { |t| t.params['slug'] == @file.slug }
-    assert_equal @file.slug, tag.params['slug']
+    tag = template.root.nodelist.detect { |t| t.params['identifier'] == @file.identifier }
+    assert_equal @file.identifier, tag.params['identifier']
     assert_equal @file.file.url, template.render(cms_site: @site)
 
     text = '{% cms_file %}'

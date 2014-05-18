@@ -32,6 +32,7 @@ module MomentumCms
               # page.site = @site
               page.parent = parent if parent
               page.label = page_attributes['label']
+              page.identifier = page_attributes['identifier']
               page.slug = slug
               page.template = MomentumCms::Template.for_site(@site).where(label: page_attributes['template']).first
 

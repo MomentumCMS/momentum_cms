@@ -1,5 +1,6 @@
 {
   "label": "About",
+  "identifier": "about",
   "locales": {
     "en": {
       "slug": "about"

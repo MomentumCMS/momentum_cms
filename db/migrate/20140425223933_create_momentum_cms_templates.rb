@@ -3,7 +3,7 @@ class CreateMomentumCmsTemplates < ActiveRecord::Migration
     create_table :momentum_cms_templates do |t|
       t.string :label
       t.references :site, index: true
-      t.text :content
+      t.text :value
       t.text :js
       t.text :css
       t.string :ancestry

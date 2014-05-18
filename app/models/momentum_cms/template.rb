@@ -17,7 +17,7 @@ class MomentumCms::Template < ActiveRecord::Base
 
   # == Validations ==========================================================
 
-  validate :valid_liquid_content
+  validate :valid_liquid_value
 
   validates :label,
             presence: true
@@ -50,11 +50,11 @@ class MomentumCms::Template < ActiveRecord::Base
   # == Instance Methods =====================================================
   protected
 
-  def valid_liquid_content
-    if self.content.present?
-      Liquid::Template.parse(self.content)
+  def valid_liquid_value
+    if self.value.present?
+      Liquid::Template.parse(self.value)
     end
   rescue
-    errors.add(:content, "is not a valid liquid template")
+    errors.add(:value, "is not a valid liquid template")
   end
 end

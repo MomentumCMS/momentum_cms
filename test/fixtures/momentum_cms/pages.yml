@@ -4,8 +4,10 @@ default:
   site: default
   label: default
   template: default
+  identifier: default
 
 child:
   site: default
   label: default
   template: child
+  identifier: default-child

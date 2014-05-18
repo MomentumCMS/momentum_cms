@@ -15,8 +15,10 @@ class MomentumCms::Menu < ActiveRecord::Base
   # == Validations ==========================================================
 
   validates :label,
-            :slug,
+            :identifier,
             presence: true
+  validates :identifier,
+            uniqueness: true
 
   # == Scopes ===============================================================
   # == Callbacks ============================================================
