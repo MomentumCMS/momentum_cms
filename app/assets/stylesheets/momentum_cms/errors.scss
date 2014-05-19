@@ -1,0 +1,28 @@
+body.momentum-cms-error {
+  background-image: asset-url('momentum_cms/errors/background.png');
+}
+
+.error-template {
+  padding: 40px 15px;
+  text-align: center;
+
+  .logo {
+    display: block;
+    width: 135px;
+    height: 135px;
+    text-decoration: none;
+    text-indent: -999em;
+    background-image: url('http://momentumcms.github.io/images/momentum-logo.png');
+    background-size: 100%;
+    margin: 50px auto 30px auto;
+  }
+
+  .error-actions {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  .error-actions .btn {
+    margin-right: 10px;
+  }
+}

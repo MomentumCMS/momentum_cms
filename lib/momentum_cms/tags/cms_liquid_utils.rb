@@ -7,6 +7,8 @@ module MomentumCms
     module CmsLiquidUtils
       include ActionView::Context
       include ActionView::Helpers::AssetTagHelper
+      include ActionView::Helpers::TagHelper
+      include ActionView::Helpers::FormTagHelper
 
       PARAMS_REGEXP = Regexp.new(/(?:"((?:\\.|[^"])*)"|([^\s]*)):\s*(?:"((?:\\.|[^"])*)"|([^\s]*))/).freeze
 

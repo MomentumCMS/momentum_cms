@@ -2,7 +2,6 @@
   %p 
     %strong
       = @current_momentum_cms_site.label
-      = link_to '(edit)', edit_cms_admin_site_path(@current_momentum_cms_site)
   %ul.nav.nav-sidebar
     %li= link_to 'Dashboard', [:cms, :admin, :site, :dashboards]
     %li= link_to 'Templates', [:cms, :admin, :site, :templates]
@@ -15,5 +14,9 @@
       Sites
   %ul.nav.nav-sidebar
     - @momentum_cms_sites.each do |site|
-      %li= link_to site.label, edit_cms_admin_site_path(site)
+      %li
+        = link_to "#{site.label} Dashboard", cms_admin_path(site)
+        %ul
+          %li= link_to 'Manage', edit_cms_admin_site_path(site)
+
     %li= link_to 'New Site', new_cms_admin_site_path

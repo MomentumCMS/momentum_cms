@@ -1,0 +1,13 @@
+!!!
+%html{:lang => I18n.locale}
+  %head
+    %meta{'http-equiv' => 'Content-type', :content => 'text/html; charset=utf-8'}
+    
+    = stylesheet_link_tag 'momentum_cms/application'
+    = javascript_include_tag 'momentum_cms/application'
+    = csrf_meta_tag
+    
+    = yield :head
+    
+  %body#momentum_cms{:class => "momentum-cms-error controller-#{params[:controller].to_slug} action-#{params[:action].to_slug} #{params[:controller].to_slug}-#{params[:action].to_slug}"} 
+    = yield
