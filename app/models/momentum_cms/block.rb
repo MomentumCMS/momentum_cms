@@ -16,6 +16,9 @@ class MomentumCms::Block < ActiveRecord::Base
 
   translates :value, fallbacks_for_empty_translations: true, versioning: :paper_trail
 
+  validates :block_template, :block_template_id,
+            presence: true
+
   # == Validations ==========================================================
   # == Scopes ===============================================================
   # == Callbacks ============================================================

@@ -13,14 +13,20 @@ class MomentumCms::Admin::ContentsController < MomentumCms::Admin::BaseControlle
   def edit
     template = @momentum_cms_page.template
 
+    # Get the current Content's existing saved blocks
     @content_blocks = @momentum_cms_content.blocks.to_a
 
-    @defined_blocks = TemplateBlockService.new(template).get_blocks.delete_if do |v|
-      !@content_blocks.detect { |x| x.identifier == "#{v[:template].identifier}::#{v[:node].params['id']}" }.nil?
-    end
+    # Get all the block templates that is assigned to the template
+    @block_templates = TemplateBlockService.new(template).get_blocks
 
-    @defined_blocks.each do |block|
-      @momentum_cms_content.blocks.build(identifier: "#{block[:template].identifier}::#{block[:node].params['id']}")
+    # Build blocks from each block_templates
+    @block_templates.each do |block_template|
+      if @content_blocks.detect { |x| x.identifier == "#{block_template.template.identifier}::#{block_template.identifier}" }.nil?
+        @momentum_cms_content.blocks.build(
+          identifier: "#{block_template.template.identifier}::#{block_template.identifier}",
+          block_template_id: block_template.id
+        )
+      end
     end
   end
 

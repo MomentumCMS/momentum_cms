@@ -2,5 +2,5 @@
   "label": "Client A",
   "slug": "client-a",
   "identifier": "client-a",
-  "template": "Main Layout"
+  "template": "main-layout"
 }

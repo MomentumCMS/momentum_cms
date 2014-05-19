@@ -2,5 +2,5 @@
   "label": "Services About",
   "slug": "about",
   "identifier": "about-2",
-  "template": "Main Layout"
+  "template": "main-layout"
 }

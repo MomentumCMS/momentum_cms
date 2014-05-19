@@ -8,5 +8,6 @@
     "fr": {
       "slug": "team-fr"
     }
-  }
+  },
+  "template": "container"
 }

@@ -17,6 +17,7 @@ class FixturePageTest < ActiveSupport::TestCase
 
   def test_basic_import
     assert_difference 'MomentumCms::Page.count', 8 do
+      MomentumCms::Fixture::Template::Importer.new('example-a', @site).import!
       MomentumCms::Fixture::Page::Importer.new('example-a', @site).import!
     end
     # Home Page
@@ -47,6 +48,7 @@ class FixturePageTest < ActiveSupport::TestCase
   end
 
   def test_prepare_content
+    MomentumCms::Fixture::Template::Importer.new('example-a', @site).import!
     importer = MomentumCms::Fixture::Page::Importer.new('example-a', @site)
     page = momentum_cms_pages(:default)
     about_path = File.join(Rails.root, 'sites', 'example-a', 'pages', 'about')
@@ -68,6 +70,7 @@ class FixturePageTest < ActiveSupport::TestCase
 
   def test_duplicate_import
     assert_difference "MomentumCms::Page.count", 8 do
+      MomentumCms::Fixture::Template::Importer.new('example-a', @site).import!
       MomentumCms::Fixture::Page::Importer.new('example-a', @site).import!
       MomentumCms::Fixture::Page::Importer.new('example-a', @site).import!
     end

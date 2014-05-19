@@ -1,11 +1,5 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  template_id: 
-  identifier: MyString
-  block_type: MyString
-
-two:
-  template_id: 
-  identifier: MyString
-  block_type: MyString
+default:
+  template: default
+  identifier: default

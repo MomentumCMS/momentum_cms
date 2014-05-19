@@ -2,5 +2,5 @@
   "label": "Portfolio",
   "slug": "portfolio",
   "identifier": "portfolio",
-  "template": "Main Layout"
+  "template": "main-layout"
 }

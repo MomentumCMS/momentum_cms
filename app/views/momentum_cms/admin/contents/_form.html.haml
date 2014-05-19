@@ -2,6 +2,7 @@
 
 = form.simple_fields_for :blocks do |block_form|
   = block_form.input :identifier, as: :hidden
+  = block_form.input :block_template_id, as: :hidden
   = block_form.input :value, label: block_form.object.identifier
 
 = form.submit class: 'btn btn-success btn-xs'

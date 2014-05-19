@@ -42,7 +42,8 @@ class MomentumCms::Template < ActiveRecord::Base
 
   before_validation :update_has_yield
 
-  after_save :update_descendants_block_templates
+  after_save :sync_block_identifiers,
+             :update_descendants_block_templates
 
   # == Class Methods ========================================================
 
@@ -60,11 +61,19 @@ class MomentumCms::Template < ActiveRecord::Base
   def valid_liquid_value
     tbs = TemplateBlockService.new(self)
     unless tbs.valid_liquid?
-      errors.add(:value, "is not a valid liquid template")
+      errors.add(:value, 'is not a valid liquid template')
     end
 
     if !self.new_record? && !tbs.has_block?(MomentumCms::Tags::CmsYield) && self.has_children?
-      errors.add(:value, "is not a valid parent liquid template, you must include {% cms_yield %}")
+      errors.add(:value, 'is not a valid parent liquid template, you must include {% cms_yield %}')
+    end
+  end
+
+  def sync_block_identifiers
+    if self.identifier_changed?
+      to = self.identifier_change.last
+
+
     end
   end
 
@@ -75,6 +84,6 @@ class MomentumCms::Template < ActiveRecord::Base
   end
 
   def update_descendants_block_templates
-    TemplateBlockTemplateService.new(self).create_or_update_block_templates_for_self!
+    TemplateBlockService.new(self).create_or_update_block_templates_for_self!
   end
 end
