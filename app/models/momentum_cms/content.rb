@@ -8,6 +8,7 @@ class MomentumCms::Content < ActiveRecord::Base
   # == Relationships ========================================================
 
   belongs_to :page
+  belongs_to :template
 
   has_many :blocks,
            dependent: :destroy

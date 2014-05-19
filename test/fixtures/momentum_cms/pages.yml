@@ -3,3 +3,7 @@
 default:
   site: default
   label: default
+
+child:
+  site: default
+  label: child

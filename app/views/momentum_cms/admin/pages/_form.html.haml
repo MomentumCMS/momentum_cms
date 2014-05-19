@@ -1,9 +1,17 @@
 = form.input :label
-= form.input :slug
-= form.association :template, collection: MomentumCms::Template.all, prompt: 'Choose a Template', label_method: :label, value_method: :id, include_blank: false
+= form.input :slug, hint: "Localized for: #{I18n.locale}"
+
+- if @momentum_cms_pages.length > 0
+  = form.input :parent_id, collection: @momentum_cms_pages, prompt: 'Parent Page...', label_method: :label
 
 - if @momentum_cms_page.persisted?
   = form.input :published_content_id, collection: @momentum_cms_page.contents.all, prompt: 'Choose a Content', label_method: :label, value_method: :id, include_blank: false
+
+= render 'momentum_cms/admin/pages/form/content_tabs_navigation'
+
+%br
+
+= render 'momentum_cms/admin/pages/form/content_tabs_content', form: form
 
 = form.submit class: 'btn btn-success btn-xs'
 = link_to 'Back', cms_admin_site_pages_path(@current_momentum_cms_site), class: 'btn btn-primary btn-xs'

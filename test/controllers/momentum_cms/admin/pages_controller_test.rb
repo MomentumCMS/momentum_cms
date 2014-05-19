@@ -25,7 +25,7 @@ class MomentumCms::Admin::PagesControllerTest < ActionController::TestCase
     assert_response :redirect
     page = MomentumCms::Page.last
     content = page.contents.default.first
-    assert_redirected_to edit_cms_admin_site_page_content_path(@site, page, content)
+    assert_redirected_to edit_cms_admin_site_page_path(@site, page)
   end
 
   def test_update

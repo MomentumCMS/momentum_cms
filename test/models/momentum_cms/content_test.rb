@@ -37,16 +37,18 @@ class MomentumCms::ContentTest < ActiveSupport::TestCase
   def test_default_content_scope
     content = MomentumCms::Content.default.first
     assert content.default
-    content.update_attribute(:default, false)
+    MomentumCms::Content.update_all(default: false)
     assert MomentumCms::Content.default.blank?
   end
 
   def test_published
-    content = MomentumCms::Content.default.first
-    page = content.page
-    assert !content.published?
-    page.update_attribute(:published_content_id, content.id)
+    page = MomentumCms::Page.first
+    page.update_attribute(:published_content_id, page.contents.first.id)
+    content = page.published_content
     assert content.published?
+    page.update_attribute(:published_content_id, nil)
+    content.reload
+    assert !content.published?
   end
 
   def test_default

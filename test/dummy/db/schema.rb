@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140513040564) do
+ActiveRecord::Schema.define(version: 20140509014853) do
 
   create_table "momentum_cms_block_translations", force: true do |t|
     t.integer  "momentum_cms_block_id", null: false
@@ -48,11 +48,13 @@ ActiveRecord::Schema.define(version: 20140513040564) do
   create_table "momentum_cms_contents", force: true do |t|
     t.boolean  "default"
     t.integer  "page_id"
+    t.integer  "template_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "momentum_cms_contents", ["page_id"], name: "index_momentum_cms_contents_on_page_id"
+  add_index "momentum_cms_contents", ["template_id"], name: "index_momentum_cms_contents_on_template_id"
 
   create_table "momentum_cms_files", force: true do |t|
     t.string   "label"

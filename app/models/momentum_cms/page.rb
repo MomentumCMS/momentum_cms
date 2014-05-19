@@ -24,7 +24,6 @@ class MomentumCms::Page < ActiveRecord::Base
   # == Scopes ===============================================================
   # == Callbacks ============================================================
 
-  after_initialize :build_default_content
   before_save :assign_paths
   after_create :set_published_content_id
   after_update :regenerate_child_paths
@@ -33,8 +32,11 @@ class MomentumCms::Page < ActiveRecord::Base
   # == Instance Methods =====================================================
 
   def build_default_content
-    if self.new_record? && self.contents.find_by(default: true).nil?
+    if self.new_record? && self.contents.find_by(default: true).nil? && self.contents.length == 0
       self.contents.build(default: true, label: 'Default')
+    else
+      self.contents.first.default = true
+      self.contents.first.label = 'Default' if self.contents.first.label.blank?
     end
   end
 

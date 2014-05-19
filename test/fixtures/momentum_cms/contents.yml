@@ -2,4 +2,10 @@
 
 default:
   page: default
+  template: default
+  default: true
+
+child:
+  page: child
+  template: default
   default: true

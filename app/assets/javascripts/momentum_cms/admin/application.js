@@ -5,11 +5,7 @@
 //= require_tree ../../vendor/ace
 //= require vendor/emmet
 //= require momentum_cms/admin/util/ace
+//= require momentum_cms/admin/util/select2
+//= require momentum_cms/admin/menus/form
+//= require momentum_cms/admin/views/page
 //= require_self
-
-
-$(function () {
-  $.each($('select.select'), function (index, value) {
-    $(value).select2();
-  });
-})
