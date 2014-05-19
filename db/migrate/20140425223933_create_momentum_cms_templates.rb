@@ -5,6 +5,7 @@ class CreateMomentumCmsTemplates < ActiveRecord::Migration
       t.string :identifier
       t.references :site, index: true
       t.text :value
+      t.text :admin_value
       t.text :js
       t.text :css
       t.string :ancestry

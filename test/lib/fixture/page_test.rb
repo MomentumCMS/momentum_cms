@@ -58,8 +58,8 @@ class FixturePageTest < ActiveSupport::TestCase
       end
     end
     page.reload
-    header = page.contents.last.blocks.find_by(identifier: 'header')
-    content = page.contents.last.blocks.find_by(identifier: 'content')
+    header = page.contents.last.blocks.find_by(identifier: 'main-layout::header')
+    content = page.contents.last.blocks.find_by(identifier: 'main-layout::content')
     I18n.locale = 'en'
     assert_equal "Welcome", header.value.strip
     assert_equal "<p>Example English about content</p>", content.value.strip

@@ -66,11 +66,10 @@ module MomentumCms
             template.root.nodelist.each do |node|
               next unless node.is_a?(MomentumCms::Tags::CmsFixture)
 
-
               I18n.locale = node.params['locale']
               cms_template = MomentumCms::Template.for_site(@site).where(identifier: node.params['template']).first
 
-              cms_block = MomentumCms::Block.where(content: cms_content, identifier: node.params['id']).first_or_initialize
+              cms_block = MomentumCms::Block.where(content: cms_content, identifier: "#{node.params['template']}::#{node.params['id']}").first_or_initialize
               cms_block.value = MomentumCms::Tags::CmsFixture.get_contents(node)
               cms_block.block_template = MomentumCms::BlockTemplate.where(template: cms_template, identifier: node.params['id']).first
               cms_block.save!
