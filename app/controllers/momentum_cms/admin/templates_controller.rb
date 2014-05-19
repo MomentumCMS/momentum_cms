@@ -2,7 +2,7 @@ class MomentumCms::Admin::TemplatesController < MomentumCms::Admin::BaseControll
   before_action :build_momentum_cms_template, only: [:new, :create]
   before_action :load_momentum_cms_template, only: [:edit, :update, :destroy]
   before_action :load_momentum_cms_templates, only: [:index, :new]
-  before_action :load_parent_templates, only: [:edit]
+  before_action :load_parent_templates, only: [:edit, :update]
 
   def index
   end

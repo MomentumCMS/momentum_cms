@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140519065522) do
+ActiveRecord::Schema.define(version: 20140519200017) do
 
   create_table "momentum_cms_block_templates", force: true do |t|
     t.integer  "template_id"
@@ -85,6 +85,29 @@ ActiveRecord::Schema.define(version: 20140519065522) do
 
   add_index "momentum_cms_files", ["site_id"], name: "index_momentum_cms_files_on_site_id"
 
+  create_table "momentum_cms_link_translations", force: true do |t|
+    t.integer  "momentum_cms_link_id", null: false
+    t.string   "locale",               null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "label"
+    t.text     "description"
+  end
+
+  add_index "momentum_cms_link_translations", ["locale"], name: "index_momentum_cms_link_translations_on_locale"
+  add_index "momentum_cms_link_translations", ["momentum_cms_link_id"], name: "index_momentum_cms_link_translations_on_momentum_cms_link_id"
+
+  create_table "momentum_cms_links", force: true do |t|
+    t.integer  "site_id"
+    t.string   "identifier"
+    t.string   "url"
+    t.string   "target"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "momentum_cms_links", ["site_id"], name: "index_momentum_cms_links_on_site_id"
+
   create_table "momentum_cms_locales", force: true do |t|
     t.string "label"
     t.string "identifier"
@@ -130,6 +153,7 @@ ActiveRecord::Schema.define(version: 20140519065522) do
     t.string   "identifier"
     t.string   "label"
     t.integer  "published_content_id"
+    t.integer  "redirected_page_id"
     t.string   "ancestry"
     t.datetime "created_at"
     t.datetime "updated_at"
