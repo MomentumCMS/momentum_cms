@@ -1,4 +1,4 @@
-require 'test_helper'
+require_relative '../../test_helper'
 
 class MomentumCms::ContentTest < ActiveSupport::TestCase
   def setup
@@ -32,6 +32,10 @@ class MomentumCms::ContentTest < ActiveSupport::TestCase
     assert content.default
     MomentumCms::Content.update_all(default: false)
     assert MomentumCms::Content.default.blank?
+    content.reload
+    content.default = true
+    content.save!
+    assert MomentumCms::Content.default.length == 1
   end
 
   def test_published

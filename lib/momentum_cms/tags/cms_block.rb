@@ -4,14 +4,18 @@ module MomentumCms
     class CmsBlock < CmsBaseTag
       def render(context)
         cms_content = context_get(context, :cms_content)
-        return '' unless cms_content
-        value = cms_content.blocks.where(identifier: @params[:id]).first!.value
+        raise CmsTagError.new(':cms_content was not passed in the rendering context') unless cms_content
 
-        template = Liquid::Template.parse(value)
+        id = @params.fetch('id', nil)
+        raise CmsTagError.new(':id was not passed in the cms_block tag') unless id
+
+        block = cms_content.blocks.where(identifier: id).first
+        raise CmsTagError.new('Block not found') unless block
+
+        template = Liquid::Template.parse(block.value)
         template.render(context)
-
-      rescue
-        ''
+      rescue => e
+        print_error_message(e, self, context, @params)
       end
     end
     Liquid::Template.register_tag 'cms_block', CmsBlock

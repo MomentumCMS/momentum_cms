@@ -7,13 +7,12 @@ $(function () {
 
     var editDiv = $('<div>', {
       position: 'absolute',
-//      width: textarea.width(),
       height: textarea.height(),
       'class': textarea.attr('class')
     }).insertBefore(textarea);
 
     textarea.css('visibility', 'hidden').css('height', '0px');
-    
+
     ace.require("ace/ext/old_ie");
     ace.require("ace/ext/language_tools");
     ace.require("ace/ext/emmet");
@@ -33,7 +32,7 @@ $(function () {
       enableBasicAutocompletion: true,
       enableSnippets: true
     });
-    
+
     editor.commands.addCommands([
       {
         name: "showSettingsMenu",
@@ -55,7 +54,6 @@ $(function () {
         })
       }
     });
-
 
     // copy back to textarea on form submit...
     textarea.closest('form').submit(function () {

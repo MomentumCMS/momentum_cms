@@ -3,7 +3,7 @@ class MomentumCms::Admin::SnippetsController < MomentumCms::Admin::BaseControlle
   before_action :build_moment_cms_snippet, only: [:new, :create]
 
   def index
-    @momentum_cms_snippets = MomentumCms::Snippet.all
+    @momentum_cms_snippets = @current_momentum_cms_site.snippets.all
   end
 
   def new
@@ -37,6 +37,8 @@ class MomentumCms::Admin::SnippetsController < MomentumCms::Admin::BaseControlle
   private
   def load_moment_cms_snippet
     @momentum_cms_snippet = MomentumCms::Snippet.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to action: :index
   end
 
   def build_moment_cms_snippet

@@ -1,9 +1,10 @@
 class MomentumCms::Admin::TemplatesController < MomentumCms::Admin::BaseController
-  before_action :load_moment_cms_template, only: [:edit, :update, :destroy]
-  before_action :build_moment_cms_template, only: [:new, :create]
+  before_action :build_momentum_cms_template, only: [:new, :create]
+  before_action :load_momentum_cms_template, only: [:edit, :update, :destroy]
+  before_action :load_momentum_cms_templates, only: [:index, :new]
+  before_action :load_parent_templates, only: [:edit]
 
   def index
-    @momentum_cms_templates = MomentumCms::Template.all
   end
 
   def new
@@ -29,18 +30,31 @@ class MomentumCms::Admin::TemplatesController < MomentumCms::Admin::BaseControll
   end
 
   def destroy
-    @momentum_cms_template.destroy
+    @momentum_cms_template.destroy!
     flash[:success] = 'Template was successfully destroyed.'
+  rescue MomentumCms::PermanentObject
+    flash[:warning] = 'Template was not destroyed.'
+  ensure
     redirect_to action: :index
   end
 
   private
-  def load_moment_cms_template
+  def load_momentum_cms_template
     @momentum_cms_template = MomentumCms::Template.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to action: :index
   end
 
-  def build_moment_cms_template
-    @momentum_cms_template      = MomentumCms::Template.new(momentum_cms_template_params)
+  def load_momentum_cms_templates
+    @momentum_cms_templates = @current_momentum_cms_site.templates
+  end
+
+  def load_parent_templates
+    @momentum_cms_templates = @current_momentum_cms_site.templates.where.not(id: @momentum_cms_template.subtree_ids)
+  end
+
+  def build_momentum_cms_template
+    @momentum_cms_template = MomentumCms::Template.new(momentum_cms_template_params)
     @momentum_cms_template.site = @current_momentum_cms_site
   end
 

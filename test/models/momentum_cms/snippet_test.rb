@@ -1,4 +1,4 @@
-require 'test_helper'
+require_relative '../../test_helper'
 
 class MomentumCms::SnippetTest < ActiveSupport::TestCase
   def setup
@@ -36,4 +36,24 @@ class MomentumCms::SnippetTest < ActiveSupport::TestCase
       )
     end
   end
+
+  def test_snippets_can_not_nest
+
+    snippet = MomentumCms::Snippet.new(site: @site, label: 'foo', slug: 'bar')
+
+    snippet.value = 'FOO BAR'
+
+    assert snippet.valid?
+
+    snippet.value = '{% cms_snippet slug:foo'
+
+    refute snippet.valid?
+
+    snippet.value = 'Nested tags {% cms_snippet slug:foo %}'
+
+    refute snippet.valid?
+
+
+  end
+
 end

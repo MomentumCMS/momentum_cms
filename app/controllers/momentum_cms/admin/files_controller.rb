@@ -3,7 +3,7 @@ class MomentumCms::Admin::FilesController < MomentumCms::Admin::BaseController
   before_action :build_moment_cms_file, only: [:new, :create]
 
   def index
-    @momentum_cms_files = MomentumCms::File.all
+    @momentum_cms_files = @current_momentum_cms_site.files.all
   end
 
   def new
@@ -37,6 +37,8 @@ class MomentumCms::Admin::FilesController < MomentumCms::Admin::BaseController
   private
   def load_moment_cms_file
     @momentum_cms_file = MomentumCms::File.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to action: :index
   end
 
   def build_moment_cms_file

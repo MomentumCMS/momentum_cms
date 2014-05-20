@@ -53,14 +53,18 @@ module MomentumCms
         def prepare_content(page, path)
           content = MomentumCms::Content.where(page: page, label: page.label).first_or_initialize
           content.save!
+
+          page.published_content_id = content.id
+          page.save!
+
           Dir.glob("#{path}/*.liquid").each do |content_path|
             text = ::File.read(content_path)
             template = Liquid::Template.parse(text)
             original_locale = I18n.locale
             template.root.nodelist.each do |node|
               next unless node.is_a?(MomentumCms::Tags::CmsFixture)
-              I18n.locale = node.params[:locale]
-              block = MomentumCms::Block.where(content: content, identifier: node.params[:id]).first_or_initialize
+              I18n.locale = node.params['locale']
+              block = MomentumCms::Block.where(content: content, identifier: node.params['id']).first_or_initialize
               block.value = MomentumCms::Tags::CmsFixture.get_contents(node)
               block.save!
             end

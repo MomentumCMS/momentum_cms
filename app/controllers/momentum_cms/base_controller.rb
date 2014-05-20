@@ -3,6 +3,7 @@ class MomentumCms::BaseController < ApplicationController
   rescue_from MomentumCms::SiteNotFound, with: :error_render_method
 
   before_action :load_site
+  include MomentumCms::I18nLocale
 
   private
 

@@ -29,6 +29,15 @@ class MomentumCms::Page < ActiveRecord::Base
   after_update :regenerate_child_paths
 
   # == Class Methods ========================================================
+  
+  def self.ancestor_and_self!(page)
+    if page && page.is_a?(MomentumCms::Page)
+      [page.ancestors.to_a, page].flatten.compact
+    else
+      []
+    end
+  end
+  
   # == Instance Methods =====================================================
 
   def build_default_content

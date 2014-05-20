@@ -1,14 +1,8 @@
-require 'test_helper'
+require_relative '../../test_helper'
 
 class MomentumCms::SiteTest < ActiveSupport::TestCase
   def setup
     @site = momentum_cms_sites(:default)
-    MomentumCms::Site.class_eval do
-      has_settings do |s|
-        s.key :site, :defaults => { :title => 'Just another CMS' }
-        s.key :language, :defaults => { :locales => [] }
-      end
-    end
   end
 
   def test_fixture_validity
@@ -49,11 +43,11 @@ class MomentumCms::SiteTest < ActiveSupport::TestCase
       label: 'Site Name'
     )
     assert_equal @site.get_locales, []
-    assert_equal @site.get_locales([:en]), [:en]
-    @site.settings(:language).locales = [:en, :fr]
+    assert_equal @site.get_locales(['en']), ['en']
+    @site.setting_locales = ['en', 'fr']
     @site.save!
     @site.reload
-    assert_equal @site.get_locales, [:en, :fr]
-    assert_equal @site.get_locales([:en]), [:en, :fr]
+    assert_equal @site.get_locales, ['en', 'fr']
+    assert_equal @site.get_locales(['en']), ['en', 'fr']
   end
 end

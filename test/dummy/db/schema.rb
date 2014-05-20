@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140509014853) do
+ActiveRecord::Schema.define(version: 20140513180315) do
 
   create_table "momentum_cms_block_translations", force: true do |t|
     t.integer  "momentum_cms_block_id", null: false
@@ -79,6 +79,28 @@ ActiveRecord::Schema.define(version: 20140509014853) do
     t.string "identifier"
   end
 
+  create_table "momentum_cms_menu_items", force: true do |t|
+    t.integer  "menu_id"
+    t.string   "ancestry"
+    t.integer  "menu_item_type"
+    t.integer  "linkable_id"
+    t.string   "linkable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "momentum_cms_menu_items", ["menu_id"], name: "index_momentum_cms_menu_items_on_menu_id"
+
+  create_table "momentum_cms_menus", force: true do |t|
+    t.integer  "site_id"
+    t.string   "label"
+    t.string   "slug"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "momentum_cms_menus", ["site_id"], name: "index_momentum_cms_menus_on_site_id"
+
   create_table "momentum_cms_page_translations", force: true do |t|
     t.integer  "momentum_cms_page_id", null: false
     t.string   "locale",               null: false
@@ -104,21 +126,13 @@ ActiveRecord::Schema.define(version: 20140509014853) do
   add_index "momentum_cms_pages", ["site_id"], name: "index_momentum_cms_pages_on_site_id"
   add_index "momentum_cms_pages", ["template_id"], name: "index_momentum_cms_pages_on_template_id"
 
-  create_table "momentum_cms_settings", force: true do |t|
-    t.string   "var",         null: false
-    t.text     "value"
-    t.integer  "target_id",   null: false
-    t.string   "target_type", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "momentum_cms_settings", ["target_type", "target_id", "var"], name: "momentum_cms_settings_uniq_ttype_tid_var", unique: true
-
   create_table "momentum_cms_sites", force: true do |t|
     t.string   "identifier"
     t.string   "label"
     t.string   "host"
+    t.string   "setting_title"
+    t.text     "setting_locales"
+    t.text     "setting_default_locale"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -151,6 +165,7 @@ ActiveRecord::Schema.define(version: 20140509014853) do
     t.text     "js"
     t.text     "css"
     t.string   "ancestry"
+    t.boolean  "permanent_record", default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

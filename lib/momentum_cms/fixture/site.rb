@@ -16,7 +16,7 @@ module MomentumCms
           site.label = @attributes['label']
           site.host = @attributes['host']
           if @attributes['locales']
-            site.settings(:language).locales = @attributes['locales']
+            site.setting_locales = @attributes['locales']
           end
           site.save!
           site
@@ -32,7 +32,7 @@ module MomentumCms
             label: @site.label,
             host: @site.host,
             identifier: @site.identifier,
-            locales: [@site.settings(:language).locales].flatten
+            locales: [@site.setting_locales].flatten
           }
           MomentumCms::Fixture::Utils.write_json(::File.join(@export_path, 'attributes.json'), attributes)
         end

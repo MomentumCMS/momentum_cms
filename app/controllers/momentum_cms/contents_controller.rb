@@ -27,15 +27,15 @@ class MomentumCms::ContentsController < MomentumCms::BaseController
   def load_momentum_cms_content
     path = "/#{params[:id]}" || '/'
 
-    @momentum_cms_page = MomentumCms::Page.where(path: path).first!
-    @momentum_cms_content = @momentum_cms_page.contents.first
+    @momentum_cms_page = MomentumCms::Page.for_site(@momentum_cms_site).where(path: path).first!
+    @momentum_cms_content = @momentum_cms_page.published_content
 
   rescue ActiveRecord::RecordNotFound
     raise MomentumCms::RecordNotFound.new(path)
   end
 
   def load_momentum_cms_page
-    @momentum_cms_page = MomentumCms::Page.where(id: params[:id]).first!
+    @momentum_cms_page =MomentumCms::Page.for_site(@momentum_cms_site).where(id: params[:id]).first!
   rescue ActiveRecord::RecordNotFound
     raise MomentumCms::RecordNotFound.new(path)
   end

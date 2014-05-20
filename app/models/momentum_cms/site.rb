@@ -18,12 +18,12 @@ class MomentumCms::Site < ActiveRecord::Base
   has_many :snippets,
            dependent: :destroy
 
-  # == Extensions ===========================================================
+  has_many :menus,
+           dependent: :destroy
 
-  has_settings do |s|
-    s.key :site, :defaults => { :title => 'Just another CMS' }
-    s.key :language
-  end
+  # == Extensions ===========================================================
+  serialize :setting_locales
+  serialize :setting_default_locale
 
   # == Validations ==========================================================
 
@@ -40,8 +40,8 @@ class MomentumCms::Site < ActiveRecord::Base
   # == Instance Methods =====================================================
 
   def get_locales(defaults=[])
-    if self.settings(:language).locales.present?
-      self.settings(:language).locales
+    if self.setting_locales.present?
+      self.setting_locales
     else
       defaults
     end

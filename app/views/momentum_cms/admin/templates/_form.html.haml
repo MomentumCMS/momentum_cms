@@ -1,5 +1,12 @@
 = form.input :label, hint: 'Read our <a href="https://github.com/MomentumCMS/momentum_cms/wiki/CMS-Tags" target="_blank">documentation</a> to learn more about templates and tags'.html_safe
 
+= form.input :parent_id, collection: @momentum_cms_templates, prompt: 'Parent Template...', label_method: :label
+
+- if !@momentum_cms_template.permanent_record? || @momentum_cms_template.new_record?
+  = form.input :permanent_record, label: 'Is permanent record', as: :boolean
+- else
+  = form.input :permanent_record, label: 'Is permanent record', disabled: true, hint: 'You cannot enable deletion on this permanent record.', as: :boolean
+
 :javascript
   $(document).ready(function() {
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
