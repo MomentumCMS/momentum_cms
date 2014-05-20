@@ -1,7 +1,6 @@
 class CreateMomentumCmsContents < ActiveRecord::Migration
   def up
     create_table :momentum_cms_contents do |t|
-      t.boolean :default
       t.references :page, index: true
       t.references :template, index: true
 

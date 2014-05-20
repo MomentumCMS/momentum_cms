@@ -33,11 +33,11 @@ class MomentumCms::Page < ActiveRecord::Base
 
   def build_default_content
     if self.new_record? && self.contents.find_by(default: true).nil? && self.contents.length == 0
-      self.contents.build(default: true, label: 'Default')
+      content = self.contents.build(default: true, label: 'Default')
     else
-      self.contents.first.default = true
-      self.contents.first.label = 'Default' if self.contents.first.label.blank?
+      content = self.contents.find_by(default: true)
     end
+    content
   end
 
   def assign_paths

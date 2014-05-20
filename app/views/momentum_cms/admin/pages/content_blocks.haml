@@ -1,15 +1,7 @@
 = simple_form_for @momentum_cms_page, url: {action: :new}  do |form|
-  = form.simple_fields_for :contents, @momentum_cms_page.contents do |content_form|
-
-    - next unless content_form.object.new_record?
-    = content_form.association :template, collection: MomentumCms::Template.all, prompt: 'Choose a Template', label_method: :label, value_method: :id, include_blank: false,  input_html: { class: 'template-select select' }
-
-    - # Set the label to "Default" if there is only one content variation
-    / - if @momentum_cms_page.contents.length == 1
-    /   = content_form.input :label, as: :hidden, input_html: {value: 'Default'}
-    / - else
-    = content_form.input :label, hint: "Localized for: #{I18n.locale}", label: 'Content Label'
-
-    = content_form.simple_fields_for :blocks do |block_form|
-      = block_form.input :identifier, as: :hidden
-      = block_form.input :value, label: block_form.object.identifier.titleize
+  .ajax-fields
+    = form.simple_fields_for :contents, @momentum_cms_content do |content_form|
+      = content_form.simple_fields_for :blocks do |block_form|
+        - next unless @template_block_identifiers.include?(block_form.object.identifier)
+        = block_form.input :identifier, as: :hidden
+        = block_form.input :value, label: block_form.object.identifier.titleize

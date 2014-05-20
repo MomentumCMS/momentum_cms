@@ -25,16 +25,6 @@ PageView = (function() {
   //-- Methods --------------------------------------------------------------
   PageView.prototype.bindEvents = function() {
     this.$el.on('change', '.template-select', $.proxy(this.fetchContentBlocks, this));
-    this.$('.nav-tabs a').on('click', this.changeTabs);
-  };
-
-  PageView.prototype.changeTabs = function(e) {
-    if($(e.currentTarget).data('action') == 'add-content') {
-
-    }else{
-      e.preventDefault();
-      $(this).tab('show');
-    }
   };
 
   PageView.prototype.fetchContentBlocks = function(e) {
@@ -44,11 +34,8 @@ PageView = (function() {
     }
     var request = $.get(this.contentBlocksUrl(), reqData);
     request.then(function(res) {
-      $('.tab-pane.active').empty();
-      $(res).find('.form-group').appendTo('.tab-pane.active');
-      $('.tab-pane.active select.select').each(function(index, item) {
-        $(item).select2();
-      });
+      $('.content-fields').empty();
+      $(res).find('.ajax-fields').appendTo('.content-fields');
     });
     request.fail(function(xhr) {
       alert('there was a problem loading the content blocks');

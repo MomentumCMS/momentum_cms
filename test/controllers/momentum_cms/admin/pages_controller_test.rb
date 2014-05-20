@@ -16,11 +16,10 @@ class MomentumCms::Admin::PagesControllerTest < ActionController::TestCase
 
   def test_create
     assert_difference "MomentumCms::Page.count" do
-      assert_difference "MomentumCms::Content.count" do
-        post :create, site_id: @site.id, momentum_cms_page: {
-          label: 'Test Create'
-        }
-      end
+      post :create, site_id: @site.id, momentum_cms_page: {
+        label: 'Test Create',
+        slug: 'test-create'
+      }
     end
     assert_response :redirect
     page = MomentumCms::Page.last

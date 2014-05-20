@@ -28,7 +28,7 @@ class MomentumCms::ContentsController < MomentumCms::BaseController
     path = "/#{params[:id]}" || '/'
 
     @momentum_cms_page = MomentumCms::Page.where(path: path).first!
-    @momentum_cms_content = @momentum_cms_page.published_content
+    @momentum_cms_content = @momentum_cms_page.contents.first
 
   rescue ActiveRecord::RecordNotFound
     raise MomentumCms::RecordNotFound.new(path)
@@ -41,6 +41,6 @@ class MomentumCms::ContentsController < MomentumCms::BaseController
   end
 
   def prepare_templates
-    @template_array = MomentumCms::Template.for_site(@momentum_cms_site).ancestor_and_self!(@momentum_cms_content.template)
+    @template_array = MomentumCms::Template.for_site(@momentum_cms_site).ancestor_and_self!(@momentum_cms_page.template)
   end
 end

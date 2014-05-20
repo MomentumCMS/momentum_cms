@@ -9,11 +9,6 @@
     %td= momentum_cms_page.path
     %td= momentum_cms_page.created_at
     %td= momentum_cms_page.updated_at
-    %td       
-      - if momentum_cms_page.published_content_id
-        = link_to 'Edit Content', edit_cms_admin_site_page_content_path(@current_momentum_cms_site, momentum_cms_page, momentum_cms_page.published_content_id), class: 'btn btn-success btn-xs'
-      
-      = link_to 'List Contents', cms_admin_site_page_contents_path(@current_momentum_cms_site, momentum_cms_page), class: 'btn btn-primary btn-xs'
-
-      = link_to 'Destroy', cms_admin_site_page_path(@current_momentum_cms_site, momentum_cms_page), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs'
+    %td
+      = link_to 'Delete', cms_admin_site_page_path(@current_momentum_cms_site, momentum_cms_page), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs'
   = render partial: 'pages', locals: {momentum_cms_pages_tree: momentum_cms_page.children, path: "#{path}&mdash;"}

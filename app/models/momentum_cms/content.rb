@@ -27,9 +27,7 @@ class MomentumCms::Content < ActiveRecord::Base
 
   # == Validations ==========================================================
 
-  validates :label,
-            presence: true
-  validates :default, uniqueness: {scope: :page_id}
+  # validates :default, uniqueness: {scope: :page_id}
 
   # == Scopes ===============================================================
 
