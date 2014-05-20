@@ -78,6 +78,7 @@ class FixturePageTest < ActiveSupport::TestCase
 
   def test_multilingual_import
     @site.update_attributes! setting_locales: [:en, :fr], setting_default_locale: :en
+    MomentumCms::Fixture::Template::Importer.new('multilingual-example', @site).import!
     MomentumCms::Fixture::Page::Importer.new('multilingual-example', @site).import!
 
     I18n.locale = :en

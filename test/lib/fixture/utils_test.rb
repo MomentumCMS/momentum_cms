@@ -26,9 +26,10 @@ class FixtureUtilsTest < ActiveSupport::TestCase
   end
 
   def test_fresh_fixture
-    page = MomentumCms::Page.create(label: 'Fresh', slug: 'fresh', site: momentum_cms_sites(:default), identifier: 'fresh')
+    template = momentum_cms_templates(:default)
+    page = MomentumCms::Page.create(label: 'Fresh', slug: 'fresh', site: momentum_cms_sites(:default), identifier: 'fresh', template: template)
     attributes_path = File.join(Rails.root, 'sites', 'example-a', 'attributes.json')
-    assert !MomentumCms::Fixture::Utils.fresh_fixture?(page, attributes_path)
+    refute MomentumCms::Fixture::Utils.fresh_fixture?(page, attributes_path)
     page.update_column(:updated_at, (Time.now - 2.days))
     FileUtils.touch(attributes_path)
     assert MomentumCms::Fixture::Utils.fresh_fixture?(page, attributes_path)

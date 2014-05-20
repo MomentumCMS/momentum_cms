@@ -5,6 +5,7 @@ class MomentumCms::Admin::PagesControllerTest < ActionController::TestCase
   def setup
     @site = momentum_cms_sites(:default)
     @page = momentum_cms_pages(:default)
+    @template = momentum_cms_templates(:default)
   end
 
   def test_index
@@ -42,7 +43,8 @@ class MomentumCms::Admin::PagesControllerTest < ActionController::TestCase
       assert_difference "MomentumCms::Content.count" do
         post :create, site_id: @site.id, momentum_cms_page: {
           label: 'Test Create',
-          identifier: 'test-create'
+          identifier: 'test-create',
+          template_id: @template.id
         }
       end
     end
@@ -54,10 +56,10 @@ class MomentumCms::Admin::PagesControllerTest < ActionController::TestCase
 
   def test_create_invalid
     assert_difference 'MomentumCms::Page.count' do
-      post :create, site_id: @site.id, momentum_cms_page: { slug: 'slug', identifier: 'slug' }
+      post :create, site_id: @site.id, momentum_cms_page: { slug: 'slug', identifier: 'slug', template_id: @template.id }
     end
     assert_no_difference 'MomentumCms::Page.count' do
-      post :create, site_id: @site.id, momentum_cms_page: { slug: 'slug', identifier: 'slug' }
+      post :create, site_id: @site.id, momentum_cms_page: { slug: 'slug', identifier: 'slug', template_id: @template.id }
     end
   end
 
@@ -73,7 +75,7 @@ class MomentumCms::Admin::PagesControllerTest < ActionController::TestCase
   end
 
   def test_update_invalid
-    post :create, site_id: @site.id, momentum_cms_page: { slug: 'slug', identifier: 'slug' }
+    post :create, site_id: @site.id, momentum_cms_page: { slug: 'slug', identifier: 'slug', template_id: @template.id }
 
     put :update, site_id: @page.site.id, id: @page.id, momentum_cms_page: {
       slug: 'slug'

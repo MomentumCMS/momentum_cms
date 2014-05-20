@@ -27,9 +27,6 @@ class MomentumCms::Page < ActiveRecord::Base
 
   validates :identifier, presence: true
   
-  
-  validates :template, uniqueness: true
-
   validates :template, presence: true
 
   # == Scopes ===============================================================
