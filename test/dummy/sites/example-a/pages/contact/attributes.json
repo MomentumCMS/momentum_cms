@@ -1,5 +1,6 @@
 {
   "label": "Contact",
   "slug": "contact",
-  "template": "Main Layout"
+  "identifier": "contact",
+  "template": "main-layout"
 }

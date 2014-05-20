@@ -11,16 +11,33 @@ class MomentumCms::Admin::ContentsController < MomentumCms::Admin::BaseControlle
   end
 
   def edit
-    template = @momentum_cms_page.template
-
-    @content_blocks = @momentum_cms_content.blocks.to_a
-
-    @defined_blocks = TemplateBlockService.new(template).get_blocks.delete_if do |v|
-      !@content_blocks.detect { |x| x.identifier == v.params['id'] }.nil?
+    @momentum_cms_template = @momentum_cms_page.template
+    @template_array = MomentumCms::Template.ancestor_and_self!(@momentum_cms_template)
+    @content = nil
+    @template_array.reverse.each do |template|
+      liquid = Liquid::Template.parse(template.admin_value)
+      @content = liquid.render(yield: @content,
+                               view_context: :admin,
+                               cms_template: template,
+                               cms_site: @current_momentum_cms_site,
+                               cms_page: @momentum_cms_page,
+                               cms_content: @momentum_cms_content)
     end
 
-    @defined_blocks.each do |block|
-      @momentum_cms_content.blocks.build(identifier: block.params['id'])
+    # Get the current Content's existing saved blocks
+    @content_blocks = @momentum_cms_content.blocks.to_a
+
+    # Get all the block templates that is assigned to the template
+    @block_templates = TemplateBlockService.new(@momentum_cms_template).get_blocks
+
+    # Build blocks from each block_templates
+    @block_templates.each do |block_template|
+      if @content_blocks.detect { |x| x.identifier == "#{block_template.template.identifier}::#{block_template.identifier}" }.nil?
+        @momentum_cms_content.blocks.build(
+          identifier: "#{block_template.template.identifier}::#{block_template.identifier}",
+          block_template_id: block_template.id
+        )
+      end
     end
   end
 

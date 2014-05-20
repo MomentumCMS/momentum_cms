@@ -1,1 +1,45 @@
-Oops... #{@exception}
+.container
+  .row
+    .col-md-12
+      .error-template
+        .logo
+        %h1 Oops!
+        %h2 404 Not Found
+        .error-details
+          %p= @exception
+        .error-actions
+          = link_to cms_root_path, class: 'btn btn-primary btn-lg' do
+            %span.glyphicon.glyphicon-home
+            Take Me Home
+
+          = link_to "https://github.com/MomentumCMS/momentum_cms?exception=#{@exception.class.name}", class: 'btn btn-default btn-lg' do
+            %span.glyphicon.glyphicon-globe
+            Visit Support
+
+      #error_accordion.panel-group
+        - if @exception.class.name == 'MomentumCms::SiteNotFound'
+          .panel.panel-default
+            .panel-heading
+              %h4.panel-title
+                = link_to '#error_doc', data: { parent: '#error_accordion', toggle: 'collapse' } do
+                  Site Not Found
+            #error_doc.panel-collapse.collapse
+              .panel-body
+                Site Not Found message.
+        - elsif @exception.class.name == 'MomentumCms::RecordNotFound'
+          .panel.panel-default
+            .panel-heading
+              %h4.panel-title
+                = link_to '#error_doc', data: { parent: '#error_accordion', toggle: 'collapse' } do
+                  Record Not Found
+            #error_doc.panel-collapse.collapse
+              .panel-body
+                Record Not Found message.
+        .panel.panel-default
+          .panel-heading
+            %h4.panel-title
+              = link_to '#error_error', data: { parent: '#error_accordion', toggle: 'collapse' } do
+                Show me the error
+          #error_error.panel-collapse.collapse
+            .panel-body
+              %pre= @exception.to_yaml

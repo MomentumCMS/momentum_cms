@@ -1,10 +1,14 @@
 require 'action_view'
+require 'cgi'
+
 
 module MomentumCms
   module Tags
     module CmsLiquidUtils
       include ActionView::Context
       include ActionView::Helpers::AssetTagHelper
+      include ActionView::Helpers::TagHelper
+      include ActionView::Helpers::FormTagHelper
 
       PARAMS_REGEXP = Regexp.new(/(?:"((?:\\.|[^"])*)"|([^\s]*)):\s*(?:"((?:\\.|[^"])*)"|([^\s]*))/).freeze
 
@@ -34,7 +38,7 @@ module MomentumCms
 
       def print_error_message(exception, tag, context, params, debug = Rails.env.development?)
         if debug
-          "<!--\nAn exception occurred with the #{tag.class.name} tag\n\n\nException: #{exception.to_s}\n\n\nContext: #{context.to_yaml}\n\n\nParams: #{params.to_yaml}\n\n\nStacktrace: #{exception.to_yaml} -->"
+          "<!--\n" + CGI.escapeHTML("An exception occurred with the #{tag.class.name} tag\n\n\nException: #{exception.to_s}\n\n\nContext: #{context.to_yaml}\n\n\nParams: #{params.to_yaml}") + '-->'
         else
           ''
         end

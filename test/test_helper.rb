@@ -13,6 +13,7 @@ CodeClimate::TestReporter.start
 
 SimpleCov.start 'rails' do
   add_group 'Tags', 'lib/momentum_cms/tags'
+  add_group 'Services', 'app/services'
 end
 
 require File.expand_path('../dummy/config/environment.rb', __FILE__)

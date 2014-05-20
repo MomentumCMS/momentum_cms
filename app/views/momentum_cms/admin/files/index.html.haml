@@ -3,6 +3,7 @@
 %table.table
   %thead
     %tr
+      %th Identifier
       %th Label
       %th Tag
       %th Created At
@@ -11,6 +12,8 @@
   %tbody
     - @momentum_cms_files.each do |momentum_cms_file|
       %tr
+        %td
+          .label.label-info= momentum_cms_file.identifier
         %td= link_to momentum_cms_file.label, edit_cms_admin_site_file_path(@current_momentum_cms_site, momentum_cms_file)
         %td= momentum_cms_file.tag
         %td= momentum_cms_file.created_at

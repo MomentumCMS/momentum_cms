@@ -1,6 +1,9 @@
 = form.input :label
+= form.input :identifier
 = form.input :slug, hint: "Localized for: #{I18n.locale}"
 = form.association :template, collection: MomentumCms::Template.all, prompt: 'Choose a Template', label_method: :label, value_method: :id, include_blank: false
+- if @momentum_cms_parent_pages
+  = form.input :parent_id, collection: @momentum_cms_parent_pages, prompt: 'Choose a Parent Page', label_method: :label, value_method: :id, include_blank: false
 
 - if @momentum_cms_page.persisted?
   = form.input :published_content_id, collection: @momentum_cms_page.contents.all, prompt: 'Choose a Content', label_method: :label, value_method: :id, include_blank: false

@@ -1,6 +1,7 @@
 class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
   before_action :load_moment_cms_page, only: [:edit, :update, :destroy]
   before_action :build_moment_cms_page, only: [:new, :create]
+  before_action :load_parent_pages, only: [:new, :create, :edit, :update]
 
   def index
     @momentum_cms_pages = @current_momentum_cms_site.pages.all
@@ -39,6 +40,14 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
   end
 
   private
+  def load_parent_pages
+    @momentum_cms_parent_pages = if @momentum_cms_page.persisted?
+                                   @current_momentum_cms_site.pages.where.not(id: @momentum_cms_page.subtree_ids)
+                                 else
+                                   @current_momentum_cms_site.pages
+                                 end
+  end
+
   def load_moment_cms_page
     @momentum_cms_page = MomentumCms::Page.find(params[:id])
   rescue ActiveRecord::RecordNotFound

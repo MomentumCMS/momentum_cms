@@ -1,5 +1,6 @@
 {
   "label": "About",
+  "identifier": "about",
   "locales": {
     "en": {
       "slug": "about"
@@ -7,5 +8,6 @@
     "fr": {
       "slug": "about-fr"
     }
-  }
+  },
+  "template": "container"
 }

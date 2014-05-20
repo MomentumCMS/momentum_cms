@@ -1,1 +1,0 @@
-console.log('two_columns_layout_with_fancy_header');

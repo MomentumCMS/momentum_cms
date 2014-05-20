@@ -3,7 +3,7 @@ class CreateMomentumCmsFiles < ActiveRecord::Migration
     create_table :momentum_cms_files do |t|
       t.string :label
       t.string :tag
-      t.string :slug
+      t.string :identifier
       t.boolean :multiple, default: false
       t.references :site, index: true
       t.references :attachable, polymorphic: true
