@@ -15,10 +15,10 @@
     = yield :head
     
   %body#momentum_cms{:class => "controller-#{params[:controller].to_slug} action-#{params[:action].to_slug} #{params[:controller].to_slug}-#{params[:action].to_slug}"}
-    .navbar.navbar-inverse.navbar-fixed-top{role: "navigation"}
+    .navbar.navbar-inverse.navbar-fixed-top{role: 'navigation'}
       .container-fluid
         .navbar-header
-          %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", type: "button"}
+          %button.navbar-toggle{'data-target' => '.navbar-collapse', 'data-toggle' => 'collapse', type: 'button'}
             %span.sr-only Toggle navigation
             %span.icon-bar
             %span.icon-bar
@@ -28,7 +28,7 @@
           %ul.nav.navbar-nav.navbar-right
             - if @current_momentum_cms_site
               %li.dropdown
-                %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
+                %a.dropdown-toggle{'data-toggle' => 'dropdown', href: '#'}
                   = MomentumCms::Internationalization.lookup(I18n.locale)
                   %b.caret
                 %ul.dropdown-menu
@@ -37,7 +37,7 @@
             %li
               = link_to 'Dashboard', cms_admin_root_path
             %li.dropdown
-              %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
+              %a.dropdown-toggle{'data-toggle' => 'dropdown', href: '#'}
                 Site
                 %b.caret
               %ul.dropdown-menu
@@ -49,16 +49,15 @@
                 %li= link_to 'Manage Sites', cms_admin_sites_path
                 %li= link_to 'New Site', new_cms_admin_site_path
           %form.navbar-form.navbar-right
-            %input.form-control{placeholder: "Search...", type: "text"}/
+            %input.form-control{placeholder: 'Search...', type: 'text'}/
     .container-fluid
       .row
         .col-sm-3.col-md-2.sidebar
           = MomentumCms::Service::ViewHookStore.get_view_hook(:admin_left_menu).render(self)
-          = MomentumCms::Service::ViewHookStore.get_view_hook(:admin_left_menu).partials.to_yaml
 
         .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
           - flash.each do |type, message|
             .alert{:class => "alert-#{type}"}
-              %button.close{:type => 'button', :class => "close", :data => {:dismiss => 'alert'}} &times;
+              %button.close{:type => 'button', :data => {:dismiss => 'alert'}} &times;
               = message
           = yield
