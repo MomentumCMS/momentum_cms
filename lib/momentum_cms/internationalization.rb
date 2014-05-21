@@ -2,21 +2,21 @@
 module MomentumCms
   class Internationalization
     @lookup = {
-      'en' => ['English', 'English'],
-      'af' => ['Afrikaans', 'Afrikaans'],
-      'ar' => ['Arabic', 'العربية'],
-      'az' => ['Azerbaijani', 'azərbaycan dili'],
-      'bg' => ['Bulgarian', 'български език'],
-      'bn' => ['Bengali, Bangla', 'বাংলা'],
-      'bs' => ['Bosnian', 'bosanski jezik'],
-      'ca' => ['Catalan, Valencian', 'català, valencià'],
-      'cs' => ['Czech', 'čeština, český jazyk'],
-      'cy' => ['Welsh', 'Cymraeg'],
-      'da' => ['Danish', 'dansk'],
+      'en' => ['English', ''],
+      'af' => ['Afrikaans', ''],
+      'ar' => ['Arabic', ''],
+      'az' => ['Azerbaijani', ''],
+      'bg' => ['Bulgarian', ''],
+      'bn' => ['Bengali, Bangla', ''],
+      'bs' => ['Bosnian', ''],
+      'ca' => ['Catalan, Valencian', ''],
+      'cs' => ['Czech', ''],
+      'cy' => ['Welsh', ''],
+      'da' => ['Danish', ''],
       'de-AT' => ['', ''],
       'de-CH' => ['', ''],
-      'de' => ['German', 'Deutsch'],
-      'el' => ['Greek', 'ελληνικά'],
+      'de' => ['German', ''],
+      'el' => ['Greek', ''],
       'en-AU' => ['', ''],
       'en-CA' => ['', ''],
       'en-GB' => ['', ''],
@@ -24,7 +24,7 @@ module MomentumCms
       'en-IN' => ['', ''],
       'en-NZ' => ['', ''],
       'en-US' => ['', ''],
-      'eo' => ['Esperanto', 'Esperanto'],
+      'eo' => ['Esperanto', ''],
       'es-419' => ['', ''],
       'es-AR' => ['', ''],
       'es-CL' => ['', ''],
@@ -34,11 +34,11 @@ module MomentumCms
       'es-PA' => ['', ''],
       'es-PE' => ['', ''],
       'es-VE' => ['', ''],
-      'es' => ['Spanish, Castilian', 'español, castellano'],
-      'et' => ['Estonian', 'eesti, eesti keel'],
-      'eu' => ['Basque', 'euskara, euskera'],
-      'fa' => ['Persian (Farsi)', 'فارسی'],
-      'fi' => ['Finnish', 'suomi, suomen kieli'],
+      'es' => ['Spanish, Castilian', ''],
+      'et' => ['Estonian', ''],
+      'eu' => ['Basque', ''],
+      'fa' => ['Persian (Farsi)', ''],
+      'fi' => ['Finnish', ''],
       'fr-CA' => ['', ''],
       'fr-CH' => ['', ''],
       'fr' => ['', ''],
@@ -93,7 +93,7 @@ module MomentumCms
     def self.lookup(locale)
       locale = locale.to_s
       if @lookup.has_key?(locale)
-        @lookup[locale].join(' ')
+        @lookup[locale].compact.join(' ')
       else
         locale
       end

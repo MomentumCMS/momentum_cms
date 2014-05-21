@@ -3,18 +3,15 @@ module MomentumCms
 
     class CmsBreadcrumb < CmsBaseTag
       def render(context)
-        cms_page = context_get(context, :cms_page)
-        raise CmsTagError.new(':cms_page was not passed in the rendering context') unless cms_page
+        cms_page = context_get!(context, :cms_page)
 
-        outer_tag = @params.fetch('outer_tag', 'ol')
-        raise CmsTagError.new(':outer_tag was not passed in the cms_breadcrumb tag') unless outer_tag
+        outer_tag = params_get!('outer_tag', 'ol')
 
-        inner_tag = @params.fetch('inner_tag', 'li')
-        raise CmsTagError.new(':inner_tag was not passed in the cms_breadcrumb tag') unless inner_tag
+        inner_tag = params_get!('inner_tag', 'li')
 
-        outer_class = @params.fetch('outer_class', nil)
+        outer_class =params_get('outer_class')
 
-        inner_class = @params.fetch('inner_class', nil)
+        inner_class = params_get('inner_class')
 
         pages = MomentumCms::Page.ancestor_and_self!(cms_page)
 
