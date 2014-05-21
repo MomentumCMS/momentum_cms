@@ -1,23 +1,8 @@
-require 'jquery-rails'
-require 'jquery-ui-rails'
-require 'haml-rails'
-require 'sass-rails'
-require 'ancestry'
-require 'globalize'
-require 'paper_trail'
-require 'globalize-versioning'
-require 'fileutils'
-require 'json'
-require 'liquid'
-require 'paperclip'
-require 'simple_form'
-
 require 'momentum_cms/engine'
 require 'momentum_cms/error'
 
 require 'momentum_cms/authentication/http_authentication'
 require 'momentum_cms/authentication/no_authentication'
-
 
 require 'momentum_cms/tags/cms_liquid_utils'
 require 'momentum_cms/tags/cms_base_block'
@@ -32,7 +17,6 @@ require 'momentum_cms/tags/cms_snippet'
 require 'momentum_cms/tags/cms_breadcrumb'
 require 'momentum_cms/tags/cms_blank'
 
-
 require 'momentum_cms/fixture'
 require 'momentum_cms/fixture/base'
 require 'momentum_cms/fixture/utils'
@@ -44,11 +28,19 @@ require 'momentum_cms/fixture/page'
 require 'momentum_cms/fixture/file'
 require 'momentum_cms/configuration'
 require 'momentum_cms/has_files'
+require 'momentum_cms/internationalization'
+
 require 'momentum_cms/rails'
 
+require 'momentum_cms/service/view_hook_store'
+require 'momentum_cms/view_hook'
 
 module MomentumCms
+
   class << self
+
+    MomentumCms::Service::ViewHookStore.register_view_hook(:admin_left_menu)
+    MomentumCms::Service::ViewHookStore.get_view_hook(:admin_left_menu).register(:main_app, 'momentum_cms/admin/partials/left_side_bar')
 
     # Call this method to modify your configuration
     # Example:

@@ -6,7 +6,12 @@
     = stylesheet_link_tag 'momentum_cms/admin/application'
     = javascript_include_tag 'momentum_cms/admin/application'
     = csrf_meta_tag
-    
+    %title
+      - if @current_momentum_cms_site
+        = @current_momentum_cms_site.title
+      - else
+        MomentumCMS
+
     = yield :head
     
   %body#momentum_cms{:class => "controller-#{params[:controller].to_slug} action-#{params[:action].to_slug} #{params[:controller].to_slug}-#{params[:action].to_slug}"}
@@ -24,11 +29,11 @@
             - if @current_momentum_cms_site
               %li.dropdown
                 %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
-                  = I18n.locale
+                  = MomentumCms::Internationalization.lookup(I18n.locale)
                   %b.caret
                 %ul.dropdown-menu
                   - @current_momentum_cms_site.get_locales.each do |locale|
-                    %li= link_to locale, params.merge(locale: locale)
+                    %li= link_to MomentumCms::Internationalization.lookup(locale), params.merge(locale: locale)
             %li
               = link_to 'Dashboard', cms_admin_root_path
             %li.dropdown
@@ -48,7 +53,9 @@
     .container-fluid
       .row
         .col-sm-3.col-md-2.sidebar
-          = render partial: 'momentum_cms/admin/partials/left_side_bar'
+          = MomentumCms::Service::ViewHookStore.get_view_hook(:admin_left_menu).render(self)
+          = MomentumCms::Service::ViewHookStore.get_view_hook(:admin_left_menu).partials.to_yaml
+
         .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
           - flash.each do |type, message|
             .alert{:class => "alert-#{type}"}
