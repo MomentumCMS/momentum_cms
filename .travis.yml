@@ -4,6 +4,8 @@ env:
   - DB=mysql
   - DB=postgresql
 before_script:
+  - export LANG=en_US.UTF-8 
+  - export LC_ALL="en_US.UTF-8" 
   - mysql -e 'create database momentum_cms_test'
   - psql -c 'create database momentum_cms_test' -U postgres
   - rake db:migrate
