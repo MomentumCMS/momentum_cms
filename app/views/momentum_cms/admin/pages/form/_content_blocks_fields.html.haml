@@ -1,0 +1,4 @@
+= content_fields.simple_fields_for :blocks do |block_form|
+  - next unless @template_block_identifiers && @template_block_identifiers.include?(block_form.object.identifier)
+  = block_form.input :identifier, as: :hidden
+  = block_form.input :value, label: block_form.object.identifier.titleize

@@ -9,6 +9,12 @@ class MomentumCms::ContentTest < ActiveSupport::TestCase
     @content.save
   end
 
+  def test_fixture_validity
+    MomentumCms::Content.all.each do |content|
+      assert content.valid?
+    end
+  end
+
   def test_defaults
     assert_equal @content.label, 'This is a content page label'
     assert_equal 1, @content.translation.versions.length
@@ -26,27 +32,25 @@ class MomentumCms::ContentTest < ActiveSupport::TestCase
     assert_equal 3, @content.versions.length
   end
 
-  def test_validates_unique_default
-    page = momentum_cms_pages(:default)
-    assert page.contents.find_by(default: true)
-    content = page.contents.build(default: true, label: 'Duplicate Default')
-    assert !content.valid?
-  end
-
   def test_default_content_scope
     content = MomentumCms::Content.default.first
     assert content.default
-    assert_difference 'MomentumCms::Content.default.count', -1 do
-      content.update_attribute(:default, false)
-    end
+    MomentumCms::Content.update_all(default: false)
+    assert MomentumCms::Content.default.blank?
+    content.reload
+    content.default = true
+    content.save!
+    assert MomentumCms::Content.default.length == 1
   end
 
   def test_published
-    content = MomentumCms::Content.default.first
-    page = content.page
-    assert !content.published?
-    page.update_attribute(:published_content_id, content.id)
+    page = MomentumCms::Page.first
+    page.update_attribute(:published_content_id, page.contents.first.id)
+    content = page.published_content
     assert content.published?
+    page.update_attribute(:published_content_id, nil)
+    content.reload
+    assert !content.published?
   end
 
   def test_default

@@ -61,11 +61,13 @@ ActiveRecord::Schema.define(version: 20140519191635) do
     t.boolean  "default"
     t.string   "identifier"
     t.integer  "page_id"
+    t.integer  "template_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "momentum_cms_contents", ["page_id"], name: "index_momentum_cms_contents_on_page_id"
+  add_index "momentum_cms_contents", ["template_id"], name: "index_momentum_cms_contents_on_template_id"
 
   create_table "momentum_cms_files", force: true do |t|
     t.string   "label"

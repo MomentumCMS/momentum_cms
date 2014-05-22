@@ -8,6 +8,6 @@ default:
 
 child:
   site: default
-  label: default
+  label: child
   template: child
   identifier: default-child

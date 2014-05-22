@@ -8,6 +8,7 @@ Rails.application.routes.draw do
           resources :templates
           resources :files
           resources :pages do
+            get :content_blocks, on: :collection
             resources :contents
           end
           resources :snippets

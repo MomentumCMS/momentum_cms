@@ -40,18 +40,17 @@ class MomentumCms::Admin::PagesControllerTest < ActionController::TestCase
 
   def test_create
     assert_difference "MomentumCms::Page.count" do
-      assert_difference "MomentumCms::Content.count" do
-        post :create, site_id: @site.id, momentum_cms_page: {
-          label: 'Test Create',
-          identifier: 'test-create',
-          template_id: @template.id
-        }
-      end
+      post :create, site_id: @site.id, momentum_cms_page: {
+        label: 'Test Create',
+        slug: 'test-create',
+        identifier: 'test-create',
+        template_id: @template.id
+      }
     end
     assert_response :redirect
     page = MomentumCms::Page.last
     content = page.contents.default.first
-    assert_redirected_to edit_cms_admin_site_page_content_path(@site, page, content)
+    assert_redirected_to edit_cms_admin_site_page_path(@site, page)
   end
 
   def test_create_invalid

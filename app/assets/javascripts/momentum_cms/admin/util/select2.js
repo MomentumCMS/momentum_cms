@@ -3,4 +3,3 @@ $(function () {
     $(value).select2();
   });
 });
-
