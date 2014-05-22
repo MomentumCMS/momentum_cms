@@ -1,10 +1,11 @@
 = render 'momentum_cms/admin/pages/form/errors'
 
-= form.input :label, hint: 'For internal use only'
+= form.input :label
+= form.input :identifier
 = form.input :slug, hint: "Localized for: #{I18n.locale}"
 
-- if @momentum_cms_pages.length > 0
-  = form.input :parent_id, collection: @momentum_cms_pages, prompt: 'Parent Page...', label_method: :label
+- if @momentum_cms_parent_pages
+  = form.input :parent_id, collection: @momentum_cms_parent_pages, prompt: 'Choose a Parent Page...', label_method: :label
 
 = form.association :template, collection: MomentumCms::Template.all, prompt: 'Choose a Template', label_method: :label, value_method: :id, include_blank: false,  input_html: { class: 'template-select' }
 

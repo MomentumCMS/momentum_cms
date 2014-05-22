@@ -4,7 +4,7 @@ class MomentumCms::BlockTest < ActiveSupport::TestCase
 
   def setup
     I18n.enforce_available_locales = false
-    I18n.locale                    = :en
+    I18n.locale = :en
   end
 
   def test_fixture_validity
@@ -15,8 +15,9 @@ class MomentumCms::BlockTest < ActiveSupport::TestCase
 
   def test_belongs_to_content
     content = momentum_cms_contents(:default)
+    block_template = momentum_cms_block_templates(:default)
     assert_difference "MomentumCms::Block.count" do
-      block = content.blocks.create!(identifier: 'Block', value: '3')
+      block = content.blocks.create!(identifier: 'Block', value: '3', block_template: block_template)
       assert_equal block.content, content
     end
   end

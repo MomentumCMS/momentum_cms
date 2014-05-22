@@ -20,14 +20,13 @@ class MomentumCms::Content < ActiveRecord::Base
 
   has_files
 
-  translates :content,
-             :label,
+  translates :label,
              fallbacks_for_empty_translations: true,
-             versioning:                       :paper_trail
+             versioning: :paper_trail
 
   # == Validations ==========================================================
 
-  # validates :default, uniqueness: {scope: :page_id}
+  validates :default, uniqueness: { scope: :page_id }
 
   # == Scopes ===============================================================
 

@@ -6,8 +6,13 @@ class MomentumCms::ContentTest < ActiveSupport::TestCase
     I18n.locale                    = :en
     @content                       = momentum_cms_contents(:default)
     @content.label                 = 'This is a content page label'
-    @content.content               = 'This is a content page content'
     @content.save
+  end
+
+  def test_fixture_validity
+    MomentumCms::Content.all.each do |content|
+      assert content.valid?
+    end
   end
 
   def test_defaults

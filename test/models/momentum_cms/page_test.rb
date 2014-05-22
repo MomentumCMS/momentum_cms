@@ -5,8 +5,9 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
   def setup
     I18n.enforce_available_locales = false
     I18n.locale = :en
-    page        = momentum_cms_pages(:default)
+    page = momentum_cms_pages(:default)
     page.update_attribute(:slug, 'default')
+    @momentum_cms_template = momentum_cms_templates(:default)
   end
 
   def test_fixture_validity
@@ -17,10 +18,12 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
 
   def test_create
     assert_difference "MomentumCms::Page.count" do
-      page = MomentumCms::Page.create(
-        site:  momentum_cms_sites(:default),
+      MomentumCms::Page.create(
+        site: momentum_cms_sites(:default),
         label: 'About',
-        slug:  'about'
+        slug: 'about',
+        identifier: 'about',
+        template: @momentum_cms_template
       )
     end
   end
@@ -42,9 +45,11 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
 
   def test_assigns_path
     page = MomentumCms::Page.create(
-      site:  momentum_cms_sites(:default),
+      site: momentum_cms_sites(:default),
       label: 'About',
-      slug:  'about'
+      slug: 'about',
+      identifier: 'about',
+      template: @momentum_cms_template
     )
     refute page.new_record?
     assert_equal '/about', page.path
@@ -53,16 +58,20 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
   def test_assigns_nested_path
     page = momentum_cms_pages(:default)
     child = MomentumCms::Page.create(
-      site:   momentum_cms_sites(:default),
-      label:  'Child',
-      slug:   'child',
-      parent: page
+      site: momentum_cms_sites(:default),
+      label: 'Child',
+      slug: 'child',
+      parent: page,
+      identifier: 'child',
+      template: @momentum_cms_template
     )
     grandchild = MomentumCms::Page.create(
-      site:   momentum_cms_sites(:default),
-      label:  'Grandchild',
-      slug:   'grandchild',
-      parent: child
+      site: momentum_cms_sites(:default),
+      label: 'Grandchild',
+      slug: 'grandchild',
+      parent: child,
+      identifier: 'grandchild',
+      template: @momentum_cms_template
     )
     assert_equal '/default/child', child.path
     assert_equal '/default/child/grandchild', grandchild.path
@@ -70,18 +79,22 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
 
   def test_assigns_correct_translation_paths
     assert_equal :en, I18n.locale
-    page  = momentum_cms_pages(:default)
+    page = momentum_cms_pages(:default)
     child = MomentumCms::Page.create(
-      site:   momentum_cms_sites(:default),
-      label:  'Child-en',
-      slug:   'child-en',
-      parent: page
+      site: momentum_cms_sites(:default),
+      label: 'Child-en',
+      slug: 'child-en',
+      parent: page,
+      identifier: 'child-en',
+      template: @momentum_cms_template
     )
     grandchild = MomentumCms::Page.create(
-      site:   momentum_cms_sites(:default),
-      label:  'Grandchild-en',
-      slug:   'grandchild-en',
-      parent: child
+      site: momentum_cms_sites(:default),
+      label: 'Grandchild-en',
+      slug: 'grandchild-en',
+      parent: child,
+      identifier: 'grandchild-en',
+      template: @momentum_cms_template
     )
     assert_equal '/default/child-en/grandchild-en', grandchild.path
     I18n.locale = :fr
@@ -112,18 +125,22 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
   def test_assigns_fallback_slugs_to_path_when_required
     # TODO: look deeper into globalize's fallback feature. Specifically, we
     # need the ability for site admins to set default locales for each site
-    page  = momentum_cms_pages(:default)
+    page = momentum_cms_pages(:default)
     child = MomentumCms::Page.create(
-      site:   momentum_cms_sites(:default),
-      label:  'Child-en',
-      slug:   'child-en',
-      parent: page
+      site: momentum_cms_sites(:default),
+      label: 'Child-en',
+      slug: 'child-en',
+      parent: page,
+      identifier: 'child-en',
+      template: @momentum_cms_template
     )
     grandchild = MomentumCms::Page.create(
-      site:   momentum_cms_sites(:default),
-      label:  'Grandchild-en',
-      slug:   'grandchild-en',
-      parent: child
+      site: momentum_cms_sites(:default),
+      label: 'Grandchild-en',
+      slug: 'grandchild-en',
+      parent: child,
+      identifier: 'grandchild-en',
+      template: @momentum_cms_template
     )
     I18n.locale = :fr
     page.update_attributes(slug: 'default-fr')
@@ -133,18 +150,22 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
   end
 
   def test_regnerates_paths_of_child_pages
-    page  = momentum_cms_pages(:default)
+    page = momentum_cms_pages(:default)
     child = MomentumCms::Page.create(
-      site:   momentum_cms_sites(:default),
-      label:  'Child-en',
-      slug:   'child-en',
-      parent: page
+      site: momentum_cms_sites(:default),
+      label: 'Child-en',
+      slug: 'child-en',
+      parent: page,
+      identifier: 'child-en',
+      template: @momentum_cms_template
     )
     grandchild = MomentumCms::Page.create(
-      site:   momentum_cms_sites(:default),
-      label:  'Grandchild-en',
-      slug:   'grandchild-en',
-      parent: child
+      site: momentum_cms_sites(:default),
+      label: 'Grandchild-en',
+      slug: 'grandchild-en',
+      parent: child,
+      identifier: 'grandchild-en',
+      template: @momentum_cms_template
     )
     assert_equal '/default/child-en/grandchild-en', grandchild.path
 
@@ -171,6 +192,27 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
     grandchild.reload
 
     assert_equal '/default/another-slug/new-grandchild-slug', grandchild.path
+  end
+
+  def test_creates_default_content
+    site = momentum_cms_sites(:default)
+    assert_difference "MomentumCms::Page.count" do
+      assert_difference "MomentumCms::Content.count" do
+        page = site.pages.build(label: 'New Page', identifier: 'new-page', template: @momentum_cms_template)
+        page.build_default_content
+        page.save
+        content = page.contents.find_by(default: true)
+        assert content.default
+      end
+    end
+  end
+
+  def test_default_content_is_set_and_published
+    site = momentum_cms_sites(:default)
+    page = site.pages.build(label: 'Has Default', slug: 'has-default', identifier: 'has-default', template: @momentum_cms_template)
+    page.build_default_content
+    page.save!
+    assert page.published_content.present?
   end
 
   def test_published_content

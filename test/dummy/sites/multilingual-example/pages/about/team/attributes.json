@@ -1,5 +1,6 @@
 {
   "label": "Team",
+  "identifier": "team",
   "locales": {
     "en": {
       "slug": "team"
@@ -7,5 +8,6 @@
     "fr": {
       "slug": "team-fr"
     }
-  }
+  },
+  "template": "container"
 }

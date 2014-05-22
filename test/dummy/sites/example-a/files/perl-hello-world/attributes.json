@@ -1,5 +1,5 @@
 {
   "label": "Perl Hello World",
-  "slug": "perl-hello-world",
+  "identifier": "perl-hello-world",
   "filename": "hello-world.pl"
 }

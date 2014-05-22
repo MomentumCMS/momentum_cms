@@ -17,6 +17,7 @@ class FixturePageTest < ActiveSupport::TestCase
 
   def test_basic_import
     assert_difference 'MomentumCms::Page.count', 8 do
+      MomentumCms::Fixture::Template::Importer.new('example-a', @site).import!
       MomentumCms::Fixture::Page::Importer.new('example-a', @site).import!
     end
     # Home Page
@@ -47,6 +48,7 @@ class FixturePageTest < ActiveSupport::TestCase
   end
 
   def test_prepare_content
+    MomentumCms::Fixture::Template::Importer.new('example-a', @site).import!
     importer = MomentumCms::Fixture::Page::Importer.new('example-a', @site)
     page = momentum_cms_pages(:default)
     about_path = File.join(Rails.root, 'sites', 'example-a', 'pages', 'about')
@@ -56,8 +58,8 @@ class FixturePageTest < ActiveSupport::TestCase
       end
     end
     page.reload
-    header = page.contents.last.blocks.find_by(identifier: 'header')
-    content = page.contents.last.blocks.find_by(identifier: 'content')
+    header = page.contents.last.blocks.find_by(identifier: 'main-layout::header')
+    content = page.contents.last.blocks.find_by(identifier: 'main-layout::content')
     I18n.locale = 'en'
     assert_equal "Welcome", header.value.strip
     assert_equal "<p>Example English about content</p>", content.value.strip
@@ -68,6 +70,7 @@ class FixturePageTest < ActiveSupport::TestCase
 
   def test_duplicate_import
     assert_difference "MomentumCms::Page.count", 8 do
+      MomentumCms::Fixture::Template::Importer.new('example-a', @site).import!
       MomentumCms::Fixture::Page::Importer.new('example-a', @site).import!
       MomentumCms::Fixture::Page::Importer.new('example-a', @site).import!
     end
@@ -75,6 +78,7 @@ class FixturePageTest < ActiveSupport::TestCase
 
   def test_multilingual_import
     @site.update_attributes! setting_locales: [:en, :fr], setting_default_locale: :en
+    MomentumCms::Fixture::Template::Importer.new('multilingual-example', @site).import!
     MomentumCms::Fixture::Page::Importer.new('multilingual-example', @site).import!
 
     I18n.locale = :en

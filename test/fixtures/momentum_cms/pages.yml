@@ -3,7 +3,11 @@
 default:
   site: default
   label: default
+  template: default
+  identifier: default
 
 child:
   site: default
   label: child
+  template: child
+  identifier: default-child

@@ -10,6 +10,7 @@ class MomentumCms::MenuItem < ActiveRecord::Base
   ].freeze
 
   # == Relationships ========================================================
+
   belongs_to :linkable,
              polymorphic: true
 

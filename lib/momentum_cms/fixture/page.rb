@@ -32,8 +32,9 @@ module MomentumCms
               # page.site = @site
               page.parent = parent if parent
               page.label = page_attributes['label']
+              page.identifier = page_attributes['identifier']
               page.slug = slug
-              page.template = MomentumCms::Template.for_site(@site).where(label: page_attributes['template']).first
+              page.template = MomentumCms::Template.for_site(@site).where(identifier: page_attributes['template']).first
 
               # Save the page
               page.save!
@@ -43,7 +44,6 @@ module MomentumCms
               next_parent = page
             end
 
-
             import!(next_parent, path)
           end
 
@@ -51,22 +51,28 @@ module MomentumCms
         end
 
         def prepare_content(page, path)
-          content = MomentumCms::Content.where(page: page, label: page.label).first_or_initialize
-          content.save!
+          cms_content = MomentumCms::Content.where(page: page, label: page.label).first_or_initialize
+          cms_content.save!
 
-          page.published_content_id = content.id
+          page.published_content_id = cms_content.id
           page.save!
 
           Dir.glob("#{path}/*.liquid").each do |content_path|
             text = ::File.read(content_path)
             template = Liquid::Template.parse(text)
+
+
             original_locale = I18n.locale
             template.root.nodelist.each do |node|
               next unless node.is_a?(MomentumCms::Tags::CmsFixture)
+
               I18n.locale = node.params['locale']
-              block = MomentumCms::Block.where(content: content, identifier: node.params['id']).first_or_initialize
-              block.value = MomentumCms::Tags::CmsFixture.get_contents(node)
-              block.save!
+              cms_template = MomentumCms::Template.for_site(@site).where(identifier: node.params['template']).first
+
+              cms_block = MomentumCms::Block.where(content: cms_content, identifier: "#{node.params['template']}::#{node.params['id']}").first_or_initialize
+              cms_block.value = MomentumCms::Tags::CmsFixture.get_contents(node)
+              cms_block.block_template = MomentumCms::BlockTemplate.where(template: cms_template, identifier: node.params['id']).first
+              cms_block.save!
             end
             I18n.locale = original_locale
           end
@@ -102,7 +108,7 @@ module MomentumCms
           attributes = {
             label: page.label,
             slug: page.slug,
-            template: page.template.label
+            template: page.template.identifier
           }
           MomentumCms::Fixture::Utils.write_json(::File.join(page_path, 'attributes.json'), attributes)
         end

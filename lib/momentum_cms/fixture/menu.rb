@@ -7,10 +7,10 @@ module MomentumCms
             menu_attributes = MomentumCms::Fixture::Utils.read_json(::File.join(path, 'attributes.json'), nil)
             next unless menu_attributes
 
-            menu = MomentumCms::Menu.where(site: @site, slug: menu_attributes['slug']).first_or_initialize
+            menu = MomentumCms::Menu.where(site: @site, identifier: menu_attributes['identifier']).first_or_initialize
             menu.site = @site
             menu.label = menu_attributes['label']
-            menu.slug = menu_attributes['slug']
+            menu.identifier = menu_attributes['identifier']
 
             # begin
             #   menu.menu = ::Menu.open("#{path}/#{menu_attributes['menuname']}", 'rb')

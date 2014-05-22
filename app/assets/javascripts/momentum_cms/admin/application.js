@@ -11,3 +11,7 @@
 //= require momentum_cms/admin/menus/form
 //= require momentum_cms/admin/views/page
 //= require_self
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip();
+});

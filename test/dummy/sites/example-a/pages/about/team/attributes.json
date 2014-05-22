@@ -1,5 +1,6 @@
 {
   "label": "Team",
   "slug": "team",
-  "template": "Main Layout"
+  "identifier": "team",
+  "template": "main-layout"
 }

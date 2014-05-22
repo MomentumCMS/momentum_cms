@@ -1,5 +1,6 @@
 {
   "label": "Client A",
   "slug": "client-a",
-  "template": "Main Layout"
+  "identifier": "client-a",
+  "template": "main-layout"
 }

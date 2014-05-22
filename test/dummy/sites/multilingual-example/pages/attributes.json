@@ -1,4 +1,6 @@
 {
   "label": "Multilingual Home",
-  "slug": "/"
+  "identifier": "home",
+  "slug": "/",
+  "template": "container"
 }

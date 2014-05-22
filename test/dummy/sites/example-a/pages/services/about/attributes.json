@@ -1,5 +1,6 @@
 {
   "label": "Services About",
   "slug": "about",
-  "template": "Main Layout"
+  "identifier": "about-2",
+  "template": "main-layout"
 }

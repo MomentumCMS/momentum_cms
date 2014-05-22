@@ -12,10 +12,11 @@ class MomentumCms::ContentsController < MomentumCms::BaseController
   end
 
   def show
-    content = @momentum_cms_content.content
+    content = nil
     @template_array.reverse.each do |template|
-      liquid = Liquid::Template.parse(template.content)
+      liquid = Liquid::Template.parse(template.value)
       content = liquid.render(yield: content,
+                              cms_template: template,
                               cms_site: @momentum_cms_site,
                               cms_page: @momentum_cms_page,
                               cms_content: @momentum_cms_content)
@@ -25,7 +26,7 @@ class MomentumCms::ContentsController < MomentumCms::BaseController
 
   private
   def load_momentum_cms_content
-    path = "/#{params[:id]}" || '/'
+    path = ("/#{params[:id]}" || '/').gsub('//', '/')
 
     @momentum_cms_page = MomentumCms::Page.for_site(@momentum_cms_site).where(path: path).first!
     @momentum_cms_content = @momentum_cms_page.published_content
@@ -37,7 +38,7 @@ class MomentumCms::ContentsController < MomentumCms::BaseController
   def load_momentum_cms_page
     @momentum_cms_page =MomentumCms::Page.for_site(@momentum_cms_site).where(id: params[:id]).first!
   rescue ActiveRecord::RecordNotFound
-    raise MomentumCms::RecordNotFound.new(path)
+    raise MomentumCms::RecordNotFound.new("Page with id: #{params[:id]}")
   end
 
   def prepare_templates

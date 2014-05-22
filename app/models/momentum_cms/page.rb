@@ -8,8 +8,10 @@ class MomentumCms::Page < ActiveRecord::Base
   # == Relationships ========================================================
 
   belongs_to :template
+
   has_many :contents,
            dependent: :destroy
+
   accepts_nested_attributes_for :contents
 
   # == Extensions ===========================================================
@@ -21,6 +23,12 @@ class MomentumCms::Page < ActiveRecord::Base
 
   validates :slug, uniqueness: { scope: [:site, :ancestry] }
 
+  validates :identifier, uniqueness: true
+
+  validates :identifier, presence: true
+  
+  validates :template, presence: true
+
   # == Scopes ===============================================================
   # == Callbacks ============================================================
 
@@ -29,7 +37,7 @@ class MomentumCms::Page < ActiveRecord::Base
   after_update :regenerate_child_paths
 
   # == Class Methods ========================================================
-  
+
   def self.ancestor_and_self!(page)
     if page && page.is_a?(MomentumCms::Page)
       [page.ancestors.to_a, page].flatten.compact
@@ -37,7 +45,7 @@ class MomentumCms::Page < ActiveRecord::Base
       []
     end
   end
-  
+
   # == Instance Methods =====================================================
 
   def build_default_content

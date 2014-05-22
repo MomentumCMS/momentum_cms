@@ -1,9 +1,12 @@
 = form.input :label, hint: "Localized for: #{I18n.locale}"
-= form.input :content
 
 = form.simple_fields_for :blocks do |block_form|
-  = block_form.input :identifier, as: :hidden
-  = block_form.input :value, label: block_form.object.identifier
+  .block
+    = block_form.input :identifier, as: :hidden
+    = block_form.input :block_template_id, as: :hidden
+    = block_form.input :value, label: block_form.object.identifier
+
+-#= @content.html_safe
 
 = form.submit class: 'btn btn-success btn-xs'
 = link_to 'Back', cms_admin_site_pages_path(@current_momentum_cms_site), class: 'btn btn-primary btn-xs'

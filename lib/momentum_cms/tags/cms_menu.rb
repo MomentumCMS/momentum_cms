@@ -32,10 +32,10 @@ module MomentumCms
         inner_tag = @params.fetch('inner_tag', 'li')
         inner_class = @params.fetch('inner_class', nil)
 
-        slug = @params.fetch('slug', nil)
-        raise CmsTagError.new('slug was not passed in the cms_menu tag') unless slug
+        identifier = @params.fetch('identifier', nil)
+        raise CmsTagError.new('identifier was not passed in the cms_menu tag') unless identifier
 
-        @menu = MomentumCms::Menu.for_site(cms_site).where(slug: slug).first!
+        @menu = MomentumCms::Menu.for_site(cms_site).where(identifier: identifier).first!
         @menu_items = MomentumCms::MenuItem.roots.for_menu(@menu).to_a
 
         build_menu(@menu_items, nil, { outer_tag: outer_tag,
@@ -43,35 +43,6 @@ module MomentumCms
                                        nested_outer_class: nested_outer_class,
                                        inner_tag: inner_tag,
                                        inner_class: inner_class })
-
-
-          # _cms_page = context.environments.first
-          # _cms_page =_cms_page[:cms_page]
-          # menu = if @params.has_key?('sub_menu_only')
-          #          _cms_page_children = _cms_page.children
-          #          menu = ''
-          #          menu += '<ul class="nav nav-sidebar">' if _cms_page_children.length > 0
-          #          _cms_page_children.each do |cms_page|
-          #            menu += "<li><a href='#{cms_page.path}'>#{cms_page.published_content.label}</a></li>"
-          #          end
-          #          menu += '</ul>' if _cms_page_children.length > 0
-          #          menu.html_safe
-          #        elsif @params.has_key?('parent_page_only')
-          #          menu = ''
-          # 
-          #          _cms_page_parent = _cms_page.parent
-          #          if _cms_page_parent
-          #            menu += '<ul class="nav nav-sidebar">'
-          #            menu += "<li><a href='#{_cms_page_parent.path}'>#{_cms_page_parent.published_content.label}</a></li>"
-          #            menu += '</ul>'
-          #          end
-          #          menu.html_safe
-          #        else
-          #          "  #{@params.to_yaml}  #{context.to_yaml}"
-          #        end
-          # menu
-
-
       rescue => e
         print_error_message(e, self, context, @params)
       end

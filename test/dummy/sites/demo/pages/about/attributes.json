@@ -1,5 +1,6 @@
 {
   "label": "About",
   "slug": "about",
-  "template": "Content"
+  "identifier": "about",
+  "template": "content"
 }

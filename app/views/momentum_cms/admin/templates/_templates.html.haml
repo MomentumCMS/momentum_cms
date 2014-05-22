@@ -4,6 +4,8 @@
   - next if require_root && !momentum_cms_template.is_root?
   %tr
     %td
+      .label.label-info= momentum_cms_template.identifier
+    %td
       = path.html_safe
       = link_to momentum_cms_template.label, edit_cms_admin_site_template_path(@current_momentum_cms_site, momentum_cms_template)
     %td= momentum_cms_template.created_at

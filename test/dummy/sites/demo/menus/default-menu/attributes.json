@@ -1,6 +1,6 @@
 {
   "label": "Default Menu",
-  "slug": "default-menu",
+  "identifier": "default-menu",
   "structure": [
     {
       "type": "MomentumCms::Page",
