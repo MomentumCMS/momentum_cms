@@ -6,13 +6,11 @@ module MomentumCms
 
         view_context = context_get(context, :view_context, :frontend)
 
-        cms_content = context_get(context, :cms_content)
-        raise CmsTagError.new(':cms_content was not passed in the rendering context') unless cms_content
+        cms_content = context_get!(context, :cms_content)
 
         cms_template = context_get(context, :cms_template)
 
-        id = @params.fetch('id', nil)
-        raise CmsTagError.new(':id was not passed in the cms_block tag') unless id
+        id = params_get!('id')
 
         block = if cms_template
                   cms_content.blocks.where(identifier: "#{cms_template.identifier}::#{id}").first

@@ -3,11 +3,11 @@ module MomentumCms
     class CmsFile < CmsBaseTag
 
       def render(context)
-        cms_site = context_get(context, :cms_site)
-        raise CmsTagError.new(':cms_site was not passed in the rendering context') unless cms_site
+        cms_site = context_get!(context, :cms_site)
 
-        id = @params.fetch('id', nil)
-        identifier = @params.fetch('identifier', nil)
+        id = params_get('id')
+
+        identifier = params_get('identifier')
 
         file = if id
                  MomentumCms::File.for_site(cms_site).where(id: id).first

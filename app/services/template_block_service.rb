@@ -15,15 +15,13 @@ class TemplateBlockService
 
   def create_or_update_block_templates_for_self!(delete_orphan = true)
     created_block_templates = []
-    tbs = TemplateBlockService.new(@template)
-    tbs.each_node do |node|
-      if node.is_a?(MomentumCms::Tags::CmsBlock)
-        block_template = MomentumCms::BlockTemplate.where(template: @template,
-                                                          identifier: node.params['id']).first_or_initialize
-        block_template.block_value_type = node.params.fetch('type', nil)
-        block_template.save!
-        created_block_templates << block_template
+    self.each_node do |node|
+      next unless node.is_a?(MomentumCms::Tags::CmsBlock)
+      block_template = MomentumCms::BlockTemplate.where(template: @template,
+                                                        identifier: node.params['id']).first_or_create! do |o|
+        o.block_value_type = node.params.fetch('type', nil)
       end
+      created_block_templates << block_template
     end
 
     if delete_orphan

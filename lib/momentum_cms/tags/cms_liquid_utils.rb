@@ -30,10 +30,36 @@ module MomentumCms
         end
       end
 
-      def context_get(context, key, default = nil)
+      def context_get!(context, key, default = nil)
+        context_get(context, key, default, true)
+      end
+
+      def context_get(context, key, default = nil, raise_on_nil = false)
+        value = _context_get(context, key, default)
+        if raise_on_nil && value.nil?
+          raise CmsTagError.new("#{key} was not passed in the rendering context")
+        end
+        value
+      end
+
+      def _context_get(context, key, default = nil)
         context.environments.first[key]
       rescue
         default
+      end
+
+      def params_get!(key, default = nil)
+        params_get(key, default, true)
+      end
+
+      def params_get(key, default = nil, raise_on_nil = false)
+        value = @params.fetch(key, default)
+
+        if raise_on_nil && value.nil?
+          raise CmsTagError.new("#{key} was not passed in the tag")
+        end
+
+        value
       end
 
       def print_error_message(exception, tag, context, params, debug = Rails.env.development?)

@@ -1,14 +1,14 @@
 class MomentumCms::Admin::BaseController < ApplicationController
   layout 'momentum_cms/admin/application'
-
+  include MomentumCms::I18nLocale
   include MomentumCms.configuration.admin_authentication.to_s.constantize
 
-  before_action :authenticate
-  before_action :load_sites
-  before_action :load_site
-  before_action :load_fixtures
+  before_action :authenticate,
+                :load_sites,
+                :load_site,
+                :load_fixtures
 
-  include MomentumCms::I18nLocale
+  protected
 
   def load_sites
     @momentum_cms_sites = MomentumCms::Site.all
@@ -37,4 +37,5 @@ class MomentumCms::Admin::BaseController < ApplicationController
     end
     flash.now[:danger] = 'Fixtures enabled, all changes will be discarded.'
   end
+
 end

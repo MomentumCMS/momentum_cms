@@ -1,7 +1,7 @@
 module MomentumCms
   class Configuration
 
-    # The locale for the CMS
+    # The default locale for the CMS
     attr_accessor :locale
 
     # Sets the default path for site fixtures
@@ -34,7 +34,7 @@ module MomentumCms
 
     # Configuration defaults
     def initialize
-      @locale = :en
+      @locale = 'en'
       @site_fixtures_path = File.expand_path('sites', Rails.root)
       @site_fixtures_enabled = false
       @admin_panel_style = :html5

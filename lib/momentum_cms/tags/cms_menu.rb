@@ -23,17 +23,14 @@ module MomentumCms
       end
 
       def render(context)
-        cms_site = context_get(context, :cms_site)
-        raise CmsTagError.new(':cms_site was not passed in the rendering context') unless cms_site
+        cms_site = context_get!(context, :cms_site)
+        outer_tag = params_get('outer_tag', 'ul')
+        outer_class = params_get('outer_class')
+        nested_outer_class = params_get('nested_outer_class')
+        inner_tag = params_get('inner_tag', 'li')
+        inner_class = params_get('inner_class')
 
-        outer_tag = @params.fetch('outer_tag', 'ul')
-        outer_class = @params.fetch('outer_class', nil)
-        nested_outer_class = @params.fetch('nested_outer_class', nil)
-        inner_tag = @params.fetch('inner_tag', 'li')
-        inner_class = @params.fetch('inner_class', nil)
-
-        identifier = @params.fetch('identifier', nil)
-        raise CmsTagError.new('identifier was not passed in the cms_menu tag') unless identifier
+        identifier = params_get!('identifier')
 
         @menu = MomentumCms::Menu.for_site(cms_site).where(identifier: identifier).first!
         @menu_items = MomentumCms::MenuItem.roots.for_menu(@menu).to_a
