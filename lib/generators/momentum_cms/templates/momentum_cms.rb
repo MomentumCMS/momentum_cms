@@ -24,6 +24,9 @@ MomentumCms.configure do |config|
   # The location to mount the CMS
   # config.mount_point
 
+  # The location to mount the CMS API
+  # config.api_mount_point
+
   # The authentication method used to authenticate the user
   # Options here are:
   # nil - No authentication will be used, dangerous

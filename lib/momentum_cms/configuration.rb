@@ -25,6 +25,9 @@ module MomentumCms
     # The location to mount the CMS
     attr_accessor :mount_point
 
+    # The location to mount the CMS
+    attr_accessor :api_mount_point
+
     # The authentication method used to authenticate the user
     # Options here are:
     # nil - No authentication will be used, dangerous
@@ -39,6 +42,7 @@ module MomentumCms
       @site_fixtures_enabled = false
       @admin_panel_style = :html5
       @mount_point = '/'
+      @api_mount_point = '/api'
       @admin_panel_mount_point = '/admin'
       @authentication_method = :default
       @admin_authentication = MomentumCms::Authentication::HttpAuthentication

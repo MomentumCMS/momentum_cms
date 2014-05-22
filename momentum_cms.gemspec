@@ -36,4 +36,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'jquery-ui-rails',          '~> 4.2.1'
   s.add_dependency 'simple_form',              '~> 3.1.0.rc1'
   s.add_dependency 'liquid',                   '~> 2.6.1'
+  s.add_dependency 'active_model_serializers', '~> 0.8.1'
 end

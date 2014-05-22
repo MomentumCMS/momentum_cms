@@ -24,4 +24,9 @@ Rails.application.routes.draw do
     get '*id', to: 'contents#show'
     root to: 'contents#show'
   end
+
+  namespace :momentum_cms, as: :cms_api, path: MomentumCms.configuration.api_mount_point do
+    get '*id', to: 'api/contents#show'
+  end
+
 end
