@@ -3,6 +3,7 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
   before_action :load_momentum_cms_page, only: [:edit, :update, :destroy]
   before_action :build_momentum_cms_page, only: [:new, :create]
   before_action :load_parent_pages, only: [:edit, :new, :update, :create]
+  before_action :load_momentum_cms_template, only: [:blocks]
 
   def index
     @momentum_cms_pages = @current_momentum_cms_site.pages.all
@@ -13,14 +14,11 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
   end
 
   def new
-    @momentum_cms_content = @momentum_cms_page.build_default_content
   end
 
   def edit
-    if @momentum_cms_page.template.present?
-      @momentum_cms_template = @momentum_cms_page.template
-      @template_block_identifiers = TemplateBlockService.new(@momentum_cms_template).get_blocks.collect { |t| t.identifier }
-    end
+    @momentum_cms_template = @momentum_cms_page.template
+    build_momentum_cms_blocks
   end
 
   def create
@@ -45,34 +43,28 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
     redirect_to action: :index
   end
 
-  def content_blocks
-    @momentum_cms_template = MomentumCms::Template.find(params[:template_id])
-    # Find or build our page object
-    if params[:page_id]
-      @momentum_cms_page = MomentumCms::Page.find(params[:page_id])
-    else
-      build_momentum_cms_page
-    end
-    # Find or build the content
-    @momentum_cms_content = @momentum_cms_page.contents.first || @momentum_cms_page.build_default_content
-    # Build the blocks
-    
-    # Get the current Content's existing saved blocks
-    @content_blocks = @momentum_cms_content.blocks.to_a
+  def load_momentum_cms_template
 
-    # Get all the block templates that is assigned to the template
-    @block_templates = TemplateBlockService.new(@momentum_cms_template).get_blocks
 
-    # Build blocks from each block_templates
-    @block_templates.each do |block_template|
-      if @content_blocks.detect { |x| x.identifier == "#{block_template.template.identifier}::#{block_template.identifier}" }.nil?
-        @momentum_cms_content.blocks.build(
-          identifier: "#{block_template.template.identifier}::#{block_template.identifier}",
-          block_template_id: block_template.id
-        )
-      end
-    end
-    render 'momentum_cms/admin/pages/content_blocks', layout: false
+  end
+
+  def blocks
+    @momentum_cms_page = if params[:page_id]
+                           MomentumCms::Page.find(params[:page_id])
+                         else
+                           MomentumCms::Page.new
+                         end
+
+    @momentum_cms_template = if params[:template_id]
+                               MomentumCms::Template.find(params[:template_id])
+                             else
+                               @momentum_cms_page.template
+                             end
+
+
+    build_momentum_cms_blocks
+
+    render 'momentum_cms/admin/pages/blocks', layout: false
   end
 
   private
@@ -98,5 +90,28 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
 
   def momentum_cms_page_params
     params.fetch(:momentum_cms_page, {}).permit!
+  end
+
+  def build_momentum_cms_blocks
+    # Get all the block templates that is assigned to the template
+    @block_templates = TemplateBlockService.new(@momentum_cms_template).get_blocks
+    @block_templates_identifiers = @block_templates.collect { |t| "#{t.template.identifier}::#{t.identifier}" }
+
+    # Get the current Content's existing saved blocks
+    @momentum_cms_blocks = if @momentum_cms_page
+                             @momentum_cms_page.blocks.to_a
+                           else
+                             []
+                           end
+
+    # Build blocks from each block_templates
+    @block_templates.each do |block_template|
+      if @momentum_cms_blocks.detect { |x| x.identifier == "#{block_template.template.identifier}::#{block_template.identifier}" }.nil?
+        @momentum_cms_page.blocks.build(
+          identifier: "#{block_template.template.identifier}::#{block_template.identifier}",
+          block_template_id: block_template.id
+        )
+      end
+    end
   end
 end

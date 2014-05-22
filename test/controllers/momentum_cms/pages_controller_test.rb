@@ -1,22 +1,12 @@
 require_relative '../../test_helper'
 
-class MomentumCms::ContentsControllerTest < ActionController::TestCase
+class MomentumCms::PagesControllerTest < ActionController::TestCase
 
   def setup
     @site = momentum_cms_sites(:default)
     @site.save!
     @site.reload
     @request.host = @site.host
-
-    @parent_content = momentum_cms_contents(:default)
-    @parent_content.label = 'default'
-    @parent_content.save!
-    @parent_content.reload
-
-    @child_content = momentum_cms_contents(:child)
-    @child_content.label = 'child'
-    @child_content.save!
-    @child_content.reload
 
     @parent_template = momentum_cms_templates(:default)
     @child_template = momentum_cms_templates(:child)
@@ -26,7 +16,6 @@ class MomentumCms::ContentsControllerTest < ActionController::TestCase
     @default_page = momentum_cms_pages(:default)
     @default_page.slug = '/'
     @default_page.site = @site
-    @default_page.update_attribute(:published_content_id, @parent_content.id)
     @default_page.save!
     @default_page.reload
 
@@ -34,7 +23,6 @@ class MomentumCms::ContentsControllerTest < ActionController::TestCase
     @child_page.slug = 'child'
     @child_page.site = @site
     @child_page.parent = @parent_page
-    @child_page.update_attribute(:published_content_id, @child_content.id)
     @child_page.save!
     @child_page.reload
   end

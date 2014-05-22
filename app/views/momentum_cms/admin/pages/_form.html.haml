@@ -12,8 +12,10 @@
 %hr
 
 .content-fields
-  = form.simple_fields_for :contents, @momentum_cms_content do |content_fields|
-    = render 'momentum_cms/admin/pages/form/content_blocks_fields', content_fields: content_fields
+  = form.simple_fields_for :blocks do |block_form|
+    - next unless @block_templates_identifiers.include?(block_form.object.identifier)
+    .momentum_cms_block   
+      = render 'momentum_cms/admin/pages/form/blocks_fields', block_form: block_form
 
 = form.submit class: 'btn btn-success btn-xs'
 = link_to 'Back', cms_admin_site_pages_path(@current_momentum_cms_site), class: 'btn btn-primary btn-xs'

@@ -3,7 +3,7 @@ class CreateMomentumCmsBlocks < ActiveRecord::Migration
   def up
     create_table :momentum_cms_blocks do |t|
       t.references :block_template, index: true
-      t.references :content, index: true
+      t.references :page, index: true
       t.string :identifier
       t.timestamps
     end
@@ -11,7 +11,7 @@ class CreateMomentumCmsBlocks < ActiveRecord::Migration
   end
 
   def down
-    drop_table :momentum_cms_contents
+    drop_table :momentum_cms_blocks
     MomentumCms::Block.drop_translation_table!
   end
 

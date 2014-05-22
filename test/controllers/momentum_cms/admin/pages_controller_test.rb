@@ -24,8 +24,7 @@ class MomentumCms::Admin::PagesControllerTest < ActionController::TestCase
     get :new, site_id: @site.id
     assert_response :success
     page = assigns(:momentum_cms_page)
-    content = page.contents.default
-    assert page.contents.present?
+    assert page.present?
   end
 
   def test_edit
@@ -49,7 +48,6 @@ class MomentumCms::Admin::PagesControllerTest < ActionController::TestCase
     end
     assert_response :redirect
     page = MomentumCms::Page.last
-    content = page.contents.default.first
     assert_redirected_to edit_cms_admin_site_page_path(@site, page)
   end
 
@@ -63,14 +61,11 @@ class MomentumCms::Admin::PagesControllerTest < ActionController::TestCase
   end
 
   def test_update
-    content = @page.contents.create!(label: 'New Content')
     put :update, site_id: @page.site.id, id: @page.id, momentum_cms_page: {
       label: 'Updated',
-      published_content_id: content.id
     }
     @page.reload
     assert_equal 'Updated', @page.label
-    assert_equal content.id, @page.published_content_id
   end
 
   def test_update_invalid

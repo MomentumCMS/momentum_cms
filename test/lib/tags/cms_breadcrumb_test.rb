@@ -11,11 +11,9 @@ class CmsBreadcrumbTest < ActiveSupport::TestCase
 
   def test_render
     page_parent = momentum_cms_pages(:default)
-    page_parent.published_content_id = momentum_cms_contents(:default).id
     page_parent.save
 
     page_child = momentum_cms_pages(:child)
-    page_child.published_content_id = momentum_cms_contents(:child).id
     page_child.parent = page_parent
     page_child.save
 

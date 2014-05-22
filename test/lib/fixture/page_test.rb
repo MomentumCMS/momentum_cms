@@ -52,14 +52,13 @@ class FixturePageTest < ActiveSupport::TestCase
     importer = MomentumCms::Fixture::Page::Importer.new('example-a', @site)
     page = momentum_cms_pages(:default)
     about_path = File.join(Rails.root, 'sites', 'example-a', 'pages', 'about')
-    assert_difference "MomentumCms::Content.count", 1 do
       assert_difference "MomentumCms::Block.count", 2 do
         importer.prepare_content(page, about_path)
       end
-    end
+
     page.reload
-    header = page.contents.last.blocks.find_by(identifier: 'main-layout::header')
-    content = page.contents.last.blocks.find_by(identifier: 'main-layout::content')
+    header = page.blocks.find_by(identifier: 'main-layout::header')
+    content = page.blocks.find_by(identifier: 'main-layout::content')
     I18n.locale = 'en'
     assert_equal "Welcome", header.value.strip
     assert_equal "<p>Example English about content</p>", content.value.strip

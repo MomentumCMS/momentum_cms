@@ -9,15 +9,17 @@ class MomentumCms::Page < ActiveRecord::Base
 
   belongs_to :template
 
-  has_many :contents,
+  has_many :blocks,
+           inverse_of: :page,
            dependent: :destroy
 
-  accepts_nested_attributes_for :contents
+
+  accepts_nested_attributes_for :blocks
 
   # == Extensions ===========================================================
 
   has_ancestry
-  translates :slug, :path, fallbacks_for_empty_translations: true
+  translates :label, :slug, :path, fallbacks_for_empty_translations: true
 
   # == Validations ==========================================================
 
@@ -26,14 +28,13 @@ class MomentumCms::Page < ActiveRecord::Base
   validates :identifier, uniqueness: true
 
   validates :identifier, presence: true
-  
+
   validates :template, presence: true
 
   # == Scopes ===============================================================
   # == Callbacks ============================================================
 
   before_save :assign_paths
-  after_create :set_published_content_id
   after_update :regenerate_child_paths
 
   # == Class Methods ========================================================
@@ -47,15 +48,6 @@ class MomentumCms::Page < ActiveRecord::Base
   end
 
   # == Instance Methods =====================================================
-
-  def build_default_content
-    if self.new_record? && self.contents.find_by(default: true).nil? && self.contents.length == 0
-      content = self.contents.build(default: true, label: 'Default')
-    else
-      content = self.contents.find_by(default: true)
-    end
-    content
-  end
 
   def assign_paths
     self.path = generate_path(self)
@@ -74,9 +66,6 @@ class MomentumCms::Page < ActiveRecord::Base
 
   protected
 
-  def set_published_content_id
-    self.update_column(:published_content_id, self.contents.default.first.id) unless self.contents.default.blank?
-  end
 
   def generate_path(page)
     translated_path = []

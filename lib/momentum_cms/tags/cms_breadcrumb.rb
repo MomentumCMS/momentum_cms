@@ -18,7 +18,7 @@ module MomentumCms
         content_tag outer_tag.to_sym, class: outer_class do
           pages.collect do |page|
             content_tag inner_tag.to_sym, class: inner_class do
-              content_tag(:a, page.published_content.label, href: page.path)
+              content_tag(:a, page.label, href: page.path)
             end
           end.join('').html_safe
         end
