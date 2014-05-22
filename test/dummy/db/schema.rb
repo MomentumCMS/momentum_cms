@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140519200017) do
+ActiveRecord::Schema.define(version: 20140521010121) do
 
   create_table "momentum_cms_block_templates", force: true do |t|
     t.integer  "template_id"
@@ -166,9 +166,9 @@ ActiveRecord::Schema.define(version: 20140519200017) do
     t.string   "identifier"
     t.string   "label"
     t.string   "host"
-    t.string   "setting_title"
-    t.text     "setting_locales"
-    t.text     "setting_default_locale"
+    t.string   "title"
+    t.text     "available_locales"
+    t.string   "default_locale"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -42,9 +42,9 @@ class MomentumCms::SiteTest < ActiveSupport::TestCase
       host: 'foo.host',
       label: 'Site Name'
     )
-    assert_equal @site.get_locales, []
+    assert_equal @site.get_locales, ['en']
     assert_equal @site.get_locales(['en']), ['en']
-    @site.setting_locales = ['en', 'fr']
+    @site.available_locales = ['en', 'fr']
     @site.save!
     @site.reload
     assert_equal @site.get_locales, ['en', 'fr']

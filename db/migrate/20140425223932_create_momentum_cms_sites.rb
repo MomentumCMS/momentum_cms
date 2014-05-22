@@ -5,9 +5,9 @@ class CreateMomentumCmsSites < ActiveRecord::Migration
       t.string :label
       t.string :host
 
-      t.string :setting_title
-      t.text :setting_locales
-      t.text :setting_default_locale
+      t.string :title
+      t.text :available_locales
+      t.string :default_locale
 
       t.timestamps
     end
