@@ -19,7 +19,7 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
   def edit
     if @momentum_cms_page.template.present?
       @momentum_cms_template = @momentum_cms_page.template
-      @template_block_identifiers = TemplateBlockService.new(@momentum_cms_template).get_blocks.collect{|t| t.identifier}
+      @template_block_identifiers = TemplateBlockService.new(@momentum_cms_template).get_blocks.collect { |t| t.identifier }
     end
   end
 
@@ -56,10 +56,21 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
     # Find or build the content
     @momentum_cms_content = @momentum_cms_page.contents.first || @momentum_cms_page.build_default_content
     # Build the blocks
+    
+    # Get the current Content's existing saved blocks
     @content_blocks = @momentum_cms_content.blocks.to_a
-    @template_block_identifiers = TemplateBlockService.new(@momentum_cms_template).get_blocks.collect{|t| t.identifier}
-    @template_block_identifiers.each do |block_identifier|
-      @momentum_cms_content.blocks.build(identifier: block_identifier)
+
+    # Get all the block templates that is assigned to the template
+    @block_templates = TemplateBlockService.new(@momentum_cms_template).get_blocks
+
+    # Build blocks from each block_templates
+    @block_templates.each do |block_template|
+      if @content_blocks.detect { |x| x.identifier == "#{block_template.template.identifier}::#{block_template.identifier}" }.nil?
+        @momentum_cms_content.blocks.build(
+          identifier: "#{block_template.template.identifier}::#{block_template.identifier}",
+          block_template_id: block_template.id
+        )
+      end
     end
     render 'momentum_cms/admin/pages/content_blocks', layout: false
   end
