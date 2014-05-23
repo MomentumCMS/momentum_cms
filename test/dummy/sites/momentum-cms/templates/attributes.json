@@ -1,0 +1,6 @@
+{
+  "label": "Application",
+  "identifier": "application",
+  "has_yield": true,
+  "permanent_record": true
+}

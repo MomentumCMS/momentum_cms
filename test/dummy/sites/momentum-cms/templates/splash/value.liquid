@@ -1,0 +1,50 @@
+<div class="jumbotron">
+      <div class="container">
+        <h1 class="animated fadeInDown">{% cms_block id:logo type:text_input %}</h1>
+        <h2 class="animated fadeInDown">{% cms_block id:header type:text_input %}</h2>
+      </div>
+    </div>
+
+    <div class="container values">
+
+      <div class="row text-center">
+        <div class="col-md-4">
+          <span class="glyphicon glyphicon-globe"></span>
+          {% cms_block id:feature-globe type:text_input %}
+        </div>
+        <div class="col-md-4">
+          <span class="glyphicon glyphicon-heart-empty"></span>
+          {% cms_block id:feature-heart-empty type:text_input %}
+        </div>
+        <div class="col-md-4">
+          <span class="glyphicon glyphicon-cog"></span>
+
+          {% cms_block id:feature-cog type:text_input %}
+        </div>
+      </div><!-- .row -->
+
+      <br>
+      <hr>
+      <br>
+
+      <div class="row">
+
+        <div class="col-md-12">
+        {% cms_block id:future-cta type:text_input %}
+
+        </div>
+
+        <div class="col-md-12">
+          <pre style="max-height: 400px;" class="language-javascript"><code class="language-javascript">{% cms_block id:code type:text_input %}</code></pre>
+        </div>
+      </div><!-- .row -->
+
+      <br>
+      <hr>
+      <br>
+
+      <div class="row">
+        {% cms_snippet slug:footer %}
+      </div>
+
+    </div>

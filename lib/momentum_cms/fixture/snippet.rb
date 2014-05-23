@@ -7,14 +7,14 @@ module MomentumCms
             snippet_attributes = MomentumCms::Fixture::Utils.read_json(::File.join(path, 'attributes.json'), nil)
             next unless snippet_attributes
 
-            snippet = MomentumCms::Snippet.where(site: @site, slug: snippet_attributes['slug']).first_or_initialize
+            snippet = MomentumCms::Snippet.where(site: @site, identifier: snippet_attributes['identifier']).first_or_initialize
             snippet.site = @site
             snippet.label = snippet_attributes['label']
-            snippet.slug = snippet_attributes['slug']
+            snippet.identifier = snippet_attributes['identifier']
 
             MomentumCms::Fixture::Utils.each_locale_for_site(@site) do |locale|
               snippet.value = MomentumCms::Fixture::Utils.read_file("#{path}/#{locale}/content.html", '')
-              snippet.save!
+              snippet.save
             end
 
             @imported_objects << snippet
@@ -41,7 +41,7 @@ module MomentumCms
           snippet_path = ::File.join(@export_path, snippet.label.to_slug)
           attributes = {
             label: snippet.label,
-            slug: snippet.slug
+            identifier: snippet.identifier
           }
 
           MomentumCms::Fixture::Utils.write_json(::File.join(snippet_path, 'attributes.json'), attributes)

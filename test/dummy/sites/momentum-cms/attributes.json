@@ -1,0 +1,11 @@
+{
+  "label": "Momentum CMS",
+  "host": "localhost:3000",
+  "identifier": "momentum-cms",
+  "available_locales": [
+    "",
+    "en",
+    "de"
+  ],
+  "default_locale": "en"
+}

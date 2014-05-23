@@ -13,12 +13,12 @@ class MomentumCms::BlockTest < ActiveSupport::TestCase
     end
   end
 
-  def test_belongs_to_content
-    content = momentum_cms_contents(:default)
+  def test_belongs_to_page
+    page = momentum_cms_pages(:default)
     block_template = momentum_cms_block_templates(:default)
     assert_difference "MomentumCms::Block.count" do
-      block = content.blocks.create!(identifier: 'Block', value: '3', block_template: block_template)
-      assert_equal block.content, content
+      block = page.blocks.create!(identifier: 'Block', value: '3', block_template: block_template)
+      assert_equal block.page, page
     end
   end
 

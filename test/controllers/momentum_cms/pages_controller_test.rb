@@ -1,6 +1,6 @@
 require_relative '../../test_helper'
 
-class MomentumCms::ContentsControllerTest < ActionController::TestCase
+class MomentumCms::PagesControllerTest < ActionController::TestCase
 
   def setup
     setup_test_site

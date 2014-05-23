@@ -1,0 +1,5 @@
+= simple_form_for @momentum_cms_page, url: {action: :new}  do |form|
+  .ajax-fields
+    = form.simple_fields_for :blocks do |block_form|
+      - next unless @block_templates_identifiers.include?(block_form.object.identifier)
+      = render 'momentum_cms/admin/pages/form/blocks_fields', block_form: block_form

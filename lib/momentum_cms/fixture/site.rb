@@ -15,9 +15,10 @@ module MomentumCms
           site = MomentumCms::Site.where(identifier: @site_identifier).first_or_initialize
           site.label = @attributes['label']
           site.host = @attributes['host']
-          if @attributes['locales']
-            site.available_locales = @attributes['locales']
+          if @attributes['available_locales']
+            site.available_locales = @attributes['available_locales']
           end
+          site.default_locale = @attributes['default_locale']
           site.save!
           site
         end
@@ -32,7 +33,8 @@ module MomentumCms
             label: @site.label,
             host: @site.host,
             identifier: @site.identifier,
-            locales: [@site.available_locales].flatten
+            available_locales: [@site.available_locales].flatten.compact,
+            default_locale: @site.default_locale
           }
           MomentumCms::Fixture::Utils.write_json(::File.join(@export_path, 'attributes.json'), attributes)
         end

@@ -9,6 +9,8 @@ module MomentumCms
 
             template = MomentumCms::Template.where(site: @site, identifier: template_attributes['identifier']).first_or_initialize
             template.label = template_attributes['label']
+            template.has_yield = template_attributes['has_yield']
+            template.permanent_record = template_attributes['permanent_record']
             template.parent = parent if parent
             template.value = MomentumCms::Fixture::Utils.read_file("#{path}/value.liquid", '')
             template.js = MomentumCms::Fixture::Utils.read_file("#{path}/value.js", '')
@@ -49,7 +51,9 @@ module MomentumCms
           FileUtils.mkdir_p(template_path)
           attributes = {
             label: template.label,
-            identifier: template.identifier
+            identifier: template.identifier,
+            has_yield: template.has_yield,
+            permanent_record: template.permanent_record
           }
           MomentumCms::Fixture::Utils.write_json(::File.join(template_path, 'attributes.json'), attributes)
           MomentumCms::Fixture::Utils.write_file(::File.join(template_path, 'value.liquid'), template.value)

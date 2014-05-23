@@ -1,8 +1,0 @@
-%h1.page-header New Content for Page '#{@momentum_cms_page.label}'
-
-.row
-  .col-md-8
-    = simple_form_for @momentum_cms_content, {url: momentum_contents_url} do |form|
-      = render partial: 'form', locals: { form: form } 
-  .col-md-4
-    = render 'publishing_options'

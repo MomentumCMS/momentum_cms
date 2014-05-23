@@ -1,0 +1,28 @@
+<div class="jumbotron">
+    
+    <div class="container">
+        <h1 class="animated fadeInDown">{% cms_block id:logo type:text_input %}</h1>
+        <h2 class="animated fadeInDown">{% cms_block id:header type:text_input %}</h2>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-8">
+          {% cms_block id:left_column type:text_input %}
+        </div>
+        <div class="col-md-4">
+          {% cms_block id:right_column type:text_input %}
+        </div>
+      </div><!-- .row -->
+
+      <br>
+      <hr>
+      <br>
+
+      <div class="row">
+        {% cms_snippet slug:footer %}
+      </div>
+
+    </div>

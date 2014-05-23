@@ -3,10 +3,10 @@ module MomentumCms
     module Page
       class Importer < Base::Importer
 
-        def get_page(site, parent, slug, label)
+        def get_page(site, parent, slug, label, identifier)
           if parent
             scope = MomentumCms::Page.for_site(site).children_of(parent)
-            scope.where(slug: slug).first || scope.where(label: label).first_or_initialize
+            scope.where(slug: slug).first || scope.where(identifier: identifier).first || scope.where(label: label).first_or_initialize
           else
             MomentumCms::Page.for_site(site).roots.first_or_initialize
           end
@@ -26,7 +26,7 @@ module MomentumCms
 
               # Check if this already exists in the database
               # TODO: Limitation There can ever be only 1 root page
-              page = get_page(@site, parent, slug, page_attributes['label'])
+              page = get_page(@site, parent, slug, page_attributes['label'], page_attributes['identifier'])
 
               # Set the parent if required
               # page.site = @site
@@ -51,11 +51,6 @@ module MomentumCms
         end
 
         def prepare_content(page, path)
-          cms_content = MomentumCms::Content.where(page: page, label: page.label).first_or_initialize
-          cms_content.save!
-
-          page.published_content_id = cms_content.id
-          page.save!
 
           Dir.glob("#{path}/*.liquid").each do |content_path|
             text = ::File.read(content_path)
@@ -69,7 +64,7 @@ module MomentumCms
               I18n.locale = node.params['locale']
               cms_template = MomentumCms::Template.for_site(@site).where(identifier: node.params['template']).first
 
-              cms_block = MomentumCms::Block.where(content: cms_content, identifier: "#{node.params['template']}::#{node.params['id']}").first_or_initialize
+              cms_block = MomentumCms::Block.where(page: page, identifier: "#{node.params['template']}::#{node.params['id']}").first_or_initialize
               cms_block.value = MomentumCms::Tags::CmsFixture.get_contents(node)
               cms_block.block_template = MomentumCms::BlockTemplate.where(template: cms_template, identifier: node.params['id']).first
               cms_block.save!
@@ -105,12 +100,34 @@ module MomentumCms
 
         def export_page!(page)
           page_path = ::File.join(@export_path, page.path)
+
+          locales = {}
+
+          MomentumCms::Fixture::Utils.each_locale_for_site(@site) do |locale|
+            locales[locale] = { slug: page.slug }
+          end
+
           attributes = {
             label: page.label,
-            slug: page.slug,
-            template: page.template.identifier
+            locales: locales,
+            template: page.template.identifier,
+            identifier: page.identifier
           }
+
+
           MomentumCms::Fixture::Utils.write_json(::File.join(page_path, 'attributes.json'), attributes)
+
+          MomentumCms::Fixture::Utils.each_locale_for_site(@site) do |locale|
+            blocks = []
+            page.blocks.each do |block|
+              template, id = block.identifier.split('::')
+              blocks << %Q[
+{% cms_fixture template:"#{template}" id:"#{id}" locale:#{locale} %}
+#{block.value}
+{% endcms_fixture %}]
+            end
+            MomentumCms::Fixture::Utils.write_file(::File.join(page_path, "content.#{locale}.liquid"), blocks.join("\n"))
+          end
         end
       end
     end

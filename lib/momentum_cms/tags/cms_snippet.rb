@@ -5,9 +5,9 @@ module MomentumCms
       def render(context)
         cms_site = context_get!(context, :cms_site)
 
-        slug = params_get!('slug')
+        identifier = params_get!('identifier')
 
-        snippet = MomentumCms::Snippet.for_site(cms_site).where(slug: slug).first
+        snippet = MomentumCms::Snippet.for_site(cms_site).where(identifier: identifier).first
         raise CmsTagError.new('Snippet not found') unless snippet
 
         Liquid::Template.parse(snippet.value).render(context)

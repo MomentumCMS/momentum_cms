@@ -14,8 +14,8 @@ PageView = (function() {
   };
 
   //-- Properties -----------------------------------------------------------
-  PageView.prototype.contentBlocksUrl = function() {
-    return this.$el.data('content-blocks-url');
+  PageView.prototype.blocksUrl = function() {
+    return this.$el.data('blocks-url');
   };
 
   PageView.prototype.pageId = function() {
@@ -32,7 +32,7 @@ PageView = (function() {
     if(this.pageId() !== '') {
       reqData.page_id = this.pageId();
     }
-    var request = $.get(this.contentBlocksUrl(), reqData);
+    var request = $.get(this.blocksUrl(), reqData);
     request.then(function(res) {
       $('.content-fields').empty();
       $(res).find('.ajax-fields').appendTo('.content-fields');

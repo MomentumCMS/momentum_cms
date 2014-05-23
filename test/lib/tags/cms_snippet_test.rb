@@ -11,15 +11,15 @@ class CmsSnippetTest < ActiveSupport::TestCase
   end
 
   def test_params
-    text = '{% cms_snippet slug:foo %}'
+    text = '{% cms_snippet identifier:foo %}'
     template = Liquid::Template.parse(text)
-    tag = template.root.nodelist.detect { |t| t.params['slug'] == 'foo' }
-    assert_equal 'foo', tag.params['slug']
+    tag = template.root.nodelist.detect { |t| t.params['identifier'] == 'foo' }
+    assert_equal 'foo', tag.params['identifier']
   end
 
   def test_render
 
-    text = '{% cms_snippet slug:snippet %}'
+    text = '{% cms_snippet identifier:snippet %}'
 
     # Context missing
     template = Liquid::Template.parse(text).render

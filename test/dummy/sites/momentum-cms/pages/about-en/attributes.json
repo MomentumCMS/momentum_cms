@@ -1,0 +1,13 @@
+{
+  "label": "About",
+  "locales": {
+    "en": {
+      "slug": "about-en"
+    },
+    "de": {
+      "slug": "about-de"
+    }
+  },
+  "template": "2-column-template",
+  "identifier": "about"
+}

@@ -1,0 +1,106 @@
+
+{% cms_fixture template:"application" id:"meta-title" locale:en %}
+MomentumCMS
+{% endcms_fixture %}
+
+{% cms_fixture template:"application" id:"meta-description" locale:en %}
+MomentumCMS Demo
+{% endcms_fixture %}
+
+{% cms_fixture template:"splash" id:"logo" locale:en %}
+MomentumCMS
+{% endcms_fixture %}
+
+{% cms_fixture template:"splash" id:"header" locale:en %}
+A stylish CMS for responsible developers
+{% endcms_fixture %}
+
+{% cms_fixture template:"splash" id:"feature-globe" locale:en %}
+<h3>Multilingual</h3>
+          <p class="lead">Built from the ground up to handle multilingual sites.</p>
+{% endcms_fixture %}
+
+{% cms_fixture template:"splash" id:"feature-heart-empty" locale:en %}
+<h3>Developer Friendly</h3>
+          <p class="lead">Work on your site locally and commit to version control.</p>
+{% endcms_fixture %}
+
+{% cms_fixture template:"splash" id:"feature-cog" locale:en %}
+<h3>API Driven</h3>
+          <p class="lead">A perfect match for your front-end applications.</p>
+{% endcms_fixture %}
+
+{% cms_fixture template:"splash" id:"future-cta" locale:en %}
+<h2>The Future of Content Management</h2>
+          <p class="lead">Express your site's structure in JSON, host it on your own server, and Momentum will do the rest.</p>
+{% endcms_fixture %}
+
+{% cms_fixture template:"splash" id:"code" locale:en %}
+{
+  "title": "Your Fancy Site",
+
+  "templates": {
+    "home": {
+      "label": "Homepage",
+      "url": "http://your-url.com/templates/home.liquid"
+    },
+    "2-column": {
+      "label": "2 Column",
+      "url": "http://your-url.com/templates/2-column.liquid"
+    },
+    "landing-page": {
+      "label": "Landing Page",
+      "url": "http://your-url.com/templates/landing-page.liquid"
+    }
+  },
+
+  "fieldsets": {
+    "standard_page": {
+      "templates": ["home", "landing-page"],
+      "fields": {
+        "title": {
+          "type": "string",
+          "required": true
+        },
+        "primary_content": {
+          "type": "rich_text_long",
+        }
+        "slug": {
+          "type": "slug",
+          "required": true
+        }
+      }
+    },
+    "landing_page": {
+      "templates": ["landing-page"],
+      "title": {
+        "type": "string",
+        "required": true
+      },
+      "banner": {
+        "type": "image",
+        "format": "2000x400#",
+        "required": true
+      },
+      "slug": {
+        "type": "slug",
+        "required": true
+      }
+    },
+    "2-column": {
+      "templates": ["2-column"],
+      "title": {
+        "type": "string",
+        "required": true
+      },
+      "left-column": {
+        "type": "rich_text_long"
+      },
+      "right-column": {
+        "type": "rich_text_long"
+      }
+    }
+  }
+
+}
+{% endcms_fixture %}
