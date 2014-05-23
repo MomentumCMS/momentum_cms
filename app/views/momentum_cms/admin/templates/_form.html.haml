@@ -1,5 +1,4 @@
-= form.association :site, collection: MomentumCms::Site.all, prompt: 'Choose a Site', label_method: :label, value_method: :id, include_blank: false
-= form.input :label
+= form.input :label, hint: 'Read our <a href="https://github.com/MomentumCMS/momentum_cms/wiki/CMS-Tags" target="_blank">documentation</a> to learn more about templates and tags'.html_safe
 = form.input :identifier
 
 = form.input :parent_id, collection: @momentum_cms_templates, prompt: 'Parent Template...', label_method: :label

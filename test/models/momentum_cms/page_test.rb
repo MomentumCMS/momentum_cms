@@ -198,16 +198,20 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
     site = momentum_cms_sites(:default)
     assert_difference "MomentumCms::Page.count" do
       assert_difference "MomentumCms::Content.count" do
-        page = site.pages.create(label: 'New Page', identifier: 'new-page', template: @momentum_cms_template)
+        page = site.pages.build(label: 'New Page', identifier: 'new-page', template: @momentum_cms_template)
+        page.build_default_content
+        page.save
         content = page.contents.find_by(default: true)
-        assert_equal 'Default', content.label
+        assert content.default
       end
     end
   end
 
   def test_default_content_is_set_and_published
     site = momentum_cms_sites(:default)
-    page = site.pages.create(label: 'Has Default', slug: 'has-default', identifier: 'has-default', template: @momentum_cms_template)
+    page = site.pages.build(label: 'Has Default', slug: 'has-default', identifier: 'has-default', template: @momentum_cms_template)
+    page.build_default_content
+    page.save!
     assert page.published_content.present?
   end
 

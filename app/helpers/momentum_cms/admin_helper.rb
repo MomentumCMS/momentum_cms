@@ -52,4 +52,9 @@ module MomentumCms::AdminHelper
     new_cms_admin_site_page_path(site)
   end
 
+  def momentum_content_blocks_url(site = nil)
+    site ||= @current_momentum_cms_site
+    content_blocks_cms_admin_site_pages_path(site)
+  end
+
 end

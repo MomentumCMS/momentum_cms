@@ -1,5 +1,5 @@
 %h1.page-header Edit Page
 
-= simple_form_for @momentum_cms_page, url: {action: :update}  do |form|
-  = render partial: 'form', locals: { form: form } 
-
+.momentum-cms-page-view{data: {content_blocks_url: momentum_content_blocks_url, page_id: @momentum_cms_page.id}}
+  = simple_form_for @momentum_cms_page, url: {action: :update} do |form|
+    = render partial: 'form', locals: { form: form } 

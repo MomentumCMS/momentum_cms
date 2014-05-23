@@ -1,0 +1,7 @@
+- if @momentum_cms_page.errors.present?
+  .alert.alert-danger
+    - @momentum_cms_page.errors.messages.each do |field, errors|
+      %li
+        %strong= field
+        \:
+        = errors.join(', ')

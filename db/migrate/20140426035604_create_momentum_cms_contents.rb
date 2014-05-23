@@ -4,6 +4,8 @@ class CreateMomentumCmsContents < ActiveRecord::Migration
       t.boolean :default
       t.string :identifier
       t.references :page, index: true
+      t.references :template, index: true
+
       t.timestamps
     end
     MomentumCms::Content.create_translation_table! label: :string
