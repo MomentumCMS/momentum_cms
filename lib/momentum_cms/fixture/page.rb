@@ -51,11 +51,6 @@ module MomentumCms
         end
 
         def prepare_content(page, path)
-          cms_content = MomentumCms::Content.where(page: page, label: page.label).first_or_initialize
-          cms_content.save!
-
-          page.published_content_id = cms_content.id
-          page.save!
 
           Dir.glob("#{path}/*.liquid").each do |content_path|
             text = ::File.read(content_path)
@@ -69,7 +64,7 @@ module MomentumCms
               I18n.locale = node.params['locale']
               cms_template = MomentumCms::Template.for_site(@site).where(identifier: node.params['template']).first
 
-              cms_block = MomentumCms::Block.where(content: cms_content, identifier: "#{node.params['template']}::#{node.params['id']}").first_or_initialize
+              cms_block = MomentumCms::Block.where(page: page, identifier: "#{node.params['template']}::#{node.params['id']}").first_or_initialize
               cms_block.value = MomentumCms::Tags::CmsFixture.get_contents(node)
               cms_block.block_template = MomentumCms::BlockTemplate.where(template: cms_template, identifier: node.params['id']).first
               cms_block.save!

@@ -9,14 +9,17 @@ class MomentumCms::Block < ActiveRecord::Base
 
   belongs_to :block_template
 
-  belongs_to :content
+  belongs_to :page
 
   # == Extensions ===========================================================
   has_paper_trail
 
   translates :value, fallbacks_for_empty_translations: true, versioning: :paper_trail
 
-  validates :block_template, :block_template_id,
+  validates :block_template,
+            presence: true
+
+  validates :page,
             presence: true
 
   # == Validations ==========================================================

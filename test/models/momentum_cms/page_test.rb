@@ -194,33 +194,6 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
     assert_equal '/default/another-slug/new-grandchild-slug', grandchild.path
   end
 
-  def test_creates_default_content
-    site = momentum_cms_sites(:default)
-    assert_difference "MomentumCms::Page.count" do
-      assert_difference "MomentumCms::Content.count" do
-        page = site.pages.build(label: 'New Page', identifier: 'new-page', template: @momentum_cms_template)
-        page.build_default_content
-        page.save
-        content = page.contents.find_by(default: true)
-        assert content.default
-      end
-    end
-  end
-
-  def test_default_content_is_set_and_published
-    site = momentum_cms_sites(:default)
-    page = site.pages.build(label: 'Has Default', slug: 'has-default', identifier: 'has-default', template: @momentum_cms_template)
-    page.build_default_content
-    page.save!
-    assert page.published_content.present?
-  end
-
-  def test_published_content
-    page = momentum_cms_pages(:default)
-    page.update_attribute(:published_content_id, page.contents.first.id)
-    assert_equal page.contents.first, page.published_content
-  end
-
   def test_ancestor_and_self
     parent = momentum_cms_pages(:default)
     child = momentum_cms_pages(:child)

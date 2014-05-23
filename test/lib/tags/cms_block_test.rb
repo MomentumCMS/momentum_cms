@@ -28,7 +28,7 @@ class CmsBlockTest < ActiveSupport::TestCase
     block.value = 'foobar'
     block.save!
 
-    render = template.render(cms_content: momentum_cms_contents(:default))
+    render = template.render(cms_page: momentum_cms_pages(:default))
     assert_equal render, 'foobar'
   end
 

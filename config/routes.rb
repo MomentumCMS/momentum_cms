@@ -8,8 +8,7 @@ Rails.application.routes.draw do
           resources :templates
           resources :files
           resources :pages do
-            get :content_blocks, on: :collection
-            resources :contents
+            get :blocks, on: :collection
           end
           resources :snippets
           resources :menus
@@ -20,9 +19,9 @@ Rails.application.routes.draw do
   end
 
   namespace :momentum_cms, as: :cms, path: MomentumCms.configuration.mount_point do
-    get 'momentum_cms/css/:id', to: 'contents#css', format: 'css'
-    get 'momentum_cms/js/:id', to: 'contents#js', format: 'js'
-    get '*id', to: 'contents#show'
-    root to: 'contents#show'
+    get 'momentum_cms/css/:id', to: 'pages#css', format: 'css'
+    get 'momentum_cms/js/:id', to: 'pages#js', format: 'js'
+    get '*id', to: 'pages#show'
+    root to: 'pages#show'
   end
 end

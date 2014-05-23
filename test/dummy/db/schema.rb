@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140519191635) do
+ActiveRecord::Schema.define(version: 20140522231058) do
 
   create_table "momentum_cms_block_templates", force: true do |t|
     t.integer  "template_id"
@@ -37,37 +37,14 @@ ActiveRecord::Schema.define(version: 20140519191635) do
 
   create_table "momentum_cms_blocks", force: true do |t|
     t.integer  "block_template_id"
-    t.integer  "content_id"
+    t.integer  "page_id"
     t.string   "identifier"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "momentum_cms_blocks", ["block_template_id"], name: "index_momentum_cms_blocks_on_block_template_id"
-  add_index "momentum_cms_blocks", ["content_id"], name: "index_momentum_cms_blocks_on_content_id"
-
-  create_table "momentum_cms_content_translations", force: true do |t|
-    t.integer  "momentum_cms_content_id", null: false
-    t.string   "locale",                  null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "label"
-  end
-
-  add_index "momentum_cms_content_translations", ["locale"], name: "index_momentum_cms_content_translations_on_locale"
-  add_index "momentum_cms_content_translations", ["momentum_cms_content_id"], name: "index_f568390e5943e526d13e1fe618dba0f7bd86e30f"
-
-  create_table "momentum_cms_contents", force: true do |t|
-    t.boolean  "default"
-    t.string   "identifier"
-    t.integer  "page_id"
-    t.integer  "template_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "momentum_cms_contents", ["page_id"], name: "index_momentum_cms_contents_on_page_id"
-  add_index "momentum_cms_contents", ["template_id"], name: "index_momentum_cms_contents_on_template_id"
+  add_index "momentum_cms_blocks", ["page_id"], name: "index_momentum_cms_blocks_on_page_id"
 
   create_table "momentum_cms_files", force: true do |t|
     t.string   "label"
@@ -144,6 +121,7 @@ ActiveRecord::Schema.define(version: 20140519191635) do
     t.datetime "updated_at"
     t.string   "slug"
     t.string   "path"
+    t.string   "label"
   end
 
   add_index "momentum_cms_page_translations", ["locale"], name: "index_momentum_cms_page_translations_on_locale"
@@ -153,8 +131,6 @@ ActiveRecord::Schema.define(version: 20140519191635) do
     t.integer  "site_id"
     t.integer  "template_id"
     t.string   "identifier"
-    t.string   "label"
-    t.integer  "published_content_id"
     t.integer  "redirected_page_id"
     t.string   "ancestry"
     t.datetime "created_at"
