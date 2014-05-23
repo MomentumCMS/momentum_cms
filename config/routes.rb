@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
 
   if MomentumCms.configuration.enable_api
+    match '*path' => 'momentum_cms/api/base#respond_to_options_request', constraints: {method: 'OPTIONS'}, via: [:options]
     namespace :momentum_cms, as: :cms_api, path: MomentumCms.configuration.api_mount_point do
       scope module: 'api' do
-        match '*path' => 'application#handle_options_request', constraints: {method: 'OPTIONS'}, via: [:options]
         resources :sessions, only: [:create, :destroy]
         get '*id', to: 'contents#show'
       end
