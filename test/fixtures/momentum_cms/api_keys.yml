@@ -1,0 +1,6 @@
+default:
+  user_id: nil 
+  access_token: <%= SecureRandom.hex %>
+  scope: 'session'
+  expired_at: <%= 4.hours.from_now %>
+  created_at: 2014-05-13 16:55:07
