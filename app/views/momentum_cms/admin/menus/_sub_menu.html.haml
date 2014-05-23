@@ -6,5 +6,5 @@
       - next if require_root && !momentum_cms_menu_item.is_root?
       %li{id: "list-#{momentum_cms_menu_item.linkable_id}", data: {id: momentum_cms_menu_item.linkable_id, type: momentum_cms_menu_item.linkable_type}}
         %div
-          = momentum_cms_menu_item.linkable.published_content.label
+          = momentum_cms_menu_item.linkable.label
         = render partial: 'sub_menu', locals: {momentum_cms_menu_items_tree: momentum_cms_menu_item.children}

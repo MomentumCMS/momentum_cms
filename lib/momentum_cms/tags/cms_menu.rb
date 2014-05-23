@@ -12,10 +12,10 @@ module MomentumCms
           menus.collect do |menu_item|
             content_tag inner_tag.to_sym, class: inner_class do
               if menu_item.children
-                content_tag(:a, menu_item.linkable.published_content.label, href: menu_item.linkable.path) +
+                content_tag(:a, menu_item.linkable.label, href: menu_item.linkable.path) +
                   build_menu(menu_item.children, menu_item, options)
               else
-                content_tag(:a, menu_item.linkable.published_content.label, href: menu_item.linkable.path)
+                content_tag(:a, menu_item.linkable.label, href: menu_item.linkable.path)
               end
             end
           end.join('').html_safe
