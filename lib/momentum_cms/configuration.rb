@@ -35,11 +35,15 @@ module MomentumCms
     # :http_basic - http_basic_auth
     attr_accessor :authentication_method
 
+    # A boolean value used to determine if the API should be enabled
+    attr_accessor :enable_api
+
     # Configuration defaults
     def initialize
       @locale = 'en'
       @site_fixtures_path = File.expand_path('sites', Rails.root)
       @site_fixtures_enabled = false
+      @enable_api = true
       @admin_panel_style = :html5
       @mount_point = '/'
       @api_mount_point = '/api'

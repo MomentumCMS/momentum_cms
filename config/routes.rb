@@ -1,4 +1,15 @@
 Rails.application.routes.draw do
+
+  if MomentumCms.configuration.enable_api
+    namespace :momentum_cms, as: :cms_api, path: MomentumCms.configuration.api_mount_point do
+      scope module: 'api' do
+        match '*path' => 'application#handle_options_request', constraints: {method: 'OPTIONS'}, via: [:options]
+        resources :sessions, only: [:create, :destroy]
+        get '*id', to: 'contents#show'
+      end
+    end
+  end
+
   if MomentumCms.configuration.admin_panel_style == :html5
     namespace :momentum_cms, as: :cms, path: MomentumCms.configuration.admin_panel_mount_point do
       namespace :admin, as: :admin, except: :show, path: '' do
@@ -24,10 +35,6 @@ Rails.application.routes.draw do
     get 'momentum_cms/js/:id', to: 'contents#js', format: 'js'
     get '*id', to: 'contents#show'
     root to: 'contents#show'
-  end
-
-  namespace :momentum_cms, as: :cms_api, path: MomentumCms.configuration.api_mount_point do
-    get '*id', to: 'api/contents#show'
   end
 
 end

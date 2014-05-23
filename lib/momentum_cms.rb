@@ -3,6 +3,7 @@ require 'momentum_cms/error'
 
 require 'momentum_cms/authentication/http_authentication'
 require 'momentum_cms/authentication/no_authentication'
+require 'momentum_cms/authentication/api_authentication'
 
 require 'momentum_cms/tags/cms_liquid_utils'
 require 'momentum_cms/tags/cms_base_block'
