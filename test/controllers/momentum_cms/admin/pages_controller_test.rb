@@ -6,6 +6,10 @@ class MomentumCms::Admin::PagesControllerTest < ActionController::TestCase
     @site = momentum_cms_sites(:default)
     @page = momentum_cms_pages(:default)
     @template = momentum_cms_templates(:default)
+    MomentumCms::Page.all.each do |page|
+      page.slug = "#{page.id}-slug"
+      page.save!
+    end
   end
 
   def test_index

@@ -5,8 +5,13 @@ class MomentumCms::PageTest < ActiveSupport::TestCase
   def setup
     I18n.enforce_available_locales = false
     I18n.locale = :en
+    MomentumCms::Page.all.each do |page|
+      page.slug = "#{page.id}-slug"
+      page.save!
+    end
     page = momentum_cms_pages(:default)
-    page.update_attribute(:slug, 'default')
+    page.slug = 'default'
+    page.save!
     @momentum_cms_template = momentum_cms_templates(:default)
   end
 

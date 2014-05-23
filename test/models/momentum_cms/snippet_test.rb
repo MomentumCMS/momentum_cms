@@ -15,14 +15,14 @@ class MomentumCms::SnippetTest < ActiveSupport::TestCase
     assert_difference 'MomentumCms::Snippet.count' do
       MomentumCms::Snippet.create(
         label: 'Snippet Name',
-        slug: 'slug',
+        identifier: 'identifier',
         site: @site
       )
     end
     assert_no_difference 'MomentumCms::Snippet.count' do
       MomentumCms::Snippet.create(
         label: 'Snippet Name',
-        slug: 'slug',
+        identifier: 'identifier',
         site: @site
       )
     end
@@ -39,17 +39,17 @@ class MomentumCms::SnippetTest < ActiveSupport::TestCase
 
   def test_snippets_can_not_nest
 
-    snippet = MomentumCms::Snippet.new(site: @site, label: 'foo', slug: 'bar')
+    snippet = MomentumCms::Snippet.new(site: @site, label: 'foo', identifier: 'bar')
 
     snippet.value = 'FOO BAR'
 
     assert snippet.valid?
 
-    snippet.value = '{% cms_snippet slug:foo'
+    snippet.value = '{% cms_snippet identifier:foo'
 
     refute snippet.valid?
 
-    snippet.value = 'Nested tags {% cms_snippet slug:foo %}'
+    snippet.value = 'Nested tags {% cms_snippet identifier:foo %}'
 
     refute snippet.valid?
 

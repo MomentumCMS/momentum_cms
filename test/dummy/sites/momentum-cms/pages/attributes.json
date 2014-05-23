@@ -1,0 +1,13 @@
+{
+  "label": "Home",
+  "locales": {
+    "en": {
+      "slug": "/"
+    },
+    "de": {
+      "slug": "/"
+    }
+  },
+  "template": "splash",
+  "identifier": "home"
+}

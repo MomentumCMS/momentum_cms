@@ -13,26 +13,26 @@ class MomentumCms::Snippet < ActiveRecord::Base
 
   # == Validations ==========================================================
 
-  validates :label, :slug,
+  validates :label, :identifier,
             presence: true
 
-  validates :slug,
-            uniqueness: true
+  validates :identifier,
+            uniqueness: { scope: :site }
 
   validate :validate_value_does_not_nest
 
   # == Scopes ===============================================================
   # == Callbacks ============================================================
 
-  before_validation :assign_slug
+  before_validation :assign_identifier
 
   # == Class Methods ========================================================
   # == Instance Methods =====================================================
 
   protected
-  def assign_slug
-    if self.slug.blank?
-      self.slug = self.label.to_slug
+  def assign_identifier
+    if self.identifier.blank?
+      self.identifier = self.label.to_slug
     end
   end
 

@@ -24,9 +24,9 @@ class MomentumCms::Page < ActiveRecord::Base
   # == Validations ==========================================================
 
   validates :slug, uniqueness: { scope: [:site, :ancestry] }
+  validates :slug, presence: true
 
-  validates :identifier, uniqueness: true
-
+  validates :identifier, uniqueness: { scope: :site }
   validates :identifier, presence: true
 
   validates :template, presence: true
@@ -65,7 +65,6 @@ class MomentumCms::Page < ActiveRecord::Base
   end
 
   protected
-
 
   def generate_path(page)
     translated_path = []

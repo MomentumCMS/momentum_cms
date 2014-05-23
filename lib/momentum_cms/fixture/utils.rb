@@ -6,8 +6,11 @@ module MomentumCms
         locales = site.get_locales(default_locale)
         locales.each do |locale|
           # Set the Locale
-          I18n.locale = locale
-          yield(locale)
+          begin
+            I18n.locale = locale
+            yield(locale)
+          rescue I18n::InvalidLocale
+          end
         end
         I18n.locale = original_locale
       end
