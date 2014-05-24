@@ -3,24 +3,15 @@
 %table.table
   %thead
     %tr
-      %th Identifier
+      %th.identifier Identifier
       %th Label
-      %th Created At
-      %th Updated At
-      %th Control
-      %th
+      %th.control Control
   %tbody
     - @momentum_cms_menus.each do |momentum_cms_menu|
       %tr
         %td
           .label.label-info= momentum_cms_menu.identifier
         %td= link_to momentum_cms_menu.label, edit_cms_admin_site_menu_path(@current_momentum_cms_site, momentum_cms_menu)
-        %td= momentum_cms_menu.created_at
-        %td= momentum_cms_menu.updated_at
         %td= link_to 'Destroy', cms_admin_site_menu_path(@current_momentum_cms_site, momentum_cms_menu), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs'
-        %td
-          %span.glyphicon.glyphicon-plus{data: {toggle: 'tooltip', original_title: momentum_cms_menu.created_at}}
-          %span.glyphicon.glyphicon-pencil{data: {toggle: 'tooltip', original_title: momentum_cms_menu.updated_at}}
-            
 %br/
 = link_to 'New Menu', [:new, :cms, :admin, :site, :menu], class: 'btn btn-primary btn-xs'

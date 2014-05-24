@@ -3,12 +3,10 @@
 %table.table
   %thead
     %tr
-      %th Identifier
+      %th.identifier Identifier
       %th Label
       %th Path
-      %th Created At
-      %th Updated At
-      %th Control
+      %th.control Control
   %tbody  
     = render partial: 'pages', locals: { momentum_cms_pages_tree: @momentum_cms_pages, require_root: true}
 %br/

@@ -1,7 +1,7 @@
 = form.input :label
+= form.input :identifier
 = form.input :tag
 = form.input :file, as: :file
-= form.association :site, collection: MomentumCms::Site.all, prompt: 'Choose a Site', label_method: :label, value_method: :id, include_blank: false
 
 - if @momentum_cms_file.persisted?
   .uploaded-file
