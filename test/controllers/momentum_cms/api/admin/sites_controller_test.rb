@@ -40,4 +40,15 @@ class MomentumCms::Api::Admin::SitesControllerTest < ActionController::TestCase
     assert_equal site.available_locales, json_response['site']['available_locales']
   end
 
+  def test_create_failure
+    assert_no_difference "MomentumCms::Site.count" do
+      post :create, site: {}
+    end
+    assert_response 422
+    assert assigns(:site)
+    assert json_response['errors'].present?
+    assert json_response['errors']['label'].present?
+    assert json_response['errors']['host'].present?
+  end
+
 end

@@ -6,8 +6,11 @@ class MomentumCms::Api::Admin::SitesController < MomentumCms::Api::BaseControlle
   end
 
   def create
-    @site = MomentumCms::Site.create!(site_params)
+    @site = MomentumCms::Site.new(site_params)
+    @site.save!
     render json: @site
+  rescue ActiveRecord::RecordInvalid
+    render json: {errors: @site.errors}, status: 422
   end
 
 private
