@@ -9,6 +9,11 @@ class CreateMomentumCmsSites < ActiveRecord::Migration
       t.text :available_locales
       t.string :default_locale
 
+
+      t.boolean :enable_advanced_features, default: false
+      t.string :remote_fixture_type
+      t.text :remote_fixture_url
+
       t.timestamps
     end
   end

@@ -9,6 +9,17 @@
     %li= link_to 'Snippets', [:cms, :admin, :site, :snippets]
     %li= link_to 'Files', [:cms, :admin, :site, :files]
     %li= link_to 'Menus', [:cms, :admin, :site, :menus]
+    %li= link_to 'Document Templates', [:cms, :admin, :site, :document_templates]
+
+  %p
+    %strong
+      Documents
+  - if @momentum_cms_document_templates
+    %ul.nav.nav-sidebar
+      - @momentum_cms_document_templates.each do |momentum_cms_document_template|
+        %li= link_to momentum_cms_document_template.label, cms_admin_site_document_template_documents_path(@current_momentum_cms_site, momentum_cms_document_template)
+        -#[:cms, :admin, :site, :document_template, :documents]
+
 - else
   %p 
     %strong

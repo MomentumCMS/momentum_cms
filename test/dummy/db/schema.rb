@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140523161348) do
+ActiveRecord::Schema.define(version: 20140525050946) do
 
   create_table "momentum_cms_block_templates", force: true do |t|
     t.integer  "template_id"
@@ -45,6 +45,46 @@ ActiveRecord::Schema.define(version: 20140523161348) do
 
   add_index "momentum_cms_blocks", ["block_template_id"], name: "index_momentum_cms_blocks_on_block_template_id"
   add_index "momentum_cms_blocks", ["page_id"], name: "index_momentum_cms_blocks_on_page_id"
+
+  create_table "momentum_cms_document_template_translations", force: true do |t|
+    t.integer  "momentum_cms_document_template_id", null: false
+    t.string   "locale",                            null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "label"
+  end
+
+  add_index "momentum_cms_document_template_translations", ["locale"], name: "index_momentum_cms_document_template_translations_on_locale"
+  add_index "momentum_cms_document_template_translations", ["momentum_cms_document_template_id"], name: "index_a7a2a97a94f441271f764d8823c1ba87a8d296ad"
+
+  create_table "momentum_cms_document_templates", force: true do |t|
+    t.integer  "site_id"
+    t.string   "identifier"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "momentum_cms_document_templates", ["site_id"], name: "index_momentum_cms_document_templates_on_site_id"
+
+  create_table "momentum_cms_document_translations", force: true do |t|
+    t.integer  "momentum_cms_document_id", null: false
+    t.string   "locale",                   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "label"
+  end
+
+  add_index "momentum_cms_document_translations", ["locale"], name: "index_momentum_cms_document_translations_on_locale"
+  add_index "momentum_cms_document_translations", ["momentum_cms_document_id"], name: "index_de85ac2fea54df8b1afdbd7dbae66e1f0b624477"
+
+  create_table "momentum_cms_documents", force: true do |t|
+    t.integer  "document_template_id"
+    t.string   "identifier"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "momentum_cms_documents", ["document_template_id"], name: "index_momentum_cms_documents_on_document_template_id"
 
   create_table "momentum_cms_files", force: true do |t|
     t.string   "label"
@@ -147,6 +187,9 @@ ActiveRecord::Schema.define(version: 20140523161348) do
     t.string   "title"
     t.text     "available_locales"
     t.string   "default_locale"
+    t.boolean  "enable_advanced_features", default: false
+    t.string   "remote_fixture_type"
+    t.text     "remote_fixture_url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

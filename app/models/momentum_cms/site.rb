@@ -4,6 +4,13 @@ class MomentumCms::Site < ActiveRecord::Base
   self.table_name = 'momentum_cms_sites'
 
   # == Constants ============================================================
+
+  REMOTE_FIXTURE_TYPE = [
+    'http',
+    'ssh'
+  ].freeze
+
+
   # == Relationships ========================================================
 
   has_many :pages,
@@ -19,6 +26,9 @@ class MomentumCms::Site < ActiveRecord::Base
            dependent: :destroy
 
   has_many :menus,
+           dependent: :destroy
+
+  has_many :document_templates,
            dependent: :destroy
 
   # == Extensions ===========================================================
@@ -37,7 +47,8 @@ class MomentumCms::Site < ActiveRecord::Base
 
   before_validation :assign_identifier,
                     :assign_locales,
-                    :assign_title
+                    :assign_title,
+                    :assign_remote_fixture_type
 
   # == Class Methods ========================================================
   # == Instance Methods =====================================================
@@ -81,5 +92,16 @@ class MomentumCms::Site < ActiveRecord::Base
       self.title = 'MomentumCMS'
     end
     true
+  end
+
+  def assign_remote_fixture_type
+    if self.enable_advanced_features
+      if self.remote_fixture_type.empty?
+        #TODO - Determine the type based on the link given
+        # http://foobar
+        # https://foobar
+        # ssh://develop@bar
+      end
+    end
   end
 end

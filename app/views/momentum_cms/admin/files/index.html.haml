@@ -6,6 +6,7 @@
       %th.identifier Identifier
       %th Label
       %th Tag
+      %th Filename
       %th.control Control
   %tbody
     - @momentum_cms_files.each do |momentum_cms_file|
@@ -14,6 +15,7 @@
           .label.label-info= momentum_cms_file.identifier
         %td= link_to momentum_cms_file.label, edit_cms_admin_site_file_path(@current_momentum_cms_site, momentum_cms_file)
         %td= momentum_cms_file.tag
+        %td= momentum_cms_file.file_file_name
         %td= link_to 'Destroy', cms_admin_site_file_path(@current_momentum_cms_site, momentum_cms_file), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs'
 %br/
 = link_to 'New File', new_cms_admin_site_file_path(@current_momentum_cms_site), class: 'btn btn-primary btn-xs'
