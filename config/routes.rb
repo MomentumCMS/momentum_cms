@@ -5,6 +5,10 @@ Rails.application.routes.draw do
     namespace :momentum_cms, as: :cms_api, path: MomentumCms.configuration.api_mount_point do
       scope module: 'api' do
         resources :sessions, only: [:create, :destroy]
+        namespace :admin, as: :api_admin, path: '' do
+          resources :sites do
+          end
+        end
       end
     end
   end
