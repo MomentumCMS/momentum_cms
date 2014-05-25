@@ -52,7 +52,10 @@ class MomentumCms::Admin::DocumentsController < MomentumCms::Admin::BaseControll
 
   def build_moment_cms_document
     @momentum_cms_document = MomentumCms::Document.new(momentum_cms_document_params)
-    # @momentum_cms_document.site = @current_momentum_cms_site
+    @momentum_cms_document.document_template = @momentum_cms_document_template
+    @momentum_cms_document_template.field_templates.each do |field_template|
+      @momentum_cms_document.fields.build(field_template: field_template)
+    end
   end
 
   def momentum_cms_document_params

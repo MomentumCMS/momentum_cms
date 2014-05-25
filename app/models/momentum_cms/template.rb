@@ -1,7 +1,9 @@
 class MomentumCms::Template < ActiveRecord::Base
 
   # == MomentumCms ==========================================================
+
   include MomentumCms::BelongsToSite
+
   include MomentumCms::ActAsPermanentRecord
 
   self.table_name = 'momentum_cms_templates'
@@ -17,6 +19,8 @@ class MomentumCms::Template < ActiveRecord::Base
 
   # == Extensions ===========================================================
 
+  has_paper_trail
+
   has_ancestry
 
   # == Validations ==========================================================
@@ -26,17 +30,18 @@ class MomentumCms::Template < ActiveRecord::Base
   validates :label,
             presence: true
 
-
   validates :identifier,
             presence: true
 
   validates :identifier,
             uniqueness: { scope: :site_id }
 
-
   # == Scopes ===============================================================
 
-  scope :has_yield, -> { where(has_yield: true) }
+  scope :has_yield,
+        -> {
+          where(has_yield: true)
+        }
 
   # == Callbacks ============================================================
 
@@ -89,8 +94,6 @@ class MomentumCms::Template < ActiveRecord::Base
   def sync_block_identifiers
     if self.identifier_changed?
       to = self.identifier_change.last
-
-
     end
   end
 

@@ -1,4 +1,13 @@
 = form.input :label
 = form.input :identifier
+
+%hr
+
+.content-fields
+  = form.simple_fields_for :fields do |field_form|
+    -#- next unless @block_templates_identifiers.include?(block_form.object.identifier)
+    .momentum_cms_field
+      = render 'momentum_cms/admin/documents/partials/fields_fields', field_form: field_form
+      
 = form.submit class: 'btn btn-success btn-xs'
 = link_to 'Back', cms_admin_site_document_template_documents_path(@current_momentum_cms_site, @momentum_cms_document_template), class: 'btn btn-primary btn-xs'

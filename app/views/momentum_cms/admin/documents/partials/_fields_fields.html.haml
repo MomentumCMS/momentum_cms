@@ -1,0 +1,5 @@
+- if field_form.object.persisted?
+  = field_form.input :id, as: :hidden
+-#= field_form.input :identifier, as: :hidden
+= field_form.input :field_template_id, as: :hidden
+= field_form.input :value, label: field_form.object.field_template.identifier.titleize

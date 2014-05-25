@@ -3,7 +3,7 @@
 = form.input :host
 = form.input :title
 = form.input :available_locales, collection: I18n.available_locales.collect{ |l| [MomentumCms::Internationalization.lookup(l), l]}, prompt: 'Choose available locales', input_html: {multiple: true, include_blank: false}
-= form.input :default_locale, collection: I18n.available_locales, prompt: 'Choose a default locale', input_html: {include_blank: false}
+= form.input :default_locale, collection: I18n.available_locales.collect{ |l| [MomentumCms::Internationalization.lookup(l), l]}, prompt: 'Choose a default locale', input_html: {include_blank: false}
 
 = form.input :enable_advanced_features
 .site-advanced-features

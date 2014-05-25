@@ -1,5 +1,6 @@
 class MomentumCms::MenuItem < ActiveRecord::Base
   # == MomentumCms ==========================================================
+
   self.table_name = 'momentum_cms_menu_items'
 
   # == Constants ============================================================
@@ -18,6 +19,8 @@ class MomentumCms::MenuItem < ActiveRecord::Base
 
   # == Extensions ===========================================================
 
+  has_paper_trail
+
   has_ancestry
 
   # == Validations ==========================================================
@@ -32,9 +35,15 @@ class MomentumCms::MenuItem < ActiveRecord::Base
           where(menu_id: menu.id)
         }
 
-  scope :external, -> { where(menu_item_type: EXTERNAL) }
+  scope :external,
+        -> {
+          where(menu_item_type: EXTERNAL)
+        }
 
-  scope :internal, -> { where(menu_item_type: INTERNAL) }
+  scope :internal,
+        -> {
+          where(menu_item_type: INTERNAL)
+        }
 
   # == Callbacks ============================================================
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140525050946) do
+ActiveRecord::Schema.define(version: 20140525184268) do
 
   create_table "momentum_cms_block_templates", force: true do |t|
     t.integer  "template_id"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 20140525050946) do
   create_table "momentum_cms_document_templates", force: true do |t|
     t.integer  "site_id"
     t.string   "identifier"
+    t.string   "ancestry"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -85,6 +86,48 @@ ActiveRecord::Schema.define(version: 20140525050946) do
   end
 
   add_index "momentum_cms_documents", ["document_template_id"], name: "index_momentum_cms_documents_on_document_template_id"
+
+  create_table "momentum_cms_field_template_translations", force: true do |t|
+    t.integer  "momentum_cms_field_template_id", null: false
+    t.string   "locale",                         null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "label"
+  end
+
+  add_index "momentum_cms_field_template_translations", ["locale"], name: "index_momentum_cms_field_template_translations_on_locale"
+  add_index "momentum_cms_field_template_translations", ["momentum_cms_field_template_id"], name: "index_0476773c64ff1b030b685e0c382f95185c83776f"
+
+  create_table "momentum_cms_field_templates", force: true do |t|
+    t.integer  "document_template_id"
+    t.string   "identifier"
+    t.string   "field_value_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "momentum_cms_field_templates", ["document_template_id"], name: "index_momentum_cms_field_templates_on_document_template_id"
+
+  create_table "momentum_cms_field_translations", force: true do |t|
+    t.integer  "momentum_cms_field_id", null: false
+    t.string   "locale",                null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "value"
+  end
+
+  add_index "momentum_cms_field_translations", ["locale"], name: "index_momentum_cms_field_translations_on_locale"
+  add_index "momentum_cms_field_translations", ["momentum_cms_field_id"], name: "index_momentum_cms_field_translations_on_momentum_cms_field_id"
+
+  create_table "momentum_cms_fields", force: true do |t|
+    t.integer  "document_id"
+    t.integer  "field_template_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "momentum_cms_fields", ["document_id"], name: "index_momentum_cms_fields_on_document_id"
+  add_index "momentum_cms_fields", ["field_template_id"], name: "index_momentum_cms_fields_on_field_template_id"
 
   create_table "momentum_cms_files", force: true do |t|
     t.string   "label"

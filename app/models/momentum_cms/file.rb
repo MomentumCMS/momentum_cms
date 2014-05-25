@@ -1,5 +1,6 @@
 class MomentumCms::File < ActiveRecord::Base
   # == MomentumCms ==========================================================
+  
   include MomentumCms::BelongsToSite
 
   self.table_name = 'momentum_cms_files'
@@ -14,6 +15,8 @@ class MomentumCms::File < ActiveRecord::Base
              polymorphic: true
 
   # == Extensions ===========================================================
+
+  has_paper_trail
 
   has_attached_file :file,
                     styles: lambda { |i| i.instance.attachable_styles }

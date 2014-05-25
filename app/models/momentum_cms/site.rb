@@ -10,7 +10,6 @@ class MomentumCms::Site < ActiveRecord::Base
     'ssh'
   ].freeze
 
-
   # == Relationships ========================================================
 
   has_many :pages,
@@ -32,6 +31,9 @@ class MomentumCms::Site < ActiveRecord::Base
            dependent: :destroy
 
   # == Extensions ===========================================================
+  
+  has_paper_trail
+
   serialize :available_locales
 
   # == Validations ==========================================================
