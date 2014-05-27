@@ -1,7 +1,7 @@
 <div class="jumbotron">
       <div class="container">
-        <h1 class="animated fadeInDown">{% cms_block id:logo type:text_input %}</h1>
-        <h2 class="animated fadeInDown">{% cms_block id:header type:text_input %}</h2>
+        <h1 class="animated fadeInDown">{% cms_block id:logo type:string %}</h1>
+        <h2 class="animated fadeInDown">{% cms_block id:header type:string %}</h2>
       </div>
     </div>
 
@@ -10,16 +10,16 @@
       <div class="row text-center">
         <div class="col-md-4">
           <span class="glyphicon glyphicon-globe"></span>
-          {% cms_block id:feature-globe type:text_input %}
+          {% cms_block id:feature-globe type:string %}
         </div>
         <div class="col-md-4">
           <span class="glyphicon glyphicon-heart-empty"></span>
-          {% cms_block id:feature-heart-empty type:text_input %}
+          {% cms_block id:feature-heart-empty type:string %}
         </div>
         <div class="col-md-4">
           <span class="glyphicon glyphicon-cog"></span>
 
-          {% cms_block id:feature-cog type:text_input %}
+          {% cms_block id:feature-cog type:string %}
         </div>
       </div><!-- .row -->
 
@@ -30,12 +30,12 @@
       <div class="row">
 
         <div class="col-md-12">
-        {% cms_block id:future-cta type:text_input %}
+        {% cms_block id:future-cta type:string %}
 
         </div>
 
         <div class="col-md-12">
-          <pre style="max-height: 400px;" class="language-javascript"><code class="language-javascript">{% cms_block id:code type:text_input %}</code></pre>
+          <pre style="max-height: 400px;" class="language-javascript"><code class="language-javascript">{% cms_block id:code type:string %}</code></pre>
         </div>
       </div><!-- .row -->
 
