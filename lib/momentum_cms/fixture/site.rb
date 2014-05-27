@@ -19,6 +19,8 @@ module MomentumCms
             site.available_locales = @attributes['available_locales']
           end
           site.default_locale = @attributes['default_locale']
+          site.enable_advanced_features = !!@attributes['enable_advanced_features']
+          site.remote_fixture_url = @attributes['remote_fixture_url']
           site.save!
           site
         end
@@ -34,7 +36,9 @@ module MomentumCms
             host: @site.host,
             identifier: @site.identifier,
             available_locales: [@site.available_locales].flatten.compact,
-            default_locale: @site.default_locale
+            default_locale: @site.default_locale,
+            enable_advanced_features: !!@site.enable_advanced_features,
+            remote_fixture_url: @site.remote_fixture_url
           }
           MomentumCms::Fixture::Utils.write_json(::File.join(@export_path, 'attributes.json'), attributes)
         end

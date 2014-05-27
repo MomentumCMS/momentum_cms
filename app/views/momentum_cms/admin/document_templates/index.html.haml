@@ -12,6 +12,8 @@
         %td
           .label.label-info= momentum_cms_document_template.identifier
         %td= link_to momentum_cms_document_template.label, edit_cms_admin_site_document_template_path(@current_momentum_cms_site, momentum_cms_document_template)
-        %td= link_to 'Destroy', cms_admin_site_document_template_path(@current_momentum_cms_site, momentum_cms_document_template), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs'
+        %td
+          = link_to 'Document', cms_admin_site_documents_path(@current_momentum_cms_site, { type: momentum_cms_document_template.identifier}), class: 'btn btn-success btn-xs'
+          = link_to 'Destroy', cms_admin_site_document_template_path(@current_momentum_cms_site, momentum_cms_document_template), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs'
 %br/
 = link_to 'New Document Template', [:new, :cms, :admin, :site, :document_template], class: 'btn btn-primary btn-xs'

@@ -1,10 +1,11 @@
-%h1.page-header '#{@momentum_cms_document_template.label}' Documents
+%h1.page-header Documents
 
 %table.table
   %thead
     %tr
       %th.identifier Identifier
       %th Label
+      %th Document Template
       %th.control Control
   %tbody
     - @momentum_cms_documents.each do |momentum_cms_document|
@@ -12,6 +13,7 @@
         %td
           .label.label-info= momentum_cms_document.identifier
         %td= link_to momentum_cms_document.label, edit_cms_admin_site_document_template_document_path(@current_momentum_cms_site, @momentum_cms_document_template, momentum_cms_document)
+        %td= momentum_cms_document.document_template.label
         %td= link_to 'Destroy', cms_admin_site_document_template_path(@current_momentum_cms_site, @momentum_cms_document_template, momentum_cms_document), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs'
 %br/
-= link_to 'New Document', [:new, :cms, :admin, :site, :document_template, :document], class: 'btn btn-primary btn-xs'
+= link_to 'New Document', [:new, :cms, :admin, :site, :document], class: 'btn btn-primary btn-xs'

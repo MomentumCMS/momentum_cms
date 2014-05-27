@@ -1,6 +1,8 @@
 class MomentumCms::Document < ActiveRecord::Base
   # == MomentumCms ==========================================================
 
+  include MomentumCms::BelongsToSite
+
   self.table_name = 'momentum_cms_documents'
 
   # == Constants ============================================================
@@ -21,6 +23,10 @@ class MomentumCms::Document < ActiveRecord::Base
   translates :label, fallbacks_for_empty_translations: true, versioning: :paper_trail
 
   # == Validations ==========================================================
+
+  validates :document_template,
+            presence: true
+
   # == Scopes ===============================================================
   # == Callbacks ============================================================
   # == Class Methods ========================================================

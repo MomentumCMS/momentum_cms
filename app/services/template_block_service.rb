@@ -12,7 +12,6 @@ class TemplateBlockService
     @valid_template = nil
   end
 
-
   def create_or_update_block_templates_for_self!(delete_orphan = true)
     created_block_templates = []
     self.each_node do |node|
@@ -20,6 +19,14 @@ class TemplateBlockService
       block_template = MomentumCms::BlockTemplate.where(template: @template,
                                                         identifier: node.params['id']).first_or_create! do |o|
         o.block_value_type = node.params.fetch('type', nil)
+      end
+
+      MomentumCms::Fixture::Utils.each_locale_for_site(@template.site) do |locale|
+        label = node.params_get(locale.to_s)
+        if label
+          block_template.label = label
+          block_template.save
+        end
       end
       created_block_templates << block_template
     end

@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140527035765) do
+ActiveRecord::Schema.define(version: 20140527200546) do
+
+  create_table "momentum_cms_block_template_translations", force: true do |t|
+    t.integer  "momentum_cms_block_template_id", null: false
+    t.string   "locale",                         null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "label"
+  end
+
+  add_index "momentum_cms_block_template_translations", ["locale"], name: "index_momentum_cms_block_template_translations_on_locale"
+  add_index "momentum_cms_block_template_translations", ["momentum_cms_block_template_id"], name: "index_7d8345f3f68f4b0f664f39205fcbfea7bb7c7e47"
 
   create_table "momentum_cms_block_templates", force: true do |t|
     t.integer  "template_id"
@@ -80,12 +91,14 @@ ActiveRecord::Schema.define(version: 20140527035765) do
 
   create_table "momentum_cms_documents", force: true do |t|
     t.integer  "document_template_id"
+    t.integer  "site_id"
     t.string   "identifier"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "momentum_cms_documents", ["document_template_id"], name: "index_momentum_cms_documents_on_document_template_id"
+  add_index "momentum_cms_documents", ["site_id"], name: "index_momentum_cms_documents_on_site_id"
 
   create_table "momentum_cms_field_template_translations", force: true do |t|
     t.integer  "momentum_cms_field_template_id", null: false
@@ -122,6 +135,7 @@ ActiveRecord::Schema.define(version: 20140527035765) do
   create_table "momentum_cms_fields", force: true do |t|
     t.integer  "document_id"
     t.integer  "field_template_id"
+    t.string   "identifier"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

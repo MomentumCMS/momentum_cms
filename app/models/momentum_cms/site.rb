@@ -30,8 +30,11 @@ class MomentumCms::Site < ActiveRecord::Base
   has_many :document_templates,
            dependent: :destroy
 
+  has_many :documents,
+           dependent: :destroy
+
   # == Extensions ===========================================================
-  
+
   has_paper_trail
 
   serialize :available_locales
@@ -98,7 +101,7 @@ class MomentumCms::Site < ActiveRecord::Base
 
   def assign_remote_fixture_type
     if self.enable_advanced_features
-      if self.remote_fixture_type.empty?
+      if self.remote_fixture_type && self.remote_fixture_type.empty?
         #TODO - Determine the type based on the link given
         # http://foobar
         # https://foobar

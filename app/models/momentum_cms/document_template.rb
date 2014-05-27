@@ -23,6 +23,13 @@ class MomentumCms::DocumentTemplate < ActiveRecord::Base
   translates :label, fallbacks_for_empty_translations: true, versioning: :paper_trail
 
   # == Validations ==========================================================
+
+  validates :identifier,
+            presence: true
+
+  validates :identifier,
+            uniqueness: true
+  
   # == Scopes ===============================================================
   # == Callbacks ============================================================
   # == Class Methods ========================================================

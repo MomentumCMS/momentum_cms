@@ -1,5 +1,5 @@
-%h1.page-header New '#{@momentum_cms_document_template.label}' Document
+%h1.page-header New Document
 
-= simple_form_for @momentum_cms_document, url: {action: :create}  do |form|
-  = render partial: 'form', locals: { form: form } 
-
+.momentum-cms-document-view{data: {fields_url: momentum_fields_url}}
+  = simple_form_for @momentum_cms_document, url: {action: :create}  do |form|
+    = render partial: 'form', locals: { form: form } 

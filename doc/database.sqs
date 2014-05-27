@@ -253,7 +253,7 @@
         <labelColor><![CDATA[{1,0.151543,0.132288,0.8}]]></labelColor>
         <labelName><![CDATA[Translation]]></labelName>
         <labelUid><![CDATA[C0316F56-6F03-4070-BA02-2BFFD7285CD1]]></labelUid>
-        <labelWindowIndex><![CDATA[1]]></labelWindowIndex>
+        <labelWindowIndex><![CDATA[3]]></labelWindowIndex>
         <temporaryOriginalName><![CDATA[momentum_cms_field_translations]]></temporaryOriginalName>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
         <uid><![CDATA[518460A5-6692-4DD5-9010-7BD2FC8BC4DA]]></uid>
@@ -379,7 +379,7 @@
         <labelColor><![CDATA[{1,0.151543,0.132288,0.8}]]></labelColor>
         <labelName><![CDATA[Translation]]></labelName>
         <labelUid><![CDATA[C0316F56-6F03-4070-BA02-2BFFD7285CD1]]></labelUid>
-        <labelWindowIndex><![CDATA[1]]></labelWindowIndex>
+        <labelWindowIndex><![CDATA[2]]></labelWindowIndex>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
         <uid><![CDATA[5C61D7B6-DDAD-44A4-8485-E656C7B58E83]]></uid>
     </SQLTable>
@@ -872,7 +872,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>768.00</x>
-            <y>2112.00</y>
+            <y>2048.00</y>
         </location>
         <size>
             <width>320.00</width>
@@ -925,7 +925,7 @@
         <labelColor><![CDATA[{1,0.151543,0.132288,0.8}]]></labelColor>
         <labelName><![CDATA[Translation]]></labelName>
         <labelUid><![CDATA[C0316F56-6F03-4070-BA02-2BFFD7285CD1]]></labelUid>
-        <labelWindowIndex><![CDATA[0]]></labelWindowIndex>
+        <labelWindowIndex><![CDATA[1]]></labelWindowIndex>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
         <uid><![CDATA[A3BE6DEB-35F5-47A1-AB9E-1D9CB8E87952]]></uid>
     </SQLTable>
@@ -1029,7 +1029,7 @@
             <y>1856.00</y>
         </location>
         <size>
-            <width>256.00</width>
+            <width>320.00</width>
             <height>128.00</height>
         </size>
         <zorder>18</zorder>
@@ -1148,7 +1148,7 @@
         <labelColor><![CDATA[{1,0.151543,0.132288,0.8}]]></labelColor>
         <labelName><![CDATA[Translation]]></labelName>
         <labelUid><![CDATA[C0316F56-6F03-4070-BA02-2BFFD7285CD1]]></labelUid>
-        <labelWindowIndex><![CDATA[3]]></labelWindowIndex>
+        <labelWindowIndex><![CDATA[5]]></labelWindowIndex>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
         <uid><![CDATA[CBE4AAB3-30EE-4383-A5FE-5C0AE66888CA]]></uid>
     </SQLTable>
@@ -1517,7 +1517,7 @@ b21NYXJnaW6GkoSjnqiiNIaShJmZD05TU2NhbGluZ0ZhY3RvcoaShKOeqKIBhpKE
 mZkLTlNQYXBlck5hbWWGkoSZmQluYS1sZXR0ZXKGhoY=
 ]]></encodedPrintInfo>
         <autoSizeTablesOption><![CDATA[0]]></autoSizeTablesOption>
-        <documentScaleFactor><![CDATA[0.96]]></documentScaleFactor>
+        <documentScaleFactor><![CDATA[0.75]]></documentScaleFactor>
         <exportDialect><![CDATA[Rails]]></exportDialect>
         <fileversion><![CDATA[3.1]]></fileversion>
         <generator><![CDATA[com.malcolmhardie.sqleditor]]></generator>
@@ -1530,11 +1530,11 @@ mZkLTlNQYXBlck5hbWWGkoSZmQluYS1sZXR0ZXKGhoY=
         <snapToGrid><![CDATA[1]]></snapToGrid>
         <SourceSidebarWidth><![CDATA[276.000000]]></SourceSidebarWidth>
         <uid><![CDATA[E3DEB68C-6702-4C5F-BE44-94BE273C6FA2]]></uid>
-        <windowHeight><![CDATA[874.000000]]></windowHeight>
+        <windowHeight><![CDATA[1054.000000]]></windowHeight>
         <windowLocationX><![CDATA[0.000000]]></windowLocationX>
         <windowLocationY><![CDATA[4.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{609, 1760}]]></windowScrollOrigin>
-        <windowWidth><![CDATA[1440.000000]]></windowWidth>
+        <windowScrollOrigin><![CDATA[{208, 961}]]></windowScrollOrigin>
+        <windowWidth><![CDATA[1920.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>
     <containerName><![CDATA[model controller orginal container]]></containerName>
