@@ -10,6 +10,8 @@ MomentumCms.configure do |config|
   # Reload fixtures every request
   # config.site_fixtures_enabled = ['demo']
 
+  config.api_level = :full
+  
   if Rails.env.test?
     config.site_fixtures_enabled = false
     config.admin_authentication = MomentumCms::Authentication::NoAuthentication
