@@ -1,4 +1,4 @@
-class MomentumCms::Api::Admin::SitesController < MomentumCms::Api::BaseController
+class MomentumCms::Api::Admin::SitesController < MomentumCms::Api::Admin::BaseController
 
   def index
     @sites = MomentumCms::Site.all
@@ -10,10 +10,10 @@ class MomentumCms::Api::Admin::SitesController < MomentumCms::Api::BaseControlle
     @site.save!
     render json: @site
   rescue ActiveRecord::RecordInvalid
-    render json: {errors: @site.errors, status: 422}, status: 422
+    render json: { errors: @site.errors, status: 422 }, status: 422
   end
 
-private
+  private
 
   def site_params
     params.fetch(:site, {}).permit(:title,
