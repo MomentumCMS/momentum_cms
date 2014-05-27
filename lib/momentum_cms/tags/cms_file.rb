@@ -10,7 +10,7 @@ module MomentumCms
         file = MomentumCms::File.for_site(cms_site).where(identifier: id).first
         raise CmsTagError.new('File not found') unless file
 
-        file.file.url
+        file.file.url(:original, timestamp: false)
       rescue CmsTagError => e
         print_error_message(e, self, context, @params)
       end

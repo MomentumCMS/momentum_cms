@@ -9,17 +9,17 @@
           - if object.identifier.present?
             %li.list-group-item 
               %strong CMS Menu Tag:
-              {{ cms_tag id:#{object.identifier} }}
+              {% cms_tag id:#{object.identifier} %}
         - when MomentumCms::File
           - if object.identifier.present?
             %li.list-group-item 
               %strong CMS File Tag:
-              {{ cms_file id:#{object.identifier} }}
+              {% cms_file id:#{object.identifier} %}
         - when MomentumCms::Snippet
           - if object.identifier.present?
             %li.list-group-item 
               %strong CMS Snippet Tag:
-              {{ cms_snippet id:#{object.identifier} }}
+              {% cms_snippet id:#{object.identifier} %}
       - if object.respond_to?(:created_at) && object.created_at.present?
         %li.list-group-item 
           %strong Created At:

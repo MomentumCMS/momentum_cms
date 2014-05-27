@@ -1,6 +1,6 @@
 class MomentumCms::File < ActiveRecord::Base
   # == MomentumCms ==========================================================
-  
+
   include MomentumCms::BelongsToSite
 
   self.table_name = 'momentum_cms_files'
@@ -19,15 +19,17 @@ class MomentumCms::File < ActiveRecord::Base
   has_paper_trail
 
   has_attached_file :file,
-                    styles: lambda { |i| i.instance.attachable_styles }
+                    styles: lambda { |i| i.instance.attachable_styles } ,url: '/system/:class/:attachment/:id_partition/:style/:updated_at/:filename'
 
   before_post_process :is_image?
 
   # == Validations ==========================================================
 
-  validates :identifier, presence: true
+  validates :identifier,
+            presence: true
 
-  validates :identifier, uniqueness: true
+  validates :identifier,
+            uniqueness: true
 
   before_validation { self.file.clear if self.delete_file == '1' }
 
@@ -46,4 +48,6 @@ class MomentumCms::File < ActiveRecord::Base
   def is_image?
     ['image/jpeg', 'image/pjpeg', 'image/png', 'image/x-png', 'image/gif', 'image/jpg'].include?(self.file_content_type)
   end
+
+  protected
 end
