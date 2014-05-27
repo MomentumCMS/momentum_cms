@@ -7,6 +7,7 @@ Rails.application.routes.draw do
         resources :sessions, only: [:create, :destroy]
         namespace :admin, as: :api_admin, path: '' do
           resources :sites do
+            resources :pages
           end
         end
       end
