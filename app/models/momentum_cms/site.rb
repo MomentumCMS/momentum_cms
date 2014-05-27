@@ -66,6 +66,17 @@ class MomentumCms::Site < ActiveRecord::Base
     end
   end
 
+
+  def sync_remote!
+    if self.enable_advanced_features
+      if self.remote_fixture_url.present?
+        MomentumCms::RemoteFixture::Importer.new(source: self.remote_fixture_url, site: self).import!
+        self.last_remote_synced_at = DateTime.now
+        self.save!
+      end
+    end
+  end
+
   protected
 
   def locale_settings

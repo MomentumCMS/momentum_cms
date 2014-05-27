@@ -1,6 +1,6 @@
 class MomentumCms::Admin::SitesController < MomentumCms::Admin::BaseController
   skip_before_action :load_site, only: [:index, :new, :create, :edit, :update]
-  before_action :load_moment_cms_site, only: [:edit, :update, :destroy]
+  before_action :load_moment_cms_site, only: [:edit, :update, :destroy, :sync_remote]
   before_action :build_moment_cms_site, only: [:new, :create]
 
   def index
@@ -33,6 +33,16 @@ class MomentumCms::Admin::SitesController < MomentumCms::Admin::BaseController
     @momentum_cms_site.destroy
     flash[:success] = 'Site was successfully destroyed.'
     redirect_to action: :index
+  end
+
+
+  def sync_remote
+    if @momentum_cms_site.enable_advanced_features
+      @momentum_cms_site.sync_remote!
+      flash[:success] = 'Site was successfully synched with the remote fixture file.'
+    end
+    
+    redirect_to action: :edit
   end
 
   private

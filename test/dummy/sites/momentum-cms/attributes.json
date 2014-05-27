@@ -9,5 +9,5 @@
   ],
   "default_locale": "en",
   "enable_advanced_features": true,
-  "remote_fixture_url": ""
+  "remote_fixture_url": "https://rawgit.com/MomentumCMS/MomentumCMS.github.io/master/site-templates/basic/site.json"
 }

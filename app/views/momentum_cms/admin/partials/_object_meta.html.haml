@@ -20,6 +20,11 @@
             %li.list-group-item 
               %strong CMS Snippet Tag:
               {% cms_snippet id:#{object.identifier} %}
+
+      - if object.respond_to?(:last_remote_synced_at) && object.last_remote_synced_at.present?
+        %li.list-group-item 
+          %strong Last Synced At:
+          = object.last_remote_synced_at.strftime('%Y-%m-%d %I:%M %p')
       - if object.respond_to?(:created_at) && object.created_at.present?
         %li.list-group-item 
           %strong Created At:

@@ -14,6 +14,8 @@ class CreateMomentumCmsSites < ActiveRecord::Migration
       t.string :remote_fixture_type
       t.text :remote_fixture_url
 
+      t.datetime :last_remote_synced_at
+
       t.timestamps
     end
   end
