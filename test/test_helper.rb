@@ -4,6 +4,7 @@ ENV['RAILS_ENV'] = 'test'
 require 'codeclimate-test-reporter'
 require 'simplecov'
 require 'coveralls'
+require 'json'
 
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
   Coveralls::SimpleCov::Formatter,
@@ -39,4 +40,34 @@ class ActiveSupport::TestCase
     ActiveSupport::Notifications.unsubscribe(@counter.to_proc)
     assert_equal @counter.query_count, count, "Expected to execute in #{count} SQL statements, but used #{@counter.query_count}"
   end
+
+  def json_response
+    JSON.parse(response.body)
+  end
+
+  def setup_test_site
+    @site = momentum_cms_sites(:default)
+    @site.save!
+    @site.reload
+    @request.host = @site.host
+
+    @parent_template = momentum_cms_templates(:default)
+    @child_template = momentum_cms_templates(:child)
+    @child_template.parent = @parent_template
+    @child_template.save
+
+    @default_page = momentum_cms_pages(:default)
+    @default_page.slug = '/'
+    @default_page.site = @site
+    @default_page.save!
+    @default_page.reload
+
+    @child_page = momentum_cms_pages(:child)
+    @child_page.slug = 'child'
+    @child_page.site = @site
+    @child_page.parent = @parent_page
+    @child_page.save!
+    @child_page.reload
+  end
+
 end

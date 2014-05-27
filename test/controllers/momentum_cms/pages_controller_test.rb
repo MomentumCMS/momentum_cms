@@ -3,28 +3,7 @@ require_relative '../../test_helper'
 class MomentumCms::PagesControllerTest < ActionController::TestCase
 
   def setup
-    @site = momentum_cms_sites(:default)
-    @site.save!
-    @site.reload
-    @request.host = @site.host
-
-    @parent_template = momentum_cms_templates(:default)
-    @child_template = momentum_cms_templates(:child)
-    @child_template.parent = @parent_template
-    @child_template.save
-
-    @default_page = momentum_cms_pages(:default)
-    @default_page.slug = '/'
-    @default_page.site = @site
-    @default_page.save!
-    @default_page.reload
-
-    @child_page = momentum_cms_pages(:child)
-    @child_page.slug = 'child'
-    @child_page.site = @site
-    @child_page.parent = @parent_page
-    @child_page.save!
-    @child_page.reload
+    setup_test_site
   end
 
   def test_site_not_found

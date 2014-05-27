@@ -12,6 +12,7 @@ require 'liquid'
 require 'paperclip'
 require 'simple_form'
 require 'rails-i18n'
+require 'active_model_serializers'
 
 module MomentumCms
   class Engine < ::Rails::Engine

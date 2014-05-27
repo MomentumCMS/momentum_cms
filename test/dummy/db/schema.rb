@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140523161348) do
+ActiveRecord::Schema.define(version: 20140527172032) do
+
+  create_table "momentum_cms_api_keys", force: true do |t|
+    t.integer  "user_id"
+    t.string   "access_token"
+    t.string   "scope"
+    t.datetime "expired_at"
+    t.datetime "created_at"
+  end
+
+  add_index "momentum_cms_api_keys", ["access_token"], name: "index_momentum_cms_api_keys_on_access_token", unique: true
 
   create_table "momentum_cms_block_templates", force: true do |t|
     t.integer  "template_id"
