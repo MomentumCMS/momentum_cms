@@ -11,8 +11,6 @@
     %li= link_to 'Menus', [:cms, :admin, :site, :menus]
     - if @current_momentum_cms_site.enable_advanced_features
       %li= link_to 'Document Templates', [:cms, :admin, :site, :document_templates]
-      %li= link_to 'Field Templates', [:cms, :admin, :site, :document_templates]
-      %li= link_to 'Field Sets', [:cms, :admin, :site, :document_templates]
 
   - if @current_momentum_cms_site.enable_advanced_features
     %p

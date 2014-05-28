@@ -34,8 +34,8 @@ DocumentView = (function () {
     }
     var request = $.get(this.fieldsUrl(), reqData);
     request.then(function (res) {
-      $('.content-fields').empty();
-      $(res).find('.ajax-fields').appendTo('.content-fields');
+      $('.momentum-cms-fields').empty();
+      $(res).find('.ajax-fields').appendTo('.momentum-cms-fields');
     });
     request.fail(function (xhr) {
       alert('there was a problem loading the content fields');

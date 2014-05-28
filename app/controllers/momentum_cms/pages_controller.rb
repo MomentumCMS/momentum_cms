@@ -2,7 +2,7 @@ class MomentumCms::PagesController < MomentumCms::BaseController
   before_action :load_momentum_cms_page, only: [:show]
   before_action :load_momentum_cms_page_for_js_css, only: [:css, :js]
   before_action :prepare_templates
-  
+
   skip_before_action :verify_authenticity_token, only: [:js]
 
   def css
@@ -20,7 +20,8 @@ class MomentumCms::PagesController < MomentumCms::BaseController
       page = liquid.render(yield: page,
                            cms_template: template,
                            cms_site: @momentum_cms_site,
-                           cms_page: @momentum_cms_page)
+                           cms_page: @momentum_cms_page,
+                           'page' => MomentumCms::Drops::CmsPage.new(@momentum_cms_page))
     end
     render inline: page
   end

@@ -34,8 +34,8 @@ PageView = (function() {
     }
     var request = $.get(this.blocksUrl(), reqData);
     request.then(function(res) {
-      $('.content-fields').empty();
-      $(res).find('.ajax-fields').appendTo('.content-fields');
+      $('.momentum-cms-blocks').empty();
+      $(res).find('.ajax-fields').appendTo('.momentum-cms-blocks');
     });
     request.fail(function(xhr) {
       alert('there was a problem loading the content blocks');

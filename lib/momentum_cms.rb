@@ -20,6 +20,8 @@ require 'momentum_cms/tags/cms_snippet'
 require 'momentum_cms/tags/cms_breadcrumb'
 require 'momentum_cms/tags/cms_blank'
 
+require 'momentum_cms/drops/cms_page'
+
 require 'momentum_cms/fixture'
 require 'momentum_cms/fixture/base'
 require 'momentum_cms/fixture/utils'
