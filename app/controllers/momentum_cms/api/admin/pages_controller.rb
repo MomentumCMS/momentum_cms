@@ -1,4 +1,6 @@
-class MomentumCms::Api::Admin::PagesController < MomentumCms::Api::BaseController
+class MomentumCms::Api::Admin::PagesController < MomentumCms::Api::Admin::BaseController
+
+  before_action :load_site, only: [:index]
 
   def index
     @pages = @site.pages.all
@@ -21,6 +23,10 @@ private
                                    :label,
                                    :template_id,
                                    :site_id)
+  end
+
+  def load_site
+    @site = MomentumCms::Site.find(params[:site_id])
   end
 
 end

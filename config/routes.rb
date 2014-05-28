@@ -1,19 +1,57 @@
 Rails.application.routes.draw do
 
-  if MomentumCms.configuration.enable_api
-    match '*path' => 'momentum_cms/api/base#respond_to_options_request', constraints: {method: 'OPTIONS'}, via: [:options]
-    namespace :momentum_cms, as: :cms_api, path: MomentumCms.configuration.api_mount_point do
-      scope module: 'api' do
+  # if MomentumCms.configuration.api_level == :full
+  #   match '*path' => 'momentum_cms/api/base#respond_to_options_request', constraints: { method: 'OPTIONS' }, via: [:options]
+  #   namespace :momentum_cms, as: :cms, path: MomentumCms.configuration.api_mount_point do
+  #     namespace :api, as: :api, path: '' do
+  #       resources :sessions, only: [:create, :destroy]
+  #       namespace :admin, as: :api_admin, path: '' do
+  #         resources :sites
+  #         resources :pages
+  #         resources :templates
+  #       end
+  #     end
+  #   end
+  # else
+  #   namespace :momentum_cms, as: :cms, path: MomentumCms.configuration.api_mount_point do
+  #     namespace :api, as: :api, path: '' do
+  #       namespace :admin, as: :admin do
+  #         resources :sites do
+  #           resources :pages
+  #         end
+  #       end
+  #     end
+  #   end
+  # end
+
+if MomentumCms.configuration.api_level == :full
+    match '*path' => 'momentum_cms/api/base#respond_to_options_request', constraints: { method: 'OPTIONS' }, via: [:options]
+    namespace :momentum_cms, as: :cms, path: MomentumCms.configuration.api_mount_point do
+      namespace :api, as: :api, path: '' do
         resources :sessions, only: [:create, :destroy]
-        namespace :admin, as: :api_admin, path: '' do
+        namespace :admin, as: :admin do
           resources :sites
           resources :pages
           resources :templates
         end
       end
     end
+  else
+    namespace :momentum_cms, as: :cms, path: MomentumCms.configuration.api_mount_point do
+      namespace :api, as: :api, path: '' do
+        namespace :admin, as: :admin do
+          resources :sites do
+            resources :pages
+          end
+        end
+      end
+    end
   end
 
+
+
+
+  
   if MomentumCms.configuration.admin_panel_style == :html5
     namespace :momentum_cms, as: :cms, path: MomentumCms.configuration.admin_panel_mount_point do
       namespace :admin, as: :admin, except: :show, path: '' do

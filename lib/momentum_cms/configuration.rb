@@ -12,12 +12,19 @@ module MomentumCms
 
     attr_accessor :admin_authentication
 
+    attr_accessor :api_admin_authentication
+
+    attr_accessor :api_authentication
+
     # The style of the admin panel
     # Options here are:
     # nil - No admin panel will be present
     # :html5 - Simple HTML5 admin panel
     # :default - The default admin panel
     attr_accessor :admin_panel_style
+
+    #The location to mount the api
+    attr_accessor :api_mount_point
 
     # The location to mount the admin panel
     attr_accessor :admin_panel_mount_point
@@ -35,8 +42,11 @@ module MomentumCms
     # :http_basic - http_basic_auth
     attr_accessor :authentication_method
 
-    # A boolean value used to determine if the API should be enabled
-    attr_accessor :enable_api
+    # The amount of api end points to mount
+    # :minimal or :full
+    attr_accessor :api_level
+
+    attr_accessor :api_cors_header
 
     # Configuration defaults
     def initialize
@@ -50,6 +60,10 @@ module MomentumCms
       @admin_panel_mount_point = '/admin'
       @authentication_method = :default
       @admin_authentication = MomentumCms::Authentication::HttpAuthentication
+      @api_admin_authentication = MomentumCms::Authentication::ApiAuthentication
+      @api_authentication = MomentumCms::Authentication::NoAuthentication
+      @api_cors_header = MomentumCms::Api::CorsHeaders
+      @api_level = :minimal
     end
 
   end

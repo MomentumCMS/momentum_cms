@@ -10,7 +10,6 @@ class MomentumCms::Api::Admin::TemplatesControllerTest < ActionController::TestC
     get :index
     assert_response :success
     assert assigns(:templates)
-    puts @default_template.inspect
     assert_equal @default_template.label, json_response['templates'][1]['label']
     assert_equal @default_template.identifier, json_response['templates'][1]['identifier']
     assert_equal @default_template.css, json_response['templates'][1]['css']
@@ -48,14 +47,14 @@ class MomentumCms::Api::Admin::TemplatesControllerTest < ActionController::TestC
   end
 
   def test_create_failure
-    assert_no_difference "MomentumCms::Site.count" do
-      post :create, site: {}
+    assert_no_difference "MomentumCms::Template.count" do
+      post :create, template: {}
     end
     assert_response 422
-    assert assigns(:site)
     assert json_response['errors'].present?
     assert json_response['errors']['label'].present?
-    assert json_response['errors']['host'].present?
+    assert json_response['errors']['identifier'].present?
+    assert json_response['errors']['site_id'].present?
   end
 
 end
