@@ -22,4 +22,8 @@ class MomentumCms::BlockTemplate < ActiveRecord::Base
   # == Callbacks ============================================================
   # == Class Methods ========================================================
   # == Instance Methods =====================================================
+
+  def to_identifier
+    "#{self.template.identifier}::#{self.identifier}"
+  end
 end

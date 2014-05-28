@@ -7,12 +7,12 @@ class MomentumCms::FieldTemplate < ActiveRecord::Base
   # == Relationships ========================================================
 
   belongs_to :document_template
-  
+
   has_many :fields,
            dependent: :destroy
 
   # == Extensions ===========================================================
-  
+
   has_paper_trail
 
   translates :label, fallbacks_for_empty_translations: true, versioning: :paper_trail
@@ -22,4 +22,8 @@ class MomentumCms::FieldTemplate < ActiveRecord::Base
   # == Callbacks ============================================================
   # == Class Methods ========================================================
   # == Instance Methods =====================================================
+  
+  def to_identifier
+    "#{self.document_template.identifier}::#{self.identifier}"
+  end
 end

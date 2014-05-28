@@ -21,7 +21,7 @@
     - if @momentum_cms_document_templates
       %ul.nav.nav-sidebar
         - @momentum_cms_document_templates.each do |momentum_cms_document_template|
-          %li= link_to momentum_cms_document_template.label, cms_admin_site_documents_path(@current_momentum_cms_site, { type: momentum_cms_document_template.identifier })
+          %li= link_to momentum_cms_document_template.label, cms_admin_site_documents_path(@current_momentum_cms_site, { document_template: momentum_cms_document_template.identifier })
 
 - else
   %p 
