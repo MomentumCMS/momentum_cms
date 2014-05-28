@@ -5,10 +5,10 @@
 
 %hr
 
-.content-fields
+.momentum-cms-fields
   = form.simple_fields_for :fields do |field_form|
     - next unless @field_templates_identifiers.include?(field_form.object.identifier)
-    .momentum_cms_field
+    .momentum-cms-field
       = render 'momentum_cms/admin/documents/partials/fields_fields', field_form: field_form
       
 = form.submit class: 'btn btn-success btn-xs'
