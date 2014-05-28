@@ -4,7 +4,7 @@ module MomentumCms
       extend ActiveSupport::Concern
 
       included do
-        before_action :set_cors_headers
+        prepend_before_action :set_cors_headers
 
         def respond_to_options_request
           head(:ok) if request.request_method == 'OPTIONS'

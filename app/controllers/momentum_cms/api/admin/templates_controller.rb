@@ -1,4 +1,5 @@
-class MomentumCms::Api::Admin::TemplatesController < MomentumCms::Api::BaseController
+class MomentumCms::Api::Admin::TemplatesController < MomentumCms::Api::Admin::BaseController
+
 
   def index
     @templates = MomentumCms::Template.all
