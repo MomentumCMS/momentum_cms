@@ -20,11 +20,12 @@ class MomentumCms::Api::Admin::PagesControllerTest < ActionController::TestCase
   def test_create
     @template = momentum_cms_templates(:default)
     assert_difference "MomentumCms::Page.count" do
-      post :create, site_id: @default_site.id, page: {
+      post :create, page: {
         label: 'Api Page',
         identifier: 'api-page',
         slug: 'api-page',
-        template_id: @template.id
+        template_id: @template.id,
+        site_id: @default_site.id
       }
     end
     page = MomentumCms::Page.last
