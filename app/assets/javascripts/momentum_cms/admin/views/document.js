@@ -40,6 +40,9 @@ DocumentView = (function () {
     request.fail(function (xhr) {
       alert('there was a problem loading the content fields');
     });
+    request.complete(function(){
+      tinymce_init();
+    });
   };
 
   return DocumentView;

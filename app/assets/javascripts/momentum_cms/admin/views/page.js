@@ -40,6 +40,9 @@ PageView = (function() {
     request.fail(function(xhr) {
       alert('there was a problem loading the content blocks');
     });
+    request.complete(function(){
+      tinymce_init();
+    });
   };
 
   return PageView;

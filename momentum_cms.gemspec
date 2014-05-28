@@ -37,4 +37,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'simple_form',              '~> 3.1.0.rc1'
   s.add_dependency 'liquid',                   '~> 2.6.1'
   s.add_dependency 'active_model_serializers', '~> 0.8.1'
+  s.add_dependency 'tinymce-rails',            '~> 4.0.26'
 end

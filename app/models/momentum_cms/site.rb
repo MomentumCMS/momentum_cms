@@ -66,7 +66,6 @@ class MomentumCms::Site < ActiveRecord::Base
     end
   end
 
-
   def sync_remote!
     if self.enable_advanced_features
       if self.remote_fixture_url.present?

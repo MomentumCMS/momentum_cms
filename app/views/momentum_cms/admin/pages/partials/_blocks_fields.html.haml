@@ -7,5 +7,6 @@
 - label = block_template.label || block_form.object.identifier.titleize
 - as = :string
 - as = :text if ['rich-text', 'plain-text'].include?(block_template.block_value_type)
-
-= block_form.input :value, label: label, as: as
+- css_class = nil
+- css_class = 'tinymce' if ['rich-text'].include?(block_template.block_value_type)
+= block_form.input :value, label: label, as: as, input_html: { class: css_class }
