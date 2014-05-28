@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140527172032) do
+ActiveRecord::Schema.define(version: 20140527215046) do
 
   create_table "momentum_cms_api_keys", force: true do |t|
     t.integer  "user_id"
@@ -22,6 +22,17 @@ ActiveRecord::Schema.define(version: 20140527172032) do
   end
 
   add_index "momentum_cms_api_keys", ["access_token"], name: "index_momentum_cms_api_keys_on_access_token", unique: true
+
+  create_table "momentum_cms_block_template_translations", force: true do |t|
+    t.integer  "momentum_cms_block_template_id", null: false
+    t.string   "locale",                         null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "label"
+  end
+
+  add_index "momentum_cms_block_template_translations", ["locale"], name: "index_momentum_cms_block_template_translations_on_locale"
+  add_index "momentum_cms_block_template_translations", ["momentum_cms_block_template_id"], name: "index_7d8345f3f68f4b0f664f39205fcbfea7bb7c7e47"
 
   create_table "momentum_cms_block_templates", force: true do |t|
     t.integer  "template_id"
@@ -55,6 +66,92 @@ ActiveRecord::Schema.define(version: 20140527172032) do
 
   add_index "momentum_cms_blocks", ["block_template_id"], name: "index_momentum_cms_blocks_on_block_template_id"
   add_index "momentum_cms_blocks", ["page_id"], name: "index_momentum_cms_blocks_on_page_id"
+
+  create_table "momentum_cms_document_template_translations", force: true do |t|
+    t.integer  "momentum_cms_document_template_id", null: false
+    t.string   "locale",                            null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "label"
+  end
+
+  add_index "momentum_cms_document_template_translations", ["locale"], name: "index_momentum_cms_document_template_translations_on_locale"
+  add_index "momentum_cms_document_template_translations", ["momentum_cms_document_template_id"], name: "index_a7a2a97a94f441271f764d8823c1ba87a8d296ad"
+
+  create_table "momentum_cms_document_templates", force: true do |t|
+    t.integer  "site_id"
+    t.string   "identifier"
+    t.string   "ancestry"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "momentum_cms_document_templates", ["site_id"], name: "index_momentum_cms_document_templates_on_site_id"
+
+  create_table "momentum_cms_document_translations", force: true do |t|
+    t.integer  "momentum_cms_document_id", null: false
+    t.string   "locale",                   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "label"
+  end
+
+  add_index "momentum_cms_document_translations", ["locale"], name: "index_momentum_cms_document_translations_on_locale"
+  add_index "momentum_cms_document_translations", ["momentum_cms_document_id"], name: "index_de85ac2fea54df8b1afdbd7dbae66e1f0b624477"
+
+  create_table "momentum_cms_documents", force: true do |t|
+    t.integer  "document_template_id"
+    t.integer  "site_id"
+    t.string   "identifier"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "momentum_cms_documents", ["document_template_id"], name: "index_momentum_cms_documents_on_document_template_id"
+  add_index "momentum_cms_documents", ["site_id"], name: "index_momentum_cms_documents_on_site_id"
+
+  create_table "momentum_cms_field_template_translations", force: true do |t|
+    t.integer  "momentum_cms_field_template_id", null: false
+    t.string   "locale",                         null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "label"
+  end
+
+  add_index "momentum_cms_field_template_translations", ["locale"], name: "index_momentum_cms_field_template_translations_on_locale"
+  add_index "momentum_cms_field_template_translations", ["momentum_cms_field_template_id"], name: "index_0476773c64ff1b030b685e0c382f95185c83776f"
+
+  create_table "momentum_cms_field_templates", force: true do |t|
+    t.integer  "document_template_id"
+    t.string   "identifier"
+    t.string   "field_value_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "momentum_cms_field_templates", ["document_template_id"], name: "index_momentum_cms_field_templates_on_document_template_id"
+
+  create_table "momentum_cms_field_translations", force: true do |t|
+    t.integer  "momentum_cms_field_id", null: false
+    t.string   "locale",                null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "value"
+  end
+
+  add_index "momentum_cms_field_translations", ["locale"], name: "index_momentum_cms_field_translations_on_locale"
+  add_index "momentum_cms_field_translations", ["momentum_cms_field_id"], name: "index_momentum_cms_field_translations_on_momentum_cms_field_id"
+
+  create_table "momentum_cms_fields", force: true do |t|
+    t.integer  "document_id"
+    t.integer  "field_template_id"
+    t.string   "identifier"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "momentum_cms_fields", ["document_id"], name: "index_momentum_cms_fields_on_document_id"
+  add_index "momentum_cms_fields", ["field_template_id"], name: "index_momentum_cms_fields_on_field_template_id"
 
   create_table "momentum_cms_files", force: true do |t|
     t.string   "label"
@@ -157,6 +254,10 @@ ActiveRecord::Schema.define(version: 20140527172032) do
     t.string   "title"
     t.text     "available_locales"
     t.string   "default_locale"
+    t.boolean  "enable_advanced_features", default: false
+    t.string   "remote_fixture_type"
+    t.text     "remote_fixture_url"
+    t.datetime "last_remote_synced_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -56,5 +56,10 @@ module MomentumCms::AdminHelper
     site ||= @current_momentum_cms_site
     blocks_cms_admin_site_pages_path(site)
   end
+  
+  def momentum_fields_url(site = nil)
+    site ||= @current_momentum_cms_site
+    fields_cms_admin_site_documents_path(site)
+  end
 
 end

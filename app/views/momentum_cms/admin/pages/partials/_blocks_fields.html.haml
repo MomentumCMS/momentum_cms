@@ -2,4 +2,11 @@
   = block_form.input :id, as: :hidden
 = block_form.input :identifier, as: :hidden
 = block_form.input :block_template_id, as: :hidden
-= block_form.input :value, label: block_form.object.identifier.titleize
+
+- block_template = block_form.object.block_template
+- label = block_template.label || block_form.object.identifier.titleize
+- as = :string
+- as = :text if ['rich-text', 'plain-text'].include?(block_template.block_value_type)
+- css_class = nil
+- css_class = 'tinymce' if ['rich-text'].include?(block_template.block_value_type)
+= block_form.input :value, label: label, as: as, input_html: { class: css_class }

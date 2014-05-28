@@ -1,6 +1,8 @@
 class MomentumCms::Menu < ActiveRecord::Base
   # == MomentumCms ==========================================================
+  
   include MomentumCms::BelongsToSite
+  
   self.table_name = 'momentum_cms_menus'
 
   # == Constants ============================================================
@@ -12,6 +14,9 @@ class MomentumCms::Menu < ActiveRecord::Base
   attr_accessor :menu_json
 
   # == Extensions ===========================================================
+
+  has_paper_trail
+
   # == Validations ==========================================================
 
   validates :label,

@@ -9,6 +9,20 @@
     %li= link_to 'Snippets', [:cms, :admin, :site, :snippets]
     %li= link_to 'Files', [:cms, :admin, :site, :files]
     %li= link_to 'Menus', [:cms, :admin, :site, :menus]
+    - if @current_momentum_cms_site.enable_advanced_features
+      %li= link_to 'Document Templates', [:cms, :admin, :site, :document_templates]
+      %li= link_to 'Field Templates', [:cms, :admin, :site, :document_templates]
+      %li= link_to 'Field Sets', [:cms, :admin, :site, :document_templates]
+
+  - if @current_momentum_cms_site.enable_advanced_features
+    %p
+      %strong
+        Documents
+    - if @momentum_cms_document_templates
+      %ul.nav.nav-sidebar
+        - @momentum_cms_document_templates.each do |momentum_cms_document_template|
+          %li= link_to momentum_cms_document_template.label, cms_admin_site_documents_path(@current_momentum_cms_site, { document_template: momentum_cms_document_template.identifier })
+
 - else
   %p 
     %strong

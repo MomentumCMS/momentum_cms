@@ -1,3 +1,5 @@
 <% @template_array.each do |template|%>
 <%= template.js.html_safe %>
+
+<%= Liquid::Template.parse(template.js).render %>
 <% end %>

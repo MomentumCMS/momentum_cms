@@ -15,7 +15,7 @@ class CmsFileTest < ActiveSupport::TestCase
     template = Liquid::Template.parse(text)
     tag = template.root.nodelist.detect { |t| t.params['id'] == @file.identifier }
     assert_equal @file.identifier, tag.params['id']
-    assert_equal @file.file.url, template.render(cms_site: @site)
+    assert_equal @file.file.url(:original, timestamp: false), template.render(cms_site: @site)
 
     text = '{% cms_file %}'
     template = Liquid::Template.parse(text)

@@ -1,5 +1,6 @@
 class MomentumCms::Page < ActiveRecord::Base
   # == MomentumCms ==========================================================
+  
   include MomentumCms::BelongsToSite
 
   self.table_name = 'momentum_cms_pages'
@@ -13,12 +14,14 @@ class MomentumCms::Page < ActiveRecord::Base
            inverse_of: :page,
            dependent: :destroy
 
-
   accepts_nested_attributes_for :blocks
 
   # == Extensions ===========================================================
+  
+  has_paper_trail
 
   has_ancestry
+  
   translates :label, :slug, :path, fallbacks_for_empty_translations: true
 
   # == Validations ==========================================================

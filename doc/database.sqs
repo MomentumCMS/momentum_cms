@@ -4,14 +4,14 @@
         <name><![CDATA[momentum_cms_snippet_translations]]></name>
         <schema><![CDATA[]]></schema>
         <location>
-            <x>768.00</x>
-            <y>1216.00</y>
+            <x>2944.00</x>
+            <y>960.00</y>
         </location>
         <size>
             <width>256.00</width>
             <height>192.00</height>
         </size>
-        <zorder>12</zorder>
+        <zorder>10</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[INTEGER]]></type>
@@ -59,7 +59,7 @@
         <labelColor><![CDATA[{1,0.151543,0.132288,0.8}]]></labelColor>
         <labelName><![CDATA[Translation]]></labelName>
         <labelUid><![CDATA[C0316F56-6F03-4070-BA02-2BFFD7285CD1]]></labelUid>
-        <labelWindowIndex><![CDATA[2]]></labelWindowIndex>
+        <labelWindowIndex><![CDATA[0]]></labelWindowIndex>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
         <uid><![CDATA[2935F660-3A73-43E3-9E4D-77D6AB807A0C]]></uid>
     </SQLTable>
@@ -67,8 +67,8 @@
         <name><![CDATA[momentum_cms_sites]]></name>
         <schema><![CDATA[]]></schema>
         <location>
-            <x>0.00</x>
-            <y>640.00</y>
+            <x>2176.00</x>
+            <y>1536.00</y>
         </location>
         <size>
             <width>256.00</width>
@@ -123,85 +123,22 @@
             <uid><![CDATA[E8E18603-9A7F-4D65-9918-EA48C2077746]]></uid>
         </SQLField>
         <hidden><![CDATA[0]]></hidden>
-        <labelWindowIndex><![CDATA[10]]></labelWindowIndex>
+        <labelWindowIndex><![CDATA[13]]></labelWindowIndex>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
         <uid><![CDATA[3F342478-CFE5-4F47-B600-5B595B4D960F]]></uid>
-    </SQLTable>
-    <SQLTable>
-        <name><![CDATA[momentum_cms_content_translations]]></name>
-        <schema><![CDATA[]]></schema>
-        <location>
-            <x>1536.00</x>
-            <y>704.00</y>
-        </location>
-        <size>
-            <width>256.00</width>
-            <height>140.00</height>
-        </size>
-        <zorder>5</zorder>
-        <SQLField>
-            <name><![CDATA[id]]></name>
-            <type><![CDATA[INTEGER]]></type>
-            <primaryKey>1</primaryKey>
-            <uid><![CDATA[94FDFFB3-4AE5-4140-BA67-95301F0C5AFE]]></uid>
-        </SQLField>
-        <SQLField>
-            <name><![CDATA[momentum_cms_content_id]]></name>
-            <type><![CDATA[integer]]></type>
-            <referencesField>id</referencesField>
-            <referencesTable>momentum_cms_contents</referencesTable>
-            <referencesField><![CDATA[id]]></referencesField>
-            <referencesTable><![CDATA[momentum_cms_contents]]></referencesTable>
-            <sourceCardinality>0</sourceCardinality>
-            <destinationCardinality>0</destinationCardinality>
-            <referencesFieldUID><![CDATA[227FD81D-13D5-492F-B507-7EF82F08E104]]></referencesFieldUID>
-            <referencesTableUID><![CDATA[C85ACAA2-CC8A-45D5-A3F7-194CB35D7D10]]></referencesTableUID>
-            <indexed><![CDATA[1]]></indexed>
-            <indexedKeyName><![CDATA[index_f568390e5943e526d13e1fe618dba0f7bd86e30f]]></indexedKeyName>
-            <uid><![CDATA[3AC4F7D5-E3F6-42BE-9BE0-C44A05307B49]]></uid>
-        </SQLField>
-        <SQLField>
-            <name><![CDATA[locale]]></name>
-            <type><![CDATA[varchar(255)]]></type>
-            <indexed><![CDATA[1]]></indexed>
-            <indexedKeyName><![CDATA[index_momentum_cms_content_translations_on_locale]]></indexedKeyName>
-            <uid><![CDATA[8F51901C-B1AE-4441-ABC4-3190F046AA7E]]></uid>
-        </SQLField>
-        <SQLField>
-            <name><![CDATA[created_at]]></name>
-            <type><![CDATA[datetime]]></type>
-            <uid><![CDATA[3EDCAE7B-E884-4D55-9674-CADA2B89D074]]></uid>
-        </SQLField>
-        <SQLField>
-            <name><![CDATA[updated_at]]></name>
-            <type><![CDATA[datetime]]></type>
-            <uid><![CDATA[96529484-3EC6-4C89-931B-BFD030DE0124]]></uid>
-        </SQLField>
-        <SQLField>
-            <name><![CDATA[label]]></name>
-            <type><![CDATA[varchar(255)]]></type>
-            <uid><![CDATA[0BB6EBEF-4F91-4F2C-A5CA-651479A4E562]]></uid>
-        </SQLField>
-        <hidden><![CDATA[0]]></hidden>
-        <labelColor><![CDATA[{1,0.151543,0.132288,0.8}]]></labelColor>
-        <labelName><![CDATA[Translation]]></labelName>
-        <labelUid><![CDATA[C0316F56-6F03-4070-BA02-2BFFD7285CD1]]></labelUid>
-        <labelWindowIndex><![CDATA[8]]></labelWindowIndex>
-        <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
-        <uid><![CDATA[3FA29FD5-07F3-4D2B-A53C-95ECE1038125]]></uid>
     </SQLTable>
     <SQLTable>
         <name><![CDATA[momentum_cms_menu_items]]></name>
         <schema><![CDATA[]]></schema>
         <location>
-            <x>768.00</x>
-            <y>64.00</y>
+            <x>2944.00</x>
+            <y>1856.00</y>
         </location>
         <size>
             <width>256.00</width>
             <height>192.00</height>
         </size>
-        <zorder>14</zorder>
+        <zorder>12</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[INTEGER]]></type>
@@ -254,22 +191,147 @@
             <uid><![CDATA[219CD642-6533-49E1-8039-7F21AEBB38C2]]></uid>
         </SQLField>
         <hidden><![CDATA[0]]></hidden>
-        <labelWindowIndex><![CDATA[0]]></labelWindowIndex>
+        <labelWindowIndex><![CDATA[1]]></labelWindowIndex>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
         <uid><![CDATA[44C8D753-C4A3-4B7E-A4C6-498D86F80E36]]></uid>
+    </SQLTable>
+    <SQLTable>
+        <name><![CDATA[momentum_cms_field_translations]]></name>
+        <schema><![CDATA[]]></schema>
+        <location>
+            <x>384.00</x>
+            <y>1856.00</y>
+        </location>
+        <size>
+            <width>256.00</width>
+            <height>192.00</height>
+        </size>
+        <zorder>19</zorder>
+        <SQLField>
+            <name><![CDATA[id]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <primaryKey>1</primaryKey>
+            <uid><![CDATA[C3FEC260-78C8-4BDE-81DF-C03CA50B6FD9]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[momentum_cms_field_id]]></name>
+            <type><![CDATA[integer]]></type>
+            <referencesField>id</referencesField>
+            <referencesTable>momentum_cms_fields</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[momentum_cms_fields]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[1F46D23A-F053-4106-96BB-0CC54DF65D5C]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[C4B8E21D-9D33-4DB0-A7F2-0C716080A6FF]]></referencesTableUID>
+            <indexed><![CDATA[1]]></indexed>
+            <indexedKeyName><![CDATA[index_momentum_cms_field_translations_on_momentum_cms_field_id]]></indexedKeyName>
+            <uid><![CDATA[7C61629A-471C-4DFE-B848-B13A2D6CC07A]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[locale]]></name>
+            <type><![CDATA[varchar(255)]]></type>
+            <indexed><![CDATA[1]]></indexed>
+            <indexedKeyName><![CDATA[index_momentum_cms_field_translations_on_locale]]></indexedKeyName>
+            <uid><![CDATA[CA2FEE15-473E-422A-8E27-63010399EA42]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[created_at]]></name>
+            <type><![CDATA[datetime]]></type>
+            <uid><![CDATA[C95726D5-32D6-490E-B80C-9134379096E1]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[updated_at]]></name>
+            <type><![CDATA[datetime]]></type>
+            <uid><![CDATA[D1020D9A-E6F2-4A91-804D-B24C0C21294A]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[value]]></name>
+            <type><![CDATA[text]]></type>
+            <uid><![CDATA[77E82F48-A750-4D6D-9C48-B35E6648319F]]></uid>
+        </SQLField>
+        <labelColor><![CDATA[{1,0.151543,0.132288,0.8}]]></labelColor>
+        <labelName><![CDATA[Translation]]></labelName>
+        <labelUid><![CDATA[C0316F56-6F03-4070-BA02-2BFFD7285CD1]]></labelUid>
+        <labelWindowIndex><![CDATA[3]]></labelWindowIndex>
+        <temporaryOriginalName><![CDATA[momentum_cms_field_translations]]></temporaryOriginalName>
+        <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
+        <uid><![CDATA[518460A5-6692-4DD5-9010-7BD2FC8BC4DA]]></uid>
+    </SQLTable>
+    <SQLTable>
+        <name><![CDATA[momentum_cms_document_translations]]></name>
+        <schema><![CDATA[]]></schema>
+        <location>
+            <x>768.00</x>
+            <y>1600.00</y>
+        </location>
+        <size>
+            <width>320.00</width>
+            <height>192.00</height>
+        </size>
+        <zorder>16</zorder>
+        <SQLField>
+            <name><![CDATA[id]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <primaryKey>1</primaryKey>
+            <uid><![CDATA[662BA439-EB5B-485F-A4FF-C304F87A00A0]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[momentum_cms_document_id]]></name>
+            <type><![CDATA[integer]]></type>
+            <referencesField>id</referencesField>
+            <referencesTable>momentum_cms_documents</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[momentum_cms_documents]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[BD313208-7EE9-40CD-874C-CB29F018F6F1]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[DB820BEE-C41B-4350-9201-37367E10AADC]]></referencesTableUID>
+            <indexed><![CDATA[1]]></indexed>
+            <indexedKeyName><![CDATA[index_de85ac2fea54df8b1afdbd7dbae66e1f0b624477]]></indexedKeyName>
+            <uid><![CDATA[C9334C3A-9CD9-4F36-9449-9FBC37A03BA7]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[locale]]></name>
+            <type><![CDATA[varchar(255)]]></type>
+            <indexed><![CDATA[1]]></indexed>
+            <indexedKeyName><![CDATA[index_momentum_cms_document_translations_on_locale]]></indexedKeyName>
+            <uid><![CDATA[41D40073-61B4-410F-A7C8-352411CD1AB1]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[created_at]]></name>
+            <type><![CDATA[datetime]]></type>
+            <uid><![CDATA[9CB30E9B-99B6-4E21-AA52-C0AB0B1ED0A4]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[updated_at]]></name>
+            <type><![CDATA[datetime]]></type>
+            <uid><![CDATA[EC90AF89-D0A1-40DD-A553-4FEE4187AE31]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[label]]></name>
+            <type><![CDATA[varchar(255)]]></type>
+            <uid><![CDATA[7C4DEAF0-E7F7-41F3-B18B-06054413A259]]></uid>
+        </SQLField>
+        <labelColor><![CDATA[{1,0.151543,0.132288,0.8}]]></labelColor>
+        <labelName><![CDATA[Translation]]></labelName>
+        <labelUid><![CDATA[C0316F56-6F03-4070-BA02-2BFFD7285CD1]]></labelUid>
+        <labelWindowIndex><![CDATA[6]]></labelWindowIndex>
+        <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
+        <uid><![CDATA[58311985-7EB5-4BB5-98A7-6544775822F4]]></uid>
     </SQLTable>
     <SQLTable>
         <name><![CDATA[momentum_cms_block_translations]]></name>
         <schema><![CDATA[]]></schema>
         <location>
-            <x>1920.00</x>
-            <y>960.00</y>
+            <x>3712.00</x>
+            <y>1472.00</y>
         </location>
         <size>
             <width>256.00</width>
             <height>140.00</height>
         </size>
-        <zorder>10</zorder>
+        <zorder>8</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[INTEGER]]></type>
@@ -317,7 +379,7 @@
         <labelColor><![CDATA[{1,0.151543,0.132288,0.8}]]></labelColor>
         <labelName><![CDATA[Translation]]></labelName>
         <labelUid><![CDATA[C0316F56-6F03-4070-BA02-2BFFD7285CD1]]></labelUid>
-        <labelWindowIndex><![CDATA[4]]></labelWindowIndex>
+        <labelWindowIndex><![CDATA[2]]></labelWindowIndex>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
         <uid><![CDATA[5C61D7B6-DDAD-44A4-8485-E656C7B58E83]]></uid>
     </SQLTable>
@@ -325,14 +387,14 @@
         <name><![CDATA[momentum_cms_block_templates]]></name>
         <schema><![CDATA[]]></schema>
         <location>
-            <x>768.00</x>
-            <y>960.00</y>
+            <x>2944.00</x>
+            <y>1536.00</y>
         </location>
         <size>
             <width>256.00</width>
             <height>192.00</height>
         </size>
-        <zorder>8</zorder>
+        <zorder>6</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[INTEGER]]></type>
@@ -381,7 +443,7 @@
             <uid><![CDATA[76E80BB5-1C6F-4FC1-85B5-DE52B1DC9783]]></uid>
         </SQLField>
         <hidden><![CDATA[0]]></hidden>
-        <labelWindowIndex><![CDATA[4]]></labelWindowIndex>
+        <labelWindowIndex><![CDATA[8]]></labelWindowIndex>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
         <uid><![CDATA[6EA6075D-6366-4CDA-8EC8-31935F6ADFBA]]></uid>
     </SQLTable>
@@ -389,8 +451,8 @@
         <name><![CDATA[momentum_cms_pages]]></name>
         <schema><![CDATA[]]></schema>
         <location>
-            <x>768.00</x>
-            <y>640.00</y>
+            <x>2944.00</x>
+            <y>1216.00</y>
         </location>
         <size>
             <width>256.00</width>
@@ -445,19 +507,6 @@
             <uid><![CDATA[A9913499-F5F1-4545-9D10-1FF52287C2FA]]></uid>
         </SQLField>
         <SQLField>
-            <name><![CDATA[published_content_id]]></name>
-            <type><![CDATA[integer]]></type>
-            <referencesField>id</referencesField>
-            <referencesTable>momentum_cms_contents</referencesTable>
-            <referencesField><![CDATA[id]]></referencesField>
-            <referencesTable><![CDATA[momentum_cms_contents]]></referencesTable>
-            <sourceCardinality>0</sourceCardinality>
-            <destinationCardinality>0</destinationCardinality>
-            <referencesFieldUID><![CDATA[227FD81D-13D5-492F-B507-7EF82F08E104]]></referencesFieldUID>
-            <referencesTableUID><![CDATA[C85ACAA2-CC8A-45D5-A3F7-194CB35D7D10]]></referencesTableUID>
-            <uid><![CDATA[ADA50C30-A421-4071-909B-C8DE274A7A94]]></uid>
-        </SQLField>
-        <SQLField>
             <name><![CDATA[ancestry]]></name>
             <type><![CDATA[varchar(255)]]></type>
             <uid><![CDATA[7C17AC6E-BB34-419E-BEA4-047CCD6B1C35]]></uid>
@@ -473,7 +522,7 @@
             <uid><![CDATA[0CC3AA27-B546-4677-9A2C-46251198E74A]]></uid>
         </SQLField>
         <hidden><![CDATA[0]]></hidden>
-        <labelWindowIndex><![CDATA[8]]></labelWindowIndex>
+        <labelWindowIndex><![CDATA[11]]></labelWindowIndex>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
         <uid><![CDATA[709BFC77-9530-42FD-B825-5F40C7E1168E]]></uid>
     </SQLTable>
@@ -481,14 +530,14 @@
         <name><![CDATA[momentum_cms_blocks]]></name>
         <schema><![CDATA[]]></schema>
         <location>
-            <x>1536.00</x>
-            <y>896.00</y>
+            <x>3328.00</x>
+            <y>1472.00</y>
         </location>
         <size>
             <width>256.00</width>
             <height>192.00</height>
         </size>
-        <zorder>9</zorder>
+        <zorder>7</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[INTEGER]]></type>
@@ -497,18 +546,19 @@
             <uid><![CDATA[DC3AD396-6332-45AC-AE29-3DFC7CFB4735]]></uid>
         </SQLField>
         <SQLField>
-            <name><![CDATA[content_id]]></name>
+            <name><![CDATA[page_id]]></name>
             <type><![CDATA[integer]]></type>
             <referencesField>id</referencesField>
-            <referencesTable>momentum_cms_contents</referencesTable>
+            <referencesTable>momentum_cms_pages</referencesTable>
             <referencesField><![CDATA[id]]></referencesField>
-            <referencesTable><![CDATA[momentum_cms_contents]]></referencesTable>
+            <referencesTable><![CDATA[momentum_cms_pages]]></referencesTable>
             <sourceCardinality>0</sourceCardinality>
             <destinationCardinality>0</destinationCardinality>
-            <referencesFieldUID><![CDATA[227FD81D-13D5-492F-B507-7EF82F08E104]]></referencesFieldUID>
-            <referencesTableUID><![CDATA[C85ACAA2-CC8A-45D5-A3F7-194CB35D7D10]]></referencesTableUID>
+            <referencesFieldUID><![CDATA[6B946585-4B14-4D09-9482-9CF45A18AF58]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[709BFC77-9530-42FD-B825-5F40C7E1168E]]></referencesTableUID>
             <indexed><![CDATA[1]]></indexed>
             <indexedKeyName><![CDATA[index_momentum_cms_blocks_on_content_id]]></indexedKeyName>
+            <temporaryOriginalName><![CDATA[content_id]]></temporaryOriginalName>
             <uid><![CDATA[E07E8415-87A9-440E-B057-49233D3C5830]]></uid>
         </SQLField>
         <SQLField>
@@ -542,7 +592,7 @@
             <uid><![CDATA[B0AB2519-7BD4-4509-B194-517CFD886E4B]]></uid>
         </SQLField>
         <hidden><![CDATA[0]]></hidden>
-        <labelWindowIndex><![CDATA[3]]></labelWindowIndex>
+        <labelWindowIndex><![CDATA[6]]></labelWindowIndex>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
         <uid><![CDATA[80194B68-039B-4FEA-A1D2-A823FF1832DC]]></uid>
     </SQLTable>
@@ -550,14 +600,14 @@
         <name><![CDATA[momentum_cms_menus]]></name>
         <schema><![CDATA[]]></schema>
         <location>
-            <x>384.00</x>
-            <y>64.00</y>
+            <x>2560.00</x>
+            <y>1856.00</y>
         </location>
         <size>
             <width>256.00</width>
             <height>192.00</height>
         </size>
-        <zorder>13</zorder>
+        <zorder>11</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[INTEGER]]></type>
@@ -601,7 +651,7 @@
             <uid><![CDATA[C3918DD3-91E8-4B1F-B480-CDA10D6E1234]]></uid>
         </SQLField>
         <hidden><![CDATA[0]]></hidden>
-        <labelWindowIndex><![CDATA[1]]></labelWindowIndex>
+        <labelWindowIndex><![CDATA[3]]></labelWindowIndex>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
         <uid><![CDATA[87A68D95-48BB-4508-829F-F293BC23B5BC]]></uid>
     </SQLTable>
@@ -609,14 +659,14 @@
         <name><![CDATA[momentum_cms_snippets]]></name>
         <schema><![CDATA[]]></schema>
         <location>
-            <x>384.00</x>
-            <y>1152.00</y>
+            <x>2560.00</x>
+            <y>960.00</y>
         </location>
         <size>
             <width>256.00</width>
             <height>192.00</height>
         </size>
-        <zorder>11</zorder>
+        <zorder>9</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[INTEGER]]></type>
@@ -660,7 +710,7 @@
             <uid><![CDATA[4F9B9A45-823E-4D81-9CDC-4814D111DC8D]]></uid>
         </SQLField>
         <hidden><![CDATA[0]]></hidden>
-        <labelWindowIndex><![CDATA[2]]></labelWindowIndex>
+        <labelWindowIndex><![CDATA[4]]></labelWindowIndex>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
         <uid><![CDATA[8E3E7FDF-FCC7-41BF-9029-849364FD914E]]></uid>
     </SQLTable>
@@ -668,8 +718,8 @@
         <name><![CDATA[momentum_cms_templates]]></name>
         <schema><![CDATA[]]></schema>
         <location>
-            <x>384.00</x>
-            <y>768.00</y>
+            <x>2560.00</x>
+            <y>1472.00</y>
         </location>
         <size>
             <width>256.00</width>
@@ -754,22 +804,143 @@
             <uid><![CDATA[25265C4F-728D-491C-84CF-C9EEAE5DD5B3]]></uid>
         </SQLField>
         <hidden><![CDATA[0]]></hidden>
-        <labelWindowIndex><![CDATA[9]]></labelWindowIndex>
+        <labelWindowIndex><![CDATA[12]]></labelWindowIndex>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
         <uid><![CDATA[9774D388-A229-4C61-8F08-A900BCC37692]]></uid>
+    </SQLTable>
+    <SQLTable>
+        <name><![CDATA[momentum_cms_document_templates]]></name>
+        <schema><![CDATA[]]></schema>
+        <location>
+            <x>1728.00</x>
+            <y>1536.00</y>
+        </location>
+        <size>
+            <width>320.00</width>
+            <height>140.00</height>
+        </size>
+        <zorder>13</zorder>
+        <SQLField>
+            <name><![CDATA[id]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <primaryKey>1</primaryKey>
+            <forcedUnique><![CDATA[1]]></forcedUnique>
+            <uid><![CDATA[979BD605-C46C-414A-89E2-FD082428EC9E]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[site_id]]></name>
+            <type><![CDATA[integer]]></type>
+            <referencesField>id</referencesField>
+            <referencesTable>momentum_cms_sites</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[momentum_cms_sites]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[E3092EE4-74D0-48F4-AC0E-D8000A2D434F]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[3F342478-CFE5-4F47-B600-5B595B4D960F]]></referencesTableUID>
+            <indexed><![CDATA[1]]></indexed>
+            <indexedKeyName><![CDATA[index_momentum_cms_document_templates_on_site_id]]></indexedKeyName>
+            <uid><![CDATA[6242EA0F-7E62-4930-9E24-67F791772BFA]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[identifier]]></name>
+            <type><![CDATA[varchar(255)]]></type>
+            <uid><![CDATA[EF2C5239-838B-4B3C-8ACF-5383D3E8C032]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[ancestry]]></name>
+            <type><![CDATA[string]]></type>
+            <temporaryOriginalName><![CDATA[id_1]]></temporaryOriginalName>
+            <uid><![CDATA[CB35D719-3DA3-4673-AAD8-D99DD3D8E91D]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[created_at]]></name>
+            <type><![CDATA[datetime]]></type>
+            <uid><![CDATA[BA433C3A-242F-42E9-9BDB-01219561A89A]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[updated_at]]></name>
+            <type><![CDATA[datetime]]></type>
+            <uid><![CDATA[B1042D8D-6D3B-409A-A1EF-8B4CAD90E47D]]></uid>
+        </SQLField>
+        <labelWindowIndex><![CDATA[7]]></labelWindowIndex>
+        <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
+        <uid><![CDATA[A0AD1736-D7CE-47CC-AF78-6527AAA39852]]></uid>
+    </SQLTable>
+    <SQLTable>
+        <name><![CDATA[momentum_cms_field_template_translations]]></name>
+        <schema><![CDATA[]]></schema>
+        <location>
+            <x>768.00</x>
+            <y>2048.00</y>
+        </location>
+        <size>
+            <width>320.00</width>
+            <height>192.00</height>
+        </size>
+        <zorder>20</zorder>
+        <SQLField>
+            <name><![CDATA[id]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <primaryKey>1</primaryKey>
+            <uid><![CDATA[350018E9-3E53-473E-BFF8-836E3CBCBBB1]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[momentum_cms_field_template_id]]></name>
+            <type><![CDATA[integer]]></type>
+            <referencesField>id</referencesField>
+            <referencesTable>momentum_cms_field_templates</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[momentum_cms_field_templates]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[EF12EE4A-4E06-49D6-BEE0-36BDDD08EF9B]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[B7B1AC8D-ED67-44F1-9A1F-0AA9777E38A0]]></referencesTableUID>
+            <indexed><![CDATA[1]]></indexed>
+            <indexedKeyName><![CDATA[index_0476773c64ff1b030b685e0c382f95185c83776f]]></indexedKeyName>
+            <uid><![CDATA[D611076A-FDE1-46C2-B6FB-FB905F26BC56]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[locale]]></name>
+            <type><![CDATA[varchar(255)]]></type>
+            <indexed><![CDATA[1]]></indexed>
+            <indexedKeyName><![CDATA[index_momentum_cms_field_template_translations_on_locale]]></indexedKeyName>
+            <uid><![CDATA[7E0008EF-7138-49B7-8F4F-E2A5178A9A85]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[created_at]]></name>
+            <type><![CDATA[datetime]]></type>
+            <uid><![CDATA[5BF78843-0462-481D-A39D-D00F39B02763]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[updated_at]]></name>
+            <type><![CDATA[datetime]]></type>
+            <uid><![CDATA[2B3D8693-4F9D-45FB-B748-0E9E73E27113]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[label]]></name>
+            <type><![CDATA[varchar(255)]]></type>
+            <uid><![CDATA[7B9843A0-A012-44AC-8C5B-A9BA17576E03]]></uid>
+        </SQLField>
+        <labelColor><![CDATA[{1,0.151543,0.132288,0.8}]]></labelColor>
+        <labelName><![CDATA[Translation]]></labelName>
+        <labelUid><![CDATA[C0316F56-6F03-4070-BA02-2BFFD7285CD1]]></labelUid>
+        <labelWindowIndex><![CDATA[1]]></labelWindowIndex>
+        <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
+        <uid><![CDATA[A3BE6DEB-35F5-47A1-AB9E-1D9CB8E87952]]></uid>
     </SQLTable>
     <SQLTable>
         <name><![CDATA[momentum_cms_locales]]></name>
         <schema><![CDATA[]]></schema>
         <location>
-            <x>0.00</x>
-            <y>384.00</y>
+            <x>2176.00</x>
+            <y>1280.00</y>
         </location>
         <size>
             <width>256.00</width>
             <height>128.00</height>
         </size>
-        <zorder>6</zorder>
+        <zorder>4</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[INTEGER]]></type>
@@ -787,75 +958,138 @@
             <uid><![CDATA[7494C739-B8A3-45D6-9322-62C6F6C5E52C]]></uid>
         </SQLField>
         <hidden><![CDATA[0]]></hidden>
-        <labelWindowIndex><![CDATA[6]]></labelWindowIndex>
+        <labelWindowIndex><![CDATA[10]]></labelWindowIndex>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
         <uid><![CDATA[A84BD2AA-5B85-4C79-8ADF-BA3420CC5CD5]]></uid>
     </SQLTable>
     <SQLTable>
-        <name><![CDATA[momentum_cms_contents]]></name>
+        <name><![CDATA[momentum_cms_field_templates]]></name>
         <schema><![CDATA[]]></schema>
         <location>
-            <x>1152.00</x>
-            <y>704.00</y>
+            <x>1216.00</x>
+            <y>1856.00</y>
         </location>
         <size>
             <width>256.00</width>
             <height>192.00</height>
         </size>
-        <zorder>4</zorder>
+        <zorder>17</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[INTEGER]]></type>
             <primaryKey>1</primaryKey>
             <forcedUnique><![CDATA[1]]></forcedUnique>
-            <uid><![CDATA[227FD81D-13D5-492F-B507-7EF82F08E104]]></uid>
+            <uid><![CDATA[EF12EE4A-4E06-49D6-BEE0-36BDDD08EF9B]]></uid>
         </SQLField>
         <SQLField>
-            <name><![CDATA[default]]></name>
-            <type><![CDATA[boolean]]></type>
-            <uid><![CDATA[B0A432B0-11B6-4E19-8049-BA1E2D90E39C]]></uid>
+            <name><![CDATA[document_template_id]]></name>
+            <type><![CDATA[integer]]></type>
+            <referencesField>id</referencesField>
+            <referencesTable>momentum_cms_document_templates</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[momentum_cms_document_templates]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[979BD605-C46C-414A-89E2-FD082428EC9E]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[A0AD1736-D7CE-47CC-AF78-6527AAA39852]]></referencesTableUID>
+            <indexed><![CDATA[1]]></indexed>
+            <indexedKeyName><![CDATA[index_momentum_cms_field_templates_on_document_template_id]]></indexedKeyName>
+            <uid><![CDATA[F1667BD8-C10B-4FFF-A818-10591034A25F]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[identifier]]></name>
             <type><![CDATA[varchar(255)]]></type>
-            <uid><![CDATA[4EFC3277-0EF6-44E6-9AEF-405B0FC34B0B]]></uid>
+            <uid><![CDATA[F66E0540-B626-4650-A4EF-CE058286CBAA]]></uid>
         </SQLField>
         <SQLField>
-            <name><![CDATA[page_id]]></name>
-            <type><![CDATA[integer]]></type>
-            <referencesField>id</referencesField>
-            <referencesTable>momentum_cms_pages</referencesTable>
-            <referencesField><![CDATA[id]]></referencesField>
-            <referencesTable><![CDATA[momentum_cms_pages]]></referencesTable>
-            <sourceCardinality>0</sourceCardinality>
-            <destinationCardinality>0</destinationCardinality>
-            <referencesFieldUID><![CDATA[6B946585-4B14-4D09-9482-9CF45A18AF58]]></referencesFieldUID>
-            <referencesTableUID><![CDATA[709BFC77-9530-42FD-B825-5F40C7E1168E]]></referencesTableUID>
-            <indexed><![CDATA[1]]></indexed>
-            <indexedKeyName><![CDATA[index_momentum_cms_contents_on_page_id]]></indexedKeyName>
-            <uid><![CDATA[EA2E4388-C86D-4C1D-8F26-353BDD80EF05]]></uid>
+            <name><![CDATA[field_value_type]]></name>
+            <type><![CDATA[string]]></type>
+            <temporaryOriginalName><![CDATA[field_value_type]]></temporaryOriginalName>
+            <uid><![CDATA[E04E8F73-93D3-476A-8CCC-635C3E78FF20]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[created_at]]></name>
             <type><![CDATA[datetime]]></type>
-            <uid><![CDATA[A37E112A-5C9C-4A27-992E-A114036A2A5E]]></uid>
+            <uid><![CDATA[141BF261-F817-4F9B-B577-415CA269D96B]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[updated_at]]></name>
             <type><![CDATA[datetime]]></type>
-            <uid><![CDATA[81386C89-7C8D-4C20-B1D0-E78B3253AF0B]]></uid>
+            <uid><![CDATA[C7DE8B04-7E82-4229-BB68-68BD76857199]]></uid>
         </SQLField>
-        <hidden><![CDATA[0]]></hidden>
-        <labelWindowIndex><![CDATA[7]]></labelWindowIndex>
+        <labelWindowIndex><![CDATA[2]]></labelWindowIndex>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
-        <uid><![CDATA[C85ACAA2-CC8A-45D5-A3F7-194CB35D7D10]]></uid>
+        <uid><![CDATA[B7B1AC8D-ED67-44F1-9A1F-0AA9777E38A0]]></uid>
+    </SQLTable>
+    <SQLTable>
+        <name><![CDATA[momentum_cms_fields]]></name>
+        <schema><![CDATA[]]></schema>
+        <location>
+            <x>768.00</x>
+            <y>1856.00</y>
+        </location>
+        <size>
+            <width>320.00</width>
+            <height>128.00</height>
+        </size>
+        <zorder>18</zorder>
+        <SQLField>
+            <name><![CDATA[id]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <primaryKey>1</primaryKey>
+            <forcedUnique><![CDATA[1]]></forcedUnique>
+            <uid><![CDATA[1F46D23A-F053-4106-96BB-0CC54DF65D5C]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[document_id]]></name>
+            <type><![CDATA[integer]]></type>
+            <referencesField>id</referencesField>
+            <referencesTable>momentum_cms_documents</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[momentum_cms_documents]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[BD313208-7EE9-40CD-874C-CB29F018F6F1]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[DB820BEE-C41B-4350-9201-37367E10AADC]]></referencesTableUID>
+            <indexed><![CDATA[1]]></indexed>
+            <indexedKeyName><![CDATA[index_momentum_cms_fields_on_document_id]]></indexedKeyName>
+            <uid><![CDATA[811D349A-BD00-4DB7-A5A1-400F9C8563A4]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[field_template_id]]></name>
+            <type><![CDATA[integer]]></type>
+            <referencesField>id</referencesField>
+            <referencesTable>momentum_cms_field_templates</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[momentum_cms_field_templates]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[EF12EE4A-4E06-49D6-BEE0-36BDDD08EF9B]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[B7B1AC8D-ED67-44F1-9A1F-0AA9777E38A0]]></referencesTableUID>
+            <indexed><![CDATA[1]]></indexed>
+            <indexedKeyName><![CDATA[index_momentum_cms_fields_on_field_template_id]]></indexedKeyName>
+            <uid><![CDATA[08F8A4FF-615C-4F5F-A826-A35E46CC4267]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[created_at]]></name>
+            <type><![CDATA[datetime]]></type>
+            <uid><![CDATA[EF8AABD3-74A6-428E-8623-EC48CDBCE695]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[updated_at]]></name>
+            <type><![CDATA[datetime]]></type>
+            <uid><![CDATA[D7CF2857-EFBB-4672-9AAE-966B2BC9D03C]]></uid>
+        </SQLField>
+        <labelWindowIndex><![CDATA[0]]></labelWindowIndex>
+        <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
+        <uid><![CDATA[C4B8E21D-9D33-4DB0-A7F2-0C716080A6FF]]></uid>
     </SQLTable>
     <SQLTable>
         <name><![CDATA[momentum_cms_page_translations]]></name>
         <schema><![CDATA[]]></schema>
         <location>
-            <x>1152.00</x>
-            <y>448.00</y>
+            <x>3328.00</x>
+            <y>1216.00</y>
         </location>
         <size>
             <width>256.00</width>
@@ -914,7 +1148,7 @@
         <labelColor><![CDATA[{1,0.151543,0.132288,0.8}]]></labelColor>
         <labelName><![CDATA[Translation]]></labelName>
         <labelUid><![CDATA[C0316F56-6F03-4070-BA02-2BFFD7285CD1]]></labelUid>
-        <labelWindowIndex><![CDATA[9]]></labelWindowIndex>
+        <labelWindowIndex><![CDATA[5]]></labelWindowIndex>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
         <uid><![CDATA[CBE4AAB3-30EE-4383-A5FE-5C0AE66888CA]]></uid>
     </SQLTable>
@@ -922,14 +1156,14 @@
         <name><![CDATA[momentum_cms_files]]></name>
         <schema><![CDATA[]]></schema>
         <location>
-            <x>384.00</x>
-            <y>320.00</y>
+            <x>2560.00</x>
+            <y>2112.00</y>
         </location>
         <size>
             <width>256.00</width>
             <height>320.00</height>
         </size>
-        <zorder>7</zorder>
+        <zorder>5</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[INTEGER]]></type>
@@ -1012,9 +1246,124 @@
             <uid><![CDATA[AAAF0888-8A8C-44F3-9F49-3F248AEFCC7D]]></uid>
         </SQLField>
         <hidden><![CDATA[0]]></hidden>
-        <labelWindowIndex><![CDATA[5]]></labelWindowIndex>
+        <labelWindowIndex><![CDATA[9]]></labelWindowIndex>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
         <uid><![CDATA[CCD44B7E-C83E-4812-89A5-E027BA94ED57]]></uid>
+    </SQLTable>
+    <SQLTable>
+        <name><![CDATA[momentum_cms_document_template_translations]]></name>
+        <schema><![CDATA[]]></schema>
+        <location>
+            <x>1216.00</x>
+            <y>1472.00</y>
+        </location>
+        <size>
+            <width>384.00</width>
+            <height>140.00</height>
+        </size>
+        <zorder>14</zorder>
+        <SQLField>
+            <name><![CDATA[id]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <primaryKey>1</primaryKey>
+            <uid><![CDATA[D36FCAA6-DD39-415F-BC6A-95165558C140]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[momentum_cms_document_template_id]]></name>
+            <type><![CDATA[integer]]></type>
+            <referencesField>id</referencesField>
+            <referencesTable>momentum_cms_document_templates</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[momentum_cms_document_templates]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[979BD605-C46C-414A-89E2-FD082428EC9E]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[A0AD1736-D7CE-47CC-AF78-6527AAA39852]]></referencesTableUID>
+            <indexed><![CDATA[1]]></indexed>
+            <indexedKeyName><![CDATA[index_a7a2a97a94f441271f764d8823c1ba87a8d296ad]]></indexedKeyName>
+            <uid><![CDATA[4A6FA2CD-D965-4FDA-A858-E9B9D0FCD14E]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[locale]]></name>
+            <type><![CDATA[varchar(255)]]></type>
+            <indexed><![CDATA[1]]></indexed>
+            <indexedKeyName><![CDATA[index_momentum_cms_document_template_translations_on_locale]]></indexedKeyName>
+            <uid><![CDATA[677E13AD-2F59-4BFC-894A-F78910B43A2A]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[created_at]]></name>
+            <type><![CDATA[datetime]]></type>
+            <uid><![CDATA[470F58B5-4E59-4D3E-AE53-E07D9AC386A4]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[updated_at]]></name>
+            <type><![CDATA[datetime]]></type>
+            <uid><![CDATA[5AB07635-5563-41D7-9B9C-AF5D5AC7EC3D]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[label]]></name>
+            <type><![CDATA[varchar(255)]]></type>
+            <uid><![CDATA[FE16C957-EE78-458C-876F-BE7FA797D249]]></uid>
+        </SQLField>
+        <labelColor><![CDATA[{1,0.151543,0.132288,0.8}]]></labelColor>
+        <labelName><![CDATA[Translation]]></labelName>
+        <labelUid><![CDATA[C0316F56-6F03-4070-BA02-2BFFD7285CD1]]></labelUid>
+        <labelWindowIndex><![CDATA[4]]></labelWindowIndex>
+        <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
+        <uid><![CDATA[D6492E5C-053E-493D-9525-55EAA6DA4AFB]]></uid>
+    </SQLTable>
+    <SQLTable>
+        <name><![CDATA[momentum_cms_documents]]></name>
+        <schema><![CDATA[]]></schema>
+        <location>
+            <x>1216.00</x>
+            <y>1664.00</y>
+        </location>
+        <size>
+            <width>256.00</width>
+            <height>128.00</height>
+        </size>
+        <zorder>15</zorder>
+        <SQLField>
+            <name><![CDATA[id]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <primaryKey>1</primaryKey>
+            <forcedUnique><![CDATA[1]]></forcedUnique>
+            <uid><![CDATA[BD313208-7EE9-40CD-874C-CB29F018F6F1]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[document_template_id]]></name>
+            <type><![CDATA[integer]]></type>
+            <referencesField>id</referencesField>
+            <referencesTable>momentum_cms_document_templates</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[momentum_cms_document_templates]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[979BD605-C46C-414A-89E2-FD082428EC9E]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[A0AD1736-D7CE-47CC-AF78-6527AAA39852]]></referencesTableUID>
+            <indexed><![CDATA[1]]></indexed>
+            <indexedKeyName><![CDATA[index_momentum_cms_documents_on_document_template_id]]></indexedKeyName>
+            <uid><![CDATA[5B0DE6C3-5276-4960-BDF7-2F942EB99EF3]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[identifier]]></name>
+            <type><![CDATA[varchar(255)]]></type>
+            <uid><![CDATA[1DB12C26-01E8-4262-B61F-89758AD16036]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[created_at]]></name>
+            <type><![CDATA[datetime]]></type>
+            <uid><![CDATA[B5B864C3-8ACC-42F2-B526-B2A7502248BF]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[updated_at]]></name>
+            <type><![CDATA[datetime]]></type>
+            <uid><![CDATA[B48534A3-C341-48C5-B1A5-D11BCDF76EE8]]></uid>
+        </SQLField>
+        <labelWindowIndex><![CDATA[5]]></labelWindowIndex>
+        <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
+        <uid><![CDATA[DB820BEE-C41B-4350-9201-37367E10AADC]]></uid>
     </SQLTable>
     <SQLDocumentInfo>
         <encodedPrintInfo><![CDATA[BAtzdHJlYW10eXBlZIHoA4QBQISEhAtOU1ByaW50SW5mbwGEhAhOU09iamVjdACF
@@ -1168,7 +1517,7 @@ b21NYXJnaW6GkoSjnqiiNIaShJmZD05TU2NhbGluZ0ZhY3RvcoaShKOeqKIBhpKE
 mZkLTlNQYXBlck5hbWWGkoSZmQluYS1sZXR0ZXKGhoY=
 ]]></encodedPrintInfo>
         <autoSizeTablesOption><![CDATA[0]]></autoSizeTablesOption>
-        <documentScaleFactor><![CDATA[0.834]]></documentScaleFactor>
+        <documentScaleFactor><![CDATA[0.75]]></documentScaleFactor>
         <exportDialect><![CDATA[Rails]]></exportDialect>
         <fileversion><![CDATA[3.1]]></fileversion>
         <generator><![CDATA[com.malcolmhardie.sqleditor]]></generator>
@@ -1177,15 +1526,15 @@ mZkLTlNQYXBlck5hbWWGkoSZmQluYS1sZXR0ZXKGhoY=
         <hideFieldTypes><![CDATA[0]]></hideFieldTypes>
         <pageBoundariesVisible><![CDATA[0]]></pageBoundariesVisible>
         <PageGridVisible><![CDATA[1]]></PageGridVisible>
-        <sidebarIndex><![CDATA[0]]></sidebarIndex>
+        <sidebarIndex><![CDATA[2]]></sidebarIndex>
         <snapToGrid><![CDATA[1]]></snapToGrid>
         <SourceSidebarWidth><![CDATA[276.000000]]></SourceSidebarWidth>
         <uid><![CDATA[E3DEB68C-6702-4C5F-BE44-94BE273C6FA2]]></uid>
-        <windowHeight><![CDATA[874.000000]]></windowHeight>
+        <windowHeight><![CDATA[1054.000000]]></windowHeight>
         <windowLocationX><![CDATA[0.000000]]></windowLocationX>
         <windowLocationY><![CDATA[4.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{0, 529}]]></windowScrollOrigin>
-        <windowWidth><![CDATA[1440.000000]]></windowWidth>
+        <windowScrollOrigin><![CDATA[{208, 961}]]></windowScrollOrigin>
+        <windowWidth><![CDATA[1920.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>
     <containerName><![CDATA[model controller orginal container]]></containerName>

@@ -13,6 +13,7 @@ require 'paperclip'
 require 'simple_form'
 require 'rails-i18n'
 require 'active_model_serializers'
+require 'tinymce-rails'
 
 module MomentumCms
   class Engine < ::Rails::Engine

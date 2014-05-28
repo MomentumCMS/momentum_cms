@@ -23,12 +23,15 @@ Rails.application.routes.draw do
       end
     end
   end
-  
+
   if MomentumCms.configuration.admin_panel_style == :html5
     namespace :momentum_cms, as: :cms, path: MomentumCms.configuration.admin_panel_mount_point do
       namespace :admin, as: :admin, except: :show, path: '' do
         root to: 'dashboards#selector'
         resources :sites do
+          member do
+            post :sync_remote
+          end
           resources :dashboards, only: [:index]
           resources :templates
           resources :files
@@ -37,6 +40,10 @@ Rails.application.routes.draw do
           end
           resources :snippets
           resources :menus
+          resources :document_templates
+          resources :documents do
+            get :fields, on: :collection
+          end
         end
         get 'sites/:id', to: 'dashboards#selector'
       end

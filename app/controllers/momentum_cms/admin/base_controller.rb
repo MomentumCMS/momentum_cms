@@ -6,6 +6,7 @@ class MomentumCms::Admin::BaseController < ApplicationController
   before_action :authenticate,
                 :load_sites,
                 :load_site,
+                :load_document_templates,
                 :load_fixtures
 
   protected
@@ -36,6 +37,11 @@ class MomentumCms::Admin::BaseController < ApplicationController
       MomentumCms::Fixture::Importer.new({ source: fixture }).import!
     end
     flash.now[:danger] = 'Fixtures enabled, all changes will be discarded.'
+  end
+
+  def load_document_templates
+    return unless @current_momentum_cms_site
+    @momentum_cms_document_templates = MomentumCms::DocumentTemplate.for_site(@current_momentum_cms_site)
   end
 
 end
