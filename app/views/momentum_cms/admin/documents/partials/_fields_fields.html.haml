@@ -1,0 +1,11 @@
+- if field_form.object.persisted?
+  = field_form.input :id, as: :hidden
+= field_form.input :identifier, as: :hidden
+= field_form.input :field_template_id, as: :hidden
+
+- field_template = field_form.object.field_template
+- label = field_template.label || field_form.object.object.identifier.titleize
+- as = :string
+- as = :text if ['rich-text', 'plain-text'].include?(field_template.field_value_type)
+
+= field_form.input :value, label: label, as: as

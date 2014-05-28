@@ -2,4 +2,7 @@
 
 = simple_form_for @momentum_cms_site, url: {action: :update}  do |form|
   = render partial: 'form', locals: { form: form } 
+  - if @momentum_cms_site.enable_advanced_features
+    = link_to 'Sync with Remote', sync_remote_cms_admin_site_path(@momentum_cms_site), method: :post, data: { confirm: 'Are you sure?' }, class: 'btn btn-warning btn-xs'
 
+= render partial: 'momentum_cms/admin/partials/object_meta', locals: { object: @momentum_cms_site }

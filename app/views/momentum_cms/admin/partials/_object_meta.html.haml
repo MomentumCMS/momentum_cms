@@ -1,0 +1,35 @@
+%hr
+.panel.panel-default
+  .panel-heading
+    %h3.panel-title Metadata
+  %ul.list-group
+    - if object && object.is_a?(ActiveRecord::Base)
+      - case object
+        - when MomentumCms::Menu
+          - if object.identifier.present?
+            %li.list-group-item 
+              %strong CMS Menu Tag:
+              {% cms_tag id:#{object.identifier} %}
+        - when MomentumCms::File
+          - if object.identifier.present?
+            %li.list-group-item 
+              %strong CMS File Tag:
+              {% cms_file id:#{object.identifier} %}
+        - when MomentumCms::Snippet
+          - if object.identifier.present?
+            %li.list-group-item 
+              %strong CMS Snippet Tag:
+              {% cms_snippet id:#{object.identifier} %}
+
+      - if object.respond_to?(:last_remote_synced_at) && object.last_remote_synced_at.present?
+        %li.list-group-item 
+          %strong Last Synced At:
+          = object.last_remote_synced_at.strftime('%Y-%m-%d %I:%M %p')
+      - if object.respond_to?(:created_at) && object.created_at.present?
+        %li.list-group-item 
+          %strong Created At:
+          = object.created_at.strftime('%Y-%m-%d %I:%M %p')
+      - if object.respond_to?(:updated_at) && object.updated_at.present?
+        %li.list-group-item 
+          %strong Updated At:
+          = object.updated_at.strftime('%Y-%m-%d %I:%M %p')

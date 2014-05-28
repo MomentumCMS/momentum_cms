@@ -20,6 +20,8 @@ require 'momentum_cms/tags/cms_snippet'
 require 'momentum_cms/tags/cms_breadcrumb'
 require 'momentum_cms/tags/cms_blank'
 
+require 'momentum_cms/drops/cms_page'
+
 require 'momentum_cms/fixture'
 require 'momentum_cms/fixture/base'
 require 'momentum_cms/fixture/utils'
@@ -29,6 +31,12 @@ require 'momentum_cms/fixture/snippet'
 require 'momentum_cms/fixture/site'
 require 'momentum_cms/fixture/page'
 require 'momentum_cms/fixture/file'
+
+require 'momentum_cms/remote_fixture'
+require 'momentum_cms/remote_fixture/base'
+require 'momentum_cms/remote_fixture/document_template'
+require 'momentum_cms/remote_fixture/utils'
+
 require 'momentum_cms/configuration'
 require 'momentum_cms/has_files'
 require 'momentum_cms/internationalization'

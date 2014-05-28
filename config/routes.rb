@@ -1,30 +1,6 @@
 Rails.application.routes.draw do
 
-  # if MomentumCms.configuration.api_level == :full
-  #   match '*path' => 'momentum_cms/api/base#respond_to_options_request', constraints: { method: 'OPTIONS' }, via: [:options]
-  #   namespace :momentum_cms, as: :cms, path: MomentumCms.configuration.api_mount_point do
-  #     namespace :api, as: :api, path: '' do
-  #       resources :sessions, only: [:create, :destroy]
-  #       namespace :admin, as: :api_admin, path: '' do
-  #         resources :sites
-  #         resources :pages
-  #         resources :templates
-  #       end
-  #     end
-  #   end
-  # else
-  #   namespace :momentum_cms, as: :cms, path: MomentumCms.configuration.api_mount_point do
-  #     namespace :api, as: :api, path: '' do
-  #       namespace :admin, as: :admin do
-  #         resources :sites do
-  #           resources :pages
-  #         end
-  #       end
-  #     end
-  #   end
-  # end
-
-if MomentumCms.configuration.api_level == :full
+  if MomentumCms.configuration.api_level == :full
     match '*path' => 'momentum_cms/api/base#respond_to_options_request', constraints: { method: 'OPTIONS' }, via: [:options]
     namespace :momentum_cms, as: :cms, path: MomentumCms.configuration.api_mount_point do
       namespace :api, as: :api, path: '' do
@@ -48,15 +24,14 @@ if MomentumCms.configuration.api_level == :full
     end
   end
 
-
-
-
-  
   if MomentumCms.configuration.admin_panel_style == :html5
     namespace :momentum_cms, as: :cms, path: MomentumCms.configuration.admin_panel_mount_point do
       namespace :admin, as: :admin, except: :show, path: '' do
         root to: 'dashboards#selector'
         resources :sites do
+          member do
+            post :sync_remote
+          end
           resources :dashboards, only: [:index]
           resources :templates
           resources :files
@@ -65,6 +40,10 @@ if MomentumCms.configuration.api_level == :full
           end
           resources :snippets
           resources :menus
+          resources :document_templates
+          resources :documents do
+            get :fields, on: :collection
+          end
         end
         get 'sites/:id', to: 'dashboards#selector'
       end

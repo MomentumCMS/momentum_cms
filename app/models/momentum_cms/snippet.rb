@@ -1,5 +1,6 @@
 class MomentumCms::Snippet < ActiveRecord::Base
   # == MomentumCms ==========================================================
+
   include MomentumCms::BelongsToSite
 
   self.table_name = 'momentum_cms_snippets'
@@ -8,6 +9,8 @@ class MomentumCms::Snippet < ActiveRecord::Base
   # == Relationships ========================================================
 
   # == Extensions ===========================================================
+
+  has_paper_trail
 
   translates :value, fallbacks_for_empty_translations: true
 

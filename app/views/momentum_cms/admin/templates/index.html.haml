@@ -3,11 +3,9 @@
 %table.table
   %thead
     %tr
-      %th Identifier
+      %th.identifier Identifier
       %th Label
-      %th Created At
-      %th Updated At
-      %th Control
+      %th.control Control
   %tbody
     = render partial: 'templates', locals: { momentum_cms_templates_tree: @momentum_cms_templates, require_root: true}
 

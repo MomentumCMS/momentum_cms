@@ -11,17 +11,11 @@ class CmsFileTest < ActiveSupport::TestCase
   end
 
   def test_params
-    text = "{% cms_file id:#{@file.id} %}"
+    text = "{% cms_file id:#{@file.identifier} %}"
     template = Liquid::Template.parse(text)
-    tag = template.root.nodelist.detect { |t| t.params['id'] == @file.id.to_s }
-    assert_equal @file.id.to_s, tag.params['id']
-    assert_equal @file.file.url, template.render(cms_site: @site)
-
-    text = "{% cms_file identifier:#{@file.identifier} %}"
-    template = Liquid::Template.parse(text)
-    tag = template.root.nodelist.detect { |t| t.params['identifier'] == @file.identifier }
-    assert_equal @file.identifier, tag.params['identifier']
-    assert_equal @file.file.url, template.render(cms_site: @site)
+    tag = template.root.nodelist.detect { |t| t.params['id'] == @file.identifier }
+    assert_equal @file.identifier, tag.params['id']
+    assert_equal @file.file.url(:original, timestamp: false), template.render(cms_site: @site)
 
     text = '{% cms_file %}'
     template = Liquid::Template.parse(text)

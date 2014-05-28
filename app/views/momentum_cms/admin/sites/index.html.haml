@@ -3,12 +3,10 @@
 %table.table
   %thead
     %tr
-      %th Identifier
+      %th.identifier Identifier
       %th Label
       %th Host
-      %th Created At
-      %th Updated At
-      %th Control
+      %th.control Control
   %tbody
     - @momentum_cms_sites.each do |momentum_cms_site|
       %tr
@@ -16,8 +14,6 @@
           .label.label-info= momentum_cms_site.identifier
         %td= link_to momentum_cms_site.label, edit_cms_admin_site_path(momentum_cms_site)
         %td= momentum_cms_site.host
-        %td= momentum_cms_site.created_at
-        %td= momentum_cms_site.updated_at
         %td       
           = link_to 'Dashboard', cms_admin_site_dashboards_path(momentum_cms_site), class: 'btn btn-success btn-xs'
           = link_to 'Destroy', cms_admin_site_path(momentum_cms_site), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs'
