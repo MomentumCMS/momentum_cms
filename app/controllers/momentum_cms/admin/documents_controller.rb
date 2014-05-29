@@ -67,8 +67,7 @@ class MomentumCms::Admin::DocumentsController < MomentumCms::Admin::BaseControll
   def build_momentum_cms_fields(document_template, document)
     return unless document_template && document
     # Get all the field templates that is assigned to the document template
-    field_templates = document_template.field_templates
-
+    field_templates = DocumentFieldService.new(document_template).get_fields
     @field_templates_identifiers = field_templates.collect(&:to_identifier)
 
     # Get the current document's existing saved fields

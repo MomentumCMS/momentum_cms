@@ -1,6 +1,8 @@
 = form.input :label
 = form.input :identifier
 
+= form.input :parent_id, collection: @momentum_cms_document_templates, prompt: 'Parent Document Template...', label_method: :label
+
 %hr
 .momentum-cms-field-templates
   = form.simple_fields_for :field_templates do |field_template_form|

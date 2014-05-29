@@ -1,9 +1,10 @@
 class MomentumCms::Admin::DocumentTemplatesController < MomentumCms::Admin::BaseController
-  before_action :load_moment_cms_document_template, only: [:edit, :update, :destroy]
-  before_action :build_moment_cms_document_template, only: [:new, :create]
+  before_action :build_momentum_cms_document_template, only: [:new, :create]
+  before_action :load_momentum_cms_document_template, only: [:edit, :update, :destroy]
+  before_action :load_momentum_cms_document_templates, only: [:index, :new, :create]
+  before_action :load_parent_document_templates, only: [:edit, :update]
 
   def index
-    @momentum_cms_document_templates = @current_momentum_cms_site.document_templates.all
   end
 
   def new
@@ -35,13 +36,22 @@ class MomentumCms::Admin::DocumentTemplatesController < MomentumCms::Admin::Base
   end
 
   private
-  def load_moment_cms_document_template
+  def load_momentum_cms_document_template
     @momentum_cms_document_template = MomentumCms::DocumentTemplate.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     redirect_to action: :index
   end
 
-  def build_moment_cms_document_template
+  def load_momentum_cms_document_templates
+    @momentum_cms_document_templates = @current_momentum_cms_site.document_templates.all
+  end
+
+  def load_parent_document_templates
+    @momentum_cms_document_templates = @current_momentum_cms_site.document_templates.where.not(id: @momentum_cms_document_template.subtree_ids)
+  end
+
+
+  def build_momentum_cms_document_template
     @momentum_cms_document_template = MomentumCms::DocumentTemplate.new(momentum_cms_document_template_params)
     @momentum_cms_document_template.site = @current_momentum_cms_site
   end

@@ -1,4 +1,4 @@
-class MomentumCms::TemplateSerializer < ActiveModel::Serializer
+class MomentumCms::TemplateSerializer < MomentumCms::ApplicationSerializer
 
   #-- Attributes ------------------------------------------------------------
   attributes :id,
