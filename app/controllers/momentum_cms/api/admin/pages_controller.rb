@@ -15,6 +15,14 @@ class MomentumCms::Api::Admin::PagesController < MomentumCms::Api::Admin::BaseCo
     render json: {errors: @page.errors, status: 422}, status: 422
   end
 
+  def update
+    @page = MomentumCms::Page.find(params[:id])
+    @page.update_attributes!(page_params)
+    render json: @page
+  rescue ActiveRecord::RecordInvalid
+    render json: {errors: @page.errors, status: 422}, status: 422
+  end
+
 private
 
   def page_params
