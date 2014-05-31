@@ -13,8 +13,6 @@ class MomentumCms::BlockTemplate < ActiveRecord::Base
 
   # == Extensions ===========================================================
 
-  has_paper_trail
-
   translates :label, fallbacks_for_empty_translations: true
 
   # == Validations ==========================================================

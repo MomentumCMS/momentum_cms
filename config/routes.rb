@@ -4,7 +4,6 @@ Rails.application.routes.draw do
     match '*path' => 'momentum_cms/api/base#respond_to_options_request', constraints: { method: 'OPTIONS' }, via: [:options]
   end
 
-
   namespace :momentum_cms, as: :cms, path: MomentumCms.configuration.api_mount_point do
     namespace :api, as: :api, path: '' do
       resources :documents, only: [:index, :show]
@@ -19,7 +18,6 @@ Rails.application.routes.draw do
     end
   end
 
-
   if MomentumCms.configuration.admin_panel_style == :html5
     namespace :momentum_cms, as: :cms, path: MomentumCms.configuration.admin_panel_mount_point do
       namespace :admin, as: :admin, except: :show, path: '' do
@@ -32,13 +30,23 @@ Rails.application.routes.draw do
           resources :templates
           resources :files
           resources :pages do
-            get :blocks, on: :collection
+            get 'revisions/:id', to: 'pages#revision_show', as: :revision_show
+            # get 'revisions/:id', to: 'pages#revision_show', as: :revision_show
+            member do
+              post :publish
+              post :unpublish
+            end
+            collection do
+              get :blocks
+            end
           end
           resources :snippets
           resources :menus
           resources :document_templates
           resources :documents do
-            get :fields, on: :collection
+            collection do
+              get :fields
+            end
           end
         end
         get 'sites/:id', to: 'dashboards#selector'
@@ -52,5 +60,4 @@ Rails.application.routes.draw do
     get '*id', to: 'pages#show'
     root to: 'pages#show'
   end
-
 end

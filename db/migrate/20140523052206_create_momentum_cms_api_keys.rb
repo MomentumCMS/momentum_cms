@@ -1,4 +1,4 @@
-class CreateApiKeys < ActiveRecord::Migration
+class CreateMomentumCmsApiKeys < ActiveRecord::Migration
   def change
     create_table :momentum_cms_api_keys do |t|
       t.integer :user_id, index: true

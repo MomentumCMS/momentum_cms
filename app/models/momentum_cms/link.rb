@@ -9,8 +9,6 @@ class MomentumCms::Link < ActiveRecord::Base
   # == Relationships ========================================================
   # == Extensions ===========================================================
 
-  has_paper_trail
-
   translates :label, :description, fallbacks_for_empty_translations: true
 
   # == Validations ==========================================================

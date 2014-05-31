@@ -19,7 +19,7 @@ module MomentumCms
             next unless page_attributes
 
             next_parent = nil
-
+            page = nil
             MomentumCms::Fixture::Utils.each_locale_for_site(@site) do |locale|
               # Get the slug
               slug = slug_for_locale(page_attributes, locale)
@@ -43,7 +43,7 @@ module MomentumCms
               prepare_content(page, path)
               next_parent = page
             end
-
+            page.publish!
             import!(next_parent, path)
           end
 

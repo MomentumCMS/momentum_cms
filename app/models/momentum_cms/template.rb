@@ -19,8 +19,6 @@ class MomentumCms::Template < ActiveRecord::Base
 
   # == Extensions ===========================================================
 
-  has_paper_trail
-
   has_ancestry
 
   # == Validations ==========================================================
@@ -31,10 +29,8 @@ class MomentumCms::Template < ActiveRecord::Base
             presence: true
 
   validates :identifier,
+            uniqueness: { scope: :site_id },
             presence: true
-
-  validates :identifier,
-            uniqueness: { scope: :site_id }
 
   # == Scopes ===============================================================
 

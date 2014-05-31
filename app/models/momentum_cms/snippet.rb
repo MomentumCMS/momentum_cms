@@ -10,8 +10,6 @@ class MomentumCms::Snippet < ActiveRecord::Base
 
   # == Extensions ===========================================================
 
-  has_paper_trail
-
   translates :value, fallbacks_for_empty_translations: true
 
   # == Validations ==========================================================

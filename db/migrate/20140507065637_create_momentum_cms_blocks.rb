@@ -5,6 +5,8 @@ class CreateMomentumCmsBlocks < ActiveRecord::Migration
       t.references :block_template, index: true
       t.references :page, index: true
       t.string :identifier
+      t.string :block_type
+      t.integer :revision_block_id      
       t.timestamps
     end
     MomentumCms::Block.create_translation_table! value: :text

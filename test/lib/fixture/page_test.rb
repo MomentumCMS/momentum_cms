@@ -52,7 +52,7 @@ class FixturePageTest < ActiveSupport::TestCase
     importer = MomentumCms::Fixture::Page::Importer.new('example-a', @site)
     page = momentum_cms_pages(:default)
     about_path = File.join(Rails.root, 'sites', 'example-a', 'pages', 'about')
-      assert_difference "MomentumCms::Block.count", 2 do
+      assert_difference "MomentumCms::Block.count", 4 do
         importer.prepare_content(page, about_path)
       end
 

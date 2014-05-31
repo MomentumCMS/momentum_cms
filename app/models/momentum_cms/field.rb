@@ -12,9 +12,7 @@ class MomentumCms::Field < ActiveRecord::Base
 
   # == Extensions ===========================================================
 
-  has_paper_trail
-
-  translates :value, fallbacks_for_empty_translations: true, versioning: :paper_trail
+  translates :value, fallbacks_for_empty_translations: true
 
   # == Validations ==========================================================
   # == Scopes ===============================================================

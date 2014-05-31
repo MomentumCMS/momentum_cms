@@ -4,3 +4,12 @@ default:
   page: default
   identifier: default
   block_template: default
+  revision_block: published
+  block_type: draft
+  
+published:
+  page: default
+  identifier: default
+  block_template: default
+  revision_block: default
+  block_type: published

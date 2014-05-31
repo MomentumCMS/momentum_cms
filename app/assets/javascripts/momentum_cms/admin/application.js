@@ -17,4 +17,8 @@
 
 $(function () {
   $('[data-toggle="tooltip"]').tooltip();
+
+  $(document).on('focus', ':input', function () {
+    $(this).attr('autocomplete', 'off');
+  });
 });

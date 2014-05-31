@@ -19,8 +19,6 @@ class MomentumCms::MenuItem < ActiveRecord::Base
 
   # == Extensions ===========================================================
 
-  has_paper_trail
-
   has_ancestry
 
   # == Validations ==========================================================

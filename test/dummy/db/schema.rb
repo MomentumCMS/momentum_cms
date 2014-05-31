@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140525060429) do
+ActiveRecord::Schema.define(version: 20140601221436) do
 
   create_table "momentum_cms_api_keys", force: true do |t|
     t.integer  "user_id"
@@ -60,6 +60,8 @@ ActiveRecord::Schema.define(version: 20140525060429) do
     t.integer  "block_template_id"
     t.integer  "page_id"
     t.string   "identifier"
+    t.string   "block_type"
+    t.integer  "revision_block_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -240,12 +242,25 @@ ActiveRecord::Schema.define(version: 20140525060429) do
     t.string   "identifier"
     t.integer  "redirected_page_id"
     t.string   "ancestry"
+    t.boolean  "published",          default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "momentum_cms_pages", ["site_id"], name: "index_momentum_cms_pages_on_site_id"
   add_index "momentum_cms_pages", ["template_id"], name: "index_momentum_cms_pages_on_template_id"
+
+  create_table "momentum_cms_revisions", force: true do |t|
+    t.integer  "revisable_id"
+    t.string   "revisable_type"
+    t.integer  "revision_number"
+    t.string   "published_status"
+    t.string   "revision_data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "momentum_cms_revisions", ["revisable_id", "revisable_type"], name: "momentum_cms_revisions_r_id_r_t"
 
   create_table "momentum_cms_sites", force: true do |t|
     t.string   "identifier"
@@ -299,17 +314,5 @@ ActiveRecord::Schema.define(version: 20140525060429) do
   end
 
   add_index "momentum_cms_templates", ["site_id"], name: "index_momentum_cms_templates_on_site_id"
-
-  create_table "versions", force: true do |t|
-    t.string   "item_type",  null: false
-    t.integer  "item_id",    null: false
-    t.string   "event",      null: false
-    t.string   "whodunnit"
-    t.text     "object"
-    t.datetime "created_at"
-    t.string   "locale"
-  end
-
-  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
 
 end
