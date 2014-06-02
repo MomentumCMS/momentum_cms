@@ -9,6 +9,7 @@ class MomentumCms::Api::Admin::PagesControllerTest < ActionController::TestCase
 
   def test_index
     get :index, site_id: @default_site.id
+    puts json_response.inspect
     assert_response :success
     assert assigns(:site)
     assert assigns(:pages)

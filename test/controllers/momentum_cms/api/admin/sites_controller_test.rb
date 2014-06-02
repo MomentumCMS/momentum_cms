@@ -18,6 +18,22 @@ class MomentumCms::Api::Admin::SitesControllerTest < ActionController::TestCase
     assert_equal @default_site.available_locales, json_response['sites'][1]['available_locales']
   end
 
+  def test_show
+    get :show, id: @default_site.id
+    assert_response :success
+    assert_equal @default_site.label, json_response['site']['label']
+    assert_equal @default_site.identifier, json_response['site']['identifier']
+    assert_equal @default_site.host, json_response['site']['host']
+    assert_equal @default_site.title, json_response['site']['title']
+    assert_equal @default_site.default_locale, json_response['site']['default_locale']
+    assert_equal @default_site.available_locales, json_response['site']['available_locales']
+  end
+
+  def test_show_failure
+    get :show, id: 13953157131
+    assert_response 422
+  end
+
   def test_create
     assert_difference "MomentumCms::Site.count" do
       post :create, site: {

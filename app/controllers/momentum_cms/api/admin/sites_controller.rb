@@ -13,6 +13,13 @@ class MomentumCms::Api::Admin::SitesController < MomentumCms::Api::Admin::BaseCo
     render json: { errors: @site.errors, status: 422 }, status: 422
   end
 
+  def show
+    @site = MomentumCms::Site.find(params[:id])
+    render json: @site
+  rescue ActiveRecord::RecordNotFound
+    render json: { errors: 'Site not found', status: 422 }, status: 422
+  end
+
   private
 
   def site_params
