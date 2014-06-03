@@ -9,7 +9,6 @@ class MomentumCms::Api::Admin::PagesControllerTest < ActionController::TestCase
 
   def test_index
     get :index, site_id: @default_site.id
-    puts json_response.inspect
     assert_response :success
     assert assigns(:site)
     assert assigns(:pages)
@@ -69,6 +68,12 @@ class MomentumCms::Api::Admin::PagesControllerTest < ActionController::TestCase
     assert json_response['errors']['slug'].present?
     assert json_response['errors']['identifier'].present?
     assert json_response['errors']['template'].present?
+  end
+
+  def test_destroy
+    page = momentum_cms_pages(:default)
+    delete :destroy, id: page.id
+    assert_response :success
   end
 
 end

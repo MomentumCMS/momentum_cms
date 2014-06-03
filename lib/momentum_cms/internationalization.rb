@@ -79,5 +79,9 @@ module MomentumCms
       end
     end
 
+    def self.available
+      @lookup
+    end
+
   end
 end
