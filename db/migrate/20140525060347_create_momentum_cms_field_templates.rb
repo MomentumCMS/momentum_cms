@@ -1,7 +1,7 @@
 class CreateMomentumCmsFieldTemplates < ActiveRecord::Migration
   def up
     create_table :momentum_cms_field_templates do |t|
-      t.references :document_template, index: true
+      t.references :blue_print, index: true
       t.string :identifier
       t.string :field_value_type
       

@@ -1,7 +1,7 @@
 = form.input :label
 = form.input :identifier
 
-= form.association :document_template, collection: @current_momentum_cms_site.document_templates.all, prompt: 'Choose a Document Template', label_method: :label, value_method: :id, include_blank: false,  input_html: { class: 'document-template-select' }
+= form.association :blue_print, collection: @current_momentum_cms_site.blue_prints.all, prompt: 'Choose a Blue Print', label_method: :label, value_method: :id, include_blank: false,  input_html: { class: 'document-template-select' }
 
 %hr
 

@@ -1,17 +1,17 @@
 class DocumentFieldService
 
-  attr_accessor :document_template_ancestors
-  attr_accessor :document_template
+  attr_accessor :blue_print_ancestors
+  attr_accessor :blue_print
 
-  def initialize(document_template)
-    @document_template = document_template
-    @document_template_ancestors = MomentumCms::DocumentTemplate.ancestor_and_self!(document_template)
+  def initialize(blue_print)
+    @blue_print = blue_print
+    @blue_print_ancestors = MomentumCms::BluePrint.ancestor_and_self!(blue_print)
   end
 
-  def get_fields(list = self.document_template_ancestors.dup)
+  def get_fields(list = self.blue_print_ancestors.dup)
     fields = []
-    list.each do |document_template|
-      fields << document_template.field_templates.to_a
+    list.each do |blue_print|
+      fields << blue_print.field_templates.to_a
     end
     fields.flatten.compact
   end

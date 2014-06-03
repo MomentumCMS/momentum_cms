@@ -1,9 +1,9 @@
-class MomentumCms::DocumentTemplate < ActiveRecord::Base
+class MomentumCms::BluePrint < ActiveRecord::Base
   # == MomentumCms ==========================================================
 
   include MomentumCms::BelongsToSite
 
-  self.table_name = 'momentum_cms_document_templates'
+  self.table_name = 'momentum_cms_blue_prints'
 
   # == Constants ============================================================
   # == Relationships ========================================================
@@ -35,16 +35,16 @@ class MomentumCms::DocumentTemplate < ActiveRecord::Base
   # == Class Methods ========================================================
 
   def self.ancestry_select(require_root = true, set = nil, path = nil)
-    momentum_cms_document_templates_tree = if set.nil?
-                                             MomentumCms::DocumentTemplate.all
+    momentum_cms_blue_prints_tree = if set.nil?
+                                             MomentumCms::BluePrint.all
                                            else
                                              set
                                            end
     select = []
-    momentum_cms_document_templates_tree.each do |momentum_cms_document_template|
-      next if require_root && !momentum_cms_document_template.is_root?
-      select << { id: momentum_cms_document_template.id, label: "#{path} #{momentum_cms_document_template.label}" }
-      select << MomentumCms::DocumentTemplate.ancestry_select(false, momentum_cms_document_template.children, "#{path}-")
+    momentum_cms_blue_prints_tree.each do |momentum_cms_blue_print|
+      next if require_root && !momentum_cms_blue_print.is_root?
+      select << { id: momentum_cms_blue_print.id, label: "#{path} #{momentum_cms_blue_print.label}" }
+      select << MomentumCms::BluePrint.ancestry_select(false, momentum_cms_blue_print.children, "#{path}-")
     end
     select.flatten!
     select.collect! { |x| [x[:label], x[:id]] } if require_root
@@ -52,9 +52,9 @@ class MomentumCms::DocumentTemplate < ActiveRecord::Base
   end
 
 
-  def self.ancestor_and_self!(document_template)
-    if document_template && document_template.is_a?(MomentumCms::DocumentTemplate)
-      [document_template.ancestors.to_a, document_template].flatten.compact
+  def self.ancestor_and_self!(blue_print)
+    if blue_print && blue_print.is_a?(MomentumCms::BluePrint)
+      [blue_print.ancestors.to_a, blue_print].flatten.compact
     else
       []
     end

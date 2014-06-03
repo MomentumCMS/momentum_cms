@@ -4,7 +4,7 @@ class MomentumCms::DocumentSerializer < MomentumCms::ApplicationSerializer
   attributes :id,
              :identifier,
              :label,
-             :document_template_id,
+             :blue_print_id,
              :created_at,
              :updated_at,
              :raw_fields

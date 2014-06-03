@@ -1,0 +1,19 @@
+%h1.page-header Blue Prints
+
+%table.table
+  %thead
+    %tr
+      %th.identifier Identifier
+      %th Label
+      %th.control Control
+  %tbody
+    - @momentum_cms_blue_prints.each do |momentum_cms_blue_print|
+      %tr
+        %td
+          .label.label-info= momentum_cms_blue_print.identifier
+        %td= link_to momentum_cms_blue_print.label, edit_cms_admin_site_blue_print_path(@current_momentum_cms_site, momentum_cms_blue_print)
+        %td
+          = link_to 'Document', cms_admin_site_documents_path(@current_momentum_cms_site, { type: momentum_cms_blue_print.identifier}), class: 'btn btn-success btn-xs'
+          = link_to 'Destroy', cms_admin_site_blue_print_path(@current_momentum_cms_site, momentum_cms_blue_print), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs'
+%br/
+= link_to 'New Blue Print', [:new, :cms, :admin, :site, :blue_print], class: 'btn btn-primary btn-xs'

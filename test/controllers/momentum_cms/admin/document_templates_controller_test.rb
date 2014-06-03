@@ -1,4 +1,4 @@
 require 'test_helper'
 
-class MomentumCms::Admin::DocumentTemplatesControllerTest < ActionController::TestCase
+class MomentumCms::Admin::BluePrintsControllerTest < ActionController::TestCase
 end

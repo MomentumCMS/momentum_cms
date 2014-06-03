@@ -8,7 +8,7 @@ class MomentumCms::Document < ActiveRecord::Base
   # == Constants ============================================================
   # == Relationships ========================================================
 
-  belongs_to :document_template
+  belongs_to :blue_print
 
   has_many :fields,
            inverse_of: :document,
@@ -22,7 +22,7 @@ class MomentumCms::Document < ActiveRecord::Base
 
   # == Validations ==========================================================
 
-  validates :document_template,
+  validates :blue_print,
             presence: true
 
   # == Scopes ===============================================================

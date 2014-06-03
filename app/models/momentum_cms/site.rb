@@ -27,7 +27,7 @@ class MomentumCms::Site < ActiveRecord::Base
   has_many :menus,
            dependent: :destroy
 
-  has_many :document_templates,
+  has_many :blue_prints,
            dependent: :destroy
 
   has_many :documents,

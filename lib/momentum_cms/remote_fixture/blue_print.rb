@@ -1,33 +1,33 @@
 module MomentumCms
   module RemoteFixture
-    module DocumentTemplate
+    module BluePrint
       class Importer < Base::Importer
         def import!
-          document_template = @remote_fixture_object['documents']
-          document_template.each do |document_template_identifier, document_template_meta|
-            document_template = MomentumCms::DocumentTemplate.for_site(@site).where(identifier: document_template_identifier).first_or_initialize
-            label = document_template_meta.fetch('label', nil)
+          blue_print = @remote_fixture_object['documents']
+          blue_print.each do |blue_print_identifier, blue_print_meta|
+            blue_print = MomentumCms::BluePrint.for_site(@site).where(identifier: blue_print_identifier).first_or_initialize
+            label = blue_print_meta.fetch('label', nil)
             case label
               when Hash
                 original_locale = I18n.locale
                 label.each do |locale, value|
                   begin
                     I18n.locale = locale
-                    document_template.label = value
-                    document_template.save
+                    blue_print.label = value
+                    blue_print.save
 
                   rescue I18n::InvalidLocale
                   end
                 end
                 I18n.locale = original_locale
               when String
-                document_template.label = label
-                document_template.save
+                blue_print.label = label
+                blue_print.save
             end
 
-            fields = document_template_meta.fetch('fields', nil)
+            fields = blue_print_meta.fetch('fields', nil)
             fields.each do |field_identifier, field_meta|
-              field_template = MomentumCms::FieldTemplate.where(document_template: document_template, identifier: field_identifier).first_or_initialize
+              field_template = MomentumCms::FieldTemplate.where(blue_print: blue_print, identifier: field_identifier).first_or_initialize
               label = field_meta.fetch('label', nil)
               case label
                 when Hash
@@ -50,19 +50,19 @@ module MomentumCms
             end
           end
 
-          document_template_hierarchy = @remote_fixture_object['document-hierarchy']
-          assign_document_parent!(document_template_hierarchy)
+          blue_print_hierarchy = @remote_fixture_object['document-hierarchy']
+          assign_document_parent!(blue_print_hierarchy)
         end
 
         def assign_document_parent!(set = nil, parent=nil)
           set.each do |key, value|
-            document_template = MomentumCms::DocumentTemplate.for_site(@site).where(identifier: key).first
+            blue_print = MomentumCms::BluePrint.for_site(@site).where(identifier: key).first
             if parent
-              document_template.parent = parent
-              document_template.save
+              blue_print.parent = parent
+              blue_print.save
             end
             if value
-              assign_document_parent!(value, document_template)
+              assign_document_parent!(value, blue_print)
             end
           end
         end

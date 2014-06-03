@@ -809,7 +809,7 @@
         <uid><![CDATA[9774D388-A229-4C61-8F08-A900BCC37692]]></uid>
     </SQLTable>
     <SQLTable>
-        <name><![CDATA[momentum_cms_document_templates]]></name>
+        <name><![CDATA[momentum_cms_blue_prints]]></name>
         <schema><![CDATA[]]></schema>
         <location>
             <x>1728.00</x>
@@ -839,7 +839,7 @@
             <referencesFieldUID><![CDATA[E3092EE4-74D0-48F4-AC0E-D8000A2D434F]]></referencesFieldUID>
             <referencesTableUID><![CDATA[3F342478-CFE5-4F47-B600-5B595B4D960F]]></referencesTableUID>
             <indexed><![CDATA[1]]></indexed>
-            <indexedKeyName><![CDATA[index_momentum_cms_document_templates_on_site_id]]></indexedKeyName>
+            <indexedKeyName><![CDATA[index_momentum_cms_blue_prints_on_site_id]]></indexedKeyName>
             <uid><![CDATA[6242EA0F-7E62-4930-9E24-67F791772BFA]]></uid>
         </SQLField>
         <SQLField>
@@ -982,18 +982,18 @@
             <uid><![CDATA[EF12EE4A-4E06-49D6-BEE0-36BDDD08EF9B]]></uid>
         </SQLField>
         <SQLField>
-            <name><![CDATA[document_template_id]]></name>
+            <name><![CDATA[blue_print_id]]></name>
             <type><![CDATA[integer]]></type>
             <referencesField>id</referencesField>
-            <referencesTable>momentum_cms_document_templates</referencesTable>
+            <referencesTable>momentum_cms_blue_prints</referencesTable>
             <referencesField><![CDATA[id]]></referencesField>
-            <referencesTable><![CDATA[momentum_cms_document_templates]]></referencesTable>
+            <referencesTable><![CDATA[momentum_cms_blue_prints]]></referencesTable>
             <sourceCardinality>0</sourceCardinality>
             <destinationCardinality>0</destinationCardinality>
             <referencesFieldUID><![CDATA[979BD605-C46C-414A-89E2-FD082428EC9E]]></referencesFieldUID>
             <referencesTableUID><![CDATA[A0AD1736-D7CE-47CC-AF78-6527AAA39852]]></referencesTableUID>
             <indexed><![CDATA[1]]></indexed>
-            <indexedKeyName><![CDATA[index_momentum_cms_field_templates_on_document_template_id]]></indexedKeyName>
+            <indexedKeyName><![CDATA[index_momentum_cms_field_templates_on_blue_print_id]]></indexedKeyName>
             <uid><![CDATA[F1667BD8-C10B-4FFF-A818-10591034A25F]]></uid>
         </SQLField>
         <SQLField>
@@ -1251,7 +1251,7 @@
         <uid><![CDATA[CCD44B7E-C83E-4812-89A5-E027BA94ED57]]></uid>
     </SQLTable>
     <SQLTable>
-        <name><![CDATA[momentum_cms_document_template_translations]]></name>
+        <name><![CDATA[momentum_cms_blue_print_translations]]></name>
         <schema><![CDATA[]]></schema>
         <location>
             <x>1216.00</x>
@@ -1269,12 +1269,12 @@
             <uid><![CDATA[D36FCAA6-DD39-415F-BC6A-95165558C140]]></uid>
         </SQLField>
         <SQLField>
-            <name><![CDATA[momentum_cms_document_template_id]]></name>
+            <name><![CDATA[momentum_cms_blue_print_id]]></name>
             <type><![CDATA[integer]]></type>
             <referencesField>id</referencesField>
-            <referencesTable>momentum_cms_document_templates</referencesTable>
+            <referencesTable>momentum_cms_blue_prints</referencesTable>
             <referencesField><![CDATA[id]]></referencesField>
-            <referencesTable><![CDATA[momentum_cms_document_templates]]></referencesTable>
+            <referencesTable><![CDATA[momentum_cms_blue_prints]]></referencesTable>
             <sourceCardinality>0</sourceCardinality>
             <destinationCardinality>0</destinationCardinality>
             <referencesFieldUID><![CDATA[979BD605-C46C-414A-89E2-FD082428EC9E]]></referencesFieldUID>
@@ -1287,7 +1287,7 @@
             <name><![CDATA[locale]]></name>
             <type><![CDATA[varchar(255)]]></type>
             <indexed><![CDATA[1]]></indexed>
-            <indexedKeyName><![CDATA[index_momentum_cms_document_template_translations_on_locale]]></indexedKeyName>
+            <indexedKeyName><![CDATA[index_momentum_cms_blue_print_translations_on_locale]]></indexedKeyName>
             <uid><![CDATA[677E13AD-2F59-4BFC-894A-F78910B43A2A]]></uid>
         </SQLField>
         <SQLField>
@@ -1332,18 +1332,18 @@
             <uid><![CDATA[BD313208-7EE9-40CD-874C-CB29F018F6F1]]></uid>
         </SQLField>
         <SQLField>
-            <name><![CDATA[document_template_id]]></name>
+            <name><![CDATA[blue_print_id]]></name>
             <type><![CDATA[integer]]></type>
             <referencesField>id</referencesField>
-            <referencesTable>momentum_cms_document_templates</referencesTable>
+            <referencesTable>momentum_cms_blue_prints</referencesTable>
             <referencesField><![CDATA[id]]></referencesField>
-            <referencesTable><![CDATA[momentum_cms_document_templates]]></referencesTable>
+            <referencesTable><![CDATA[momentum_cms_blue_prints]]></referencesTable>
             <sourceCardinality>0</sourceCardinality>
             <destinationCardinality>0</destinationCardinality>
             <referencesFieldUID><![CDATA[979BD605-C46C-414A-89E2-FD082428EC9E]]></referencesFieldUID>
             <referencesTableUID><![CDATA[A0AD1736-D7CE-47CC-AF78-6527AAA39852]]></referencesTableUID>
             <indexed><![CDATA[1]]></indexed>
-            <indexedKeyName><![CDATA[index_momentum_cms_documents_on_document_template_id]]></indexedKeyName>
+            <indexedKeyName><![CDATA[index_momentum_cms_documents_on_blue_print_id]]></indexedKeyName>
             <uid><![CDATA[5B0DE6C3-5276-4960-BDF7-2F942EB99EF3]]></uid>
         </SQLField>
         <SQLField>

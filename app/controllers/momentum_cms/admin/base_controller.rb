@@ -6,7 +6,7 @@ class MomentumCms::Admin::BaseController < ApplicationController
   before_action :authenticate,
                 :load_sites,
                 :load_site,
-                :load_document_templates,
+                :load_blue_prints,
                 :load_fixtures
 
   protected
@@ -39,9 +39,9 @@ class MomentumCms::Admin::BaseController < ApplicationController
     flash.now[:danger] = 'Fixtures enabled, all changes will be discarded.'
   end
 
-  def load_document_templates
+  def load_blue_prints
     return unless @current_momentum_cms_site
-    @momentum_cms_document_templates = MomentumCms::DocumentTemplate.for_site(@current_momentum_cms_site)
+    @momentum_cms_blue_prints = MomentumCms::BluePrint.for_site(@current_momentum_cms_site)
   end
 
 end

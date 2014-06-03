@@ -11,7 +11,7 @@ class MomentumCms::Admin::DocumentsController < MomentumCms::Admin::BaseControll
   end
 
   def edit
-    build_momentum_cms_fields(@momentum_cms_document.document_template, @momentum_cms_document)
+    build_momentum_cms_fields(@momentum_cms_document.blue_print, @momentum_cms_document)
   end
 
   def create
@@ -19,7 +19,7 @@ class MomentumCms::Admin::DocumentsController < MomentumCms::Admin::BaseControll
     flash[:success] = 'Document was successfully created.'
     redirect_to action: :edit, :id => @momentum_cms_document
   rescue ActiveRecord::RecordInvalid
-    build_momentum_cms_fields(@momentum_cms_document.document_template, @momentum_cms_document)
+    build_momentum_cms_fields(@momentum_cms_document.blue_print, @momentum_cms_document)
     render action: :new
   end
 
@@ -28,7 +28,7 @@ class MomentumCms::Admin::DocumentsController < MomentumCms::Admin::BaseControll
     flash[:success] = 'Document was successfully updated.'
     redirect_to action: :edit, :id => @momentum_cms_document
   rescue ActiveRecord::RecordInvalid
-    build_momentum_cms_fields(@momentum_cms_document.document_template, @momentum_cms_document)
+    build_momentum_cms_fields(@momentum_cms_document.blue_print, @momentum_cms_document)
     render action: :edit
   end
 
@@ -40,8 +40,8 @@ class MomentumCms::Admin::DocumentsController < MomentumCms::Admin::BaseControll
 
   def fields
     @momentum_cms_document = MomentumCms::Document.where(params[:document_id]).first_or_initialize
-    @momentum_cms_document_template = MomentumCms::DocumentTemplate.find(params[:document_template_id])
-    build_momentum_cms_fields(@momentum_cms_document_template, @momentum_cms_document)
+    @momentum_cms_blue_print = MomentumCms::BluePrint.find(params[:blue_print_id])
+    build_momentum_cms_fields(@momentum_cms_blue_print, @momentum_cms_document)
     render 'momentum_cms/admin/documents/fields', layout: false
   rescue ActiveRecord::RecordNotFound
     render nothing: true
@@ -64,10 +64,10 @@ class MomentumCms::Admin::DocumentsController < MomentumCms::Admin::BaseControll
     params.fetch(:momentum_cms_document, {}).permit!
   end
 
-  def build_momentum_cms_fields(document_template, document)
-    return unless document_template && document
+  def build_momentum_cms_fields(blue_print, document)
+    return unless blue_print && document
     # Get all the field templates that is assigned to the document template
-    field_templates = DocumentFieldService.new(document_template).get_fields
+    field_templates = DocumentFieldService.new(blue_print).get_fields
     @field_templates_identifiers = field_templates.collect(&:to_identifier)
 
     # Get the current document's existing saved fields

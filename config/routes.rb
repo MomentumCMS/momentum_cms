@@ -42,7 +42,7 @@ Rails.application.routes.draw do
           end
           resources :snippets
           resources :menus
-          resources :document_templates
+          resources :blue_prints
           resources :documents do
             collection do
               get :fields

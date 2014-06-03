@@ -12,7 +12,7 @@ module MomentumCms
       end
 
       def import!
-        document_template = MomentumCms::RemoteFixture::DocumentTemplate::Importer.new(@source, @site).import!
+        blue_print = MomentumCms::RemoteFixture::BluePrint::Importer.new(@source, @site).import!
       end
     end
 
