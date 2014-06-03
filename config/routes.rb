@@ -30,8 +30,6 @@ Rails.application.routes.draw do
           resources :templates
           resources :files
           resources :pages do
-            get 'revisions/:id', to: 'pages#revision_show', as: :revision_show
-            # get 'revisions/:id', to: 'pages#revision_show', as: :revision_show
             member do
               post :publish
               post :unpublish
@@ -44,6 +42,10 @@ Rails.application.routes.draw do
           resources :menus
           resources :blue_prints
           resources :documents do
+            member do
+              post :publish
+              post :unpublish
+            end
             collection do
               get :fields
             end

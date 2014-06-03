@@ -8,6 +8,7 @@
 .momentum-cms-fields
   = form.simple_fields_for :fields do |field_form|
     - next unless @field_templates_identifiers.include?(field_form.object.identifier)
+    - next unless field_form.object.field_type == 'draft'
     .momentum-cms-field
       = render 'momentum_cms/admin/documents/partials/fields_fields', field_form: field_form
       

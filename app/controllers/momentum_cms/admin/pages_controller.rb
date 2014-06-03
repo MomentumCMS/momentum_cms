@@ -1,5 +1,5 @@
 class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
-  before_action :load_momentum_cms_page, only: [:edit, :update, :destroy, :publish, :unpublish, :revision_show]
+  before_action :load_momentum_cms_page, only: [:edit, :update, :destroy, :publish, :unpublish]
   before_action :build_momentum_cms_page, only: [:new, :create]
   before_action :load_parent_pages, only: [:edit, :new, :update, :create]
 
@@ -9,10 +9,6 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
       format.html
       format.js { render js: @momentum_cms_pages.to_json }
     end
-  end
-
-  def revision_show
-
   end
 
   def unpublish

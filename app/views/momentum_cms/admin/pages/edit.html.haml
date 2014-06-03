@@ -22,7 +22,6 @@
             %td= momentum_cms_page_revision.published_status.titlecase
             %td
               - unless momentum_cms_page_revision.draft?
-                = link_to 'Info', cms_admin_site_page_revision_show_path(@current_momentum_cms_site, @momentum_cms_page, momentum_cms_page_revision), class: 'btn btn-success btn-xs'
                 = link_to 'Revert', edit_cms_admin_site_page_path(@current_momentum_cms_site, @momentum_cms_page, {revision: momentum_cms_page_revision.revision_number}), class: 'btn btn-warning btn-xs'
 
     = link_to 'Publish', publish_cms_admin_site_page_path(@current_momentum_cms_site, @momentum_cms_page), method: :post, data: { confirm: 'Are you sure?' }, class: 'btn btn-info btn-xs'

@@ -4,6 +4,7 @@ class CreateMomentumCmsDocuments < ActiveRecord::Migration
       t.references :blue_print, index: true
       t.references :site, index: true
       t.string :identifier
+      t.boolean :published, default: false, index: true
 
       t.timestamps
     end

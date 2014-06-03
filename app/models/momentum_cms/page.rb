@@ -20,8 +20,6 @@ class MomentumCms::Page < ActiveRecord::Base
            as: :revisable,
            dependent: :destroy
 
-  attr_accessor :revision_data
-
   accepts_nested_attributes_for :revisions
   
   # == Extensions ===========================================================
@@ -36,7 +34,8 @@ class MomentumCms::Page < ActiveRecord::Base
 
   validates :identifier, uniqueness: { scope: :site } , presence: true
 
-  validates :template, presence: true
+  validates :template,
+            presence: true
 
   # == Scopes ===============================================================
 

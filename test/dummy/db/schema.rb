@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140603191344) do
+ActiveRecord::Schema.define(version: 20140603201618) do
 
   create_table "momentum_cms_api_keys", force: true do |t|
     t.integer  "user_id"
@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(version: 20140603191344) do
     t.integer  "blue_print_id"
     t.integer  "site_id"
     t.string   "identifier"
+    t.boolean  "published",     default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -148,6 +149,8 @@ ActiveRecord::Schema.define(version: 20140603191344) do
     t.integer  "document_id"
     t.integer  "field_template_id"
     t.string   "identifier"
+    t.string   "field_type"
+    t.integer  "revision_field_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
