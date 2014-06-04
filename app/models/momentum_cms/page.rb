@@ -3,6 +3,8 @@ class MomentumCms::Page < ActiveRecord::Base
 
   include MomentumCms::BelongsToSite
 
+  include MomentumCms::AncestryUtils
+
   self.table_name = 'momentum_cms_pages'
 
   # == Constants ============================================================
@@ -21,7 +23,7 @@ class MomentumCms::Page < ActiveRecord::Base
            dependent: :destroy
 
   accepts_nested_attributes_for :revisions
-  
+
   # == Extensions ===========================================================
 
   has_ancestry
@@ -45,22 +47,16 @@ class MomentumCms::Page < ActiveRecord::Base
         }
 
   # == Callbacks ============================================================
-  
+
   before_create :create_revision
-  
+
   before_save :assign_paths
-  
+
   after_update :regenerate_child_paths
 
   # == Class Methods ========================================================
 
-  def self.ancestor_and_self!(page)
-    if page && page.is_a?(MomentumCms::Page)
-      [page.ancestors.to_a, page].flatten.compact
-    else
-      []
-    end
-  end
+
 
   # == Instance Methods =====================================================
 
