@@ -10,7 +10,7 @@ before_script:
   - psql -c 'create database momentum_cms_test' -U postgres
   - rake db:migrate
 script:
-  - rake test
+  - rake spec
 rvm:
   - 1.9.3
   - 2.0.0
