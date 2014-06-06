@@ -36,6 +36,28 @@ class MomentumCms::Api::Admin::PagesControllerTest < ActionController::TestCase
     assert_equal page.slug, json_response['page']['slug']
   end
 
+  def test_update
+    page = momentum_cms_pages(:default)
+    patch :update, id: page.id, page: {
+      label: 'New Label',
+      slug: 'new-label'
+    }
+    assert_response :success
+    page.reload
+    assert_equal 'New Label', page.label
+    assert_equal 'new-label', page.slug
+  end
+
+  def test_failed_update
+    page = momentum_cms_pages(:default)
+    patch :update, id: page.id, page: {
+      label: 'New Label',
+      slug: nil
+    }
+    assert_response 422
+    assert json_response['errors'].present?
+  end
+
   def test_create_failure
     assert_no_difference "MomentumCms::Page.count" do
       post :create, site_id: @default_site.id, page: {}
@@ -46,6 +68,12 @@ class MomentumCms::Api::Admin::PagesControllerTest < ActionController::TestCase
     assert json_response['errors']['slug'].present?
     assert json_response['errors']['identifier'].present?
     assert json_response['errors']['template'].present?
+  end
+
+  def test_destroy
+    page = momentum_cms_pages(:default)
+    delete :destroy, id: page.id
+    assert_response :success
   end
 
 end
