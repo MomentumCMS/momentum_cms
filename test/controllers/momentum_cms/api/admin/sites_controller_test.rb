@@ -31,7 +31,7 @@ class MomentumCms::Api::Admin::SitesControllerTest < ActionController::TestCase
 
   def test_show_failure
     get :show, id: 13953157131
-    assert_response 422
+    assert_response 404
   end
 
   def test_create
@@ -65,6 +65,32 @@ class MomentumCms::Api::Admin::SitesControllerTest < ActionController::TestCase
     assert json_response['errors'].present?
     assert json_response['errors']['label'].present?
     assert json_response['errors']['host'].present?
+  end
+
+  def test_update
+    put :update, id: @default_site.id, site: {
+      label: 'Fancy New Label'
+    }
+    assert_response :success
+    @default_site.reload
+    assert_equal 'Fancy New Label', json_response['site']['label']
+    assert_equal 'Fancy New Label', @default_site.label
+  end
+
+  def test_update_not_found
+    put :update, id: 404, site: {
+      label: 'Not Found'
+    }
+    assert_response 404
+    assert json_response['message'].present?
+  end
+
+  def test_update_failure
+    put :update, id: @default_site.id, site: {
+      label: ''
+    }
+    assert_response 422
+    assert json_response['errors']['label'].present?
   end
 
 end
