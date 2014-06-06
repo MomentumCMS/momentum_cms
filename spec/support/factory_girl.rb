@@ -10,3 +10,5 @@ RSpec.configure do |config|
     end
   end
 end
+FactoryGirl.definition_file_paths << File.join(File.dirname(__FILE__), '..', 'factories')
+FactoryGirl.find_definitions

@@ -38,7 +38,6 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 # ActiveRecord::Migration.maintain_test_schema!
 
 
-
 RSpec.configure do |config|
 
   config.mock_with :rspec
