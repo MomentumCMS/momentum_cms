@@ -21,4 +21,8 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'quiet_assets'
+
+  gem 'rspec-rails',        '~> 3.0.1'
+  gem 'factory_girl_rails', '~> 4.4.1'
+  #gem 'capybara'
 end

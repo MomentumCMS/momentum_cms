@@ -36,8 +36,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'active_model_serializers', '~> 0.8.1'
   s.add_dependency 'tinymce-rails',            '~> 4.0.26'
 
-  s.add_development_dependency 'rspec-rails',        '~> 3.0.1'
-  s.add_development_dependency 'factory_girl_rails', '~> 4.4.1'
-  #s.add_development_dependency 'capybara'
+  # s.add_development_dependency 'rspec-rails',        '~> 3.0.1'
+  # s.add_development_dependency 'factory_girl_rails', '~> 4.4.1'
+  # #s.add_development_dependency 'capybara'
 
 end
