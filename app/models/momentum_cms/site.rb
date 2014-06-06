@@ -6,8 +6,8 @@ class MomentumCms::Site < ActiveRecord::Base
   # == Constants ============================================================
 
   REMOTE_FIXTURE_TYPE = [
-    'http',
-    'ssh'
+      'http',
+      'ssh'
   ].freeze
 
   # == Relationships ========================================================
@@ -56,12 +56,8 @@ class MomentumCms::Site < ActiveRecord::Base
   # == Class Methods ========================================================
   # == Instance Methods =====================================================
 
-  def get_locales(defaults=[])
-    if self.available_locales.present?
-      self.available_locales
-    else
-      defaults
-    end
+  def get_locales
+    self.available_locales
   end
 
   def sync_remote!
