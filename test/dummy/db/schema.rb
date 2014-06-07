@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140606060355) do
+ActiveRecord::Schema.define(version: 20140607220825) do
 
   create_table "momentum_cms_api_keys", force: true do |t|
     t.integer  "user_id"
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 20140606060355) do
     t.integer  "site_id"
     t.string   "identifier"
     t.string   "ancestry"
+    t.boolean  "permanent_record", default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -199,11 +200,6 @@ ActiveRecord::Schema.define(version: 20140606060355) do
 
   add_index "momentum_cms_links", ["site_id"], name: "index_momentum_cms_links_on_site_id"
 
-  create_table "momentum_cms_locales", force: true do |t|
-    t.string "label"
-    t.string "identifier"
-  end
-
   create_table "momentum_cms_menu_items", force: true do |t|
     t.integer  "menu_id"
     t.string   "ancestry"
@@ -258,7 +254,7 @@ ActiveRecord::Schema.define(version: 20140606060355) do
     t.string   "revisable_type"
     t.integer  "revision_number"
     t.string   "published_status"
-    t.string   "revision_data"
+    t.text     "revision_data"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

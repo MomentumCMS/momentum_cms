@@ -3,6 +3,8 @@ class MomentumCms::BluePrint < ActiveRecord::Base
 
   include MomentumCms::BelongsToSite
 
+  include MomentumCms::ActAsPermanentRecord
+
   include MomentumCms::AncestryUtils
 
   self.table_name = 'momentum_cms_blue_prints'

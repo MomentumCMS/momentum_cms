@@ -4,6 +4,7 @@ class CreateMomentumCmsBluePrints < ActiveRecord::Migration
       t.references :site, index: true
       t.string :identifier
       t.string :ancestry
+      t.boolean :permanent_record, default: false
 
       t.timestamps
     end
