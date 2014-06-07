@@ -14,10 +14,8 @@ class MomentumCms::Link < ActiveRecord::Base
   # == Validations ==========================================================
 
   validates :identifier,
-            presence: true
-
-  validates :identifier,
-            uniqueness: true
+            presence: true,
+            uniqueness: {scope: :site_id}
 
   # == Scopes ===============================================================
   # == Callbacks ============================================================

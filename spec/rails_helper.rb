@@ -2,7 +2,7 @@
 ENV["RAILS_ENV"] ||= 'test'
 require 'spec_helper'
 require File.expand_path("../../test/dummy/config/environment", __FILE__)
-
+require 'database_cleaner'
 require 'codeclimate-test-reporter'
 require 'simplecov'
 require 'coveralls'
@@ -18,7 +18,6 @@ SimpleCov.start 'rails' do
   add_group 'Tags', 'lib/momentum_cms/tags'
   add_group 'Services', 'app/services'
 end
-
 
 require 'rspec/rails'
 require 'factory_girl_rails'

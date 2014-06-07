@@ -23,7 +23,7 @@ class MomentumCms::MenuItem < ActiveRecord::Base
 
   # == Validations ==========================================================
 
-  validates :menu_id,
+  validates :menu,
             presence: true
 
   # == Scopes ===============================================================

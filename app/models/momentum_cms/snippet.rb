@@ -14,11 +14,12 @@ class MomentumCms::Snippet < ActiveRecord::Base
 
   # == Validations ==========================================================
 
-  validates :label, :identifier,
+  validates :label,
             presence: true
 
   validates :identifier,
-            uniqueness: { scope: :site }
+            presence: true,
+            uniqueness: {scope: :site}
 
   validate :validate_value_does_not_nest
 
@@ -32,7 +33,7 @@ class MomentumCms::Snippet < ActiveRecord::Base
 
   protected
   def assign_identifier
-    if self.identifier.blank?
+    if self.identifier.blank? && self.label.present?
       self.identifier = self.label.to_slug
     end
   end

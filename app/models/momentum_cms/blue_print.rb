@@ -27,10 +27,8 @@ class MomentumCms::BluePrint < ActiveRecord::Base
   # == Validations ==========================================================
 
   validates :identifier,
-            presence: true
-
-  validates :identifier,
-            uniqueness: true
+            presence: true,
+            uniqueness: {scope: :site}
 
   # == Scopes ===============================================================
   # == Callbacks ============================================================

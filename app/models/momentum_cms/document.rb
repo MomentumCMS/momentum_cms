@@ -23,12 +23,14 @@ class MomentumCms::Document < ActiveRecord::Base
   accepts_nested_attributes_for :revisions
 
   # == Extensions ===========================================================
-  
+
   translates :label, fallbacks_for_empty_translations: true
 
   # == Validations ==========================================================
 
-  validates :identifier, uniqueness: { scope: :site } , presence: true
+  validates :identifier,
+            presence: true,
+            uniqueness: {scope: :site}
 
   validates :blue_print,
             presence: true
