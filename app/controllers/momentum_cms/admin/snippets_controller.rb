@@ -15,7 +15,7 @@ class MomentumCms::Admin::SnippetsController < MomentumCms::Admin::BaseControlle
   def create
     @momentum_cms_snippet.save!
     flash[:success] = 'Snippet was successfully created.'
-    redirect_to action: :edit, :id => @momentum_cms_snippet
+    redirect_to action: :edit, id: @momentum_cms_snippet
   rescue ActiveRecord::RecordInvalid
     render action: :new
   end
@@ -23,7 +23,7 @@ class MomentumCms::Admin::SnippetsController < MomentumCms::Admin::BaseControlle
   def update
     @momentum_cms_snippet.update_attributes!(momentum_cms_snippet_params)
     flash[:success] = 'Snippet was successfully updated.'
-    redirect_to action: :edit, :id => @momentum_cms_snippet
+    redirect_to action: :edit, id: @momentum_cms_snippet
   rescue ActiveRecord::RecordInvalid
     render action: :edit
   end

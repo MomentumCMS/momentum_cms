@@ -1,6 +1,6 @@
 require_relative '../../rails_helper'
 
-describe MomentumCms::Site do
+describe MomentumCms::Site, 'Model' do
   before(:each) do
     @site = create(:site)
   end

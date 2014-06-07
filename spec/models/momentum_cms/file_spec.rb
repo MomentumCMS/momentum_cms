@@ -1,6 +1,6 @@
 require_relative '../../rails_helper'
 
-describe MomentumCms::File do
+describe MomentumCms::File, 'Model' do
   before(:each) do
     @file = create(:file)
   end

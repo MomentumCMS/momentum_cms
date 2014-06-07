@@ -16,7 +16,7 @@ class MomentumCms::Admin::BluePrintsController < MomentumCms::Admin::BaseControl
   def create
     @momentum_cms_blue_print.save!
     flash[:success] = 'Document template was successfully created.'
-    redirect_to action: :edit, :id => @momentum_cms_blue_print
+    redirect_to action: :edit, id: @momentum_cms_blue_print
   rescue ActiveRecord::RecordInvalid
     render action: :new
   end
@@ -24,7 +24,7 @@ class MomentumCms::Admin::BluePrintsController < MomentumCms::Admin::BaseControl
   def update
     @momentum_cms_blue_print.update_attributes!(momentum_cms_blue_print_params)
     flash[:success] = 'Document template was successfully updated.'
-    redirect_to action: :edit, :id => @momentum_cms_blue_print
+    redirect_to action: :edit, id: @momentum_cms_blue_print
   rescue ActiveRecord::RecordInvalid
     render action: :edit
   end

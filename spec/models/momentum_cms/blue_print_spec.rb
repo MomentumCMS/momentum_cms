@@ -1,5 +1,4 @@
-require 'rails_helper'
+require_relative '../../rails_helper'
 
-RSpec.describe MomentumCms::BluePrint, :type => :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe MomentumCms::BluePrint, 'Model' do
 end

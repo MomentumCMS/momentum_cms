@@ -7,7 +7,8 @@ class MomentumCms::Revision < ActiveRecord::Base
   # == Constants ============================================================
   # == Relationships ========================================================
 
-  belongs_to :revisable, polymorphic: true
+  belongs_to :revisable,
+             polymorphic: true
 
   # == Extensions ===========================================================
 

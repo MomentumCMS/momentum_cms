@@ -1,6 +1,6 @@
 require_relative '../../rails_helper'
 
-describe MomentumCms::Template do
+describe MomentumCms::Template, 'Model' do
   before(:each) do
     @template = create(:template)
     @template_child = create(:template_child)

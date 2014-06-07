@@ -83,6 +83,14 @@ describe MomentumCms::Page, 'Model' do
       @page.publish!
       expect(@page.published?).to be true
     end
+
+    it 'should save blocks' do
+      10.times do
+        @page.blocks << create(:block)
+      end
+      @page.publish!
+
+    end
   end
 
   context '#generate_path' do

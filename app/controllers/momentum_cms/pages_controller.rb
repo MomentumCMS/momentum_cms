@@ -35,7 +35,7 @@ class MomentumCms::PagesController < MomentumCms::BaseController
   end
 
   def load_momentum_cms_page_for_js_css
-    @momentum_cms_page =MomentumCms::Page.for_site(@momentum_cms_site).published.where(id: params[:id]).first!
+    @momentum_cms_page = MomentumCms::Page.for_site(@momentum_cms_site).published.where(id: params[:id]).first!
   rescue ActiveRecord::RecordNotFound
     raise MomentumCms::RecordNotFound.new("Page with id: #{params[:id]}")
   end

@@ -15,7 +15,7 @@ class MomentumCms::Admin::FilesController < MomentumCms::Admin::BaseController
   def create
     @momentum_cms_file.save!
     flash[:success] = 'File was successfully created.'
-    redirect_to action: :edit, :id => @momentum_cms_file
+    redirect_to action: :edit, id: @momentum_cms_file
   rescue ActiveRecord::RecordInvalid
     render action: :new
   end
@@ -23,7 +23,7 @@ class MomentumCms::Admin::FilesController < MomentumCms::Admin::BaseController
   def update
     @momentum_cms_file.update_attributes!(momentum_cms_file_params)
     flash[:success] = 'File was successfully updated.'
-    redirect_to action: :edit, :id => @momentum_cms_file
+    redirect_to action: :edit, id: @momentum_cms_file
   rescue ActiveRecord::RecordInvalid
     render action: :edit
   end

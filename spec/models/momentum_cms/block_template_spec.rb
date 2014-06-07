@@ -1,5 +1,4 @@
-require 'rails_helper'
+require_relative '../../rails_helper'
 
-RSpec.describe MomentumCms::BlockTemplate, :type => :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe MomentumCms::BlockTemplate, 'Model' do
 end

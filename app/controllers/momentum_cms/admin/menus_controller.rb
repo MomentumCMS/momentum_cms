@@ -15,7 +15,7 @@ class MomentumCms::Admin::MenusController < MomentumCms::Admin::BaseController
   def create
     @momentum_cms_menu.save!
     flash[:success] = 'Menu was successfully created.'
-    redirect_to action: :edit, :id => @momentum_cms_menu
+    redirect_to action: :edit, id: @momentum_cms_menu
   rescue ActiveRecord::RecordInvalid
     render action: :new
   end
@@ -23,7 +23,7 @@ class MomentumCms::Admin::MenusController < MomentumCms::Admin::BaseController
   def update
     @momentum_cms_menu.update_attributes!(momentum_cms_menu_params)
     flash[:success] = 'Menu was successfully updated.'
-    redirect_to action: :edit, :id => @momentum_cms_menu
+    redirect_to action: :edit, id: @momentum_cms_menu
   rescue ActiveRecord::RecordInvalid
     render action: :edit
   end

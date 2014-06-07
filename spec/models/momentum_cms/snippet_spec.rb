@@ -1,6 +1,6 @@
 require_relative '../../rails_helper'
 
-describe MomentumCms::Snippet do
+describe MomentumCms::Snippet, 'Model' do
   before(:each) do
     @snippet = create(:snippet)
   end

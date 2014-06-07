@@ -1,6 +1,6 @@
 require_relative '../../rails_helper'
 
-describe MomentumCms::Menu do
+describe MomentumCms::Menu, 'Model' do
   before(:each) do
     @menu = create(:menu)
   end

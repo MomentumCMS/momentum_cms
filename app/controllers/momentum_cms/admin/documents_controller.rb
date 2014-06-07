@@ -28,7 +28,7 @@ class MomentumCms::Admin::DocumentsController < MomentumCms::Admin::BaseControll
   def create
     @momentum_cms_document.save!
     flash[:success] = 'Document was successfully created.'
-    redirect_to action: :edit, :id => @momentum_cms_document
+    redirect_to action: :edit, id: @momentum_cms_document
   rescue ActiveRecord::RecordInvalid
     build_momentum_cms_fields(@momentum_cms_document.blue_print, @momentum_cms_document)
     render action: :new
@@ -37,7 +37,7 @@ class MomentumCms::Admin::DocumentsController < MomentumCms::Admin::BaseControll
   def update
     @momentum_cms_document.update_attributes!(momentum_cms_document_params)
     flash[:success] = 'Document was successfully updated.'
-    redirect_to action: :edit, :id => @momentum_cms_document
+    redirect_to action: :edit, id: @momentum_cms_document
   rescue ActiveRecord::RecordInvalid
     build_momentum_cms_fields(@momentum_cms_document.blue_print, @momentum_cms_document)
     render action: :edit

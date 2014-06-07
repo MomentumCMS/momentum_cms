@@ -42,7 +42,7 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
   def update
     @momentum_cms_page.update_attributes!(momentum_cms_page_params)
     flash[:success] = 'Page was successfully updated.'
-    redirect_to action: :edit, :id => @momentum_cms_page
+    redirect_to action: :edit, id: @momentum_cms_page
   rescue ActiveRecord::RecordInvalid
     build_momentum_cms_blocks(@momentum_cms_page.template, @momentum_cms_page)
     render action: :edit

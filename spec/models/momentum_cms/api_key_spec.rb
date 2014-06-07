@@ -1,6 +1,6 @@
 require_relative '../../rails_helper'
 
-describe MomentumCms::ApiKey do
+describe MomentumCms::ApiKey, 'Model' do
   before(:each) do
     @api_key = create(:api_key)
   end

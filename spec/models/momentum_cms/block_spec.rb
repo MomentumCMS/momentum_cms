@@ -1,6 +1,6 @@
 require_relative '../../rails_helper'
 
-describe MomentumCms::Block do
+describe MomentumCms::Block, 'Model' do
   before(:each) do
     @block = create(:block)
   end
