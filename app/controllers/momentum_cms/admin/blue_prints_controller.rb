@@ -46,7 +46,7 @@ class MomentumCms::Admin::BluePrintsController < MomentumCms::Admin::BaseControl
   end
 
   def load_momentum_cms_blue_prints
-    @momentum_cms_blue_prints = @current_momentum_cms_site.blue_prints.all
+    @momentum_cms_blue_prints = @current_momentum_cms_site.blue_prints
   end
 
   def load_parent_blue_prints
