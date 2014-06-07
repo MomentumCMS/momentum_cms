@@ -11,8 +11,13 @@ FactoryGirl.define do
     end
 
     factory :page_child do
-      slug 'page_child'
+      slug 'page-child'
       identifier 'page_child_identifier'
+    end
+
+    factory :page_grandchild do
+      slug 'page-grandchild'
+      identifier 'page_grandchild_identifier'
     end
   end
 end

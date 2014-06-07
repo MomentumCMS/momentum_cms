@@ -15,6 +15,42 @@ describe MomentumCms::Template do
       expect(@template_child.valid?).to be true
       expect(@template_child.parent).to eq(@template)
     end
+
+    it 'should have unique identifier' do
+      site = create(:site)
+
+      expect { create(:template, identifier: 'foo', site: site) }.to change { MomentumCms::Template.count }.by(1)
+      template = build(:template, identifier: 'foo', site: site)
+      template.save
+      expect(template.errors.include?(:identifier)).to be true
+    end
+
+    it 'should allow same identifier for different sites' do
+      @template_1 = create(:template, identifier: 'foo', site: create(:site))
+      expect(@template_1.valid?).to be true
+
+      @template_2 = create(:template, identifier: 'foo', site: create(:site))
+      expect(@template_2.valid?).to be true
+    end
+
+    it 'should not allow same identifier for same sites' do
+      site = create(:site)
+
+      @template_1 = create(:template, identifier: 'foo', site: site)
+      expect(@template_1.valid?).to be true
+
+      @template_2 = build(:template, identifier: 'foo', site: site)
+      expect(@template_2.valid?).to be false
+    end
+  end
+
+  context '.for_site' do
+    it 'should only return Template for the given site' do
+      expect(MomentumCms::Template.for_site(@template.site)).to include(@template)
+
+      site = create(:site)
+      expect(MomentumCms::Template.for_site(site)).to_not include(@template)
+    end
   end
 
   context '.has_yield' do
@@ -30,7 +66,8 @@ describe MomentumCms::Template do
   context '#ensure_can_delete_record' do
     it 'should not allow permanent record to be deleted' do
       @template.update_attributes({permanent_record: true})
-      expect { @template.destroy }.to raise_error
+      expect { @template.destroy }.to raise_error(MomentumCms::PermanentObject)
+      expect(@template.persisted?).to be true
     end
 
     it 'should allow non permanent record to be deleted' do

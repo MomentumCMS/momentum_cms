@@ -32,9 +32,13 @@ class MomentumCms::Page < ActiveRecord::Base
 
   # == Validations ==========================================================
 
-  validates :slug, uniqueness: { scope: [:site, :ancestry] } , presence: true
+  validates :slug,
+            presence: true,
+            uniqueness: {scope: [:site, :ancestry]}
 
-  validates :identifier, uniqueness: { scope: :site } , presence: true
+  validates :identifier,
+            presence: true,
+            uniqueness: {scope: :site}
 
   validates :template,
             presence: true
@@ -55,8 +59,6 @@ class MomentumCms::Page < ActiveRecord::Base
   after_update :regenerate_child_paths
 
   # == Class Methods ========================================================
-
-
 
   # == Instance Methods =====================================================
 
