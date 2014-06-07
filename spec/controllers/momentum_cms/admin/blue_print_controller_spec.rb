@@ -7,7 +7,7 @@ describe MomentumCms::Admin::BluePrintsController, 'Controller' do
   end
 
   context '#index' do
-    it 'should return all the blue_prints inside a site' do
+    it 'should return all the blue prints inside a site' do
       get :index, site_id: @site.id
       expect(response).to have_http_status(:success)
       expect(response).to render_template(:index)
@@ -16,7 +16,7 @@ describe MomentumCms::Admin::BluePrintsController, 'Controller' do
   end
 
   context '#new' do
-    it 'should display the new blue_print form' do
+    it 'should display the new blue print form' do
       get :new, site_id: @site.id
       expect(response).to have_http_status(:success)
       expect(response).to render_template(:new)
@@ -28,7 +28,7 @@ describe MomentumCms::Admin::BluePrintsController, 'Controller' do
   end
 
   context '#create' do
-    it 'should create a valid blue_print' do
+    it 'should create a valid blue print' do
       expect {
         post :create, site_id: @site.id, momentum_cms_blue_print: {
             label: 'Test Create',
@@ -40,7 +40,7 @@ describe MomentumCms::Admin::BluePrintsController, 'Controller' do
       }.to change { MomentumCms::BluePrint.count }.by(1)
     end
 
-    it 'should create a valid blue_print with parent' do
+    it 'should create a valid blue print with parent' do
       expect {
         post :create, site_id: @site.id, momentum_cms_blue_print: {
             label: 'Test Create',
@@ -53,7 +53,7 @@ describe MomentumCms::Admin::BluePrintsController, 'Controller' do
       }.to change { MomentumCms::BluePrint.count }.by(1)
     end
 
-    it 'should not create an invalid blue_print' do
+    it 'should not create an invalid blue print' do
       expect {
         post :create, site_id: @blue_print.site.id, momentum_cms_blue_print: {
             label: 'Test Create',
@@ -71,7 +71,7 @@ describe MomentumCms::Admin::BluePrintsController, 'Controller' do
       expect(response).to render_template(:edit)
     end
 
-    it 'should not show the edit form for a non existing blue_print' do
+    it 'should not show the edit form for a non existing blue print' do
       get :edit, site_id: @site.id, id: 0
       expect(response).to have_http_status(:redirect)
       expect(response).to redirect_to(cms_admin_site_blue_prints_path)
@@ -79,7 +79,7 @@ describe MomentumCms::Admin::BluePrintsController, 'Controller' do
   end
 
   context '#update' do
-    it 'should update a valid blue_print' do
+    it 'should update a valid blue print' do
       put :update,
           site_id: @site.id,
           id: @blue_print,
@@ -90,7 +90,7 @@ describe MomentumCms::Admin::BluePrintsController, 'Controller' do
       expect(@blue_print.label).to eq 'New Label'
     end
 
-    it 'should not update an invalid valid blue_print' do
+    it 'should not update an invalid valid blue print' do
       put :update,
           site_id: @site.id,
           id: @blue_print,
@@ -105,7 +105,7 @@ describe MomentumCms::Admin::BluePrintsController, 'Controller' do
   end
 
   context '#destroy' do
-    it 'should destroy a valid blue_print' do
+    it 'should destroy a valid blue print' do
       expect {
         delete :destroy, site_id: @site.id, id: @blue_print
         expect(response).to have_http_status(:redirect)
@@ -113,7 +113,7 @@ describe MomentumCms::Admin::BluePrintsController, 'Controller' do
       expect { @blue_print.reload }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
-    it 'should not destroy a permanent blue_print' do
+    it 'should not destroy a permanent blue print' do
       @blue_print.update_attributes({permanent_record: true})
       expect {
         delete :destroy, site_id: @site.id, id: @blue_print
@@ -122,7 +122,7 @@ describe MomentumCms::Admin::BluePrintsController, 'Controller' do
       expect(@blue_print.persisted?).to be true
     end
 
-    it 'should not destroy an invalid blue_print' do
+    it 'should not destroy an invalid blue print' do
       expect {
         delete :destroy, site_id: @site.id, id: 0
         expect(response).to have_http_status(:redirect)

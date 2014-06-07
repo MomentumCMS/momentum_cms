@@ -15,7 +15,7 @@ class MomentumCms::Admin::BluePrintsController < MomentumCms::Admin::BaseControl
 
   def create
     @momentum_cms_blue_print.save!
-    flash[:success] = 'Document template was successfully created.'
+    flash[:success] = 'Blue print was successfully created.'
     redirect_to action: :edit, id: @momentum_cms_blue_print
   rescue ActiveRecord::RecordInvalid
     render action: :new
@@ -23,7 +23,7 @@ class MomentumCms::Admin::BluePrintsController < MomentumCms::Admin::BaseControl
 
   def update
     @momentum_cms_blue_print.update_attributes!(momentum_cms_blue_print_params)
-    flash[:success] = 'Document template was successfully updated.'
+    flash[:success] = 'Blue print was successfully updated.'
     redirect_to action: :edit, id: @momentum_cms_blue_print
   rescue ActiveRecord::RecordInvalid
     render action: :edit
@@ -31,7 +31,10 @@ class MomentumCms::Admin::BluePrintsController < MomentumCms::Admin::BaseControl
 
   def destroy
     @momentum_cms_blue_print.destroy
-    flash[:success] = 'Document template was successfully destroyed.'
+    flash[:success] = 'Blue print was successfully destroyed.'
+  rescue MomentumCms::PermanentObject
+    flash[:warning] = 'Blue print was not destroyed.'
+  ensure
     redirect_to action: :index
   end
 
