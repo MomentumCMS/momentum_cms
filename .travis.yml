@@ -16,8 +16,8 @@ rvm:
   - 2.0.0
   - 2.1
 gemfile:
-  - test/gemfiles/Gemfile.rails.4.0
-  - test/gemfiles/Gemfile.rails.4.1
+  - spec/gemfiles/Gemfile.rails.4.0
+  - spec/gemfiles/Gemfile.rails.4.1
 #  - test/gemfiles/Gemfile.rails.master
 matrix:
   fast_finish: true
