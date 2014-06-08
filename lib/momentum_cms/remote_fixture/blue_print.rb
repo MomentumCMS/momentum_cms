@@ -27,7 +27,7 @@ module MomentumCms
 
             fields = blue_print_meta.fetch('fields', nil)
             fields.each do |field_identifier, field_meta|
-              field_template = MomentumCms::FieldTemplate.where(blue_print: blue_print, identifier: field_identifier).first_or_initialize
+              field_template = MomentumCms::FieldTemplate.where(layout: blue_print, identifier: field_identifier).first_or_initialize
               label = field_meta.fetch('label', nil)
               case label
                 when Hash

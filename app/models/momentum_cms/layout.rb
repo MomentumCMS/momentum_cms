@@ -11,11 +11,13 @@ class MomentumCms::Layout < ActiveRecord::Base
   # == Constants ============================================================
   # == Relationships ========================================================
 
-  # has_many :pages,
-  #          dependent: :destroy
-  #
-  # has_many :block_templates,
-  #          dependent: :destroy
+  has_many :entries,
+           dependent: :destroy
+
+  has_many :field_templates,
+           dependent: :destroy
+
+  accepts_nested_attributes_for :field_templates
 
   # == Extensions ===========================================================
 
@@ -32,8 +34,8 @@ class MomentumCms::Layout < ActiveRecord::Base
 
   # == Scopes ===============================================================
   # == Callbacks ============================================================
-  # after_save :sync_block_identifiers,
-  #            :update_descendants_block_templates
+  # after_save :sync_field_identifiers,
+  #            :update_descendants_field_templates
 
   # == Class Methods ========================================================
 
@@ -46,19 +48,19 @@ class MomentumCms::Layout < ActiveRecord::Base
   #     errors.add(:value, 'is not a valid liquid template')
   #   end
   #
-  #   if !self.new_record? && !tbs.has_block?(MomentumCms::Tags::CmsYield) && self.has_children?
+  #   if !self.new_record? && !tbs.has_field?(MomentumCms::Tags::CmsYield) && self.has_children?
   #     errors.add(:value, 'is not a valid parent liquid template, you must include {% cms_yield %}')
   #   end
   # end
   #
-  # def sync_block_identifiers
+  # def sync_field_identifiers
   #   if self.identifier_changed?
   #     to = self.identifier_change.last
   #   end
   # end
   #
   #
-  # def update_descendants_block_templates
-  #   TemplateBlockService.new(self).create_or_update_block_templates_for_self!
+  # def update_descendants_field_templates
+  #   TemplateBlockService.new(self).create_or_update_field_templates_for_self!
   # end
 end

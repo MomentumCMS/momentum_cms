@@ -12,30 +12,30 @@ class TemplateBlockService
     @valid_template = nil
   end
 
-  def create_or_update_block_templates_for_self!(delete_orphan = true)
-    created_block_templates = []
+  def create_or_update_field_templates_for_self!(delete_orphan = true)
+    created_field_templates = []
     self.each_node do |node|
       next unless node.is_a?(MomentumCms::Tags::CmsBlock)
-      block_template = MomentumCms::BlockTemplate.where(template: @template,
+      field_template = MomentumCms::FieldTemplate.where(layout: @template,
                                                         identifier: node.params['id']).first_or_create! do |o|
-        o.block_value_type = node.params.fetch('type', nil)
+        o.field_value_type = node.params.fetch('type', nil)
       end
 
       MomentumCms::Fixture::Utils.each_locale_for_site(@template.site) do |locale|
         label = node.params_get(locale.to_s)
         if label
-          block_template.label = label
-          block_template.save
+          field_template.label = label
+          field_template.save
         end
       end
-      created_block_templates << block_template
+      created_field_templates << field_template
     end
 
     if delete_orphan
-      MomentumCms::BlockTemplate.where(template: @template).where.not(id: created_block_templates.collect(&:id)).destroy_all
+      MomentumCms::FieldTemplate.where(layout: @template).where.not(id: created_field_templates.collect(&:id)).destroy_all
     end
 
-    created_block_templates
+    created_field_templates
   end
 
   def valid_liquid?
@@ -60,21 +60,21 @@ class TemplateBlockService
     end
   end
 
-  def has_block?(type)
-    has_block_type = false
+  def has_field?(type)
+    has_field_type = false
     self.each_node do |node|
       if node.is_a?(type)
-        has_block_type = true
+        has_field_type = true
       end
     end
-    has_block_type
+    has_field_type
   end
 
-  def get_blocks(list = self.template_ancestors.dup)
-    blocks = []
+  def get_fields(list = self.template_ancestors.dup)
+    fields = []
     list.each do |template|
-      blocks << template.block_templates.to_a
+      fields << template.field_templates.to_a
     end
-    blocks.flatten.compact
+    fields.flatten.compact
   end
 end

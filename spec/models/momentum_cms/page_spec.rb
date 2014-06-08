@@ -84,9 +84,9 @@ describe MomentumCms::Page, 'Model' do
       expect(@page.published?).to be true
     end
 
-    it 'should save blocks' do
+    it 'should save fields' do
       10.times do
-        @page.blocks << create(:block)
+        @page.fields << create(:field)
       end
       @page.publish!
 

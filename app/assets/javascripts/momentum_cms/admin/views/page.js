@@ -14,8 +14,8 @@ PageView = (function() {
   };
 
   //-- Properties -----------------------------------------------------------
-  PageView.prototype.blocksUrl = function() {
-    return this.$el.data('blocks-url');
+  PageView.prototype.fieldsUrl = function() {
+    return this.$el.data('fields-url');
   };
 
   PageView.prototype.pageId = function() {
@@ -32,13 +32,13 @@ PageView = (function() {
     if(this.pageId() !== '') {
       reqData.page_id = this.pageId();
     }
-    var request = $.get(this.blocksUrl(), reqData);
+    var request = $.get(this.fieldsUrl(), reqData);
     request.then(function(res) {
-      $('.momentum-cms-blocks').empty();
-      $(res).find('.ajax-fields').appendTo('.momentum-cms-blocks');
+      $('.momentum-cms-fields').empty();
+      $(res).find('.ajax-fields').appendTo('.momentum-cms-fields');
     });
     request.fail(function(xhr) {
-      alert('there was a problem loading the content blocks');
+      alert('there was a problem loading the content fields');
     });
     request.complete(function(){
       tinymce_init();

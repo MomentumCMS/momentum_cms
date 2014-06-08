@@ -1,5 +1,5 @@
 %h1.page-header New Page
 
-.momentum-cms-page-view{data: {blocks_url: momentum_blocks_url}}
+.momentum-cms-page-view{data: {fields_url: fields_cms_admin_site_pages_path}}
   = simple_form_for @momentum_cms_page, url: {action: :create} do |form|
     = render partial: 'form', locals: { form: form } 

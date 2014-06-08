@@ -4,7 +4,7 @@ class MomentumCms::ContentSerializer < MomentumCms::ApplicationSerializer
   attributes :id, :default, :page, :template, :site, :html_content
 
   #-- Associations ----------------------------------------------------------
-  has_many :blocks
+  has_many :fields
 
   #-- Methods ---------------------------------------------------------------
   def page

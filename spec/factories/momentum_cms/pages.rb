@@ -4,6 +4,7 @@ FactoryGirl.define do
     template
     slug 'base_page'
     sequence(:identifier) { |n| "base_page_identifier_#{n}" }
+    layout { template }
 
     factory :page do
       slug 'page'

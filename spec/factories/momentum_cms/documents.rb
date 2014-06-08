@@ -3,6 +3,7 @@ FactoryGirl.define do
     site
     blue_print
     sequence(:identifier) { |n| "base_document_identifier_#{n}" }
+    layout { blue_print }
 
     factory :document do
       identifier 'document_identifier'

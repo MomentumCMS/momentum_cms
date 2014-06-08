@@ -1,6 +1,7 @@
 class CreateMomentumCmsLayouts < ActiveRecord::Migration
   def up
     create_table :momentum_cms_layouts do |t|
+      t.string :type
       t.references :site, index: true
       t.string :identifier
       t.string :ancestry

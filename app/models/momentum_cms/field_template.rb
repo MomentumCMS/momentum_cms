@@ -6,7 +6,7 @@ class MomentumCms::FieldTemplate < ActiveRecord::Base
   # == Constants ============================================================
   # == Relationships ========================================================
 
-  belongs_to :blue_print
+  belongs_to :layout
 
   has_many :fields,
            dependent: :destroy
@@ -22,6 +22,6 @@ class MomentumCms::FieldTemplate < ActiveRecord::Base
   # == Instance Methods =====================================================
   
   def to_identifier
-    "#{self.blue_print.identifier}::#{self.identifier}"
+    "#{self.layout.type}//#{self.layout.identifier}::#{self.identifier}"
   end
 end

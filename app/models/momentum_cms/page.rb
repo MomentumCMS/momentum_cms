@@ -1,58 +1,24 @@
-class MomentumCms::Page < ActiveRecord::Base
+class MomentumCms::Page < MomentumCms::Entry
   # == MomentumCms ==========================================================
 
-  include MomentumCms::BelongsToSite
-
   include MomentumCms::AncestryUtils
-
-  self.table_name = 'momentum_cms_pages'
 
   # == Constants ============================================================
   # == Relationships ========================================================
 
   belongs_to :template
 
-  has_many :blocks,
-           inverse_of: :page,
-           dependent: :destroy
-
-  accepts_nested_attributes_for :blocks
-
-  has_many :revisions,
-           as: :revisable,
-           dependent: :destroy
-
-  accepts_nested_attributes_for :revisions
-
   # == Extensions ===========================================================
-
-  has_ancestry
-
-  translates :label, :slug, :path, fallbacks_for_empty_translations: true
-
   # == Validations ==========================================================
 
   validates :slug,
             presence: true,
             uniqueness: {scope: [:site, :ancestry]}
 
-  validates :identifier,
-            presence: true,
-            uniqueness: {scope: :site}
-
-  validates :template,
-            presence: true
-
   # == Scopes ===============================================================
 
-  scope :published,
-        -> {
-          where(published: true)
-        }
-
   # == Callbacks ============================================================
-
-  before_create :create_revision
+  before_validation :assign_layout_from_template
 
   before_save :assign_paths
 
@@ -61,6 +27,11 @@ class MomentumCms::Page < ActiveRecord::Base
   # == Class Methods ========================================================
 
   # == Instance Methods =====================================================
+
+  protected
+  def assign_layout_from_template
+    self.layout = self.template
+  end
 
   def assign_paths
     self.path = generate_path(self)
@@ -72,45 +43,6 @@ class MomentumCms::Page < ActiveRecord::Base
       descendant.save
     end
   end
-
-  def unpublish!
-    self.update_attributes(published: false)
-    MomentumCms::Revision.unpublish_for!(self)
-  end
-
-  def publish!
-    self.update_attributes(published: true)
-    revision = {}
-    revision[:page] = self.attributes
-    revision[:page_translation] = self.translations.to_a.collect(&:attributes)
-    revision[:blocks] = []
-    revision[:blocks_translations] = []
-    self.blocks.draft_blocks.each do |block|
-      revision[:blocks] << block.attributes
-      revision[:blocks_translations] << block.translations.to_a.collect(&:attributes)
-    end
-    revision[:blocks].flatten!
-    revision[:blocks_translations].flatten!
-    MomentumCms::Revision.publish_and_create_draft_for!(self, revision)
-
-    self.blocks.draft_blocks.each do |block|
-      published_block = block.revision_block
-      MomentumCms::Fixture::Utils.each_locale_for_site(self.site) do |locale|
-        published_block.value = block.value
-        published_block.save!
-      end
-    end
-  end
-
-  def create_revision
-    MomentumCms::Revision.build_draft_for!(self)
-  end
-
-  def published?
-    !!self.published
-  end
-
-  protected
 
   def generate_path(page)
     translated_path = []

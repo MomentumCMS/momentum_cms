@@ -36,7 +36,7 @@ Rails.application.routes.draw do
               post :unpublish
             end
             collection do
-              get :blocks
+              get :fields
             end
           end
           resources :snippets

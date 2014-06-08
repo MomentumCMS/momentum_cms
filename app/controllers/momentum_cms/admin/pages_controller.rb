@@ -27,7 +27,7 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
   end
 
   def edit
-    build_momentum_cms_blocks(@momentum_cms_page.template, @momentum_cms_page)
+    build_momentum_cms_fields(@momentum_cms_page.template, @momentum_cms_page)
   end
 
   def create
@@ -35,7 +35,7 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
     flash[:success] = 'Page was successfully created.'
     redirect_to edit_cms_admin_site_page_path(@current_momentum_cms_site, @momentum_cms_page)
   rescue ActiveRecord::RecordInvalid
-    build_momentum_cms_blocks(@momentum_cms_page.template, @momentum_cms_page)
+    build_momentum_cms_fields(@momentum_cms_page.template, @momentum_cms_page)
     render action: :new
   end
 
@@ -44,7 +44,7 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
     flash[:success] = 'Page was successfully updated.'
     redirect_to action: :edit, id: @momentum_cms_page
   rescue ActiveRecord::RecordInvalid
-    build_momentum_cms_blocks(@momentum_cms_page.template, @momentum_cms_page)
+    build_momentum_cms_fields(@momentum_cms_page.template, @momentum_cms_page)
     render action: :edit
   end
 
@@ -54,11 +54,11 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
     redirect_to action: :index
   end
 
-  def blocks
+  def fields
     @momentum_cms_page = MomentumCms::Page.where(id: params[:page_id]).first_or_initialize
     @momentum_cms_template = MomentumCms::Template.find(params[:template_id])
-    build_momentum_cms_blocks(@momentum_cms_template, @momentum_cms_page)
-    render 'momentum_cms/admin/pages/blocks', layout: false
+    build_momentum_cms_fields(@momentum_cms_template, @momentum_cms_page)
+    render 'momentum_cms/admin/pages/fields', layout: false
   rescue ActiveRecord::RecordNotFound
     render nothing: true
   end
@@ -95,64 +95,64 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
     params.fetch(:momentum_cms_page, {}).permit!
   end
 
-  def build_momentum_cms_blocks(template, page)
+  def build_momentum_cms_fields(template, page)
     return unless template && page
-    block_templates = TemplateBlockService.new(template).get_blocks
-    @block_templates_identifiers = block_templates.collect(&:to_identifier)
+    field_templates = TemplateBlockService.new(template).get_fields
+    @field_templates_identifiers = field_templates.collect(&:to_identifier)
 
     if @momentum_cms_page_revision_data
-      # Get the current page's existing saved blocks
-      momentum_cms_blocks = page.blocks.draft_blocks
+      # Get the current page's existing saved fields
+      momentum_cms_fields = page.fields.draft_fields
 
-      block_revisions = @momentum_cms_page_revision_data[:blocks]
-      block_translation_revisions = @momentum_cms_page_revision_data[:blocks_translations]
+      field_revisions = @momentum_cms_page_revision_data[:fields]
+      field_translation_revisions = @momentum_cms_page_revision_data[:fields_translations]
 
-      momentum_cms_blocks.each do |block|
-        block_revision = block_revisions.detect do |x|
-          x['identifier'] == block.identifier
+      momentum_cms_fields.each do |field|
+        field_revision = field_revisions.detect do |x|
+          x['identifier'] == field.identifier
         end
 
-        if block_revision
-          translation_for_block = block_translation_revisions.find do |x|
-            x['momentum_cms_block_id'] == block_revision['id'] && x['locale'] == I18n.locale.to_s
+        if field_revision
+          translation_for_field = field_translation_revisions.find do |x|
+            x['momentum_cms_field_id'] == field_revision['id'] && x['locale'] == I18n.locale.to_s
           end
 
-          if translation_for_block
-            block.value = translation_for_block['value']
-            block.save
+          if translation_for_field
+            field.value = translation_for_field['value']
+            field.save
           else
-            block.translations.where(locale: I18n.locale).destroy_all
+            field.translations.where(locale: I18n.locale).destroy_all
           end
         else
-          block.destroy
+          field.destroy
         end
       end
 
-      momentum_cms_blocks = page.blocks.draft_blocks.reload
-      block_revisions.each do |block_revision|
-        block = momentum_cms_blocks.where(block_template: block_revision['block_template_id'],
-                                          identifier: block_revision['identifier']).first_or_initialize
-        if block.new_record?
-          block.save
-          translation_for_block = block_translation_revisions.find do |x|
-            x['momentum_cms_block_id'] == block_revision['id'] && x['locale'] == I18n.locale.to_s
+      momentum_cms_fields = page.fields.draft_fields.reload
+      field_revisions.each do |field_revision|
+        field = momentum_cms_fields.where(field_template: field_revision['field_template_id'],
+                                          identifier: field_revision['identifier']).first_or_initialize
+        if field.new_record?
+          field.save
+          translation_for_field = field_translation_revisions.find do |x|
+            x['momentum_cms_field_id'] == field_revision['id'] && x['locale'] == I18n.locale.to_s
           end
-          if translation_for_block
-            block.value = translation_for_block['value']
-            block.save
+          if translation_for_field
+            field.value = translation_for_field['value']
+            field.save
           end
         end
       end
     end
 
-    momentum_cms_blocks = page.blocks.draft_blocks
-    # Build blocks from each block_templates
-    block_templates.each do |block_template|
-      block = momentum_cms_blocks.detect { |x| x.identifier == block_template.to_identifier && x.block_type == 'draft' }
-      if block.nil?
-        page.blocks.build(
-            identifier: block_template.to_identifier,
-            block_template_id: block_template.id
+    momentum_cms_fields = page.fields.draft_fields
+    # Build fields from each field_templates
+    field_templates.each do |field_template|
+      field = momentum_cms_fields.detect { |x| x.identifier == field_template.to_identifier && x.field_type == 'draft' }
+      if field.nil?
+        page.fields.build(
+            identifier: field_template.to_identifier,
+            field_template_id: field_template.id
         )
       end
     end

@@ -6,7 +6,7 @@ class MomentumCms::Field < ActiveRecord::Base
   # == Constants ============================================================
   # == Relationships ========================================================
 
-  belongs_to :document
+  belongs_to :entry
 
   belongs_to :field_template
 

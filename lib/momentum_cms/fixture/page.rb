@@ -35,15 +35,16 @@ module MomentumCms
               page.identifier = page_attributes['identifier']
               page.slug = slug
               page.template = MomentumCms::Template.for_site(@site).where(identifier: page_attributes['template']).first
+              page.layout = MomentumCms::Template.for_site(@site).where(identifier: page_attributes['template']).first
 
               # Save the page
               page.save!
               @imported_objects << page
-              # Attach any page content/blocks
+              # Attach any page content/fields
               prepare_content(page, path)
               next_parent = page
             end
-            page.publish!
+            # page.publish!
             import!(next_parent, path)
           end
 
@@ -64,10 +65,10 @@ module MomentumCms
               I18n.locale = node.params['locale']
               cms_template = MomentumCms::Template.for_site(@site).where(identifier: node.params['template']).first
 
-              cms_block = MomentumCms::Block.where(page: page, identifier: "#{node.params['template']}::#{node.params['id']}").first_or_initialize
-              cms_block.value = MomentumCms::Tags::CmsFixture.get_contents(node)
-              cms_block.block_template = MomentumCms::BlockTemplate.where(template: cms_template, identifier: node.params['id']).first
-              cms_block.save!
+              cms_field = MomentumCms::Field.where(entry: page, identifier: "#{MomentumCms::Template.to_s}//#{node.params['template']}::#{node.params['id']}").first_or_initialize
+              cms_field.value = MomentumCms::Tags::CmsFixture.get_contents(node)
+              cms_field.field_template = MomentumCms::FieldTemplate.where(layout: cms_template, identifier: node.params['id']).first
+              cms_field.save!
             end
             I18n.locale = original_locale
           end
@@ -104,29 +105,29 @@ module MomentumCms
           locales = {}
 
           MomentumCms::Fixture::Utils.each_locale_for_site(@site) do |locale|
-            locales[locale] = { slug: page.slug }
+            locales[locale] = {slug: page.slug}
           end
 
           attributes = {
-            label: page.label,
-            locales: locales,
-            template: page.template.identifier,
-            identifier: page.identifier
+              label: page.label,
+              locales: locales,
+              template: page.template.identifier,
+              identifier: page.identifier
           }
 
 
           MomentumCms::Fixture::Utils.write_json(::File.join(page_path, 'attributes.json'), attributes)
 
           MomentumCms::Fixture::Utils.each_locale_for_site(@site) do |locale|
-            blocks = []
-            page.blocks.each do |block|
-              template, id = block.identifier.split('::')
-              blocks << %Q[
+            fields = []
+            page.fields.each do |field|
+              template, id = field.identifier.split('::')
+              fields << %Q[
 {% cms_fixture template:"#{template}" id:"#{id}" locale:#{locale} %}
-#{block.value}
+#{field.value}
 {% endcms_fixture %}]
             end
-            MomentumCms::Fixture::Utils.write_file(::File.join(page_path, "content.#{locale}.liquid"), blocks.join("\n"))
+            MomentumCms::Fixture::Utils.write_file(::File.join(page_path, "content.#{locale}.liquid"), fields.join("\n"))
           end
         end
       end

@@ -24,7 +24,7 @@ module MomentumCms
           <<-ruby
 <div class="block">
   <div class="form-group hidden momentum_cms_page_blocks_identifier"><div><input class="hidden form-control" id="momentum_cms_page_blocks_attributes_#{k}_identifier" name="momentum_cms_page[blocks_attributes][#{k}][identifier]" type="hidden" value="#{block.identifier}"></div></div>
-  <div class="form-group hidden momentum_cms_page_blocks_block_template_id"><div><input class="hidden form-control" id="momentum_cms_page_blocks_attributes_#{k}_block_template_id" name="momentum_cms_page[blocks_attributes][#{k}][block_template_id]" type="hidden" value="#{block.block_template.id}"></div></div>
+  <div class="form-group hidden momentum_cms_page_blocks_field_template_id"><div><input class="hidden form-control" id="momentum_cms_page_blocks_attributes_#{k}_field_template_id" name="momentum_cms_page[blocks_attributes][#{k}][field_template_id]" type="hidden" value="#{block.field_template.id}"></div></div>
   <div class="form-group text optional momentum_cms_page_blocks_value"><label class="text optional control-label" for="momentum_cms_page_blocks_attributes_#{k}_value">#{block.identifier}</label><div><textarea class="text optional form-control" id="momentum_cms_page_blocks_attributes_#{k}_value" name="momentum_cms_page[blocks_attributes][#{k}][value]">#{block.value}</textarea></div></div>
 </div>
           ruby

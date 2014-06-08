@@ -9,11 +9,6 @@ class MomentumCms::BluePrint < MomentumCms::Layout
   has_many :documents,
            dependent: :destroy
 
-  has_many :field_templates,
-           dependent: :destroy
-
-  accepts_nested_attributes_for :field_templates
-
   # == Extensions ===========================================================
 
   has_ancestry
