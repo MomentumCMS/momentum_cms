@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative '../../../rails_helper'
 
 describe MomentumCms::Admin::BluePrintsController, 'Controller' do
   before(:each) do

@@ -1,13 +1,7 @@
-class MomentumCms::BluePrint < ActiveRecord::Base
+class MomentumCms::BluePrint < MomentumCms::Layout
   # == MomentumCms ==========================================================
 
-  include MomentumCms::BelongsToSite
-
-  include MomentumCms::ActAsPermanentRecord
-
   include MomentumCms::AncestryUtils
-
-  self.table_name = 'momentum_cms_blue_prints'
 
   # == Constants ============================================================
   # == Relationships ========================================================
@@ -24,14 +18,7 @@ class MomentumCms::BluePrint < ActiveRecord::Base
 
   has_ancestry
 
-  translates :label, fallbacks_for_empty_translations: true
-
   # == Validations ==========================================================
-
-  validates :identifier,
-            presence: true,
-            uniqueness: {scope: :site}
-
   # == Scopes ===============================================================
   # == Callbacks ============================================================
   # == Class Methods ========================================================

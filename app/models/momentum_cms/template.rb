@@ -1,14 +1,7 @@
-class MomentumCms::Template < ActiveRecord::Base
-
+class MomentumCms::Template < MomentumCms::Layout
   # == MomentumCms ==========================================================
 
-  include MomentumCms::BelongsToSite
-
-  include MomentumCms::ActAsPermanentRecord
-
   include MomentumCms::AncestryUtils
-
-  self.table_name = 'momentum_cms_templates'
 
   # == Constants ============================================================
   # == Relationships ========================================================
@@ -27,12 +20,6 @@ class MomentumCms::Template < ActiveRecord::Base
 
   validate :valid_liquid_value
 
-  validates :label,
-            presence: true
-
-  validates :identifier,
-            uniqueness: { scope: :site_id },
-            presence: true
 
   # == Scopes ===============================================================
 

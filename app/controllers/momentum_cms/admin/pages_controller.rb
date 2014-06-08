@@ -4,7 +4,7 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
   before_action :load_parent_pages, only: [:edit, :new, :update, :create]
 
   def index
-    @momentum_cms_pages = @current_momentum_cms_site.pages.all
+    @momentum_cms_pages = @current_momentum_cms_site.pages
     respond_to do |format|
       format.html
       format.js { render js: @momentum_cms_pages.to_json }
@@ -70,7 +70,6 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
     if @momentum_cms_page.persisted?
       @momentum_cms_parent_pages = @momentum_cms_parent_pages.where.not(id: @momentum_cms_page.subtree_ids)
     end
-    @momentum_cms_parent_pages
   end
 
   def load_momentum_cms_page
@@ -152,8 +151,8 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
       block = momentum_cms_blocks.detect { |x| x.identifier == block_template.to_identifier && x.block_type == 'draft' }
       if block.nil?
         page.blocks.build(
-          identifier: block_template.to_identifier,
-          block_template_id: block_template.id
+            identifier: block_template.to_identifier,
+            block_template_id: block_template.id
         )
       end
     end

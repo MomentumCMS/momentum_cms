@@ -1,5 +1,11 @@
 FactoryGirl.define do
-  factory :base_template, class: 'MomentumCms::Template' do
+  factory :base_template_super_class, class: 'MomentumCms::Layout' do
+    site
+    label 'Base Template'
+    sequence(:identifier) { |n| "base_template_identifier_#{n}" }
+  end
+
+  factory :base_template, parent: :base_template_super_class, class: 'MomentumCms::Template' do
     site
     label 'Base Template'
     sequence(:identifier) { |n| "base_template_identifier_#{n}" }
@@ -21,5 +27,6 @@ FactoryGirl.define do
       css '.child{}'
       has_yield false
     end
+
   end
 end

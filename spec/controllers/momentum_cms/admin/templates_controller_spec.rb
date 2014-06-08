@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative '../../../rails_helper'
 
 describe MomentumCms::Admin::TemplatesController, 'Controller' do
   before(:each) do
