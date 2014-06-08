@@ -7,12 +7,12 @@ class MomentumCms::Document < MomentumCms::Entry
   # == Validations ==========================================================
   # == Scopes ===============================================================
   # == Callbacks ============================================================
-  before_validation :assign_layout_from_document
+  before_validation :assign_layout_from_blue_print
   # == Class Methods ========================================================
   # == Instance Methods =====================================================
   protected
   def assign_layout_from_document
-    self.layout = self.document
+    self.layout = self.blue_print
   end
 
 end
