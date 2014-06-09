@@ -56,8 +56,7 @@ class MomentumCms::Entry < ActiveRecord::Base
     MomentumCms::Revision.unpublish_for!(self)
   end
 
-  def publish!
-    self.update_attributes(published: true)
+  def to_revision_data
     revision = {}
     revision[:entry] = self.attributes
     revision[:entry_translation] = self.translations.to_a.collect(&:attributes)
@@ -69,15 +68,22 @@ class MomentumCms::Entry < ActiveRecord::Base
     end
     revision[:fields].flatten!
     revision[:fields_translations].flatten!
-    MomentumCms::Revision.publish_and_create_draft_for!(self, revision)
+    revision
+  end
 
+  def copy_draft_to_published_fields!
     self.fields.draft_fields.each do |field|
       published_field = field.revision_field
       MomentumCms::Fixture::Utils.each_locale_for_site(self.site) do |locale|
-        published_field.value = field.value
-        published_field.save!
+        published_field.update_attributes({value: field.value})
       end
     end
+  end
+
+  def publish!
+    self.update_attributes(published: true)
+    MomentumCms::Revision.publish_and_create_draft_for!(self, self.to_revision_data)
+    self.copy_draft_to_published_fields!
   end
 
   def create_revision

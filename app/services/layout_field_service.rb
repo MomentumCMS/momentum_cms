@@ -1,4 +1,4 @@
-class TemplateBlockService
+class LayoutFieldService
 
   attr_accessor :template_ancestors
   attr_accessor :template

@@ -43,7 +43,7 @@ class MomentumCms::Layout < ActiveRecord::Base
   protected
 
   # def valid_liquid_value
-  #   tbs = TemplateBlockService.new(self)
+  #   tbs = LayoutFieldService.new(self)
   #   unless tbs.valid_liquid?
   #     errors.add(:value, 'is not a valid liquid template')
   #   end
@@ -61,6 +61,6 @@ class MomentumCms::Layout < ActiveRecord::Base
   #
   #
   # def update_descendants_field_templates
-  #   TemplateBlockService.new(self).create_or_update_field_templates_for_self!
+  #   LayoutFieldService.new(self).create_or_update_field_templates_for_self!
   # end
 end

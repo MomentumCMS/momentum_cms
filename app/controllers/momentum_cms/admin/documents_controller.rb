@@ -83,11 +83,9 @@ class MomentumCms::Admin::DocumentsController < MomentumCms::Admin::BaseControll
     params.fetch(:momentum_cms_document, {}).permit!
   end
 
-
-
   def build_momentum_cms_fields(blue_print, document)
     return unless blue_print && document
-    field_templates = TemplateBlockService.new(blue_print).get_fields
+    field_templates = LayoutFieldService.new(blue_print).get_fields
     @field_templates_identifiers = field_templates.collect(&:to_identifier)
 
     if @momentum_cms_document_revision_data

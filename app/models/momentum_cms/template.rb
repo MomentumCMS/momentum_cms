@@ -38,7 +38,7 @@ class MomentumCms::Template < MomentumCms::Layout
   protected
 
   def valid_liquid_value
-    tbs = TemplateBlockService.new(self)
+    tbs = LayoutFieldService.new(self)
     unless tbs.valid_liquid?
       errors.add(:value, 'is not a valid liquid template')
     end
@@ -55,12 +55,12 @@ class MomentumCms::Template < MomentumCms::Layout
   end
 
   def update_has_yield
-    tbs = TemplateBlockService.new(self)
+    tbs = LayoutFieldService.new(self)
     self.has_yield = tbs.has_field?(MomentumCms::Tags::CmsYield)
     true
   end
 
   def update_descendants_field_templates
-    TemplateBlockService.new(self).create_or_update_field_templates_for_self!
+    LayoutFieldService.new(self).create_or_update_field_templates_for_self!
   end
 end

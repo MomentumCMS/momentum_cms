@@ -97,7 +97,7 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
 
   def build_momentum_cms_fields(template, page)
     return unless template && page
-    field_templates = TemplateBlockService.new(template).get_fields
+    field_templates = LayoutFieldService.new(template).get_fields
     @field_templates_identifiers = field_templates.collect(&:to_identifier)
 
     if @momentum_cms_page_revision_data
