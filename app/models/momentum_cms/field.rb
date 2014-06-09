@@ -40,7 +40,7 @@ class MomentumCms::Field < ActiveRecord::Base
   after_create :create_revision_field
 
   after_destroy :destroy_revision_field
-  
+
   # == Class Methods ========================================================
 
   # == Instance Methods =====================================================

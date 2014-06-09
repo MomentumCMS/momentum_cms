@@ -58,17 +58,16 @@ class MomentumCms::Entry < ActiveRecord::Base
   end
 
   def to_revision_data
-    revision = {}
-    revision[:entry] = self.attributes
-    revision[:entry_translation] = self.translations.to_a.collect(&:attributes)
-    revision[:fields] = []
-    revision[:fields_translations] = []
+    revision = {
+        entry: self.attributes,
+        entry_translation: self.translations.to_a.collect(&:attributes),
+        fields: [],
+        fields_translations: []
+    }
     self.fields.draft_fields.each do |field|
-      revision[:fields] << field.attributes
-      revision[:fields_translations] << field.translations.to_a.collect(&:attributes)
+      revision[:fields].push(field.attributes)
+      revision[:fields_translations].push(*field.translations.to_a.collect(&:attributes))
     end
-    revision[:fields].flatten!
-    revision[:fields_translations].flatten!
     revision
   end
 
