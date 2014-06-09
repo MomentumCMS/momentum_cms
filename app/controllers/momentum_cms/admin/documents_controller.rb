@@ -82,69 +82,8 @@ class MomentumCms::Admin::DocumentsController < MomentumCms::Admin::BaseControll
 
   def build_momentum_cms_fields(blue_print, document)
     return unless blue_print && document
-
     layout_field_service = LayoutFieldService.new(blue_print)
     @field_templates_identifiers = layout_field_service.get_identifiers
-
-
-    field_templates = LayoutFieldService.new(blue_print).get_fields
-
-
-    if @momentum_cms_document_revision_data
-      # Get the current document's existing saved fields
-      momentum_cms_fields = document.fields.draft_fields
-
-      field_revisions = @momentum_cms_document_revision_data[:fields]
-      field_translation_revisions = @momentum_cms_document_revision_data[:fields_translations]
-
-      momentum_cms_fields.each do |field|
-        field_revision = field_revisions.detect do |x|
-          x['identifier'] == field.identifier
-        end
-
-        if field_revision
-          translation_for_field = field_translation_revisions.find do |x|
-            x['momentum_cms_field_id'] == field_revision['id'] && x['locale'] == I18n.locale.to_s
-          end
-
-          if translation_for_field
-            field.value = translation_for_field['value']
-            field.save
-          else
-            field.translations.where(locale: I18n.locale).destroy_all
-          end
-        else
-          field.destroy
-        end
-      end
-
-      momentum_cms_fields = document.fields.draft_fields.reload
-      field_revisions.each do |field_revision|
-        field = momentum_cms_fields.where(field_template: field_revision['field_template_id'],
-                                          identifier: field_revision['identifier']).first_or_initialize
-        if field.new_record?
-          field.save
-          translation_for_field = field_translation_revisions.find do |x|
-            x['momentum_cms_field_id'] == field_revision['id'] && x['locale'] == I18n.locale.to_s
-          end
-          if translation_for_field
-            field.value = translation_for_field['value']
-            field.save
-          end
-        end
-      end
-    end
-
-    momentum_cms_fields = document.fields.draft_fields
-    # Build fields from each field_templates
-    field_templates.each do |field_template|
-      field = momentum_cms_fields.detect { |x| x.identifier == field_template.to_identifier && x.field_type == 'draft' }
-      if field.nil?
-        document.fields.build(
-            identifier: field_template.to_identifier,
-            field_template_id: field_template.id
-        )
-      end
-    end
+    layout_field_service.build_momentum_cms_field(document, @momentum_cms_document_revision_data)
   end
 end

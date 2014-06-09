@@ -15,6 +15,62 @@ class LayoutFieldService
 
   def build_momentum_cms_field(entry, revision = nil)
 
+    field_templates = self.get_fields
+
+    if revision
+      # Get the current entry's existing saved fields
+      momentum_cms_fields = entry.fields.draft_fields
+
+      field_revisions = revision[:fields]
+      field_translation_revisions = revision[:fields_translations]
+
+      momentum_cms_fields.each do |field|
+        field_revision = field_revisions.detect do |x|
+          x['identifier'] == field.identifier
+        end
+
+        if field_revision
+          translation_for_field = field_translation_revisions.find do |x|
+            x['momentum_cms_field_id'] == field_revision['id'] && x['locale'] == I18n.locale.to_s
+          end
+
+          if translation_for_field
+            field.update_attributes({value: translation_for_field['value']})
+          else
+            field.translations.where(locale: I18n.locale).destroy_all
+          end
+        else
+          field.destroy
+        end
+      end
+
+      momentum_cms_fields = entry.fields.draft_fields.reload
+      field_revisions.each do |field_revision|
+        field = momentum_cms_fields.where(field_template: field_revision['field_template_id'],
+                                          identifier: field_revision['identifier']).first_or_initialize
+        if field.new_record?
+          field.save
+          translation_for_field = field_translation_revisions.find do |x|
+            x['momentum_cms_field_id'] == field_revision['id'] && x['locale'] == I18n.locale.to_s
+          end
+
+          field.update_attributes({value: translation_for_field['value']}) if translation_for_field
+
+        end
+      end
+    end
+
+    momentum_cms_fields = entry.fields.draft_fields
+    # Build fields from each field_templates
+    field_templates.each do |field_template|
+      field = momentum_cms_fields.detect { |x| x.identifier == field_template.to_identifier && x.field_type == 'draft' }
+      if field.nil?
+        entry.fields.build(
+            identifier: field_template.to_identifier,
+            field_template_id: field_template.id
+        )
+      end
+    end
   end
 
 
@@ -29,17 +85,12 @@ class LayoutFieldService
 
       MomentumCms::Fixture::Utils.each_locale_for_site(@template.site) do |locale|
         label = node.params_get(locale.to_s)
-        if label
-          field_template.label = label
-          field_template.save
-        end
+        field_template.update_attributes({label: label}) if label
       end
       created_field_templates << field_template
     end
 
-    if delete_orphan
-      MomentumCms::FieldTemplate.where(layout: @template).where.not(id: created_field_templates.collect(&:id)).destroy_all
-    end
+    MomentumCms::FieldTemplate.where(layout: @template).where.not(id: created_field_templates.collect(&:id)).destroy_all if delete_orphan
 
     created_field_templates
   end

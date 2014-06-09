@@ -44,7 +44,7 @@ module MomentumCms
               prepare_content(page, path)
               next_parent = page
             end
-            # page.publish!
+            page.publish!
             import!(next_parent, path)
           end
 
