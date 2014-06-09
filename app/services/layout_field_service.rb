@@ -12,14 +12,23 @@ class LayoutFieldService
     @valid_template = nil
   end
 
-  # Currently revision only cares about the CURRENT locale that the site is on.
-  def build_momentum_cms_field_from_revision(entry, revision)
+  def find_field_translation_revision(field_translation_revisions, field_revision)
+    field_translation_revisions.find do |field_translation_revision|
+      field_translation_revision['momentum_cms_field_id'] == field_revision['id'] && field_translation_revision['locale'] == I18n.locale.to_s
+    end
+  end
 
-    field_revisions = revision[:fields]
-    field_translation_revisions = revision[:fields_translations]
+  def get_revision_and_translation(revision)
+    field_revisions = revision.fetch(:fields, [])
+    field_translation_revisions = revision.fetch(:fields_translations, [])
+    [field_revisions, field_translation_revisions]
+  end
+
+  def sync_entry_fields_with_revision(entry, revision)
+    field_revisions, field_translation_revisions = self.get_revision_and_translation(revision)
 
     # Get the current entry's existing saved fields
-    momentum_cms_fields = entry.fields.draft_fields
+    momentum_cms_fields = entry.fields.draft_fields.reload
 
     # Loop over all the entry's fields
     # This syncs the current existing entry's fields to the revisioned data
@@ -33,9 +42,7 @@ class LayoutFieldService
       # If there is a revision for the field...
       if field_revision
         # Find the translation for the block WRT the current locale
-        translation_for_field = field_translation_revisions.find do |field_translation_revision|
-          field_translation_revision['momentum_cms_field_id'] == field_revision['id'] && field_translation_revision['locale'] == I18n.locale.to_s
-        end
+        translation_for_field = self.find_field_translation_revision(field_translation_revisions, field_revision)
 
         # If there are translations, then update the current locale with the value from the revision
         if translation_for_field
@@ -49,6 +56,10 @@ class LayoutFieldService
         field.destroy
       end
     end
+  end
+
+  def sync_new_revision_fields_to_entry(entry, revision)
+    field_revisions, field_translation_revisions = self.get_revision_and_translation(revision)
 
     # Now we need to check to see if there are fields from the revisions that the current entry do not have... and create those entries
 
@@ -63,11 +74,9 @@ class LayoutFieldService
       # if the field does not exist, since we took care of the existing fields above
       if field.new_record?
 
-
         # Find the translation for the block WRT the current locale
-        translation_for_field = field_translation_revisions.find do |field_translation_revision|
-          field_translation_revision['momentum_cms_field_id'] == field_revision['id'] && field_translation_revision['locale'] == I18n.locale.to_s
-        end
+        translation_for_field = self.find_field_translation_revision(field_translation_revisions, field_revision)
+
         if translation_for_field
           # Create the field
           field.save
@@ -80,7 +89,10 @@ class LayoutFieldService
   end
 
   def build_momentum_cms_field(entry, revision = nil)
-    self.build_momentum_cms_field_from_revision(entry, revision) if revision
+    if revision
+      self.sync_entry_fields_with_revision(entry, revision)
+      self.sync_new_revision_fields_to_entry(entry, revision)
+    end
 
     #Current fields for the entry
     momentum_cms_fields = entry.fields.draft_fields
