@@ -12,87 +12,122 @@ class LayoutFieldService
     @valid_template = nil
   end
 
+  # Currently revision only cares about the CURRENT locale that the site is on.
+  def build_momentum_cms_field_from_revision(entry, revision)
 
-  def build_momentum_cms_field(entry, revision = nil)
+    field_revisions = revision[:fields]
+    field_translation_revisions = revision[:fields_translations]
 
-    field_templates = self.get_fields
+    # Get the current entry's existing saved fields
+    momentum_cms_fields = entry.fields.draft_fields
 
-    if revision
-      # Get the current entry's existing saved fields
-      momentum_cms_fields = entry.fields.draft_fields
+    # Loop over all the entry's fields
+    # This syncs the current existing entry's fields to the revisioned data
+    momentum_cms_fields.each do |field|
 
-      field_revisions = revision[:fields]
-      field_translation_revisions = revision[:fields_translations]
-
-      momentum_cms_fields.each do |field|
-        field_revision = field_revisions.detect do |x|
-          x['identifier'] == field.identifier
-        end
-
-        if field_revision
-          translation_for_field = field_translation_revisions.find do |x|
-            x['momentum_cms_field_id'] == field_revision['id'] && x['locale'] == I18n.locale.to_s
-          end
-
-          if translation_for_field
-            field.update_attributes({value: translation_for_field['value']})
-          else
-            field.translations.where(locale: I18n.locale).destroy_all
-          end
-        else
-          field.destroy
-        end
+      # Check to see if the revision data has the same identifier as the current field
+      field_revision = field_revisions.detect do |field_revision|
+        field_revision['identifier'] == field.identifier
       end
 
-      momentum_cms_fields = entry.fields.draft_fields.reload
-      field_revisions.each do |field_revision|
-        field = momentum_cms_fields.where(field_template: field_revision['field_template_id'],
-                                          identifier: field_revision['identifier']).first_or_initialize
-        if field.new_record?
-          field.save
-          translation_for_field = field_translation_revisions.find do |x|
-            x['momentum_cms_field_id'] == field_revision['id'] && x['locale'] == I18n.locale.to_s
-          end
-
-          field.update_attributes({value: translation_for_field['value']}) if translation_for_field
-
+      # If there is a revision for the field...
+      if field_revision
+        # Find the translation for the block WRT the current locale
+        translation_for_field = field_translation_revisions.find do |field_translation_revision|
+          field_translation_revision['momentum_cms_field_id'] == field_revision['id'] && field_translation_revision['locale'] == I18n.locale.to_s
         end
+
+        # If there are translations, then update the current locale with the value from the revision
+        if translation_for_field
+          field.update_attributes({value: translation_for_field['value']})
+        else
+          # There are no translations for this locale, so delete the locale translated value
+          field.translations.where(locale: I18n.locale).destroy_all
+        end
+      else
+        # Delete the current field, since this field (any translaitons did not exist when the revision was created)
+        field.destroy
       end
     end
 
+    # Now we need to check to see if there are fields from the revisions that the current entry do not have... and create those entries
+
+    # Reload the fields...
+    momentum_cms_fields = entry.fields.draft_fields.reload
+
+    # Loop over each field in the revision data
+    field_revisions.each do |field_revision|
+      field = momentum_cms_fields.where(field_template: field_revision['field_template_id'],
+                                        identifier: field_revision['identifier']).first_or_initialize
+
+      # if the field does not exist, since we took care of the existing fields above
+      if field.new_record?
+
+
+        # Find the translation for the block WRT the current locale
+        translation_for_field = field_translation_revisions.find do |field_translation_revision|
+          field_translation_revision['momentum_cms_field_id'] == field_revision['id'] && field_translation_revision['locale'] == I18n.locale.to_s
+        end
+        if translation_for_field
+          # Create the field
+          field.save
+
+          # Save the value if there are some translations
+          field.update_attributes({value: translation_for_field['value']})
+        end
+      end
+    end
+  end
+
+  def build_momentum_cms_field(entry, revision = nil)
+    self.build_momentum_cms_field_from_revision(entry, revision) if revision
+
+    #Current fields for the entry
     momentum_cms_fields = entry.fields.draft_fields
-    # Build fields from each field_templates
-    field_templates.each do |field_template|
-      field = momentum_cms_fields.detect { |x| x.identifier == field_template.to_identifier && x.field_type == 'draft' }
-      if field.nil?
+
+    #Get all the fields from the field template, this is the list of fields that the current
+    #layout (template, blue print) has, and needs to be created for the entry
+    field_template_fields = self.get_fields
+    field_template_fields.each do |field_template_field|
+
+      # Try to find the draft field in the list of current fields for the entry
+      field = momentum_cms_fields.detect do |momentum_cms_field|
+        momentum_cms_field.identifier == field_template_field.to_identifier && momentum_cms_field.field_type == 'draft'
+      end
+
+      # Create the field for the entry if the field does not already exist
+      unless field
         entry.fields.build(
-            identifier: field_template.to_identifier,
-            field_template_id: field_template.id
+            identifier: field_template_field.to_identifier,
+            field_template_id: field_template_field.id
         )
       end
     end
   end
 
-
   def create_or_update_field_templates_for_self!(delete_orphan = true)
     created_field_templates = []
+
     self.each_node do |node|
       next unless node.is_a?(MomentumCms::Tags::CmsBlock)
-      field_template = MomentumCms::FieldTemplate.where(layout: @template,
-                                                        identifier: node.params['id']).first_or_create! do |o|
-        o.field_value_type = node.params.fetch('type', nil)
-      end
-
-      MomentumCms::Fixture::Utils.each_locale_for_site(@template.site) do |locale|
-        label = node.params_get(locale.to_s)
-        field_template.update_attributes({label: label}) if label
-      end
-      created_field_templates << field_template
+      created_field_templates << self.create_or_update_field_template_from_tag(node)
     end
-
     MomentumCms::FieldTemplate.where(layout: @template).where.not(id: created_field_templates.collect(&:id)).destroy_all if delete_orphan
 
     created_field_templates
+  end
+
+  def create_or_update_field_template_from_tag(node)
+    field_template = MomentumCms::FieldTemplate.where(layout: @template,
+                                                      identifier: node.params['id']).first_or_create! do |o|
+      o.field_value_type = node.params.fetch('type', nil)
+    end
+
+    MomentumCms::Fixture::Utils.each_locale_for_site(@template.site) do |locale|
+      label = node.params_get(locale.to_s)
+      field_template.update_attributes({label: label}) if label
+    end
+    field_template
   end
 
   def valid_liquid?
