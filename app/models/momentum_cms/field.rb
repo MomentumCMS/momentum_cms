@@ -17,7 +17,8 @@ class MomentumCms::Field < ActiveRecord::Base
 
   # == Extensions ===========================================================
 
-  translates :value, fallbacks_for_empty_translations: true
+  translates :value,
+             fallbacks_for_empty_translations: true
 
   # == Validations ==========================================================
   # == Scopes ===============================================================
@@ -37,6 +38,7 @@ class MomentumCms::Field < ActiveRecord::Base
   before_validation :assign_field_type
 
   after_create :create_revision_field
+
   after_destroy :destroy_revision_field
   
   # == Class Methods ========================================================
@@ -52,6 +54,7 @@ class MomentumCms::Field < ActiveRecord::Base
   end
 
   protected
+
   def create_revision_field
     if self.draft?
       field = self.dup

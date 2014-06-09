@@ -16,7 +16,10 @@ class MomentumCms::Document < MomentumCms::Entry
   # == Instance Methods =====================================================
 
   protected
+
   def assign_layout_from_blue_print
-    self.layout = self.blue_print
+    if self.layout.blank?
+      self.layout = self.blue_print
+    end
   end
 end

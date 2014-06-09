@@ -49,7 +49,9 @@ class MomentumCms::MenuItem < ActiveRecord::Base
 
   # == Class Methods ========================================================
   # == Instance Methods =====================================================
+
   protected
+
   def assign_menu_item_type
     if self.linkable
       self.menu_item_type = INTERNAL

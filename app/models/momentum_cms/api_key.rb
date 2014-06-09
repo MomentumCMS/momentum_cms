@@ -38,6 +38,8 @@ class MomentumCms::ApiKey < ActiveRecord::Base
   # == Class Methods ========================================================
   # == Instance Methods =====================================================
 
+  protected
+
   def generate_access_token
     begin
       self.access_token = SecureRandom.hex

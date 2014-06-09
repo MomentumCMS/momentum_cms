@@ -25,18 +25,6 @@ class MomentumCms::Revision < ActiveRecord::Base
   before_save :assign_published_status,
               :assign_revision_number
 
-  def assign_published_status
-    if self.published_status.blank?
-      self.published_status = 'draft'
-    end
-  end
-
-  def assign_revision_number
-    if self.revision_number.blank?
-      self.revision_number = self.revisable.revisions.length + 1
-    end
-  end
-
   # == Class Methods ========================================================
   def self.unpublish_for!(object)
     object.revisions.where(published_status: 'published').update_all(published_status: 'revision')
@@ -75,4 +63,17 @@ class MomentumCms::Revision < ActiveRecord::Base
     self.published_status == 'draft'
   end
 
+  protected
+
+  def assign_published_status
+    if self.published_status.blank?
+      self.published_status = 'draft'
+    end
+  end
+
+  def assign_revision_number
+    if self.revision_number.blank?
+      self.revision_number = self.revisable.revisions.length + 1
+    end
+  end
 end

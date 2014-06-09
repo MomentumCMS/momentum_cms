@@ -13,7 +13,8 @@ class MomentumCms::FieldTemplate < ActiveRecord::Base
 
   # == Extensions ===========================================================
 
-  translates :label, fallbacks_for_empty_translations: true
+  translates :label,
+             fallbacks_for_empty_translations: true
 
   # == Validations ==========================================================
   # == Scopes ===============================================================

@@ -9,7 +9,8 @@ class MomentumCms::Link < ActiveRecord::Base
   # == Relationships ========================================================
   # == Extensions ===========================================================
 
-  translates :label, :description, fallbacks_for_empty_translations: true
+  translates :label, :description,
+             fallbacks_for_empty_translations: true
 
   # == Validations ==========================================================
 

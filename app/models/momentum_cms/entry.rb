@@ -26,7 +26,8 @@ class MomentumCms::Entry < ActiveRecord::Base
 
   has_ancestry
 
-  translates :label, :slug, :path, fallbacks_for_empty_translations: true
+  translates :label, :slug, :path,
+             fallbacks_for_empty_translations: true
 
   # == Validations ==========================================================
 

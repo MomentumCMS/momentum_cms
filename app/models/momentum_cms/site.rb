@@ -39,9 +39,13 @@ class MomentumCms::Site < ActiveRecord::Base
 
   # == Validations ==========================================================
 
-  validates :label, :host, :identifier, presence: true
+  validates :label,
+            :host,
+            presence: true
 
-  validates :identifier, uniqueness: true
+  validates :identifier,
+            presence: true,
+            uniqueness: true
 
   validate :locale_settings
 

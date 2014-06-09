@@ -10,7 +10,8 @@ class MomentumCms::Snippet < ActiveRecord::Base
 
   # == Extensions ===========================================================
 
-  translates :value, fallbacks_for_empty_translations: true
+  translates :value,
+             fallbacks_for_empty_translations: true
 
   # == Validations ==========================================================
 

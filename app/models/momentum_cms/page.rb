@@ -18,6 +18,7 @@ class MomentumCms::Page < MomentumCms::Entry
   # == Scopes ===============================================================
 
   # == Callbacks ============================================================
+
   before_validation :assign_layout_from_template
 
   before_save :assign_paths
@@ -30,7 +31,9 @@ class MomentumCms::Page < MomentumCms::Entry
 
   protected
   def assign_layout_from_template
-    self.layout = self.template
+    if self.layout.blank?
+      self.layout = self.template
+    end
   end
 
   def assign_paths
