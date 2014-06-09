@@ -14,8 +14,7 @@ module MomentumCms
       super "Cannot find CMS Site with host: #{identifier}"
     end
   end
-  
-  
+
   class PermanentObject < MomentumCms::Error
     def initialize(identifier)
       super "Cannot find CMS Site with host: #{identifier}"

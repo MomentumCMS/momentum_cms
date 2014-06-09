@@ -15,6 +15,7 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
 CodeClimate::TestReporter.start
 
 SimpleCov.start 'rails' do
+  add_group 'Libraries', 'lib/momentum_cms'
   add_group 'Tags', 'lib/momentum_cms/tags'
   add_group 'Services', 'app/services'
 end
