@@ -63,12 +63,9 @@ class MomentumCms::Admin::DocumentsController < MomentumCms::Admin::BaseControll
   def load_moment_cms_document
     @momentum_cms_document = MomentumCms::Document.find(params[:id])
     @momentum_cms_document_revisions = @momentum_cms_document.revisions
-    revision_number = params.fetch(:revision, nil)
-    if revision_number
-      revision = @momentum_cms_document_revisions.where(revision_number: revision_number).first
-      if revision
-        @momentum_cms_document_revision_data = revision.revision_data
-      end
+    revision = @momentum_cms_document_revisions.where(revision_number: params.fetch(:revision, nil)).first
+    if revision
+      @momentum_cms_document_revision_data = revision.revision_data
     end
   rescue ActiveRecord::RecordNotFound
     redirect_to action: :index
@@ -85,8 +82,13 @@ class MomentumCms::Admin::DocumentsController < MomentumCms::Admin::BaseControll
 
   def build_momentum_cms_fields(blue_print, document)
     return unless blue_print && document
+
+    layout_field_service = LayoutFieldService.new(blue_print)
+    @field_templates_identifiers = layout_field_service.get_identifiers
+
+
     field_templates = LayoutFieldService.new(blue_print).get_fields
-    @field_templates_identifiers = field_templates.collect(&:to_identifier)
+
 
     if @momentum_cms_document_revision_data
       # Get the current document's existing saved fields

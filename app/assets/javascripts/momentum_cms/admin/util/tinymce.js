@@ -1,6 +1,9 @@
 function tinymce_init() {
   tinyMCE.init({
-    selector: 'textarea.tinymce'
+    selector: 'textarea.tinymce',
+    skin: 'light',
+    menubar: false,
+    statusbar: false
   });
 }
 

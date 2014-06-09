@@ -12,6 +12,12 @@ class LayoutFieldService
     @valid_template = nil
   end
 
+
+  def build_momentum_cms_field(entry, revision = nil)
+
+  end
+
+
   def create_or_update_field_templates_for_self!(delete_orphan = true)
     created_field_templates = []
     self.each_node do |node|
@@ -76,5 +82,9 @@ class LayoutFieldService
       fields << template.field_templates.to_a
     end
     fields.flatten.compact
+  end
+
+  def get_identifiers
+    self.get_fields.collect(&:to_identifier)
   end
 end

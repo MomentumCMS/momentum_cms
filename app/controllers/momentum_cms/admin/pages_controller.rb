@@ -75,12 +75,9 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
   def load_momentum_cms_page
     @momentum_cms_page = MomentumCms::Page.find(params[:id])
     @momentum_cms_page_revisions = @momentum_cms_page.revisions
-    revision_number = params.fetch(:revision, nil)
-    if revision_number
-      revision = @momentum_cms_page_revisions.where(revision_number: revision_number).first
-      if revision
-        @momentum_cms_page_revision_data = revision.revision_data
-      end
+    revision = @momentum_cms_page_revisions.where(revision_number: params.fetch(:revision, nil)).first
+    if revision
+      @momentum_cms_page_revision_data = revision.revision_data
     end
   rescue ActiveRecord::RecordNotFound
     redirect_to action: :index
@@ -97,8 +94,12 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
 
   def build_momentum_cms_fields(template, page)
     return unless template && page
+
+    layout_field_service = LayoutFieldService.new(template)
+    @field_templates_identifiers = layout_field_service.get_identifiers
+
+
     field_templates = LayoutFieldService.new(template).get_fields
-    @field_templates_identifiers = field_templates.collect(&:to_identifier)
 
     if @momentum_cms_page_revision_data
       # Get the current page's existing saved fields
