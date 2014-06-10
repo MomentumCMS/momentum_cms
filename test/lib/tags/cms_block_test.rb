@@ -3,14 +3,14 @@ require_relative '../../test_helper'
 class CmsBlockTest < ActiveSupport::TestCase
 
   def test_params
-    text = '{% cms_block id:header %}'
+    text = '{% cms_field id:header %}'
     template = Liquid::Template.parse(text)
     tag = template.root.nodelist.detect { |t| t.params['id'] == 'header' }
     assert_equal 'header', tag.params['id']
   end
 
   def test_parses_params
-    text = '{% cms_block id:header %}'
+    text = '{% cms_field id:header %}'
     template = Liquid::Template.parse(text)
     tag = template.root.nodelist.first
     expected_params = { 'id' => 'header' }
@@ -18,13 +18,13 @@ class CmsBlockTest < ActiveSupport::TestCase
   end
 
   def test_render_block_tag
-    text = '{% cms_block id:default %}'
+    text = '{% cms_field id:default %}'
     template = Liquid::Template.parse(text)
     render = template.render
     assert_equal render, ''
 
-    block = momentum_cms_blocks(:default)
-    block.block_template = momentum_cms_block_templates(:default)
+    block = momentum_cms_fields(:default)
+    block.block_template = momentum_cms_field_templates(:default)
     block.value = 'foobar'
     block.save!
 

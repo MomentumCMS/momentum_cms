@@ -3,7 +3,7 @@ module MomentumCms
     module BluePrint
       class Importer < Base::Importer
         def import!
-          blue_print = @remote_fixture_object['documents']
+          blue_print = @remote_fixture_object.fetch('blue-prints', [])
           blue_print.each do |blue_print_identifier, blue_print_meta|
             blue_print = MomentumCms::BluePrint.for_site(@site).where(identifier: blue_print_identifier).first_or_initialize
             label = blue_print_meta.fetch('label', nil)
@@ -13,16 +13,13 @@ module MomentumCms
                 label.each do |locale, value|
                   begin
                     I18n.locale = locale
-                    blue_print.label = value
-                    blue_print.save
-
+                    blue_print.update_attributes({ label: value })
                   rescue I18n::InvalidLocale
                   end
                 end
                 I18n.locale = original_locale
               when String
-                blue_print.label = label
-                blue_print.save
+                blue_print.update_attributes({ label: label })
             end
 
             fields = blue_print_meta.fetch('fields', nil)
@@ -35,34 +32,28 @@ module MomentumCms
                   label.each do |locale, value|
                     begin
                       I18n.locale = locale
-                      field_template.label = value
-                      field_template.save
+                      field_template.update_attributes({ label: value })
                     rescue I18n::InvalidLocale
                     end
                   end
                   I18n.locale = original_locale
                 when String
-                  field_template.label = label
-                  field_template.save
+                  field_template.update_attributes({ label: label })
               end
-              field_template.field_value_type = field_meta['type']
-              field_template.save
+              field_template.update_attributes({ field_value_type: field_meta['type'] })
             end
           end
 
-          blue_print_hierarchy = @remote_fixture_object['document-hierarchy']
+          blue_print_hierarchy = @remote_fixture_object.fetch('blue-print-hierarchy', [])
           assign_document_parent!(blue_print_hierarchy)
         end
 
         def assign_document_parent!(set = nil, parent=nil)
           set.each do |key, value|
             blue_print = MomentumCms::BluePrint.for_site(@site).where(identifier: key).first
-            if parent
-              blue_print.parent = parent
-              blue_print.save
-            end
-            if value
-              assign_document_parent!(value, blue_print)
+            if blue_print
+              blue_print.update_attributes({ parent: parent }) if parent
+              assign_document_parent!(value, blue_print) if value
             end
           end
         end

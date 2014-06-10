@@ -1,13 +1,19 @@
 class LayoutFieldService
 
-  attr_accessor :template_ancestors
-  attr_accessor :template
+  attr_accessor :layout_ancestors
+  attr_accessor :layout
 
   def initialize(template)
-    @template = template
-    @template_ancestors = MomentumCms::Template.ancestor_and_self!(template)
+    @layout = template
 
-    @valid_template = Liquid::Template.parse(@template.value)
+    case @layout
+      when MomentumCms::Template
+        @layout_ancestors = MomentumCms::Template.ancestor_and_self!(template)
+        @valid_template = Liquid::Template.parse(@layout.value)
+      when MomentumCms::BluePrint
+        @layout_ancestors = MomentumCms::BluePrint.ancestor_and_self!(template)
+        @valid_template = nil
+    end
   rescue Liquid::SyntaxError
     @valid_template = nil
   end
@@ -41,12 +47,12 @@ class LayoutFieldService
 
       # If there is a revision for the field...
       if field_revision
-        # Find the translation for the block WRT the current locale
+        # Find the translation for the field WRT the current locale
         translation_for_field = self.find_field_translation_revision(field_translation_revisions, field_revision)
 
         # If there are translations, then update the current locale with the value from the revision
         if translation_for_field
-          field.update_attributes({value: translation_for_field['value']})
+          field.update_attributes({ value: translation_for_field['value'] })
         else
           # There are no translations for this locale, so delete the locale translated value
           field.translations.where(locale: I18n.locale).destroy_all
@@ -74,7 +80,7 @@ class LayoutFieldService
       # if the field does not exist, since we took care of the existing fields above
       if field.new_record?
 
-        # Find the translation for the block WRT the current locale
+        # Find the translation for the field WRT the current locale
         translation_for_field = self.find_field_translation_revision(field_translation_revisions, field_revision)
 
         if translation_for_field
@@ -82,7 +88,7 @@ class LayoutFieldService
           field.save
 
           # Save the value if there are some translations
-          field.update_attributes({value: translation_for_field['value']})
+          field.update_attributes({ value: translation_for_field['value'] })
         end
       end
     end
@@ -110,8 +116,8 @@ class LayoutFieldService
       # Create the field for the entry if the field does not already exist
       unless field
         entry.fields.build(
-            identifier: field_template_field.to_identifier,
-            field_template_id: field_template_field.id
+          identifier: field_template_field.to_identifier,
+          field_template_id: field_template_field.id
         )
       end
     end
@@ -121,23 +127,23 @@ class LayoutFieldService
     created_field_templates = []
 
     self.each_node do |node|
-      next unless node.is_a?(MomentumCms::Tags::CmsBlock)
+      next unless node.is_a?(MomentumCms::Tags::CmsField)
       created_field_templates << self.create_or_update_field_template_from_tag(node)
     end
-    MomentumCms::FieldTemplate.where(layout: @template).where.not(id: created_field_templates.collect(&:id)).destroy_all if delete_orphan
+    MomentumCms::FieldTemplate.where(layout: @layout).where.not(id: created_field_templates.collect(&:id)).destroy_all if delete_orphan
 
     created_field_templates
   end
 
   def create_or_update_field_template_from_tag(node)
-    field_template = MomentumCms::FieldTemplate.where(layout: @template,
+    field_template = MomentumCms::FieldTemplate.where(layout: @layout,
                                                       identifier: node.params['id']).first_or_create! do |o|
       o.field_value_type = node.params.fetch('type', nil)
     end
 
-    MomentumCms::Fixture::Utils.each_locale_for_site(@template.site) do |locale|
+    MomentumCms::Fixture::Utils.each_locale_for_site(@layout.site) do |locale|
       label = node.params_get(locale.to_s)
-      field_template.update_attributes({label: label}) if label
+      field_template.update_attributes({ label: label }) if label
     end
     field_template
   end
@@ -146,10 +152,10 @@ class LayoutFieldService
     !@valid_template.nil?
   end
 
-  def each_node(template = self.template)
-    node_list = if template
+  def each_node(layout = self.layout)
+    node_list = if layout
                   begin
-                    liquid = Liquid::Template.parse(template.value)
+                    liquid = Liquid::Template.parse(layout.value)
                     liquid.root.nodelist
                   rescue Liquid::SyntaxError
                     []
@@ -174,10 +180,10 @@ class LayoutFieldService
     has_field_type
   end
 
-  def get_fields(list = self.template_ancestors.dup)
+  def get_fields(layouts = self.layout_ancestors.dup)
     fields = []
-    list.each do |template|
-      fields << template.field_templates.to_a
+    layouts.each do |layout|
+      fields << layout.field_templates.to_a
     end
     fields.flatten.compact
   end

@@ -2,7 +2,7 @@
 
 .row
   .col-sm-8.col-md-9 
-    .momentum-cms-page-view{data: {fields_url: fields_cms_admin_site_pages_path, page_id: @momentum_cms_page.id}}
+    .momentum-cms-page-view{data: {fields_url: momentum_fields_path_for(@momentum_cms_page), page_id: @momentum_cms_page.id}}
       = simple_form_for @momentum_cms_page, url: {action: :update} do |form|
         = render partial: 'form', locals: { form: form } 
     
