@@ -1,0 +1,14 @@
+- require_root ||= false
+- path ||= ''
+- momentum_cms_blue_prints_tree.each do |momentum_cms_blue_print|
+  - next if require_root && !momentum_cms_blue_print.is_root?
+  %tr
+    %td
+      .label.label-info= momentum_cms_blue_print.identifier
+    %td
+      = path.html_safe
+      = link_to momentum_cms_blue_print.label, edit_cms_admin_site_blue_print_path(@current_momentum_cms_site, momentum_cms_blue_print)
+    %td
+      = link_to 'Document', cms_admin_site_documents_path(@current_momentum_cms_site, { type: momentum_cms_blue_print.identifier}), class: 'btn btn-success btn-xs'
+      = link_to 'Destroy', cms_admin_site_blue_print_path(@current_momentum_cms_site, momentum_cms_blue_print), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs'
+  = render partial: 'blue_prints', locals: {momentum_cms_blue_prints_tree: momentum_cms_blue_print.children, path: "#{path}&mdash;"}

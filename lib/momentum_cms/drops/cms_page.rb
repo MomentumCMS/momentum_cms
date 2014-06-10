@@ -5,8 +5,8 @@ module MomentumCms
         @page = page
       end
 
-      def blocks
-        @page.blocks.collect { |x| x }
+      def fields
+        @page.fields.collect { |x| x }
       end
 
       def updated_at
