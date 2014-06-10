@@ -9,7 +9,7 @@ module MomentumCms
         cms_template = context_get!(context, :cms_template)
         id = params_get!('id')
         field = cms_page.fields.published_fields.where(identifier: "#{MomentumCms::Template}//#{cms_template.identifier}::#{id}").first
-        raise CmsTagError.new('Block not found') unless field
+        raise CmsTagError.new('Field not found') unless field
 
         if view_context == :admin
           self.render_for_backend(context, field)
@@ -31,7 +31,7 @@ module MomentumCms
         ruby
       end
 
-      def render_for_front_end(context, fie111ld)
+      def render_for_front_end(context, field)
         Liquid::Template.parse(field.value).render(context)
       end
 
