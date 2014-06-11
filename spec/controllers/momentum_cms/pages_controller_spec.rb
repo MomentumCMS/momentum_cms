@@ -34,7 +34,13 @@ describe MomentumCms::PagesController, 'Controller' do
       expect(response.body).to eq "default child"
     end
 
-    it 'should 404 for invalid page' do
+    it 'should show 404 for invalid page' do
+      get :show, id: '/something'
+      expect(response).to have_http_status(404)
+    end
+
+    it 'should show 404 for invalid site' do
+      request.host = 'foo'
       get :show, id: '/something'
       expect(response).to have_http_status(404)
     end

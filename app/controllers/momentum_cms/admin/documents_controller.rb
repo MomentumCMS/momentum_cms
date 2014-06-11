@@ -50,7 +50,7 @@ class MomentumCms::Admin::DocumentsController < MomentumCms::Admin::BaseControll
   end
 
   def fields
-    @momentum_cms_document = MomentumCms::Document.where(params[:document_id]).first_or_initialize
+    @momentum_cms_document = MomentumCms::Document.where(id: params[:document_id]).first_or_initialize
     @momentum_cms_blue_print = MomentumCms::BluePrint.find(params[:blue_print_id])
     build_momentum_cms_fields(@momentum_cms_blue_print, @momentum_cms_document)
     render 'momentum_cms/admin/documents/fields', layout: false

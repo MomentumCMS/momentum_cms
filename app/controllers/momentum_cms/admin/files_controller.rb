@@ -3,7 +3,7 @@ class MomentumCms::Admin::FilesController < MomentumCms::Admin::BaseController
   before_action :build_moment_cms_file, only: [:new, :create]
 
   def index
-    @momentum_cms_files = @current_momentum_cms_site.files.all
+    @momentum_cms_files = @current_momentum_cms_site.files
   end
 
   def new

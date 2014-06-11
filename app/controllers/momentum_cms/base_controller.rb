@@ -8,11 +8,7 @@ class MomentumCms::BaseController < ApplicationController
   private
 
   def load_site
-    @momentum_cms_site = if request.host_with_port
-                           MomentumCms::Site.where(host: request.host_with_port).first!
-                         else
-                           MomentumCms::Site.first!
-                         end
+    @momentum_cms_site = MomentumCms::Site.where(host: request.host_with_port).first!
   rescue ActiveRecord::RecordNotFound
     raise MomentumCms::SiteNotFound.new(request.host_with_port)
   end
