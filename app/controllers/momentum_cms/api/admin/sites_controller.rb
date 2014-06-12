@@ -1,6 +1,6 @@
 class MomentumCms::Api::Admin::SitesController < MomentumCms::Api::Admin::BaseController
 
-  before_action :load_site, only: [:show, :update]
+  before_action :load_site, only: [:show, :update, :destroy]
 
   def index
     @sites = MomentumCms::Site.all
@@ -26,6 +26,11 @@ class MomentumCms::Api::Admin::SitesController < MomentumCms::Api::Admin::BaseCo
     render json: @site
   rescue ActiveRecord::RecordInvalid
     render json: {errors: @site.errors, status: 422}, status: 422
+  end
+
+  def destroy
+    @site.destroy
+    render json: @site
   end
 
   private

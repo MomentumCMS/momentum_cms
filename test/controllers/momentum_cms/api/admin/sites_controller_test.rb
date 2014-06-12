@@ -93,4 +93,11 @@ class MomentumCms::Api::Admin::SitesControllerTest < ActionController::TestCase
     assert json_response['errors']['label'].present?
   end
 
+  def test_delete
+    assert_difference "MomentumCms::Site.count", -1 do
+      delete :destroy, id: momentum_cms_sites(:default).id
+    end
+    assert_response :success
+  end
+
 end
