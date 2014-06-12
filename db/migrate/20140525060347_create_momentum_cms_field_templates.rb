@@ -1,10 +1,10 @@
 class CreateMomentumCmsFieldTemplates < ActiveRecord::Migration
   def up
     create_table :momentum_cms_field_templates do |t|
-      t.references :document_template, index: true
+      t.references :layout, index: true
       t.string :identifier
       t.string :field_value_type
-      
+
       t.timestamps
     end
     MomentumCms::FieldTemplate.create_translation_table! label: :string

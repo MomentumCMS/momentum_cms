@@ -16,7 +16,7 @@ class MomentumCms::Admin::SitesController < MomentumCms::Admin::BaseController
   def create
     @momentum_cms_site.save!
     flash[:success] = 'Site was successfully created.'
-    redirect_to action: :edit, :id => @momentum_cms_site
+    redirect_to action: :edit, id: @momentum_cms_site
   rescue ActiveRecord::RecordInvalid
     render action: :new
   end
@@ -24,7 +24,7 @@ class MomentumCms::Admin::SitesController < MomentumCms::Admin::BaseController
   def update
     @momentum_cms_site.update_attributes!(momentum_cms_site_params)
     flash[:success] = 'Site was successfully updated.'
-    redirect_to action: :edit, :id => @momentum_cms_site
+    redirect_to action: :edit, id: @momentum_cms_site
   rescue ActiveRecord::RecordInvalid
     render action: :edit
   end

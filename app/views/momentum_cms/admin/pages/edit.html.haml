@@ -1,7 +1,27 @@
 %h1.page-header Edit Page
 
-.momentum-cms-page-view{data: {blocks_url: momentum_blocks_url, page_id: @momentum_cms_page.id}}
-  = simple_form_for @momentum_cms_page, url: {action: :update} do |form|
-    = render partial: 'form', locals: { form: form } 
+.row
+  .col-sm-8.col-md-9 
+    .momentum-cms-page-view{data: {fields_url: momentum_fields_path_for(@momentum_cms_page), page_id: @momentum_cms_page.id}}
+      = simple_form_for @momentum_cms_page, url: {action: :update} do |form|
+        = render partial: 'form', locals: { form: form } 
+    
+    = render partial: 'momentum_cms/admin/partials/object_meta', locals: { object: @momentum_cms_page }
+  .col-sm-4.col-md-3
+    
+    %table.table
+      %thead
+        %tr
+          %th #
+          %th Status
+          %th Control
+      %tbody
+        - @momentum_cms_page_revisions.each do |momentum_cms_page_revision|
+          %tr
+            %td= momentum_cms_page_revision.revision_number
+            %td= momentum_cms_page_revision.published_status.titlecase
+            %td
+              - unless momentum_cms_page_revision.draft?
+                = link_to 'Revert', edit_cms_admin_site_page_path(@current_momentum_cms_site, @momentum_cms_page, {revision: momentum_cms_page_revision.revision_number}), class: 'btn btn-warning btn-xs'
 
-= render partial: 'momentum_cms/admin/partials/object_meta', locals: { object: @momentum_cms_page }
+    = link_to 'Publish', publish_cms_admin_site_page_path(@current_momentum_cms_site, @momentum_cms_page), method: :post, data: { confirm: 'Are you sure?' }, class: 'btn btn-info btn-xs'

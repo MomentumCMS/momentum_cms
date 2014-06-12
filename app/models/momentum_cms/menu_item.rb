@@ -19,13 +19,11 @@ class MomentumCms::MenuItem < ActiveRecord::Base
 
   # == Extensions ===========================================================
 
-  has_paper_trail
-
   has_ancestry
 
   # == Validations ==========================================================
 
-  validates :menu_id,
+  validates :menu,
             presence: true
 
   # == Scopes ===============================================================
@@ -51,7 +49,9 @@ class MomentumCms::MenuItem < ActiveRecord::Base
 
   # == Class Methods ========================================================
   # == Instance Methods =====================================================
+
   protected
+
   def assign_menu_item_type
     if self.linkable
       self.menu_item_type = INTERNAL

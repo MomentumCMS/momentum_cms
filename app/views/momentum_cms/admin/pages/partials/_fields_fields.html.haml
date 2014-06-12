@@ -1,0 +1,15 @@
+- field = field_form.object
+
+- if field.persisted?
+  = field_form.input :id, as: :hidden
+= field_form.input :identifier, as: :hidden
+= field_form.input :field_template_id, as: :hidden
+
+- field_template = field.field_template
+- label = field_template.label || field.identifier.titleize
+- as = :string
+- as = :text if ['rich-text', 'plain-text'].include?(field_template.field_value_type)
+- as = :boolean if ['boolean'].include?(field_template.field_value_type)
+- css_class = nil
+- css_class = 'tinymce' if ['rich-text'].include?(field_template.field_value_type)
+= field_form.input :value, label: label, as: as, input_html: { class: css_class }

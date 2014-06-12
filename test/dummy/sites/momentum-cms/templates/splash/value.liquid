@@ -1,23 +1,23 @@
 <div class="jumbotron">
   <div class="container">
-    <h1 class="animated fadeInDown">{% cms_block id:logo type:string en:Logo de:Logo %}</h1>
+    <h1 class="animated fadeInDown">{% cms_field id:logo type:string en:Logo de:Logo %}</h1>
 
-    <h2 class="animated fadeInDown">{% cms_block id:header type:string en:Header de:Kopfzeile %}</h2>
+    <h2 class="animated fadeInDown">{% cms_field id:header type:string en:Header de:Kopfzeile %}</h2>
   </div>
 </div>
 <div class="container values">
   <div class="row text-center">
     <div class="col-md-4">
       <span class="glyphicon glyphicon-globe"></span>
-      {% cms_block id:feature-globe type:rich-text %}
+      {% cms_field id:feature-globe type:rich-text %}
     </div>
     <div class="col-md-4">
       <span class="glyphicon glyphicon-heart-empty"></span>
-      {% cms_block id:feature-heart-empty type:rich-text %}
+      {% cms_field id:feature-heart-empty type:rich-text %}
     </div>
     <div class="col-md-4">
       <span class="glyphicon glyphicon-cog"></span>
-      {% cms_block id:feature-cog type:rich-text %}
+      {% cms_field id:feature-cog type:rich-text %}
     </div>
   </div>
   <!-- .row -->
@@ -27,10 +27,10 @@
 
   <div class="row">
     <div class="col-md-12">
-      {% cms_block id:future-cta type:rich-text %}
+      {% cms_field id:future-cta type:rich-text %}
     </div>
     <div class="col-md-12">
-      <pre style="max-height: 400px;" class="language-javascript"><code class="language-javascript">{% cms_block id:code type:plain-text %}</code></pre>
+      <pre style="max-height: 400px;" class="language-javascript"><code class="language-javascript">{% cms_field id:code type:plain-text %}</code></pre>
     </div>
   </div>
   <!-- .row -->

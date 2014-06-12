@@ -1,7 +1,7 @@
 class MomentumCms::Admin::TemplatesController < MomentumCms::Admin::BaseController
   before_action :build_momentum_cms_template, only: [:new, :create]
   before_action :load_momentum_cms_template, only: [:edit, :update, :destroy]
-  before_action :load_momentum_cms_templates, only: [:index, :new]
+  before_action :load_momentum_cms_templates, only: [:index, :new, :create]
   before_action :load_parent_templates, only: [:edit, :update]
 
   def index
@@ -16,7 +16,7 @@ class MomentumCms::Admin::TemplatesController < MomentumCms::Admin::BaseControll
   def create
     @momentum_cms_template.save!
     flash[:success] = 'Template was successfully created.'
-    redirect_to action: :edit, :id => @momentum_cms_template
+    redirect_to action: :edit, id: @momentum_cms_template
   rescue ActiveRecord::RecordInvalid
     render action: :new
   end
@@ -24,7 +24,7 @@ class MomentumCms::Admin::TemplatesController < MomentumCms::Admin::BaseControll
   def update
     @momentum_cms_template.update_attributes!(momentum_cms_template_params)
     flash[:success] = 'Template was successfully updated.'
-    redirect_to action: :edit, :id => @momentum_cms_template
+    redirect_to action: :edit, id: @momentum_cms_template
   rescue ActiveRecord::RecordInvalid
     render action: :edit
   end

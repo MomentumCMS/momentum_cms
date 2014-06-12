@@ -9,11 +9,12 @@
 
 %hr
 
-.momentum-cms-blocks
-  = form.simple_fields_for :blocks do |block_form|
-    - next unless @block_templates_identifiers.include?(block_form.object.identifier)
-    .momentum-cms-block
-      = render 'momentum_cms/admin/pages/partials/blocks_fields', block_form: block_form
+.momentum-cms-fields
+  = form.simple_fields_for :fields do |field_form|
+    - next unless @field_templates_identifiers.include?(field_form.object.identifier)
+    - next unless field_form.object.field_type == 'draft'
+    .momentum-cms-field
+      = render 'momentum_cms/admin/pages/partials/fields_fields', field_form: field_form
 
 = form.submit class: 'btn btn-success btn-xs'
 = link_to 'Back', cms_admin_site_pages_path(@current_momentum_cms_site), class: 'btn btn-primary btn-xs'

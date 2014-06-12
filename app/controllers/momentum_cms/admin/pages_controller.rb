@@ -1,21 +1,33 @@
 class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
-  before_action :load_momentum_cms_page, only: [:edit, :update, :destroy]
+  before_action :load_momentum_cms_page, only: [:edit, :update, :destroy, :publish, :unpublish]
   before_action :build_momentum_cms_page, only: [:new, :create]
   before_action :load_parent_pages, only: [:edit, :new, :update, :create]
 
   def index
-    @momentum_cms_pages = @current_momentum_cms_site.pages.all
+    @momentum_cms_pages = @current_momentum_cms_site.pages
     respond_to do |format|
       format.html
       format.js { render js: @momentum_cms_pages.to_json }
     end
   end
 
+  def unpublish
+    @momentum_cms_page.unpublish!
+    flash[:success] = 'Page was successfully unpublished.'
+    redirect_to edit_cms_admin_site_page_path(@current_momentum_cms_site, @momentum_cms_page)
+  end
+
+  def publish
+    @momentum_cms_page.publish!
+    flash[:success] = 'Page was successfully published.'
+    redirect_to edit_cms_admin_site_page_path(@current_momentum_cms_site, @momentum_cms_page)
+  end
+
   def new
   end
 
   def edit
-    build_momentum_cms_blocks(@momentum_cms_page.template, @momentum_cms_page)
+    build_momentum_cms_fields(@momentum_cms_page.template, @momentum_cms_page)
   end
 
   def create
@@ -23,16 +35,16 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
     flash[:success] = 'Page was successfully created.'
     redirect_to edit_cms_admin_site_page_path(@current_momentum_cms_site, @momentum_cms_page)
   rescue ActiveRecord::RecordInvalid
-    build_momentum_cms_blocks(@momentum_cms_page.template, @momentum_cms_page)
+    build_momentum_cms_fields(@momentum_cms_page.template, @momentum_cms_page)
     render action: :new
   end
 
   def update
     @momentum_cms_page.update_attributes!(momentum_cms_page_params)
     flash[:success] = 'Page was successfully updated.'
-    redirect_to action: :edit, :id => @momentum_cms_page
+    redirect_to action: :edit, id: @momentum_cms_page
   rescue ActiveRecord::RecordInvalid
-    build_momentum_cms_blocks(@momentum_cms_page.template, @momentum_cms_page)
+    build_momentum_cms_fields(@momentum_cms_page.template, @momentum_cms_page)
     render action: :edit
   end
 
@@ -42,11 +54,11 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
     redirect_to action: :index
   end
 
-  def blocks
+  def fields
     @momentum_cms_page = MomentumCms::Page.where(id: params[:page_id]).first_or_initialize
     @momentum_cms_template = MomentumCms::Template.find(params[:template_id])
-    build_momentum_cms_blocks(@momentum_cms_template, @momentum_cms_page)
-    render 'momentum_cms/admin/pages/blocks', layout: false
+    build_momentum_cms_fields(@momentum_cms_template, @momentum_cms_page)
+    render 'momentum_cms/admin/pages/fields', layout: false
   rescue ActiveRecord::RecordNotFound
     render nothing: true
   end
@@ -58,11 +70,15 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
     if @momentum_cms_page.persisted?
       @momentum_cms_parent_pages = @momentum_cms_parent_pages.where.not(id: @momentum_cms_page.subtree_ids)
     end
-    @momentum_cms_parent_pages
   end
 
   def load_momentum_cms_page
     @momentum_cms_page = MomentumCms::Page.find(params[:id])
+    @momentum_cms_page_revisions = @momentum_cms_page.revisions
+    revision = @momentum_cms_page_revisions.where(revision_number: params.fetch(:revision, nil)).first
+    if revision
+      @momentum_cms_page_revision_data = revision.revision_data
+    end
   rescue ActiveRecord::RecordNotFound
     redirect_to action: :index
   end
@@ -76,23 +92,10 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
     params.fetch(:momentum_cms_page, {}).permit!
   end
 
-  def build_momentum_cms_blocks(template, page)
+  def build_momentum_cms_fields(template, page)
     return unless template && page
-    block_templates = TemplateBlockService.new(template).get_blocks
-    @block_templates_identifiers = block_templates.collect(&:to_identifier)
-
-    # Get the current page's existing saved blocks
-    momentum_cms_blocks = page.blocks
-
-    # Build blocks from each block_templates
-    block_templates.each do |block_template|
-      unless momentum_cms_blocks.any? { |x| x.identifier == block_template.to_identifier }
-        page.blocks.build(
-          identifier: block_template.to_identifier,
-          block_template_id: block_template.id
-        )
-      end
-    end
-
+    layout_field_service = LayoutFieldService.new(template)
+    @field_templates_identifiers = layout_field_service.get_identifiers
+    layout_field_service.build_momentum_cms_field(page, @momentum_cms_page_revision_data)
   end
 end

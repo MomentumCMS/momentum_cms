@@ -3,7 +3,7 @@ class MomentumCms::Admin::FilesController < MomentumCms::Admin::BaseController
   before_action :build_moment_cms_file, only: [:new, :create]
 
   def index
-    @momentum_cms_files = @current_momentum_cms_site.files.all
+    @momentum_cms_files = @current_momentum_cms_site.files
   end
 
   def new
@@ -15,7 +15,7 @@ class MomentumCms::Admin::FilesController < MomentumCms::Admin::BaseController
   def create
     @momentum_cms_file.save!
     flash[:success] = 'File was successfully created.'
-    redirect_to action: :edit, :id => @momentum_cms_file
+    redirect_to action: :edit, id: @momentum_cms_file
   rescue ActiveRecord::RecordInvalid
     render action: :new
   end
@@ -23,7 +23,7 @@ class MomentumCms::Admin::FilesController < MomentumCms::Admin::BaseController
   def update
     @momentum_cms_file.update_attributes!(momentum_cms_file_params)
     flash[:success] = 'File was successfully updated.'
-    redirect_to action: :edit, :id => @momentum_cms_file
+    redirect_to action: :edit, id: @momentum_cms_file
   rescue ActiveRecord::RecordInvalid
     render action: :edit
   end

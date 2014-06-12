@@ -1,35 +1,29 @@
-class MomentumCms::Document < ActiveRecord::Base
+class MomentumCms::Document < MomentumCms::Entry
   # == MomentumCms ==========================================================
-
-  include MomentumCms::BelongsToSite
-
-  self.table_name = 'momentum_cms_documents'
-
   # == Constants ============================================================
   # == Relationships ========================================================
 
-  belongs_to :document_template
-
-  has_many :fields,
-           inverse_of: :document,
-           dependent: :destroy
-
-  accepts_nested_attributes_for :fields
+  belongs_to :blue_print
 
   # == Extensions ===========================================================
-  
-  has_paper_trail
-
-  translates :label, fallbacks_for_empty_translations: true, versioning: :paper_trail
-
   # == Validations ==========================================================
 
-  validates :document_template,
+  validates :blue_print,
             presence: true
 
   # == Scopes ===============================================================
   # == Callbacks ============================================================
+
+  before_validation :assign_layout_from_blue_print
+
   # == Class Methods ========================================================
   # == Instance Methods =====================================================
 
+  protected
+
+  def assign_layout_from_blue_print
+    if self.layout.blank?
+      self.layout = self.blue_print
+    end
+  end
 end

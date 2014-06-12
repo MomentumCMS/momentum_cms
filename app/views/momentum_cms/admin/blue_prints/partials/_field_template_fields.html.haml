@@ -1,0 +1,7 @@
+- if field_template_form.object.persisted?
+  = field_template_form.input :id, as: :hidden
+= field_template_form.input :identifier
+= field_template_form.input :label
+= field_template_form.input :field_value_type
+
+%hr

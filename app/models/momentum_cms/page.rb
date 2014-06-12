@@ -1,56 +1,43 @@
-class MomentumCms::Page < ActiveRecord::Base
+class MomentumCms::Page < MomentumCms::Entry
   # == MomentumCms ==========================================================
-  
-  include MomentumCms::BelongsToSite
 
-  self.table_name = 'momentum_cms_pages'
+  include MomentumCms::AncestryUtils
 
   # == Constants ============================================================
   # == Relationships ========================================================
 
   belongs_to :template
 
-  has_many :blocks,
-           inverse_of: :page,
-           dependent: :destroy
-
-  accepts_nested_attributes_for :blocks
-
   # == Extensions ===========================================================
-  
-  has_paper_trail
-
-  has_ancestry
-  
-  translates :label, :slug, :path, fallbacks_for_empty_translations: true
-
   # == Validations ==========================================================
 
-  validates :slug, uniqueness: { scope: [:site, :ancestry] }
-  validates :slug, presence: true
+  validates :slug,
+            presence: true,
+            uniqueness: { scope: [:site, :ancestry] }
 
-  validates :identifier, uniqueness: { scope: :site }
-  validates :identifier, presence: true
-
-  validates :template, presence: true
-
+  validates :template,
+            presence: true
+  
   # == Scopes ===============================================================
+
   # == Callbacks ============================================================
 
+  before_validation :assign_layout_from_template
+
   before_save :assign_paths
+
   after_update :regenerate_child_paths
 
   # == Class Methods ========================================================
 
-  def self.ancestor_and_self!(page)
-    if page && page.is_a?(MomentumCms::Page)
-      [page.ancestors.to_a, page].flatten.compact
-    else
-      []
+  # == Instance Methods =====================================================
+
+  protected
+  def assign_layout_from_template
+    if self.layout.blank?
+      self.layout = self.template
     end
   end
-
-  # == Instance Methods =====================================================
 
   def assign_paths
     self.path = generate_path(self)
@@ -62,12 +49,6 @@ class MomentumCms::Page < ActiveRecord::Base
       descendant.save
     end
   end
-
-  def published_content
-    self.contents.find_by(id: self.published_content_id)
-  end
-
-  protected
 
   def generate_path(page)
     translated_path = []

@@ -1,0 +1,12 @@
+%h1.page-header Blue Prints
+
+%table.table
+  %thead
+    %tr
+      %th.identifier Identifier
+      %th Label
+      %th.control Control
+  %tbody
+    = render partial: 'blue_prints', locals: { momentum_cms_blue_prints_tree: @momentum_cms_blue_prints, require_root: true}
+%br/
+= link_to 'New Blue Print', [:new, :cms, :admin, :site, :blue_print], class: 'btn btn-primary btn-xs'

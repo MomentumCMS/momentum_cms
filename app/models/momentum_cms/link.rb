@@ -9,17 +9,14 @@ class MomentumCms::Link < ActiveRecord::Base
   # == Relationships ========================================================
   # == Extensions ===========================================================
 
-  has_paper_trail
-
-  translates :label, :description, fallbacks_for_empty_translations: true
+  translates :label, :description,
+             fallbacks_for_empty_translations: true
 
   # == Validations ==========================================================
 
   validates :identifier,
-            presence: true
-
-  validates :identifier,
-            uniqueness: true
+            presence: true,
+            uniqueness: {scope: :site_id}
 
   # == Scopes ===============================================================
   # == Callbacks ============================================================

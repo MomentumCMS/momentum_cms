@@ -1,9 +1,11 @@
 class CreateMomentumCmsFields < ActiveRecord::Migration
   def up
     create_table :momentum_cms_fields do |t|
-      t.references :document, index: true
+      t.references :entry, index: true
       t.references :field_template, index: true
-      t.string :identifier
+      t.string :identifier    
+      t.string :field_type
+      t.integer :revision_field_id
 
       t.timestamps
     end

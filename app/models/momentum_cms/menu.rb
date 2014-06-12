@@ -1,8 +1,8 @@
 class MomentumCms::Menu < ActiveRecord::Base
   # == MomentumCms ==========================================================
-  
+
   include MomentumCms::BelongsToSite
-  
+
   self.table_name = 'momentum_cms_menus'
 
   # == Constants ============================================================
@@ -15,16 +15,14 @@ class MomentumCms::Menu < ActiveRecord::Base
 
   # == Extensions ===========================================================
 
-  has_paper_trail
-
   # == Validations ==========================================================
 
   validates :label,
-            :identifier,
             presence: true
-  
+
   validates :identifier,
-            uniqueness: true
+            presence: true,
+            uniqueness: {scope: :site_id}
 
   # == Scopes ===============================================================
   # == Callbacks ============================================================
@@ -37,7 +35,7 @@ class MomentumCms::Menu < ActiveRecord::Base
 
   def update_menu_items
     json = JSON.parse(self.menu_json)
-    MenuBuilderService.new({ json: json, menu: self }).create_or_update!
+    MenuBuilderService.new({json: json, menu: self}).create_or_update!
   rescue
 
   end

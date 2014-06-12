@@ -1,9 +1,9 @@
 module MomentumCms
   module Fixture
     class Utils
-      def self.each_locale_for_site(site, default_locale= [:en])
+      def self.each_locale_for_site(site)
         original_locale = I18n.locale
-        locales = site.get_locales(default_locale)
+        locales = site.get_locales
         locales.each do |locale|
           # Set the Locale
           begin

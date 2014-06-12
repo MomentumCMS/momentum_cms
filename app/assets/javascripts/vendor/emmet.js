@@ -12989,9 +12989,9 @@ var snippets = {
 			"colms": "column-span:|;",
 			"colmw": "column-width:|;",
 
-			"d": "display:${1:block};",
+			"d": "display:${1:field};",
 			"d:n": "display:none;",
-			"d:b": "display:block;",
+			"d:b": "display:field;",
 			"d:i": "display:inline;",
 			"d:ib": "display:inline-block;",
 			"d:ib+": "display: inline-block;\n*display: inline;\n*zoom: 1;",

@@ -61,6 +61,8 @@ class ActiveSupport::TestCase
     @default_page.site = @site
     @default_page.save!
     @default_page.reload
+    @default_page.publish!
+    
 
     @child_page = momentum_cms_pages(:child)
     @child_page.slug = 'child'
@@ -68,6 +70,7 @@ class ActiveSupport::TestCase
     @child_page.parent = @parent_page
     @child_page.save!
     @child_page.reload
+    @child_page.publish!
   end
 
 end

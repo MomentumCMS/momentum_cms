@@ -1,17 +1,17 @@
 <div class="jumbotron">
   <div class="container">
-    <h1 class="animated fadeInDown">{% cms_block id:logo type:string en:Logo de:Logo %}</h1>
+    <h1 class="animated fadeInDown">{% cms_field id:logo type:string en:Logo de:Logo %}</h1>
 
-    <h2 class="animated fadeInDown">{% cms_block id:header type:string en:Header de:Kopfzeile %}</h2>
+    <h2 class="animated fadeInDown">{% cms_field id:header type:string en:Header de:Kopfzeile %}</h2>
   </div>
 </div>
 <div class="container">
   <div class="row">
     <div class="col-md-8">
-      {% cms_block id:left_column type:rich-text %}
+      {% cms_field id:left_column type:rich-text %}
     </div>
     <div class="col-md-4">
-      {% cms_block id:right_column type:rich-text %}
+      {% cms_field id:right_column type:rich-text %}
     </div>
   </div>
   <!-- .row -->
