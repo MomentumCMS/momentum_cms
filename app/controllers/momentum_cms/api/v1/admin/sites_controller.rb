@@ -1,4 +1,4 @@
-class MomentumCms::Api::Admin::SitesController < MomentumCms::Api::Admin::BaseController
+class MomentumCms::Api::V1::Admin::SitesController < MomentumCms::Api::V1::Admin::BaseController
 
   before_action :load_site, only: [:show, :update]
 

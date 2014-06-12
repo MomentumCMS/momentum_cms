@@ -13,8 +13,11 @@ class MomentumCms::Page < MomentumCms::Entry
 
   validates :slug,
             presence: true,
-            uniqueness: {scope: [:site, :ancestry]}
+            uniqueness: { scope: [:site, :ancestry] }
 
+  validates :template,
+            presence: true
+  
   # == Scopes ===============================================================
 
   # == Callbacks ============================================================

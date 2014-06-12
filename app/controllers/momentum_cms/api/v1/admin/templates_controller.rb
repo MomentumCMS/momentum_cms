@@ -1,4 +1,4 @@
-class MomentumCms::Api::Admin::TemplatesController < MomentumCms::Api::Admin::BaseController
+class MomentumCms::Api::V1::Admin::TemplatesController < MomentumCms::Api::V1::Admin::BaseController
 
 
   def index

@@ -1,6 +1,6 @@
 require_relative '../../../rails_helper'
 
-describe MomentumCms::Admin::TemplatesController, 'Controller' do
+describe MomentumCms::Admin::TemplatesController, type: :controller do
   before(:each) do
     @site = create(:site)
     @template = create(:template, site: @site)

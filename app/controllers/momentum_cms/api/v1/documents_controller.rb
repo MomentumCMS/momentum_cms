@@ -1,4 +1,4 @@
-class MomentumCms::Api::DocumentsController < MomentumCms::Api::BaseController
+class MomentumCms::Api::V1::DocumentsController < MomentumCms::Api::V1::BaseController
   before_action :load_moment_cms_documents, only: [:index]
   before_action :load_moment_cms_document, only: [:show]
 

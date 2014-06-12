@@ -1,6 +1,6 @@
 require_relative '../../../rails_helper'
 
-describe MomentumCms::Admin::BluePrintsController, 'Controller' do
+describe MomentumCms::Admin::BluePrintsController, type: :controller do
   before(:each) do
     @site = create(:site)
     @blue_print = create(:blue_print, site: @site)

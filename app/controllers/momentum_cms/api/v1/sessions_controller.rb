@@ -1,4 +1,4 @@
-class MomentumCms::Api::SessionsController < MomentumCms::Api::BaseController
+class MomentumCms::Api::V1::SessionsController < MomentumCms::Api::V1::BaseController
 
   def create
     # TODO: Add a hook that uses the user model's login method

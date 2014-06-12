@@ -1,4 +1,4 @@
-class MomentumCms::Api::Admin::PagesController < MomentumCms::Api::Admin::BaseController
+class MomentumCms::Api::V1::Admin::PagesController < MomentumCms::Api::V1::Admin::BaseController
 
   before_action :load_site, only: [:index]
   before_action :load_page, only: [:update, :destroy]

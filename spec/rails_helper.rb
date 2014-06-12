@@ -41,6 +41,10 @@ rescue
 end
 
 RSpec.configure do |config|
+  
+  config.include Requests::JsonHelpers, type: :controller
+
+  
   config.mock_with :rspec
   config.infer_base_class_for_anonymous_controllers = false
   config.order = "random"

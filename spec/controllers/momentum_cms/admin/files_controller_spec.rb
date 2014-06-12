@@ -1,6 +1,6 @@
 require_relative '../../../rails_helper'
 
-describe MomentumCms::Admin::FilesController, 'Controller' do
+describe MomentumCms::Admin::FilesController, type: :controller do
 
   before(:each) do
     @site = create(:site)

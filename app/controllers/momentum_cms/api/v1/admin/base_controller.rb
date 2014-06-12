@@ -1,4 +1,4 @@
-class MomentumCms::Api::Admin::BaseController < ApplicationController
+class MomentumCms::Api::V1::Admin::BaseController < ApplicationController
 
   skip_before_filter :verify_authenticity_token
 

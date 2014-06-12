@@ -14,8 +14,8 @@ gemspec
 # gem 'debugger'
 
 group :development, :test do
-  gem 'simplecov', '~> 0.8.2', require: false
-  gem 'coveralls', require: false
+  gem 'simplecov', '~> 0.8.2',      require: false
+  gem 'coveralls',                  require: false
   gem 'codeclimate-test-reporter',  require: nil
   gem 'awesome_print'
   gem 'better_errors'
@@ -25,5 +25,5 @@ group :development, :test do
   gem 'database_cleaner',   '~> 1.3.0'
   gem 'rspec-rails',        '~> 3.0.1'
   gem 'factory_girl_rails', '~> 4.4.1'
-  #gem 'capybara'
+  gem 'capybara',           '~> 2.3.0'
 end

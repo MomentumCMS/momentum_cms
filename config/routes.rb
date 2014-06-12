@@ -6,14 +6,16 @@ Rails.application.routes.draw do
 
   namespace :momentum_cms, as: :cms, path: MomentumCms.configuration.api_mount_point do
     namespace :api, as: :api, path: '' do
-      resources :documents, only: [:index, :show]
-      if MomentumCms.configuration.api_level == :full
-        resources :sessions, only: [:create, :destroy]
-        namespace :admin, as: :admin do
-          resources :sites
-          resources :pages
-          resources :templates
-          resources :locales, only: [:index]
+      namespace :v1, as: :v1, path: 'v1' do
+        resources :documents, only: [:index, :show]
+        if MomentumCms.configuration.api_level == :full
+          resources :sessions, only: [:create, :destroy]
+          namespace :admin, as: :admin do
+            resources :sites
+            resources :pages
+            resources :templates
+            resources :locales, only: [:index]
+          end
         end
       end
     end

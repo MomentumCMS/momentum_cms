@@ -1,6 +1,6 @@
 require_relative '../../../rails_helper'
 
-describe MomentumCms::Admin::SnippetsController, 'Controller' do
+describe MomentumCms::Admin::SnippetsController, type: :controller do
   before(:each) do
     @site = create(:site)
     @snippet = create(:snippet, site: @site)

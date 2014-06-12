@@ -1,6 +1,6 @@
 require_relative '../../rails_helper'
 
-describe MomentumCms::PagesController, 'Controller' do
+describe MomentumCms::PagesController, type: :controller do
 
   before(:each) do
     @site = create(:site, host: 'test.host')
