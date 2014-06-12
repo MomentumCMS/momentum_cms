@@ -32,6 +32,12 @@ class MomentumCms::Site < ActiveRecord::Base
 
   has_many :documents,
            dependent: :destroy
+  
+  has_many :site_users,
+           dependent: :destroy
+  
+  has_many :users,
+           through: :site_users
 
   # == Extensions ===========================================================
 

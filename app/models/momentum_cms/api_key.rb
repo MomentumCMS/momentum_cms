@@ -1,18 +1,15 @@
 class MomentumCms::ApiKey < ActiveRecord::Base
 
   # == MomentumCms ==========================================================
-
+  include MomentumCms::BelongsToUser
+  
   self.table_name = 'momentum_cms_api_keys'
 
   # == Relationships ========================================================
-
-  # TODO: This should be configured
-  # belongs_to :user
-
   # == Validations ==========================================================
 
   validates :scope,
-            inclusion: {in: ['session', 'api']}
+            inclusion: { in: ['session', 'api'] }
 
   # == Scopes ===============================================================
 

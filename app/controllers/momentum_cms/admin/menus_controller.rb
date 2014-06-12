@@ -1,6 +1,6 @@
 class MomentumCms::Admin::MenusController < MomentumCms::Admin::BaseController
-  before_action :load_moment_cms_menu, only: [:edit, :update, :destroy]
-  before_action :build_moment_cms_menu, only: [:new, :create]
+  before_action :load_momentum_cms_menu, only: [:edit, :update, :destroy]
+  before_action :build_momentum_cms_menu, only: [:new, :create]
 
   def index
     @momentum_cms_menus = @current_momentum_cms_site.menus.all
@@ -35,13 +35,13 @@ class MomentumCms::Admin::MenusController < MomentumCms::Admin::BaseController
   end
 
   private
-  def load_moment_cms_menu
+  def load_momentum_cms_menu
     @momentum_cms_menu = MomentumCms::Menu.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     redirect_to action: :index
   end
 
-  def build_moment_cms_menu
+  def build_momentum_cms_menu
     @momentum_cms_menu = MomentumCms::Menu.new(momentum_cms_menu_params)
     @momentum_cms_menu.site = @current_momentum_cms_site
   end

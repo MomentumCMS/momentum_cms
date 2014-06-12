@@ -1,7 +1,7 @@
 class MomentumCms::Admin::SitesController < MomentumCms::Admin::BaseController
   skip_before_action :load_site, only: [:index, :new, :create, :edit, :update]
-  before_action :load_moment_cms_site, only: [:edit, :update, :destroy, :sync_remote]
-  before_action :build_moment_cms_site, only: [:new, :create]
+  before_action :load_momentum_cms_site, only: [:edit, :update, :destroy, :sync_remote]
+  before_action :build_momentum_cms_site, only: [:new, :create]
 
   def index
     @momentum_cms_sites = MomentumCms::Site.all
@@ -46,13 +46,13 @@ class MomentumCms::Admin::SitesController < MomentumCms::Admin::BaseController
   end
 
   private
-  def load_moment_cms_site
+  def load_momentum_cms_site
     @momentum_cms_site = MomentumCms::Site.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     redirect_to action: :index
   end
 
-  def build_moment_cms_site
+  def build_momentum_cms_site
     @momentum_cms_site = MomentumCms::Site.new(momentum_cms_site_params)
   end
 

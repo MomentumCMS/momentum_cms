@@ -35,6 +35,7 @@ require 'momentum_cms/fixture/file'
 require 'momentum_cms/remote_fixture'
 require 'momentum_cms/remote_fixture/base'
 require 'momentum_cms/remote_fixture/blue_print'
+require 'momentum_cms/remote_fixture/document'
 require 'momentum_cms/remote_fixture/utils'
 
 require 'momentum_cms/configuration'

@@ -1,5 +1,5 @@
 module MomentumCms
-  module ActAsUser
+  module BelongsToUser
     extend ActiveSupport::Concern
 
     included do
@@ -7,14 +7,8 @@ module MomentumCms
       # == Constants ============================================================
       # == Relationships ========================================================
 
-      has_many :api_keys,
-               foreign_key: :user_id
-
-      has_many :site_users,
-               dependent: :destroy
-
-      has_many :sites,
-               through: :site_users
+      belongs_to :user,
+                 class_name: MomentumCms.configuration.user_class.constantize
 
       # == Extensions ===========================================================
       # == Validations ==========================================================

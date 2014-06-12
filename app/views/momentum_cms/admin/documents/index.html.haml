@@ -1,4 +1,7 @@
-%h1.page-header Documents
+%h1.page-header
+  - if @momentum_cms_blue_print
+    '#{@momentum_cms_blue_print.label}'
+  Documents
 
 %table.table
   %thead
@@ -16,4 +19,4 @@
         %td= momentum_cms_document.blue_print.label
         %td= link_to 'Destroy', cms_admin_site_document_path(@current_momentum_cms_site, momentum_cms_document), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs'
 %br/
-= link_to 'New Document', [:new, :cms, :admin, :site, :document], class: 'btn btn-primary btn-xs'
+= link_to 'New Document', new_cms_admin_site_document_path(@current_momentum_cms_site, {blue_print: params.fetch(:blue_print, nil)}), class: 'btn btn-primary btn-xs'

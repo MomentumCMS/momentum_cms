@@ -47,6 +47,8 @@ module MomentumCms
     attr_accessor :api_level
 
     attr_accessor :api_cors_header
+    
+    attr_accessor :user_class
 
     # Configuration defaults
     def initialize
@@ -64,6 +66,7 @@ module MomentumCms
       @api_authentication = MomentumCms::Authentication::NoAuthentication
       @api_cors_header = MomentumCms::Api::CorsHeaders
       @api_level = :minimal
+      @user_class = 'MomentumCms::SimpleUser'
     end
 
   end

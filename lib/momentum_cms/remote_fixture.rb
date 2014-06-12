@@ -8,11 +8,16 @@ module MomentumCms
         @source = options.fetch(:source, nil)
         raise ArgumentError.new('Expecting :source to be passed from the options') if @source.blank?
         @site = options.fetch(:site, nil)
-        raise ArgumentError.new('Expecting :site to be passed from the options') if @site.blank? || !@site.is_a?(MomentumCms::Site)
+        if @site.nil? || !@site.is_a?(MomentumCms::Site)
+          site_identifier = options.fetch(:site_id, nil)
+          @site = MomentumCms::Site.where(identifier: site_identifier).first
+        end
+        raise ArgumentError.new('Expecting :site or :site_id to be passed from the options') if @site.blank? || !@site.is_a?(MomentumCms::Site)
       end
 
       def import!
         blue_print = MomentumCms::RemoteFixture::BluePrint::Importer.new(@source, @site).import!
+        document = MomentumCms::RemoteFixture::Document::Importer.new(@source, @site).import!
       end
     end
 

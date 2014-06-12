@@ -1,6 +1,6 @@
 class MomentumCms::Api::V1::DocumentsController < MomentumCms::Api::V1::BaseController
-  before_action :load_moment_cms_documents, only: [:index]
-  before_action :load_moment_cms_document, only: [:show]
+  before_action :load_momentum_cms_documents, only: [:index]
+  before_action :load_momentum_cms_document, only: [:show]
 
   def index
     render json: @momentum_cms_documents
@@ -12,11 +12,11 @@ class MomentumCms::Api::V1::DocumentsController < MomentumCms::Api::V1::BaseCont
 
   private
 
-  def load_moment_cms_documents
+  def load_momentum_cms_documents
     @momentum_cms_documents = MomentumCms::Document.all
   end
 
-  def load_moment_cms_document
+  def load_momentum_cms_document
     @momentum_cms_document = MomentumCms::Document.find(params[:id])
   end
 

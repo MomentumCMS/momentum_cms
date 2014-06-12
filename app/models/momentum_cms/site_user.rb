@@ -1,16 +1,16 @@
-class MomentumCms::SimpleUser < MomentumCms::Tableless
-  # == MomentumCms ==========================================================
+class MomentumCms::SiteUser < ActiveRecord::Base
 
-  include MomentumCms::ActAsUser
+  # == MomentumCms ==========================================================
+  include MomentumCms::BelongsToUser
+
+  self.table_name = 'momentum_cms_site_users'
 
   # == Constants ============================================================
   # == Relationships ========================================================
+
+  belongs_to :site
+             
   # == Extensions ===========================================================
-
-  column :id, :integer, 1
-  column :username, :string, MomentumCms::Authentication::HttpAuthentication.username
-  column :password, :string, MomentumCms::Authentication::HttpAuthentication.password
-
   # == Validations ==========================================================
   # == Scopes ===============================================================
   # == Callbacks ============================================================
