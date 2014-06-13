@@ -2,14 +2,12 @@ class MomentumCms::SiteUser < ActiveRecord::Base
 
   # == MomentumCms ==========================================================
   include MomentumCms::BelongsToUser
+  include MomentumCms::BelongsToSite
 
   self.table_name = 'momentum_cms_site_users'
 
   # == Constants ============================================================
-  # == Relationships ========================================================
-
-  belongs_to :site
-             
+  # == Relationships ========================================================             
   # == Extensions ===========================================================
   # == Validations ==========================================================
   # == Scopes ===============================================================

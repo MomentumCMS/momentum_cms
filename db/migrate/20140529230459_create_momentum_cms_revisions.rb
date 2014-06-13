@@ -2,6 +2,7 @@ class CreateMomentumCmsRevisions < ActiveRecord::Migration
   def change
     create_table :momentum_cms_revisions do |t|
       t.references :revisable, polymorphic: true
+      t.integer :user_id, index: true
       t.integer :revision_number
       t.string :published_status
       t.text :revision_data

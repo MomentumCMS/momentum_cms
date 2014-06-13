@@ -29,7 +29,7 @@ class MomentumCms::File < ActiveRecord::Base
 
   validates :identifier,
             presence: true,
-            uniqueness: {scope: :site_id}
+            uniqueness: { scope: :site_id }
 
   before_validation { self.file.clear if self.delete_file == '1' }
 
@@ -41,7 +41,7 @@ class MomentumCms::File < ActiveRecord::Base
   # == Instance Methods =====================================================
   def attachable_styles
     {
-        _134x134: '134x134>'
+      _134x134: '134x134>'
     }
   end
 

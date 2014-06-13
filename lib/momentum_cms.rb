@@ -39,7 +39,6 @@ require 'momentum_cms/remote_fixture/document'
 require 'momentum_cms/remote_fixture/utils'
 
 require 'momentum_cms/configuration'
-require 'momentum_cms/has_files'
 require 'momentum_cms/internationalization'
 
 require 'momentum_cms/rails'

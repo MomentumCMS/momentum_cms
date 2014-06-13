@@ -1,5 +1,6 @@
 class MomentumCms::Site < ActiveRecord::Base
   # == MomentumCms ==========================================================
+  include MomentumCms::HasFiles
 
   self.table_name = 'momentum_cms_sites'
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140612215935) do
+ActiveRecord::Schema.define(version: 20140613025351) do
 
   create_table "momentum_cms_api_keys", force: true do |t|
     t.integer  "user_id"
@@ -194,6 +194,7 @@ ActiveRecord::Schema.define(version: 20140612215935) do
   create_table "momentum_cms_revisions", force: true do |t|
     t.integer  "revisable_id"
     t.string   "revisable_type"
+    t.integer  "user_id"
     t.integer  "revision_number"
     t.string   "published_status"
     t.text     "revision_data"

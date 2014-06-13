@@ -42,8 +42,9 @@ class MomentumCms::Admin::FilesController < MomentumCms::Admin::BaseController
   end
 
   def build_momentum_cms_file
-    @momentum_cms_file      = MomentumCms::File.new(momentum_cms_file_params)
+    @momentum_cms_file = MomentumCms::File.new(momentum_cms_file_params)
     @momentum_cms_file.site = @current_momentum_cms_site
+    @momentum_cms_file.attachable = @current_momentum_cms_site
   end
 
   def momentum_cms_file_params
