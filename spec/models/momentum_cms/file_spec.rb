@@ -18,16 +18,4 @@ describe MomentumCms::File, 'Model' do
       expect(site.errors.include?(:identifier)).to be true
     end
   end
-
-  context '#is_image?' do
-    it 'should respond to is_image if it is an image' do
-      @image_file = File.new('spec/fixtures/files/image.png')
-      @text_file = File.new('spec/fixtures/files/text.txt')
-      file = create(:file)
-      file.file = @image_file
-      expect(file.is_image?).to be true
-      file.file = @text_file
-      expect(file.is_image?).to be false
-    end
-  end
 end

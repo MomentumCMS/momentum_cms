@@ -5,6 +5,7 @@ class CreateMomentumCmsFiles < ActiveRecord::Migration
       t.string :tag
       t.string :identifier
       t.boolean :multiple, default: false
+      t.boolean :require_image, default: false
       t.references :site, index: true
       t.references :attachable, polymorphic: true
       t.timestamps

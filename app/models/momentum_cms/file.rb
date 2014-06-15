@@ -25,9 +25,6 @@ class MomentumCms::File < ActiveRecord::Base
   # == Validations ==========================================================
 
   validates :identifier,
-            presence: true
-
-  validates :identifier,
             presence: true,
             uniqueness: { scope: :site_id }
 
@@ -40,9 +37,18 @@ class MomentumCms::File < ActiveRecord::Base
   # == Class Methods ========================================================
   # == Instance Methods =====================================================
   def attachable_styles
-    {
+    style = {
       _134x134: '134x134>'
     }
+    klass = self.attachable.class
+
+    if klass && klass.respond_to?(:custom_attachable_styles)
+      custom_attachable_styles = klass.custom_attachable_styles
+      if custom_attachable_styles.is_a?(Hash)
+        style = style.merge(custom_attachable_styles)
+      end
+    end
+    style
   end
 
   def is_image?

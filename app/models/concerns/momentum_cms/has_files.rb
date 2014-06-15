@@ -30,7 +30,7 @@ module MomentumCms
       before_save :remove_empty_files
 
       # == Class Methods ========================================================
-      
+
       # == Instance Methods =====================================================
       def find_all_files
         self.files.order('tag')
@@ -60,21 +60,26 @@ module MomentumCms
 
       def build_files_if_not_exist_by_tag(tag, options = {})
         multiple = options.fetch(:multiple, false)
+        require_image = options.fetch(:require_image, false)
         tag = tag.gsub(/[^0-9a-zA-Z]/i, '_')
         initialized = self.files.select { |files| files.tag == tag }
         persisted = self.find_files_by_tag(tag)
         if initialized.blank? && persisted.blank? || multiple
           self.files.build(
+            identifier: "#{self.identifier}-#{tag}",
             tag: tag,
-            multiple: multiple
+            multiple: multiple,
+            require_image: require_image,          
+            attachable: self,
+            site: options.fetch(:site, nil)
           )
         end
       end
 
       protected
       def remove_empty_files
-        self.files.each do |files|
-          self.files.delete(files) if !files.files?
+        self.files.each do |file|
+          self.files.delete(file) if !file.file?
         end
       end
     end
