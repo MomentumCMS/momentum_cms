@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140616124935) do
+ActiveRecord::Schema.define(version: 20140529230459) do
 
   create_table "momentum_cms_api_keys", force: true do |t|
     t.integer  "user_id"
@@ -105,7 +105,6 @@ ActiveRecord::Schema.define(version: 20140616124935) do
     t.string   "tag"
     t.string   "identifier"
     t.boolean  "multiple",          default: false
-    t.boolean  "require_image",     default: false
     t.integer  "site_id"
     t.integer  "attachable_id"
     t.string   "attachable_type"
@@ -195,7 +194,6 @@ ActiveRecord::Schema.define(version: 20140616124935) do
   create_table "momentum_cms_revisions", force: true do |t|
     t.integer  "revisable_id"
     t.string   "revisable_type"
-    t.integer  "user_id"
     t.integer  "revision_number"
     t.string   "published_status"
     t.text     "revision_data"
@@ -204,16 +202,6 @@ ActiveRecord::Schema.define(version: 20140616124935) do
   end
 
   add_index "momentum_cms_revisions", ["revisable_id", "revisable_type"], name: "momentum_cms_revisions_r_id_r_t"
-
-  create_table "momentum_cms_site_users", force: true do |t|
-    t.integer  "site_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "momentum_cms_site_users", ["site_id"], name: "index_momentum_cms_site_users_on_site_id"
-  add_index "momentum_cms_site_users", ["user_id"], name: "index_momentum_cms_site_users_on_user_id"
 
   create_table "momentum_cms_sites", force: true do |t|
     t.string   "identifier"

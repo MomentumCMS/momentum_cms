@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   if MomentumCms.configuration.api_level == :full
-    match '*path' => 'momentum_cms/api/base#respond_to_options_request', constraints: { method: 'OPTIONS' }, via: [:options]
+    match '*path' => 'momentum_cms/api/v1/base#respond_to_options_request', constraints: { method: 'OPTIONS' }, via: [:options]
   end
 
   namespace :momentum_cms, as: :cms, path: MomentumCms.configuration.api_mount_point do
@@ -14,6 +14,7 @@ Rails.application.routes.draw do
             resources :sites
             resources :pages
             resources :templates
+            resources :files
             resources :locales, only: [:index]
           end
         end
