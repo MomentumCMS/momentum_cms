@@ -1,13 +1,14 @@
 class MomentumCms::Site < ActiveRecord::Base
   # == MomentumCms ==========================================================
+  include MomentumCms::HasFiles
 
   self.table_name = 'momentum_cms_sites'
 
   # == Constants ============================================================
 
   REMOTE_FIXTURE_TYPE = [
-      'http',
-      'ssh'
+    'http',
+    'ssh'
   ].freeze
 
   # == Relationships ========================================================
@@ -32,6 +33,12 @@ class MomentumCms::Site < ActiveRecord::Base
 
   has_many :documents,
            dependent: :destroy
+
+  has_many :site_users,
+           dependent: :destroy
+
+  has_many :users,
+           through: :site_users
 
   # == Extensions ===========================================================
 
@@ -72,6 +79,12 @@ class MomentumCms::Site < ActiveRecord::Base
         self.save!
       end
     end
+  end
+
+  def self.custom_attachable_styles
+    {
+      :'_100x100#' => '100x100#'
+    }
   end
 
   protected

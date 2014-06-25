@@ -1,9 +1,9 @@
 class MomentumCms::Admin::DocumentsController < MomentumCms::Admin::BaseController
-  before_action :load_moment_cms_document, only: [:edit, :update, :destroy, :publish, :unpublish]
-  before_action :build_moment_cms_document, only: [:new, :create]
+  before_action :load_momentum_cms_documents, only: [:index]
+  before_action :load_momentum_cms_document, only: [:edit, :update, :destroy, :publish, :unpublish]
+  before_action :build_momentum_cms_document, only: [:new, :create]
 
   def index
-    @momentum_cms_documents = @current_momentum_cms_site.documents.all
   end
 
   def unpublish
@@ -59,8 +59,15 @@ class MomentumCms::Admin::DocumentsController < MomentumCms::Admin::BaseControll
   end
 
   private
+  def load_momentum_cms_documents
+    @momentum_cms_blue_print = @current_momentum_cms_site.blue_prints.where(identifier: params.fetch(:blue_print, nil)).first
+    @momentum_cms_documents = @current_momentum_cms_site.documents
+    if @momentum_cms_blue_print
+      @momentum_cms_documents =@momentum_cms_documents.where(blue_print: @momentum_cms_blue_print)
+    end
+  end
 
-  def load_moment_cms_document
+  def load_momentum_cms_document
     @momentum_cms_document = MomentumCms::Document.find(params[:id])
     @momentum_cms_document_revisions = @momentum_cms_document.revisions
     revision = @momentum_cms_document_revisions.where(revision_number: params.fetch(:revision, nil)).first
@@ -71,9 +78,14 @@ class MomentumCms::Admin::DocumentsController < MomentumCms::Admin::BaseControll
     redirect_to action: :index
   end
 
-  def build_moment_cms_document
+  def build_momentum_cms_document
     @momentum_cms_document = MomentumCms::Document.new(momentum_cms_document_params)
     @momentum_cms_document.site = @current_momentum_cms_site
+    @momentum_cms_blue_print = MomentumCms::BluePrint.for_site(@current_momentum_cms_site).where(identifier: params.fetch(:blue_print, nil)).first
+    if @momentum_cms_blue_print
+      @momentum_cms_document.blue_print = @momentum_cms_blue_print
+      build_momentum_cms_fields(@momentum_cms_blue_print, @momentum_cms_document)
+    end
   end
 
   def momentum_cms_document_params

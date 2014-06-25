@@ -14,7 +14,7 @@ Rails.application.routes.draw do
             resources :sites
             resources :pages
             resources :templates
-            resources :assets
+            resources :files
             resources :locales, only: [:index]
           end
         end

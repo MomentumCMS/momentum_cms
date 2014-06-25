@@ -5,6 +5,9 @@
 = form.input :available_locales, collection: I18n.available_locales.collect{ |l| [MomentumCms::Internationalization.lookup(l), l]}, prompt: 'Choose available locales', input_html: {multiple: true, include_blank: false}
 = form.input :default_locale, collection: I18n.available_locales.collect{ |l| [MomentumCms::Internationalization.lookup(l), l]}, prompt: 'Choose a default locale', input_html: {include_blank: false}
 
+- if form.object.persisted?
+  = render partial: 'momentum_cms/admin/partials/files/form', locals: {f: form}
+
 = form.input :enable_advanced_features
 .site-advanced-features
   = form.input :remote_fixture_type

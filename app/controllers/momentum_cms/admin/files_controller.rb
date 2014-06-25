@@ -1,6 +1,6 @@
 class MomentumCms::Admin::FilesController < MomentumCms::Admin::BaseController
-  before_action :load_moment_cms_file, only: [:edit, :update, :destroy]
-  before_action :build_moment_cms_file, only: [:new, :create]
+  before_action :load_momentum_cms_file, only: [:edit, :update, :destroy]
+  before_action :build_momentum_cms_file, only: [:new, :create]
 
   def index
     @momentum_cms_files = @current_momentum_cms_site.files
@@ -35,15 +35,16 @@ class MomentumCms::Admin::FilesController < MomentumCms::Admin::BaseController
   end
 
   private
-  def load_moment_cms_file
+  def load_momentum_cms_file
     @momentum_cms_file = MomentumCms::File.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     redirect_to action: :index
   end
 
-  def build_moment_cms_file
-    @momentum_cms_file      = MomentumCms::File.new(momentum_cms_file_params)
+  def build_momentum_cms_file
+    @momentum_cms_file = MomentumCms::File.new(momentum_cms_file_params)
     @momentum_cms_file.site = @current_momentum_cms_site
+    @momentum_cms_file.attachable = @current_momentum_cms_site
   end
 
   def momentum_cms_file_params

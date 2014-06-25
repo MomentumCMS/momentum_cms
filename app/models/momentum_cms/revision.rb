@@ -1,6 +1,7 @@
 class MomentumCms::Revision < ActiveRecord::Base
 
   # == MomentumCms ==========================================================
+  include MomentumCms::BelongsToUser
 
   self.table_name = 'momentum_cms_revisions'
 

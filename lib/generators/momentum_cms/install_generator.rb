@@ -20,9 +20,11 @@ module MomentumCms
         if defined?(MomentumCmsUserManagement)
           rake('momentum_cms_user_management_engine:install:migrations')
           gsub_file 'config/initializers/momentum_cms.rb', /#{Regexp.escape('# config.admin_authentication')}/mi do
+            #Watch out for the spaces here
             <<-RUBY
-            #Using MomentumCmsUserManagement Engine for user management
-            config.admin_authentication = MomentumCmsUserManagement::Authentication::UserManagementAuthentication
+  #Using MomentumCmsUserManagement Engine for user management
+  config.admin_authentication = MomentumCmsUserManagement::Authentication::UserManagementAuthentication
+  config.user_class = 'MomentumCms::User'
             RUBY
           end
         end

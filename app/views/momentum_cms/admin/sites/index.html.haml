@@ -3,6 +3,7 @@
 %table.table
   %thead
     %tr
+      %th 
       %th.identifier Identifier
       %th Label
       %th Host
@@ -10,6 +11,8 @@
   %tbody
     - @momentum_cms_sites.each do |momentum_cms_site|
       %tr
+        %td
+          %pre= momentum_cms_site.find_files_by_tag('avatar').to_yaml
         %td
           .label.label-info= momentum_cms_site.identifier
         %td= link_to momentum_cms_site.label, edit_cms_admin_site_path(momentum_cms_site)

@@ -2,37 +2,22 @@ module MomentumCms
   module RemoteFixture
     module BluePrint
       class Importer < Base::Importer
-
-        def import_for(object)
-          case object
-            when Hash
-              original_locale = I18n.locale
-              object.each do |locale, value|
-                begin
-                  I18n.locale = locale
-                  yield(value, locale)
-                rescue I18n::InvalidLocale
-                end
-              end
-              I18n.locale = original_locale
-            when String
-              yield(object, I18n.locale)
-          end
-        end
-
         def import!
           blue_print = @remote_fixture_object.fetch('blue-prints', [])
           blue_print.each do |blue_print_identifier, blue_print_meta|
-            blue_print = MomentumCms::BluePrint.for_site(@site).where(identifier: blue_print_identifier).first_or_initialize
+            blue_print = MomentumCms::BluePrint.for_site(@site).where(identifier: blue_print_identifier).first_or_create! do |o|
+              o.label = 'No Label'
+            end
+
             label = blue_print_meta.fetch('label', nil)
-            self.import_for(label) do |value, locale|
+            MomentumCms::RemoteFixture::Utils.import_localized_object(label, @site) do |value, locale|
               blue_print.update_attributes({ label: value })
             end
             fields = blue_print_meta.fetch('fields', nil)
             fields.each do |field_identifier, field_meta|
-              field_template = MomentumCms::FieldTemplate.where(layout: blue_print, identifier: field_identifier).first_or_initialize
+              field_template = MomentumCms::FieldTemplate.where(layout: blue_print, identifier: field_identifier).first_or_create!
               label = field_meta.fetch('label', nil)
-              self.import_for(label) do |value, locale|
+              MomentumCms::RemoteFixture::Utils.import_localized_object(label, @site) do |value, locale|
                 field_template.update_attributes({ label: value })
               end
               field_template.update_attributes({ field_value_type: field_meta['type'] })

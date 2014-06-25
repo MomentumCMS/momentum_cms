@@ -1,0 +1,22 @@
+= f.fields_for :files do |form|
+  - momentum_cms_file = form.object
+  %fieldset
+    %legend
+      File for '#{momentum_cms_file.tag}'
+  - if momentum_cms_file.persisted?
+    = form.input :id, as: :hidden 
+  %pre= momentum_cms_file.attachable_styles
+  = form.input :site_id, as: :hidden
+  = form.input :attachable_type, as: :hidden
+  = form.input :attachable_id, as: :hidden
+  = form.input :identifier, as: :hidden
+  = form.input :tag, as: :hidden
+  = form.input :multiple, as: :hidden
+  = form.input :require_image, as: :hidden
+  = form.input :file
+  - if form.object.persisted? && form.object.file.exists?
+    .control-group
+      Current File:
+      = link_to "#{form.object.file_file_name}", form.object.file.url, target: "_blank"
+    = form.input :_destroy, as: :boolean, label: false, inline_label: "Delete #{form.object.file_file_name}?"
+  %hr
