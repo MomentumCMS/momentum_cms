@@ -16,10 +16,9 @@ class MomentumCms::File < ActiveRecord::Base
 
   # == Extensions ===========================================================
 
-  has_paper_trail
-
   has_attached_file :file,
-                    styles: lambda { |i| i.instance.attachable_styles } ,url: '/system/:class/:attachment/:id_partition/:style/:updated_at/:filename'
+                    styles: lambda { |i| i.instance.attachable_styles },
+                    url: '/system/:class/:attachment/:id_partition/:style/:updated_at/:filename'
 
   before_post_process :is_image?
 

@@ -6,6 +6,8 @@ class MomentumCms::Template < ActiveRecord::Base
 
   include MomentumCms::ActAsPermanentRecord
 
+  include MomentumCms::AncestryUtils
+
   self.table_name = 'momentum_cms_templates'
 
   # == Constants ============================================================
@@ -19,8 +21,6 @@ class MomentumCms::Template < ActiveRecord::Base
 
   # == Extensions ===========================================================
 
-  has_paper_trail
-
   has_ancestry
 
   # == Validations ==========================================================
@@ -31,10 +31,8 @@ class MomentumCms::Template < ActiveRecord::Base
             presence: true
 
   validates :identifier,
+            uniqueness: { scope: :site_id },
             presence: true
-
-  validates :identifier,
-            uniqueness: { scope: :site_id }
 
   # == Scopes ===============================================================
 
@@ -51,31 +49,6 @@ class MomentumCms::Template < ActiveRecord::Base
              :update_descendants_block_templates
 
   # == Class Methods ========================================================
-
-  def self.ancestry_select(require_root = true, set = nil, path = nil)
-    momentum_cms_templates_tree = if set.nil?
-                                    MomentumCms::Template.all
-                                  else
-                                    set
-                                  end
-    select = []
-    momentum_cms_templates_tree.each do |momentum_cms_template|
-      next if require_root && !momentum_cms_template.is_root?
-      select << { id: momentum_cms_template.id, label: "#{path} #{momentum_cms_template.label}" }
-      select << MomentumCms::Template.ancestry_select(false, momentum_cms_template.children, "#{path}-")
-    end
-    select.flatten!
-    select.collect! { |x| [x[:label], x[:id]] } if require_root
-    select
-  end
-
-  def self.ancestor_and_self!(template)
-    if template && template.is_a?(MomentumCms::Template)
-      [template.ancestors.to_a, template].flatten.compact
-    else
-      []
-    end
-  end
 
   # == Instance Methods =====================================================
   protected

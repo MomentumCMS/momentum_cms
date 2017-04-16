@@ -13,9 +13,9 @@ module MomentumCms
         id = params_get!('id')
 
         block = if cms_template
-                  cms_page.blocks.where(identifier: "#{cms_template.identifier}::#{id}").first
+                  cms_page.blocks.published_blocks.where(identifier: "#{cms_template.identifier}::#{id}").first
                 else
-                  cms_page.blocks.where(identifier: id).first
+                  cms_page.blocks.published_blocks.where(identifier: id).first
                 end
         raise CmsTagError.new('Block not found') unless block
 

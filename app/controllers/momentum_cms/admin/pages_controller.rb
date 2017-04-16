@@ -1,5 +1,5 @@
 class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
-  before_action :load_momentum_cms_page, only: [:edit, :update, :destroy]
+  before_action :load_momentum_cms_page, only: [:edit, :update, :destroy, :publish, :unpublish]
   before_action :build_momentum_cms_page, only: [:new, :create]
   before_action :load_parent_pages, only: [:edit, :new, :update, :create]
 
@@ -9,6 +9,18 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
       format.html
       format.js { render js: @momentum_cms_pages.to_json }
     end
+  end
+
+  def unpublish
+    @momentum_cms_page.unpublish!
+    flash[:success] = 'Page was successfully unpublished.'
+    redirect_to edit_cms_admin_site_page_path(@current_momentum_cms_site, @momentum_cms_page)
+  end
+
+  def publish
+    @momentum_cms_page.publish!
+    flash[:success] = 'Page was successfully published.'
+    redirect_to edit_cms_admin_site_page_path(@current_momentum_cms_site, @momentum_cms_page)
   end
 
   def new
@@ -63,6 +75,14 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
 
   def load_momentum_cms_page
     @momentum_cms_page = MomentumCms::Page.find(params[:id])
+    @momentum_cms_page_revisions = @momentum_cms_page.revisions
+    revision_number = params.fetch(:revision, nil)
+    if revision_number
+      revision = @momentum_cms_page_revisions.where(revision_number: revision_number).first
+      if revision
+        @momentum_cms_page_revision_data = revision.revision_data
+      end
+    end
   rescue ActiveRecord::RecordNotFound
     redirect_to action: :index
   end
@@ -81,18 +101,61 @@ class MomentumCms::Admin::PagesController < MomentumCms::Admin::BaseController
     block_templates = TemplateBlockService.new(template).get_blocks
     @block_templates_identifiers = block_templates.collect(&:to_identifier)
 
-    # Get the current page's existing saved blocks
-    momentum_cms_blocks = page.blocks
+    if @momentum_cms_page_revision_data
+      # Get the current page's existing saved blocks
+      momentum_cms_blocks = page.blocks.draft_blocks
 
+      block_revisions = @momentum_cms_page_revision_data[:blocks]
+      block_translation_revisions = @momentum_cms_page_revision_data[:blocks_translations]
+
+      momentum_cms_blocks.each do |block|
+        block_revision = block_revisions.detect do |x|
+          x['identifier'] == block.identifier
+        end
+
+        if block_revision
+          translation_for_block = block_translation_revisions.find do |x|
+            x['momentum_cms_block_id'] == block_revision['id'] && x['locale'] == I18n.locale.to_s
+          end
+
+          if translation_for_block
+            block.value = translation_for_block['value']
+            block.save
+          else
+            block.translations.where(locale: I18n.locale).destroy_all
+          end
+        else
+          block.destroy
+        end
+      end
+
+      momentum_cms_blocks = page.blocks.draft_blocks.reload
+      block_revisions.each do |block_revision|
+        block = momentum_cms_blocks.where(block_template: block_revision['block_template_id'],
+                                          identifier: block_revision['identifier']).first_or_initialize
+        if block.new_record?
+          block.save
+          translation_for_block = block_translation_revisions.find do |x|
+            x['momentum_cms_block_id'] == block_revision['id'] && x['locale'] == I18n.locale.to_s
+          end
+          if translation_for_block
+            block.value = translation_for_block['value']
+            block.save
+          end
+        end
+      end
+    end
+
+    momentum_cms_blocks = page.blocks.draft_blocks
     # Build blocks from each block_templates
     block_templates.each do |block_template|
-      unless momentum_cms_blocks.any? { |x| x.identifier == block_template.to_identifier }
+      block = momentum_cms_blocks.detect { |x| x.identifier == block_template.to_identifier && x.block_type == 'draft' }
+      if block.nil?
         page.blocks.build(
           identifier: block_template.to_identifier,
           block_template_id: block_template.id
         )
       end
     end
-
   end
 end

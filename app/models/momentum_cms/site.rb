@@ -27,15 +27,13 @@ class MomentumCms::Site < ActiveRecord::Base
   has_many :menus,
            dependent: :destroy
 
-  has_many :document_templates,
+  has_many :blue_prints,
            dependent: :destroy
 
   has_many :documents,
            dependent: :destroy
 
   # == Extensions ===========================================================
-
-  has_paper_trail
 
   serialize :available_locales
 
@@ -87,8 +85,7 @@ class MomentumCms::Site < ActiveRecord::Base
   end
 
   def assign_locales
-    if (self.available_locales.nil? || self.available_locales.empty?) &&
-      (self.default_locale.nil? || self.default_locale.empty?)
+    if self.available_locales.blank? && self.default_locale.blank?
       self.available_locales = [MomentumCms.configuration.locale.to_s]
       self.default_locale = MomentumCms.configuration.locale.to_s
     end
@@ -111,7 +108,7 @@ class MomentumCms::Site < ActiveRecord::Base
 
   def assign_remote_fixture_type
     if self.enable_advanced_features
-      if self.remote_fixture_type && self.remote_fixture_type.empty?
+      if self.remote_fixture_type.blank?
         #TODO - Determine the type based on the link given
         # http://foobar
         # https://foobar

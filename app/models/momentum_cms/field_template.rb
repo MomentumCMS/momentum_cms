@@ -6,16 +6,14 @@ class MomentumCms::FieldTemplate < ActiveRecord::Base
   # == Constants ============================================================
   # == Relationships ========================================================
 
-  belongs_to :document_template
+  belongs_to :blue_print
 
   has_many :fields,
            dependent: :destroy
 
   # == Extensions ===========================================================
 
-  has_paper_trail
-
-  translates :label, fallbacks_for_empty_translations: true, versioning: :paper_trail
+  translates :label, fallbacks_for_empty_translations: true
 
   # == Validations ==========================================================
   # == Scopes ===============================================================
@@ -24,6 +22,6 @@ class MomentumCms::FieldTemplate < ActiveRecord::Base
   # == Instance Methods =====================================================
   
   def to_identifier
-    "#{self.document_template.identifier}::#{self.identifier}"
+    "#{self.blue_print.identifier}::#{self.identifier}"
   end
 end

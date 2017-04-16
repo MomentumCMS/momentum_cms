@@ -3,11 +3,10 @@
   "host": "localhost:3000",
   "identifier": "momentum-cms",
   "available_locales": [
-    "",
     "en",
     "de"
   ],
   "default_locale": "en",
   "enable_advanced_features": true,
-  "remote_fixture_url": "https://rawgit.com/MomentumCMS/MomentumCMS.github.io/master/site-templates/basic/site.json"
+  "remote_fixture_url": "http://momentumcmsdemo.herokuapp.com/site.json"
 }

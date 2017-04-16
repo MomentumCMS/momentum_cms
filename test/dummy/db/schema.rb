@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140525060429) do
+ActiveRecord::Schema.define(version: 20140606060355) do
 
   create_table "momentum_cms_api_keys", force: true do |t|
     t.integer  "user_id"
@@ -60,6 +60,8 @@ ActiveRecord::Schema.define(version: 20140525060429) do
     t.integer  "block_template_id"
     t.integer  "page_id"
     t.string   "identifier"
+    t.string   "block_type"
+    t.integer  "revision_block_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -67,18 +69,18 @@ ActiveRecord::Schema.define(version: 20140525060429) do
   add_index "momentum_cms_blocks", ["block_template_id"], name: "index_momentum_cms_blocks_on_block_template_id"
   add_index "momentum_cms_blocks", ["page_id"], name: "index_momentum_cms_blocks_on_page_id"
 
-  create_table "momentum_cms_document_template_translations", force: true do |t|
-    t.integer  "momentum_cms_document_template_id", null: false
-    t.string   "locale",                            null: false
+  create_table "momentum_cms_blue_print_translations", force: true do |t|
+    t.integer  "momentum_cms_blue_print_id", null: false
+    t.string   "locale",                     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "label"
   end
 
-  add_index "momentum_cms_document_template_translations", ["locale"], name: "index_momentum_cms_document_template_translations_on_locale"
-  add_index "momentum_cms_document_template_translations", ["momentum_cms_document_template_id"], name: "index_a7a2a97a94f441271f764d8823c1ba87a8d296ad"
+  add_index "momentum_cms_blue_print_translations", ["locale"], name: "index_momentum_cms_blue_print_translations_on_locale"
+  add_index "momentum_cms_blue_print_translations", ["momentum_cms_blue_print_id"], name: "index_5cbeb924121db6119fc50007398dfaa141ea69f8"
 
-  create_table "momentum_cms_document_templates", force: true do |t|
+  create_table "momentum_cms_blue_prints", force: true do |t|
     t.integer  "site_id"
     t.string   "identifier"
     t.string   "ancestry"
@@ -86,7 +88,7 @@ ActiveRecord::Schema.define(version: 20140525060429) do
     t.datetime "updated_at"
   end
 
-  add_index "momentum_cms_document_templates", ["site_id"], name: "index_momentum_cms_document_templates_on_site_id"
+  add_index "momentum_cms_blue_prints", ["site_id"], name: "index_momentum_cms_blue_prints_on_site_id"
 
   create_table "momentum_cms_document_translations", force: true do |t|
     t.integer  "momentum_cms_document_id", null: false
@@ -100,14 +102,15 @@ ActiveRecord::Schema.define(version: 20140525060429) do
   add_index "momentum_cms_document_translations", ["momentum_cms_document_id"], name: "index_de85ac2fea54df8b1afdbd7dbae66e1f0b624477"
 
   create_table "momentum_cms_documents", force: true do |t|
-    t.integer  "document_template_id"
+    t.integer  "blue_print_id"
     t.integer  "site_id"
     t.string   "identifier"
+    t.boolean  "published",     default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "momentum_cms_documents", ["document_template_id"], name: "index_momentum_cms_documents_on_document_template_id"
+  add_index "momentum_cms_documents", ["blue_print_id"], name: "index_momentum_cms_documents_on_blue_print_id"
   add_index "momentum_cms_documents", ["site_id"], name: "index_momentum_cms_documents_on_site_id"
 
   create_table "momentum_cms_field_template_translations", force: true do |t|
@@ -122,14 +125,14 @@ ActiveRecord::Schema.define(version: 20140525060429) do
   add_index "momentum_cms_field_template_translations", ["momentum_cms_field_template_id"], name: "index_0476773c64ff1b030b685e0c382f95185c83776f"
 
   create_table "momentum_cms_field_templates", force: true do |t|
-    t.integer  "document_template_id"
+    t.integer  "blue_print_id"
     t.string   "identifier"
     t.string   "field_value_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "momentum_cms_field_templates", ["document_template_id"], name: "index_momentum_cms_field_templates_on_document_template_id"
+  add_index "momentum_cms_field_templates", ["blue_print_id"], name: "index_momentum_cms_field_templates_on_blue_print_id"
 
   create_table "momentum_cms_field_translations", force: true do |t|
     t.integer  "momentum_cms_field_id", null: false
@@ -146,6 +149,8 @@ ActiveRecord::Schema.define(version: 20140525060429) do
     t.integer  "document_id"
     t.integer  "field_template_id"
     t.string   "identifier"
+    t.string   "field_type"
+    t.integer  "revision_field_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -240,12 +245,25 @@ ActiveRecord::Schema.define(version: 20140525060429) do
     t.string   "identifier"
     t.integer  "redirected_page_id"
     t.string   "ancestry"
+    t.boolean  "published",          default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "momentum_cms_pages", ["site_id"], name: "index_momentum_cms_pages_on_site_id"
   add_index "momentum_cms_pages", ["template_id"], name: "index_momentum_cms_pages_on_template_id"
+
+  create_table "momentum_cms_revisions", force: true do |t|
+    t.integer  "revisable_id"
+    t.string   "revisable_type"
+    t.integer  "revision_number"
+    t.string   "published_status"
+    t.string   "revision_data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "momentum_cms_revisions", ["revisable_id", "revisable_type"], name: "momentum_cms_revisions_r_id_r_t"
 
   create_table "momentum_cms_sites", force: true do |t|
     t.string   "identifier"
@@ -299,17 +317,5 @@ ActiveRecord::Schema.define(version: 20140525060429) do
   end
 
   add_index "momentum_cms_templates", ["site_id"], name: "index_momentum_cms_templates_on_site_id"
-
-  create_table "versions", force: true do |t|
-    t.string   "item_type",  null: false
-    t.integer  "item_id",    null: false
-    t.string   "event",      null: false
-    t.string   "whodunnit"
-    t.text     "object"
-    t.datetime "created_at"
-    t.string   "locale"
-  end
-
-  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
 
 end

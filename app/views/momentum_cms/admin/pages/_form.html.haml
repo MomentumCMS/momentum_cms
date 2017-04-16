@@ -12,6 +12,7 @@
 .momentum-cms-blocks
   = form.simple_fields_for :blocks do |block_form|
     - next unless @block_templates_identifiers.include?(block_form.object.identifier)
+    - next unless block_form.object.block_type == 'draft'
     .momentum-cms-block
       = render 'momentum_cms/admin/pages/partials/blocks_fields', block_form: block_form
 

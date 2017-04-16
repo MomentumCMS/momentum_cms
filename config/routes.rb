@@ -2,24 +2,18 @@ Rails.application.routes.draw do
 
   if MomentumCms.configuration.api_level == :full
     match '*path' => 'momentum_cms/api/base#respond_to_options_request', constraints: { method: 'OPTIONS' }, via: [:options]
-    namespace :momentum_cms, as: :cms, path: MomentumCms.configuration.api_mount_point do
-      namespace :api, as: :api, path: '' do
+  end
+
+  namespace :momentum_cms, as: :cms, path: MomentumCms.configuration.api_mount_point do
+    namespace :api, as: :api, path: '' do
+      resources :documents, only: [:index, :show]
+      if MomentumCms.configuration.api_level == :full
         resources :sessions, only: [:create, :destroy]
         namespace :admin, as: :admin do
           resources :sites
           resources :pages
           resources :templates
           resources :locales, only: [:index]
-        end
-      end
-    end
-  else
-    namespace :momentum_cms, as: :cms, path: MomentumCms.configuration.api_mount_point do
-      namespace :api, as: :api, path: '' do
-        namespace :admin, as: :admin do
-          resources :sites do
-            resources :pages
-          end
         end
       end
     end
@@ -37,13 +31,25 @@ Rails.application.routes.draw do
           resources :templates
           resources :files
           resources :pages do
-            get :blocks, on: :collection
+            member do
+              post :publish
+              post :unpublish
+            end
+            collection do
+              get :blocks
+            end
           end
           resources :snippets
           resources :menus
-          resources :document_templates
+          resources :blue_prints
           resources :documents do
-            get :fields, on: :collection
+            member do
+              post :publish
+              post :unpublish
+            end
+            collection do
+              get :fields
+            end
           end
         end
         get 'sites/:id', to: 'dashboards#selector'
@@ -57,5 +63,4 @@ Rails.application.routes.draw do
     get '*id', to: 'pages#show'
     root to: 'pages#show'
   end
-
 end

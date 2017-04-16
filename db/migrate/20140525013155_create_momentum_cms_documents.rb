@@ -1,9 +1,10 @@
 class CreateMomentumCmsDocuments < ActiveRecord::Migration
   def up
     create_table :momentum_cms_documents do |t|
-      t.references :document_template, index: true
+      t.references :blue_print, index: true
       t.references :site, index: true
       t.string :identifier
+      t.boolean :published, default: false, index: true
 
       t.timestamps
     end

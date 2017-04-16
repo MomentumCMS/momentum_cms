@@ -15,8 +15,6 @@ class MomentumCms::Menu < ActiveRecord::Base
 
   # == Extensions ===========================================================
 
-  has_paper_trail
-
   # == Validations ==========================================================
 
   validates :label,

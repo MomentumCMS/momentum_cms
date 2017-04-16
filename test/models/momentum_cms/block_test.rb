@@ -16,7 +16,7 @@ class MomentumCms::BlockTest < ActiveSupport::TestCase
   def test_belongs_to_page
     page = momentum_cms_pages(:default)
     block_template = momentum_cms_block_templates(:default)
-    assert_difference "MomentumCms::Block.count" do
+    assert_difference "MomentumCms::Block.count", 2 do
       block = page.blocks.create!(identifier: 'Block', value: '3', block_template: block_template)
       assert_equal block.page, page
     end

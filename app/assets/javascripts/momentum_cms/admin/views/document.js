@@ -28,7 +28,7 @@ DocumentView = (function () {
   };
 
   DocumentView.prototype.fetchContentBlocks = function (e) {
-    var reqData = {document_template_id: $(e.currentTarget).val()};
+    var reqData = {blue_print_id: $(e.currentTarget).val()};
     if (this.documentId() !== '') {
       reqData.document_id = this.documentId();
     }
